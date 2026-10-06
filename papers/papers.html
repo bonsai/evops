@@ -79,7 +79,7 @@ small{font-size:8.2pt;color:var(--ink3)}
     <h1 class="cover-h1">Papers</h1>
     <p class="cover-sub">LMS/VLMを共通評価器として使い、評価結果をDBへ蓄積し、MLによる改善へ接続できるか。</p>
     <div class="cover-meta">
-      <div><span class="k">papers</span><span class="v">9 papers &middot; JSON + 1 paper 1 page</span></div>
+      <div><span class="k">papers</span><span class="v">22 papers &middot; JSON + 1 paper 1 page</span></div>
       <div><span class="k">loop</span><span class="v">Generation &rarr; VLM &rarr; DB &rarr; ML &rarr; Repair &rarr; Generation</span></div>
     </div>
   </div>
@@ -88,11 +88,11 @@ small{font-size:8.2pt;color:var(--ink3)}
 <section class="sheet cat-paper" data-t="Contents">
   <div class="hd">
     <span class="hd-kicker">Contents</span>
-    <h2 class="hd-title">Papers<small>9 papers</small></h2>
+    <h2 class="hd-title">Papers<small>22 papers</small></h2>
     <span class="hd-no">01</span>
   </div>
   <div class="body">
-    <div class="toc"><div class="toc-sec"><h4>PAPER 01-03</h4><ol><li 2><span class="pg">02</span><span class="txt">VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Mo</span></li></ol><ol><li 3><span class="pg">03</span><span class="txt">EvalCrafter: Benchmarking and Evaluating Large Video Generation M</span></li></ol><ol><li 4><span class="pg">04</span><span class="txt">VideoScore: Building Automatic Metrics to Simulate Fine-grained H</span></li></ol></div><div class="toc-sec"><h4>PAPER 04-06</h4><ol><li 5><span class="pg">05</span><span class="txt">VisualPrompter</span></li></ol><ol><li 6><span class="pg">06</span><span class="txt">3D Human Animation Quality Assessment: Subjective and Objective E</span></li></ol><ol><li 7><span class="pg">07</span><span class="txt">DreamFusion: Text-to-3D using 3D Diffusion</span></li></ol></div><div class="toc-sec"><h4>PAPER 07-09</h4><ol><li 8><span class="pg">08</span><span class="txt">Point-E: A System for Generating 3D Point Clouds from Textual Des</span></li></ol><ol><li 9><span class="pg">09</span><span class="txt">Magic3D: High-Resolution Text-to-3D Content Creation</span></li></ol><ol><li 10><span class="pg">10</span><span class="txt">What matters when building vision-language models? (Idefics2)</span></li></ol></div></div>
+    <div class="toc"><div class="toc-sec"><h4>PAPER 01-03</h4><ol><li 2><span class="pg">02</span><span class="txt">VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Mo</span></li></ol><ol><li 3><span class="pg">03</span><span class="txt">EvalCrafter: Benchmarking and Evaluating Large Video Generation M</span></li></ol><ol><li 4><span class="pg">04</span><span class="txt">VideoScore: Building Automatic Metrics to Simulate Fine-grained H</span></li></ol></div><div class="toc-sec"><h4>PAPER 04-06</h4><ol><li 5><span class="pg">05</span><span class="txt">VisualPrompter</span></li></ol><ol><li 6><span class="pg">06</span><span class="txt">3D Human Animation Quality Assessment: Subjective and Objective E</span></li></ol><ol><li 7><span class="pg">07</span><span class="txt">DreamFusion: Text-to-3D using 2D Diffusion</span></li></ol></div><div class="toc-sec"><h4>PAPER 07-09</h4><ol><li 8><span class="pg">08</span><span class="txt">Point-E: A System for Generating 3D Point Clouds from Textual Des</span></li></ol><ol><li 9><span class="pg">09</span><span class="txt">Magic3D: High-Resolution Text-to-3D Content Creation</span></li></ol><ol><li 10><span class="pg">10</span><span class="txt">What matters when building vision-language models? (Idefics2)</span></li></ol></div></div>
   </div>
 </section>
 
@@ -104,16 +104,19 @@ small{font-size:8.2pt;color:var(--ink3)}
   </div>
   <div class="body">
     <ol class="syn-list">
-      <li><span class="n">01</span><span class="t"><b>動画評価は多軸化</b> する。</span></li>
-<li><span class="n">02</span><span class="t"><b>VLM を se</b> mantic/perceptual evaluator として利用する。</span></li>
-<li><span class="n">03</span><span class="t"><b>評価を生成改善の</b>  Feedback へ接続する。</span></li>
-<li><span class="n">04</span><span class="t"><b>評価履歴を構造化</b> データとして蓄積する。</span></li>
-<li><span class="n">05</span><span class="t"><b>蓄積履歴から M</b> L で ranking、prediction、repair strategy を改善する。</span></li>
+      <li><span class="n">01</span><span class="t"><b>動画・画像評価は</b> 多軸化し、軽量モデル（CLIP, PickScore, ImageReward, HPSv2）で近似可能。</span></li>
+<li><span class="n">02</span><span class="t"><b>VLM は se</b> mantic/perceptual evaluator として利用するが、CPU 制約では CLIP-small 等の軽量版を使う。</span></li>
+<li><span class="n">03</span><span class="t"><b>人間の嗜好はペア</b> ワイズ比較で効率的に収集し、Bradley-Terry や DPO で学習する。</span></li>
+<li><span class="n">04</span><span class="t"><b>MCP でツール</b> 層を標準化し、A2A でエージェント連携を標準化することでモジュール性と差し替え性を確保する。</span></li>
+<li><span class="n">05</span><span class="t"><b>評価結果を生成改</b> 善の Feedback source として扱い、構造化データとして蓄積する。</span></li>
+<li><span class="n">06</span><span class="t"><b>人間フィードバッ</b> クは有限・高価なので、アクティブラーニングで高情報量サンプルを選び、コストを抑える。</span></li>
+<li><span class="n">07</span><span class="t"><b>SLM（Phi-</b> 3, Llama 3.2 等）を使い、CPU 16GB 内で回転ループを回し続ける。</span></li>
+<li><span class="n">08</span><span class="t"><b>蓄積履歴から M</b> L で ranking、prediction、repair strategy を改善する。</span></li>
     </ol>
   </div>
 </section>
 
-<section class="sheet cat-vlm" data-t="VeMo: Zero-Shot Text-to-Motion Evaluation using Video Langua">
+<section class="sheet cat-paper" data-t="VeMo: Zero-Shot Text-to-Motion Evaluation using Video Langua">
   <div class="hd">
     <span class="hd-kicker">PAPER 01</span>
     <h2 class="hd-title">VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Models<small>Text-to-motion と生成動画の意味一致を VLM で評価</small></h2>
@@ -129,7 +132,7 @@ small{font-size:8.2pt;color:var(--ink3)}
       <dt>Relevance to theme</dt>
       <dd><p style="margin:0">評価 Ontology 設計、VLM 評価器の構成の参考。</p></dd>
     </div>
-    <div class="tags"><span class="tag">evaluation</span><span class="tag">v lm</span></div>
+    <div class="tags"><span class="tag">evaluation</span><span class="tag">vlm</span></div>
     <div class="footer">
       <span><button disabled class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button></span>
       <span>EvalCrafter: Benchmarking and Evaluating Large Vid <button data-go="2" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
@@ -232,17 +235,17 @@ small{font-size:8.2pt;color:var(--ink3)}
     <div class="tags"><span class="tag">evaluation</span><span class="tag">3d</span><span class="tag">quality-assessment</span></div>
     <div class="footer">
       <span><button data-go="3" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>VisualPrompter</span>
-      <span>DreamFusion: Text-to-3D using 3D Diffusion <button data-go="6" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+      <span>DreamFusion: Text-to-3D using 2D Diffusion <button data-go="6" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
 
 
-<section class="sheet cat-3d" data-t="DreamFusion: Text-to-3D using 3D Diffusion">
+<section class="sheet cat-3d" data-t="DreamFusion: Text-to-3D using 2D Diffusion">
   <div class="hd">
     <span class="hd-kicker">PAPER 06</span>
-    <h2 class="hd-title">DreamFusion: Text-to-3D using 3D Diffusion<small>Score Distillation Sampling でテキストから 3D 造型を最適化</small></h2>
-    <span class="hd-meta">CVPR 2023 / 2023</span>
+    <h2 class="hd-title">DreamFusion: Text-to-3D using 2D Diffusion<small>Score Distillation Sampling でテキストから 3D 造型を最適化</small></h2>
+    <span class="hd-meta">ICCV 2023 / 2023</span>
     <span class="hd-no">07</span>
   </div>
   <div class="body">
@@ -267,7 +270,7 @@ small{font-size:8.2pt;color:var(--ink3)}
   <div class="hd">
     <span class="hd-kicker">PAPER 07</span>
     <h2 class="hd-title">Point-E: A System for Generating 3D Point Clouds from Textual Descriptions<small>Text-to-3D の高速生成パイプライン</small></h2>
-    <span class="hd-meta">ICCV 2023 / 2023</span>
+    <span class="hd-meta">CVPR 2023 / 2023</span>
     <span class="hd-no">08</span>
   </div>
   <div class="body">
@@ -281,7 +284,7 @@ small{font-size:8.2pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">3d</span><span class="tag">generation</span><span class="tag">fast</span></div>
     <div class="footer">
-      <span><button data-go="5" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>DreamFusion: Text-to-3D using 3D Diffusion</span>
+      <span><button data-go="5" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>DreamFusion: Text-to-3D using 2D Diffusion</span>
       <span>Magic3D: High-Resolution Text-to-3D Content Creati <button data-go="8" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
@@ -313,7 +316,7 @@ small{font-size:8.2pt;color:var(--ink3)}
 </section>
 
 
-<section class="sheet cat-vlm" data-t="What matters when building vision-language models? (Idefics2">
+<section class="sheet cat-paper" data-t="What matters when building vision-language models? (Idefics2">
   <div class="hd">
     <span class="hd-kicker">PAPER 09</span>
     <h2 class="hd-title">What matters when building vision-language models? (Idefics2)<small>VLM 設計の決定要因を実験的に明らかに</small></h2>
@@ -329,9 +332,334 @@ small{font-size:8.2pt;color:var(--ink3)}
       <dt>Relevance to theme</dt>
       <dd><p style="margin:0">評価器（ローカル VLM）のサイズ・選択指針。</p></dd>
     </div>
-    <div class="tags"><span class="tag">v lm</span><span class="tag">foundation</span></div>
+    <div class="tags"><span class="tag">vlm</span><span class="tag">foundation</span></div>
     <div class="footer">
       <span><button data-go="7" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Magic3D: High-Resolution Text-to-3D Content Creati</span>
+      <span>CLIP: Learning Transferable Visual Models From Nat <button data-go="10" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="CLIP: Learning Transferable Visual Models From Natural Langu">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 10</span>
+    <h2 class="hd-title">CLIP: Learning Transferable Visual Models From Natural Language Supervision<small>画像とテキストを共通空間に埋め込むゼロショット評価の基盤</small></h2>
+    <span class="hd-meta">ICML 2021 / 2021</span>
+    <span class="hd-no">11</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">画像とテキストを共通の埋め込み空間にマッピングし、ゼロショットで分類・検索・評価が可能。CPU でも動作する軽量版（ViT-B/32, RN50 など）が広く利用可能。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">CPU 16GB 制約下での軽量自動評価器の基盤。テーマ適合度・類似度計算に活用。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">vlm</span><span class="tag">evaluation</span><span class="tag">cpu-friendly</span></div>
+    <div class="footer">
+      <span><button data-go="8" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>What matters when building vision-language models?</span>
+      <span>Pick-a-Pic: An Open Dataset of User Preferences fo <button data-go="11" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Pick-a-Pic: An Open Dataset of User Preferences for Text-to-">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 11</span>
+    <h2 class="hd-title">Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation<small>テキスト画像生成のための大規模嗜好データセット</small></h2>
+    <span class="hd-meta">NeurIPS 2023 / 2023</span>
+    <span class="hd-no">12</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">Text-to-image モデルの出力に対する人間の偏好データセット。PickScore はこのデータで学習された軽量な画像評価モデル。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">人間嗜好を予測する軽量スコアリングモデルの先例。相対評価データの重要性。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">preference-learning</span><span class="tag">evaluation</span><span class="tag">image-generation</span></div>
+    <div class="footer">
+      <span><button data-go="9" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>CLIP: Learning Transferable Visual Models From Nat</span>
+      <span>ImageReward: Learning and Evaluating Human Prefere <button data-go="12" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="ImageReward: Learning and Evaluating Human Preferences for T">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 12</span>
+    <h2 class="hd-title">ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation<small>人間の嗜好を学習したテキスト画像評価モデル</small></h2>
+    <span class="hd-meta">NeurIPS 2023 / 2023</span>
+    <span class="hd-no">13</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">Text-to-image 生成物に対する人間の詳細な嗜好を学習した報酬モデル。人間フィードバックを自動評価に変換する設計の参考。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">自動評価器が人間の嗜好をどう近似するかの参考。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">preference-learning</span><span class="tag">evaluation</span><span class="tag">image-generation</span></div>
+    <div class="footer">
+      <span><button data-go="10" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Pick-a-Pic: An Open Dataset of User Preferences fo</span>
+      <span>Human Preference Score v2: A Solid Benchmark for E <button data-go="13" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Human Preference Score v2: A Solid Benchmark for Evaluating ">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 13</span>
+    <h2 class="hd-title">Human Preference Score v2: A Solid Benchmark for Evaluating Human Preferences of Text-to-Image Synthesis<small>テキスト画像生成の人間嗜好ベンチマーク</small></h2>
+    <span class="hd-meta">arXiv 2023 / 2023</span>
+    <span class="hd-no">14</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">HPSv2 は text-to-image モデルの人間嗜好を予測するためのベンチマークとスコアリングモデル。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">自動評価器の信頼性確認と、人間嗜好予測の設計参考。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">preference-learning</span><span class="tag">evaluation</span><span class="tag">benchmark</span></div>
+    <div class="footer">
+      <span><button data-go="11" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>ImageReward: Learning and Evaluating Human Prefere</span>
+      <span>Training language models to follow instructions wi <button data-go="14" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Training language models to follow instructions with human f">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 14</span>
+    <h2 class="hd-title">Training language models to follow instructions with human feedback (InstructGPT / RLHF)<small>人間フィードバックからの強化学習による指示追従</small></h2>
+    <span class="hd-meta">NeurIPS 2022 / 2022</span>
+    <span class="hd-no">15</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">人間の偏好データを使って報酬モデルを学習し、PPO で言語モデルを最適化。人間の意図をモデル化する基本フレームワーク。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">インテント推定 → 報酬モデル → 生成改善の流れの理論基盤。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">preference-learning</span><span class="tag">rlhf</span><span class="tag">feedback</span></div>
+    <div class="footer">
+      <span><button data-go="12" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Human Preference Score v2: A Solid Benchmark for E</span>
+      <span>Direct Preference Optimization: Your Language Mode <button data-go="15" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Direct Preference Optimization: Your Language Model is Secre">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 15</span>
+    <h2 class="hd-title">Direct Preference Optimization: Your Language Model is Secretly a Reward Model<small>報酬モデルなしで嗜好データから直接最適化</small></h2>
+    <span class="hd-meta">NeurIPS 2024 / 2024</span>
+    <span class="hd-no">16</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">RLHF の報酬モデル学習を省略し、ペアワイズ嗜好データから直接言語モデルを最適化する DPO。データ効率が良い。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">少ない人間嗜好データからの学習手法。回転ループ内での効率的な改善に活用可能。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">preference-learning</span><span class="tag">dpo</span><span class="tag">efficiency</span></div>
+    <div class="footer">
+      <span><button data-go="13" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Training language models to follow instructions wi</span>
+      <span>Active Learning for Large Language Model-based Cha <button data-go="16" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Active Learning for Large Language Model-based Chatbots">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 16</span>
+    <h2 class="hd-title">Active Learning for Large Language Model-based Chatbots<small>LLM チャットボットのためのアクティブラーニング</small></h2>
+    <span class="hd-meta">EMNLP 2023 / 2023</span>
+    <span class="hd-no">17</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">人間アノテーションコストを抑えつつ、効率的に学習データを選ぶアクティブラーニング手法。不確実性サンプリングなど。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">人間評価データ取得コストを抑え、高情報量サンプルを選ぶ戦略。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">active-learning</span><span class="tag">cost</span><span class="tag">human-feedback</span></div>
+    <div class="footer">
+      <span><button data-go="14" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Direct Preference Optimization: Your Language Mode</span>
+      <span>Model Context Protocol (MCP) <button data-go="17" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Model Context Protocol (MCP)">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 17</span>
+    <h2 class="hd-title">Model Context Protocol (MCP)<small>LLM と外部ツール・データソースを標準接続するプロトコル</small></h2>
+    <span class="hd-meta">Anthropic Technical Specification / 2024</span>
+    <span class="hd-no">18</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">Anthropic 提唱のオープンプロトコル。LLM アプリケーションが外部ツール、データソース、リソースに安全に接続するための標準。server/client モデル。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">本プロジェクトのツール層（Blender, DB, Evaluator）を標準化する基盤。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">mcp</span><span class="tag">agent</span><span class="tag">protocol</span></div>
+    <div class="footer">
+      <span><button data-go="15" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Active Learning for Large Language Model-based Cha</span>
+      <span>Agent2Agent Protocol (A2A) <button data-go="18" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Agent2Agent Protocol (A2A)">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 18</span>
+    <h2 class="hd-title">Agent2Agent Protocol (A2A)<small>エージェント間の相互運用プロトコル</small></h2>
+    <span class="hd-meta">Google Technical Specification / 2025</span>
+    <span class="hd-no">19</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">Google 提唱のエージェント間通信プロトコル。異なるフレームワーク・プラットフォームで動作するエージェントが協調できる標準。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">Generator / Evaluator / Intent Estimator などの専門エージェント連携の基盤。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">a2a</span><span class="tag">agent</span><span class="tag">protocol</span></div>
+    <div class="footer">
+      <span><button data-go="16" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Model Context Protocol (MCP)</span>
+      <span>Phi-3 Technical Report: A Highly Capable Language  <button data-go="19" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Phi-3 Technical Report: A Highly Capable Language Model Loca">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 19</span>
+    <h2 class="hd-title">Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone<small>小規模・高品質な言語モデル</small></h2>
+    <span class="hd-meta">arXiv 2024 / 2024</span>
+    <span class="hd-no">20</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">Microsoft の Phi-3 シリーズ。3.8B パラメータで大規模モデルに匹敵する性能。量子化により CPU でも実用的な推論が可能。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">CPU 16GB 制約下での軽量 LLM 選定の指針。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">slm</span><span class="tag">local-model</span><span class="tag">efficiency</span></div>
+    <div class="footer">
+      <span><button data-go="17" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Agent2Agent Protocol (A2A)</span>
+      <span>Llama 3.2: Revolutionizing edge AI and vision with <button data-go="20" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="Llama 3.2: Revolutionizing edge AI and vision with open, Cus">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 20</span>
+    <h2 class="hd-title">Llama 3.2: Revolutionizing edge AI and vision with open, Customizable Models<small>エッジデバイス向け軽量マルチモーダルモデル</small></h2>
+    <span class="hd-meta">Meta Technical Report / 2024</span>
+    <span class="hd-no">21</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">Meta の Llama 3.2。1B / 3B のテキストモデルと、11B / 90B のビジョンモデル。軽量版は CPU/エッジで動作可能。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">ローカル CPU で動かせる LLM / VLM の選択肢。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">slm</span><span class="tag">vlm</span><span class="tag">local-model</span></div>
+    <div class="footer">
+      <span><button data-go="18" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Phi-3 Technical Report: A Highly Capable Language </span>
+      <span>The False Dawn: Reevaluating Performance Gains of  <button data-go="21" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="The False Dawn: Reevaluating Performance Gains of Small Lang">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 21</span>
+    <h2 class="hd-title">The False Dawn: Reevaluating Performance Gains of Small Language Models<small>小規模言語モデルの実用上の限界と可能性</small></h2>
+    <span class="hd-meta">arXiv 2024 / 2024</span>
+    <span class="hd-no">22</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">SLM の性能とコストのトレードオフを実験的に検証。タスク難易度によっては小モデルで十分、というケースと限界を示す。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">CPU 16GB 制約下でどのタスクを SLM に任せ、どこを人間に残すべきかの指針。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">slm</span><span class="tag">cost</span><span class="tag">efficiency</span></div>
+    <div class="footer">
+      <span><button data-go="19" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>Llama 3.2: Revolutionizing edge AI and vision with</span>
+      <span>A Watermark for Large Language Models <button data-go="22" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
+    </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-paper" data-t="A Watermark for Large Language Models">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 22</span>
+    <h2 class="hd-title">A Watermark for Large Language Models<small>LLM 出力の追跡可能な透かし</small></h2>
+    <span class="hd-meta">ICML 2023 / 2023</span>
+    <span class="hd-no">23</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">LLM 生成テキストに透かしを埋め込み、出典追跡や品質管理を行う手法。生成物の信頼性・再現性管理の参考。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm">
+      <dt>Relevance to theme</dt>
+      <dd><p style="margin:0">回転ループで生成されたプロンプト・bpy コード・評価の出典管理・信頼性担保。</p></dd>
+    </div>
+    <div class="tags"><span class="tag">trust</span><span class="tag">provenance</span></div>
+    <div class="footer">
+      <span><button data-go="20" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>The False Dawn: Reevaluating Performance Gains of </span>
       <span>To Contents <button disabled class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>

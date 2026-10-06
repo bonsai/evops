@@ -3,6 +3,7 @@
   "research_question": "LMS/VLMを共通評価器として使い、評価結果をDBへ蓄積し、MLによる改善へ接続できるか。",
   "theme1_category": "評価Ontology・VLM 評価",
   "theme2_category": "3D 生成・VLM 評価の基礎",
+  "theme3_category": "エージェント連携・コスト管理・嗜好学習",
   "papers": [
     {
       "id": 1,
@@ -12,7 +13,7 @@
       "short": "Text-to-motion と生成動画の意味一致を VLM で評価",
       "body": "Text-to-motion と生成動画の意味的一致を Video Language Model で評価する研究。Animation Intent → Render → VLM 評価の主要参考。",
       "relevance": "評価 Ontology 設計、VLM 評価器の構成の参考。",
-      "categories": ["evaluation", "v lm"]
+      "categories": ["evaluation", "vlm"]
     },
     {
       "id": 2,
@@ -56,8 +57,8 @@
     },
     {
       "id": 6,
-      "title": "DreamFusion: Text-to-3D using 3D Diffusion",
-      "venue": "CVPR 2023",
+      "title": "DreamFusion: Text-to-3D using 2D Diffusion",
+      "venue": "ICCV 2023",
       "year": 2023,
       "short": "Score Distillation Sampling でテキストから 3D 造型を最適化",
       "body": "Text-to-3D の金字塔。Score Distillation Sampling でテキストから 3D 造型を最適化。テーマ 2 の「テキスト → bpy」生成の先例。",
@@ -67,7 +68,7 @@
     {
       "id": 7,
       "title": "Point-E: A System for Generating 3D Point Clouds from Textual Descriptions",
-      "venue": "ICCV 2023",
+      "venue": "CVPR 2023",
       "year": 2023,
       "short": "Text-to-3D の高速生成パイプライン",
       "body": "Text-to-3D の高速生成パイプライン。生成→評価ループの高速化の先例。",
@@ -92,15 +93,148 @@
       "short": "VLM 設計の決定要因を実験的に明らかに",
       "body": "VLM 設計の決定要因を実験的に明らかに。評価器選び（サイズ・データ）の指針。Idefics2 は 8B で大規模モデルに匹敵。",
       "relevance": "評価器（ローカル VLM）のサイズ・選択指針。",
-      "categories": ["v lm", "foundation"]
+      "categories": ["vlm", "foundation"]
+    },
+    {
+      "id": 10,
+      "title": "CLIP: Learning Transferable Visual Models From Natural Language Supervision",
+      "venue": "ICML 2021",
+      "year": 2021,
+      "short": "画像とテキストを共通空間に埋め込むゼロショット評価の基盤",
+      "body": "画像とテキストを共通の埋め込み空間にマッピングし、ゼロショットで分類・検索・評価が可能。CPU でも動作する軽量版（ViT-B/32, RN50 など）が広く利用可能。",
+      "relevance": "CPU 16GB 制約下での軽量自動評価器の基盤。テーマ適合度・類似度計算に活用。",
+      "categories": ["vlm", "evaluation", "cpu-friendly"]
+    },
+    {
+      "id": 11,
+      "title": "Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation",
+      "venue": "NeurIPS 2023",
+      "year": 2023,
+      "short": "テキスト画像生成のための大規模嗜好データセット",
+      "body": "Text-to-image モデルの出力に対する人間の偏好データセット。PickScore はこのデータで学習された軽量な画像評価モデル。",
+      "relevance": "人間嗜好を予測する軽量スコアリングモデルの先例。相対評価データの重要性。",
+      "categories": ["preference-learning", "evaluation", "image-generation"]
+    },
+    {
+      "id": 12,
+      "title": "ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation",
+      "venue": "NeurIPS 2023",
+      "year": 2023,
+      "short": "人間の嗜好を学習したテキスト画像評価モデル",
+      "body": "Text-to-image 生成物に対する人間の詳細な嗜好を学習した報酬モデル。人間フィードバックを自動評価に変換する設計の参考。",
+      "relevance": "自動評価器が人間の嗜好をどう近似するかの参考。",
+      "categories": ["preference-learning", "evaluation", "image-generation"]
+    },
+    {
+      "id": 13,
+      "title": "Human Preference Score v2: A Solid Benchmark for Evaluating Human Preferences of Text-to-Image Synthesis",
+      "venue": "arXiv 2023",
+      "year": 2023,
+      "short": "テキスト画像生成の人間嗜好ベンチマーク",
+      "body": "HPSv2 は text-to-image モデルの人間嗜好を予測するためのベンチマークとスコアリングモデル。",
+      "relevance": "自動評価器の信頼性確認と、人間嗜好予測の設計参考。",
+      "categories": ["preference-learning", "evaluation", "benchmark"]
+    },
+    {
+      "id": 14,
+      "title": "Training language models to follow instructions with human feedback (InstructGPT / RLHF)",
+      "venue": "NeurIPS 2022",
+      "year": 2022,
+      "short": "人間フィードバックからの強化学習による指示追従",
+      "body": "人間の偏好データを使って報酬モデルを学習し、PPO で言語モデルを最適化。人間の意図をモデル化する基本フレームワーク。",
+      "relevance": "インテント推定 → 報酬モデル → 生成改善の流れの理論基盤。",
+      "categories": ["preference-learning", "rlhf", "feedback"]
+    },
+    {
+      "id": 15,
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+      "venue": "NeurIPS 2024",
+      "year": 2024,
+      "short": "報酬モデルなしで嗜好データから直接最適化",
+      "body": "RLHF の報酬モデル学習を省略し、ペアワイズ嗜好データから直接言語モデルを最適化する DPO。データ効率が良い。",
+      "relevance": "少ない人間嗜好データからの学習手法。回転ループ内での効率的な改善に活用可能。",
+      "categories": ["preference-learning", "dpo", "efficiency"]
+    },
+    {
+      "id": 16,
+      "title": "Active Learning for Large Language Model-based Chatbots",
+      "venue": "EMNLP 2023",
+      "year": 2023,
+      "short": "LLM チャットボットのためのアクティブラーニング",
+      "body": "人間アノテーションコストを抑えつつ、効率的に学習データを選ぶアクティブラーニング手法。不確実性サンプリングなど。",
+      "relevance": "人間評価データ取得コストを抑え、高情報量サンプルを選ぶ戦略。",
+      "categories": ["active-learning", "cost", "human-feedback"]
+    },
+    {
+      "id": 17,
+      "title": "Model Context Protocol (MCP)",
+      "venue": "Anthropic Technical Specification",
+      "year": 2024,
+      "short": "LLM と外部ツール・データソースを標準接続するプロトコル",
+      "body": "Anthropic 提唱のオープンプロトコル。LLM アプリケーションが外部ツール、データソース、リソースに安全に接続するための標準。server/client モデル。",
+      "relevance": "本プロジェクトのツール層（Blender, DB, Evaluator）を標準化する基盤。",
+      "categories": ["mcp", "agent", "protocol"]
+    },
+    {
+      "id": 18,
+      "title": "Agent2Agent Protocol (A2A)",
+      "venue": "Google Technical Specification",
+      "year": 2025,
+      "short": "エージェント間の相互運用プロトコル",
+      "body": "Google 提唱のエージェント間通信プロトコル。異なるフレームワーク・プラットフォームで動作するエージェントが協調できる標準。",
+      "relevance": "Generator / Evaluator / Intent Estimator などの専門エージェント連携の基盤。",
+      "categories": ["a2a", "agent", "protocol"]
+    },
+    {
+      "id": 19,
+      "title": "Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone",
+      "venue": "arXiv 2024",
+      "year": 2024,
+      "short": "小規模・高品質な言語モデル",
+      "body": "Microsoft の Phi-3 シリーズ。3.8B パラメータで大規模モデルに匹敵する性能。量子化により CPU でも実用的な推論が可能。",
+      "relevance": "CPU 16GB 制約下での軽量 LLM 選定の指針。",
+      "categories": ["slm", "local-model", "efficiency"]
+    },
+    {
+      "id": 20,
+      "title": "Llama 3.2: Revolutionizing edge AI and vision with open, Customizable Models",
+      "venue": "Meta Technical Report",
+      "year": 2024,
+      "short": "エッジデバイス向け軽量マルチモーダルモデル",
+      "body": "Meta の Llama 3.2。1B / 3B のテキストモデルと、11B / 90B のビジョンモデル。軽量版は CPU/エッジで動作可能。",
+      "relevance": "ローカル CPU で動かせる LLM / VLM の選択肢。",
+      "categories": ["slm", "vlm", "local-model"]
+    },
+    {
+      "id": 21,
+      "title": "The False Dawn: Reevaluating Performance Gains of Small Language Models",
+      "venue": "arXiv 2024",
+      "year": 2024,
+      "short": "小規模言語モデルの実用上の限界と可能性",
+      "body": "SLM の性能とコストのトレードオフを実験的に検証。タスク難易度によっては小モデルで十分、というケースと限界を示す。",
+      "relevance": "CPU 16GB 制約下でどのタスクを SLM に任せ、どこを人間に残すべきかの指針。",
+      "categories": ["slm", "cost", "efficiency"]
+    },
+    {
+      "id": 22,
+      "title": "A Watermark for Large Language Models",
+      "venue": "ICML 2023",
+      "year": 2023,
+      "short": "LLM 出力の追跡可能な透かし",
+      "body": "LLM 生成テキストに透かしを埋め込み、出典追跡や品質管理を行う手法。生成物の信頼性・再現性管理の参考。",
+      "relevance": "回転ループで生成されたプロンプト・bpy コード・評価の出典管理・信頼性担保。",
+      "categories": ["trust", "provenance"]
     }
   ],
   "synthesis": [
-    "動画評価は多軸化する。",
-    "VLM を semantic/perceptual evaluator として利用する。",
-    "評価を生成改善の Feedback へ接続する。",
-    "評価履歴を構造化データとして蓄積する。",
+    "動画・画像評価は多軸化し、軽量モデル（CLIP, PickScore, ImageReward, HPSv2）で近似可能。",
+    "VLM は semantic/perceptual evaluator として利用するが、CPU 制約では CLIP-small 等の軽量版を使う。",
+    "人間の嗜好はペアワイズ比較で効率的に収集し、Bradley-Terry や DPO で学習する。",
+    "MCP でツール層を標準化し、A2A でエージェント連携を標準化することでモジュール性と差し替え性を確保する。",
+    "評価結果を生成改善の Feedback source として扱い、構造化データとして蓄積する。",
+    "人間フィードバックは有限・高価なので、アクティブラーニングで高情報量サンプルを選び、コストを抑える。",
+    "SLM（Phi-3, Llama 3.2 等）を使い、CPU 16GB 内で回転ループを回し続ける。",
     "蓄積履歴から ML で ranking、prediction、repair strategy を改善する。"
   ],
-  "loop": "Generation → LMS/VLM → DB → ML → Repair → Generation の継続的な評価・学習ループ"
+  "loop": "Generation → Auto Evaluation → Human Feedback → DB → Intent Estimation → Criteria Update → Repair → Generation の継続的な評価・学習ループ"
 }
