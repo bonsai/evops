@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インテント推定型評価エージェント</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #1a1a2e;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #16213e;
+            margin-top: 40px;
+            padding-left: 12px;
+            border-left: 4px solid #4a90e2;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        .diagram-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .diagram-title {
+            font-weight: 600;
+            color: #4a90e2;
+            margin-bottom: 16px;
+            font-size: 1.1em;
+        }
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        .note {
+            background: #e8f4fd;
+            border-left: 4px solid #4a90e2;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #4a90e2;
+            text-decoration: none;
+            padding: 10px 16px;
+            border: 1px solid #4a90e2;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .back-link:hover {
+            background: #4a90e2;
+            color: white;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: "SF Mono", Monaco, monospace;
+        }
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>インテント推定型評価エージェント</h1>
+    <p class="subtitle">
+        自然言語のプロンプト調整ではなく、<strong>人間が何を高く評価するか</strong>を推定し、
+        そのインテント（意図）に合わせて評価基準を試行錯誤するエージェント設計。
+    </p>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ffe6e6;"></div>
+            <span>人間領域</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #e6f3ff;"></div>
+            <span>エージェント領域</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #e6ffe6;"></div>
+            <span>生成側</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #fff4e6;"></div>
+            <span>判断/承認</span>
+        </div>
+    </div>
+
+    <h2>1. 全体像</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">IntentEvaluationAgent のデータフロー</div>
+        <pre class="mermaid">
+flowchart TB
+    subgraph H[人間]
+        H1[採点 & コメント]
+    end
+
+    subgraph A[IntentEvaluationAgent]
+        I[Intent Estimator&lt;br/&gt;人間の価値関数を推定]
+        C[Criteria Generator&lt;br/&gt;評価基準を生成]
+        E[Evaluator&lt;br/&gt;生成物を採点]
+        M[Meta-Optimizer&lt;br/&gt;基準を最適化]
+    end
+
+    subgraph G[生成側]
+        P[Generator]
+        O[生成物]
+    end
+
+    P --> O
+    O --> E
+    E --> H1
+    H1 --> I
+    I --> C
+    C --> E
+    H1 --> M
+    E --> M
+    M --> I
+
+    style H fill:#ffe6e6
+    style A fill:#e6f3ff
+    style G fill:#e6ffe6
+        </pre>
+    </div>
+
+    <h2>2. エージェント構成</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">4 つのコアモジュールと人間の関係</div>
+        <pre class="mermaid">
+flowchart LR
+    subgraph Agent[IntentEvaluationAgent]
+        direction TB
+        I[Intent Estimator]
+        C[Criteria Generator]
+        E[Evaluator]
+        M[Meta-Optimizer]
+    end
+
+    H[人間] -->|採点・コメント| I
+    I -->|インテントベクトル| C
+    C -->|評価基準| E
+    E -->|スコア| H
+    H -->|人間スコア| M
+    E -->|エージェントスコア| M
+    M -->|基準更新| I
+    M -->|重み調整| C
+
+    style H fill:#ffe6e6
+    style Agent fill:#e6f3ff
+        </pre>
+    </div>
+
+    <div class="note">
+        <strong>インテント推定器</strong>が人間の価値関数をベクトル化し、
+        <strong>評価基準生成器</strong>がそれを測定可能な軸に変換。
+        <strong>評価器</strong>が採点し、<strong>メタ最適化器</strong>が人間スコアとの相関を最大化するように更新する。
+    </div>
+
+    <h2>3. LangGraph ワークフロー</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">状態付き反復ループ</div>
+        <pre class="mermaid">
+flowchart TB
+    Start([開始]) --> IE[Intent Estimator]
+    IE --> CG[Criteria Generator]
+    CG --> HA{人間承認}
+    HA -- 否 --> CM[基準修正] --> CG
+    HA -- 是 --> EV[Evaluator]
+    EV --> GA[Generator Agent]
+    GA --> GI[生成物]
+    GI --> HS[人間採点]
+    HS --> MO[Meta-Optimizer]
+    MO --> UP[インテント・基準更新]
+    UP --> IE
+
+    style Start fill:#f0f0f0
+    style HA fill:#fff4e6
+    style HS fill:#ffe6e6
+    style MO fill:#e6f3ff
+        </pre>
+    </div>
+
+    <h2>4. 自然言語 vs インテント推定</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">なぜ自然言語では不十分か</div>
+        <pre class="mermaid">
+flowchart LR
+    subgraph NL[自然言語中心]
+        direction TB
+        W1["『もっとかわいく』"]
+        W2["プロンプト微修正"]
+        W3["曖昧な解釈"]
+    end
+
+    subgraph IN[インテント中心]
+        direction TB
+        V1["人間の採点履歴"]
+        V2["インテントベクトル推定"]
+        V3["かわいい = 丸み + 彩度高め + シンプル"]
+        V4["測定可能な基準へ変換"]
+    end
+
+    W1 --> W2 --> W3
+    V1 --> V2 --> V3 --> V4
+
+    style NL fill:#fff4f4
+    style IN fill:#f4fff4
+        </pre>
+    </div>
+
+    <div class="note">
+        同じ「かわいい」でも、人によって重視する属性は異なる。
+        言葉を解釈するのではなく、<strong>採点行動から価値関数を逆算</strong>することで、
+        個人の嗜好を測定可能な形にする。
+    </div>
+
+    <h2>5. 高得点戦略</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">人間の高得点を引き出す 4 つの戦略</div>
+        <pre class="mermaid">
+flowchart TB
+    subgraph EXP[探索]
+        E1[多様な基準を試す]
+        E2[予期しない嗜好を発見]
+    end
+
+    subgraph EXP2[活用]
+        U1[高得点方向を深掘り]
+        U2[基準を絞り込む]
+    end
+
+    subgraph NEG[負の例活用]
+        N1[低得点作品を分析]
+        N2[避けるべき属性を学習]
+    end
+
+    subgraph REL[相対評価]
+        R1[A vs B どちらが良い？]
+        R2[Bradley-Terry モデル]
+    end
+
+    EXP --> EXP2
+    NEG --> EXP
+    REL --> EXP
+
+    style EXP fill:#e6f3ff
+    style EXP2 fill:#e6ffe6
+    style NEG fill:#ffe6e6
+    style REL fill:#fff4e6
+        </pre>
+    </div>
+
+    <h2>6. メタ最適化の目的関数</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">人間スコアとの相関を最大化</div>
+        <pre class="mermaid">
+flowchart LR
+    A[人間スコア] --> CORR{相関計算}
+    B[エージェントスコア] --> CORR
+    CORR --> OBJ["maximize  corr(人間, エージェント)<br/>- α × 基準数<br/>+ β × 多様性"]
+    OBJ --> OPT[Optuna / 遺伝的アルゴリズム / RL]
+    OPT --> UPD[インテントベクトル & 基準重み 更新]
+    UPD --> B
+
+    style A fill:#ffe6e6
+    style B fill:#e6f3ff
+    style OBJ fill:#e6ffe6
+        </pre>
+    </div>
+
+    <h2>7. LangGraph State</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">ループ内で保持する状態</div>
+        <pre class="mermaid">
+classDiagram
+    class EvaluationState {
+        +string task_context
+        +List generated_items
+        +List human_scores
+        +IntentVector intent_vector
+        +List criteria
+        +List agent_scores
+        +List correlation_history
+        +int iteration
+    }
+        </pre>
+    </div>
+
+    <h2>8. 実装ファイル案</h2>
+    <div class="diagram-container">
+        <div class="diagram-title">モジュール構成</div>
+        <pre class="mermaid">
+flowchart TD
+    R[run_evaluation_loop.py] --> I[intent_estimator.py]
+    R --> C[criteria_generator.py]
+    R --> E[evaluator.py]
+    R --> M[meta_optimizer.py]
+    R --> G[graph.py]
+    G --> I
+    G --> C
+    G --> E
+    G --> M
+
+    style R fill:#fff4e6
+    style G fill:#e6f3ff
+        </pre>
+    </div>
+
+    <a href="./intent-evaluation-agent.md" class="back-link">← Markdown 版を見る</a>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            securityLevel: 'loose'
+        });
+    </script>
+</body>
+</html>

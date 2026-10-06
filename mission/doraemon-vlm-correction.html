@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ドラえもん VLM 修正ループ可視化</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      margin: 2rem;
+      background: #f8f9fa;
+      color: #333;
+      line-height: 1.7;
+    }
+    h1 { color: #1a73e8; }
+    h2 { color: #2c5aa0; margin-top: 2rem; }
+    .mermaid {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #fff;
+      margin: 1rem 0;
+    }
+    th, td { border: 1px solid #ddd; padding: 0.6rem; text-align: left; }
+    th { background: #e3f2fd; }
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    .human {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>ドラえもん VLM 修正ループ</h1>
+  <p>
+    「テキスト指示 → 画像生成 → VLM 自己診断 → 修正 → 再生成 → 人間承認 → 学習」
+    のループを可視化する。
+  </p>
+
+  <div class="note">
+    <strong>著作権上の注意：</strong>ドラえもんは藤子プロ・小学館等の著作物である。
+    本図は技術設計の例示であり、実際の生成・公開には権利者の許諾が必要。
+    卒業制作の実データ収集には、オリジナルキャラクターを推奨する。
+  </div>
+
+  <h2>1. 全体ループ</h2>
+  <div class="mermaid">
+flowchart TD
+    U[人間: 意図を入力<br/>例：ドラえもんが本を読んでいる] --> I[意図解析エージェント]
+    I --> G[生成エージェント<br/>bpy / SVG]
+    G --> V[VLM 自己診断エージェント]
+    V --> C{全軸スコア >= 0.5?}
+    C -->|YES| P[人間に提示]
+    C -->|NO| R[修正エージェント<br/>failure → repair instruction]
+    R --> G
+    P --> H{人間判断}
+    H -->|OK| S[保存・学習]
+    H -->|NG / 部分修正| M[人間が修正 or 新しい指示]
+    M --> R
+    M --> G
+    S --> DB[(SQLite DB)]
+
+    style U fill:#d4edda
+    style H fill:#d4edda
+    style M fill:#d4edda
+    style S fill:#fff3cd
+    style R fill:#f8d7da
+  </div>
+
+  <h2>2. VLM 評価軸</h2>
+  <div class="mermaid">
+graph LR
+    subgraph 構造的特徴
+        A1[color_blue]
+        A2[round_body]
+        A3[no_ears]
+        A4[red_nose]
+        A5[yellow_bell]
+        A6[fourth_d_pocket]
+        A7[whiskers]
+    end
+
+    subgraph スタイル・雰囲気
+        B1[fujiko_touch]
+        B2[line_art_style]
+        B3[background_fit]
+        B4[expression_match]
+    end
+
+    subgraph 全体的品質
+        C1[overall_quality]
+        C2[intent_alignment]
+        C3[artifacts]
+    end
+
+    D[VLM 診断結果] --> A1
+    D --> B1
+    D --> C1
+  </div>
+
+  <h2>3. 人間介入ポイント</h2>
+  <div class="mermaid">
+flowchart LR
+    subgraph 入力
+        H1[意図の入力]
+        H2[必須特徴の確認・追加]
+        H3[スタイル参照画像の指定]
+    end
+
+    subgraph 診断
+        H4[VLM 診断への同意/訂正]
+        H5[failure の追加/無視]
+    end
+
+    subgraph 修正
+        H6[repair instruction の承認]
+        H7[SVG/bpy の直接編集]
+    end
+
+    subgraph 学習
+        H8[ペアワイズ比較]
+        H9[評価軸の重み調整]
+    end
+
+    H1 --> H4 --> H6 --> H8
+    H2 --> H4
+    H3 --> H6
+    H5 --> H6
+    H7 --> H9
+    H8 --> H9
+  </div>
+
+  <h2>4. ループ可視化ダッシュボード要件</h2>
+  <table>
+    <tr><th>表示項目</th><th>内容</th></tr>
+    <tr><td>Rotation Counter</td><td>現在のループ回転数、目標回数、累積コスト</td></tr>
+    <tr><td>Current State</td><td>生成 / VLM診断 / 修正 / 人間レビューのどこか</td></tr>
+    <tr><td>Score Radar Chart</td><td>各評価軸スコアをレーダーチャートで表示</td></tr>
+    <tr><td>Failure Timeline</td><td>過去の failure と repair instruction の履歴</td></tr>
+    <tr><td>Diff View</td><td>前回画像と今回画像の並べ比べ、修正箇所ハイライト</td></tr>
+    <tr><td>Human Queue</td><td>人間の承認待ち項目一覧</td></tr>
+    <tr><td>Cost Meter</td><td>推定トークン消費、累積コスト、予算残高</td></tr>
+  </table>
+
+  <h2>5. 重み学習の例</h2>
+  <div class="mermaid">
+flowchart TD
+    W0[初期重み<br/>color_blue=1.0, no_ears=1.0, ...] --> V0[VLM 診断]
+    V0 --> P0[複数バリエーション生成]
+    P0 --> C0[人間: ペアワイズ比較]
+    C0 --> L0[Bradley-Terry / DPO で重み更新]
+    L0 --> W1[更新後重み<br/>color_blue=1.2, no_ears=0.8, ...]
+    W1 --> V0
+
+    style C0 fill:#d4edda
+    style L0 fill:#fff3cd
+  </div>
+
+  <div class="human">
+    <strong>人間の操作の余地：</strong>
+    完全自動化ではなく、意図入力・診断同意・修正承認・直接編集・比較選択・重み調整の
+    6 つのポイントで人間が介入できる。
+  </div>
+
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+</body>
+</html>

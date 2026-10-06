@@ -24,3 +24,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.log
+
+# Generated databases
+*.db
+*.sqlite3

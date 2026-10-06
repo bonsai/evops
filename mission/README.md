@@ -34,13 +34,17 @@
 5. [データをとる行為](./data-collection-focus.md)  
    論文リサーチから、**何を・どう・なぜ測定するか**を設計する。
 
-3. [小説の評価](./novel-evaluation.md)  
+8. [小説の評価](./novel-evaluation.md)
    画像だけでなく、物語・文章の評価基準も検討。
 
-4. [機械学習・Kaggle](./ml-kaggle.md)  
+9. [機械学習・Kaggle](./ml-kaggle.md)
    評価指標の学習や傾向抽出のために ML/Kaggle でスキルを磨く。
 
-5. [統計データの可視化](./visualization.md)  
+6. [ドラえもん VLM 修正ループ](./doraemon-vlm-correction.md)
+   身近な対象で「生成 → VLM 診断 → 修正 → 再生成 → 人間承認」を具体化。
+   評価軸・ループ可視化・人間介入ポイントを設計する。
+
+7. [統計データの可視化](./visualization.md)
    Plotly / PyVista を使った生成履歴・評価値の可視化。
 
 ## ディレクトリ
@@ -59,13 +63,15 @@ mission/
 ├── novel-evaluation.md                # 小説・文章の評価
 ├── ml-kaggle.md                       # 機械学習/Kaggle 計画
 ├── visualization.md                   # Plotly/PyVista 可視化
+├── doraemon-vlm-correction.md         # ドラえもん VLM 修正ループ
+├── doraemon-vlm-correction.html       # 上記の Mermaid 可視化
 └── roadmap.md                         # 段階的アクションプラン
 ```
 
 ## 直近のタスク
 
 - [ ] 回転ループ 1 回あたりのコスト見積もり
-- [ ] MCP server 最小セット（blender-bpy, evaluator, db）の実装
+- [x] MCP server 最小セット（blender-bpy, evaluator, db）の実装
 - [ ] インテント推定型評価エージェントの最小設計
 - [ ] 評価指標の選定（画像 / 小説 それぞれ）
 - [ ] Blender bpy で SVG → 3D/レンダリングの最小パイプライン作成
