@@ -1,0 +1,107 @@
+<!-- ============ 03 発表 構造の説明 ============ -->
+<section class="sheet cat-present" data-t="発表 構造の説明">
+  <div class="hd">
+    <span class="hd-kicker">発表資料 4</span>
+    <h2 class="hd-title">構造の説明（設計モデル）<small>3 層と依存方向だけで 1 分。</small></h2>
+    <span class="hd-no">30</span>
+  </div>
+  <div class="body">
+    <div class="ph" style="height:72mm">
+      <div class="ph-tag">FIG 3-1</div>
+      <div class="ph-title">パッケージ構成（発表用の簡略図）</div>
+      <svg viewBox="0 0 640 210" preserveAspectRatio="xMidYMid meet" aria-label="3層構造">
+        <defs>
+          <marker id="a9" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto"><path d="M0 1 L10 5.5 L0 10 z" fill="#6f767e"/></marker>
+        </defs>
+        <rect class="box-bnd" x="150" y="12" width="340" height="40" rx="3"/>
+        <text class="t-name" x="320" y="30" text-anchor="middle">表示層　ui</text>
+        <text class="t-xs" x="320" y="45" text-anchor="middle">Tkinter ／ CLI（バウンダリ）</text>
+        <rect class="box-ctl" x="150" y="82" width="340" height="40" rx="3"/>
+        <text class="t-name" x="320" y="100" text-anchor="middle">機能層　service</text>
+        <text class="t-xs" x="320" y="115" text-anchor="middle">ユースケースの実装（コントロール）</text>
+        <rect class="box-ent" x="150" y="152" width="340" height="40" rx="3"/>
+        <text class="t-name" x="320" y="170" text-anchor="middle">領域層　domain ＋ repository</text>
+        <text class="t-xs" x="320" y="185" text-anchor="middle">エンティティと永続化（«interface» で分離）</text>
+        <path d="M320 52 V80" stroke="#6f767e" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
+        <path d="M320 122 V150" stroke="#6f767e" stroke-width="1.5" fill="none" marker-end="url(#a9)"/>
+        <text class="t-xs" x="330" y="70">呼ぶ</text>
+        <text class="t-xs" x="330" y="140">呼ぶ</text>
+        <text class="t-xs" x="140" y="76" text-anchor="end">依存は</text>
+        <text class="t-xs" x="140" y="90" text-anchor="end">一方向のみ</text>
+      </svg>
+    </div>
+    <div class="ph-cap">図 3-1　3 層構造　／　矢印は呼び出し方向。上層から下層へしか呼ばない。</div>
+
+    <div class="cols c-3" style="margin-top:4mm">
+      <div class="card soft">
+        <div class="card-h">なぜ層に分けるか</div>
+        <p>画面とロジックを分離することで、<b>ロジックだけをテストできる</b>。GUI なしで確認できる。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">«interface» の役割</div>
+        <p>永続化（JSON ／ SQLite）を差し替え可能にし、テストではメモリ実装を使う（依存注入）。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">説明の順番</div>
+        <p>「3 層ある」から「上から下へ呼ぶ」から「domain が核。テスト済み」。これで 60 秒。</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:3.4mm">
+      <b>発表で触れない：</b>クラス図の属性・操作の細部、シーケンス図のメッセージ番号。
+      それらは質疑対応（p.19–20 に書いている）。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 発表 実演 ============ -->
+<section class="sheet cat-present" data-t="発表 実演">
+  <div class="hd">
+    <span class="hd-kicker">発表資料 5</span>
+    <h2 class="hd-title">実演<small>1 分・3 手順。話すより動かさない。</small></h2>
+    <span class="hd-no">31</span>
+  </div>
+  <div class="body">
+    <div class="cols c-64">
+      <div class="stack">
+        <div class="card">
+          <div class="card-h">手順（60 秒）</div>
+          <table>
+            <tr><th style="width:14mm" class="c">#</th><th style="width:44mm">操作</th><th>言うこと（1 句）</th><th style="width:16mm" class="c">画面</th></tr>
+            <tr><td class="num c">1</td><td><code>python main.py</code> を実行</td><td>「起動します」</td><td class="c num">SHOT 1</td></tr>
+            <tr><td class="num c">2</td><td><span class="fill"></span> を入力 → 「登録」</td><td>「<span class="fill l"></span>」と入力します」</td><td class="c num">操作中</td></tr>
+            <tr><td class="num c">3</td><td>一覧と検索結果を指差す</td><td>「結果です。検索で絞り込めます」</td><td class="c num">SHOT 2</td></tr>
+          </table>
+          <p style="margin-top:2.4mm"><small>失敗するときは「<span class="fill l"></span>」の 1 画面を話す。説明はしない。</small></p>
+        </div>
+
+        <div class="card soft">
+          <div class="card-h">リハーサルのチェック</div>
+          <ul class="check">
+            <li>入力データは<b>当日朝の状態でリセット</b>（前日と同じデータで試す）</li>
+            <li>ファイルは Desktop にコピーし、<b>他の窓を閉じる</b></li>
+            <li>入力は<b>マウス＋キーボードのみ</b>（クリック操作は使わない）</li>
+            <li>例外時のエラーメッセージを 1 度は見せる</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="card soft">
+          <div class="card-h">実演前チェック（当日 10 分前）</div>
+          <table>
+            <tr><td>入力データ準備</td><td class="c"><span class="fill"></span></td></tr>
+            <tr><td>デスクトップのみに切替</td><td class="c"><span class="fill"></span></td></tr>
+            <tr><td>PDF を閉じてから画面切替</td><td class="c"><span class="fill"></span></td></tr>
+            <tr><td>通知・時計を OFF</td><td class="c"><span class="fill"></span></td></tr>
+            <tr><td>フォントサイズ 100% 以上</td><td class="c"><span class="fill"></span></td></tr>
+            <tr><td>HDMI 接続の確認</td><td class="c"><span class="fill"></span></td></tr>
+          </table>
+        </div>
+        <div class="note warn">
+          <b>実演の前提：</b>PDF は<b>印刷版</b>（A4 横・33 枚）を使う。ブラウザの印刷プレビューを<b>開かない</b>。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

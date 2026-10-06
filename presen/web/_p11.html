@@ -1,0 +1,141 @@
+<div class="nav" id="nav" hidden>
+  <button type="button" id="first" title="最初へ">&#8676;</button>
+  <button type="button" id="prev" title="前へ">&#9664;</button>
+  <span class="cur"><span id="curNo">01</span><em> / <span id="curAll">33</span></em></span>
+  <button type="button" id="next" title="次へ">&#9654;</button>
+  <button type="button" id="last" title="最後へ">&#8677;</button>
+  <span class="sep"></span>
+  <span class="ttl" id="curTtl">表紙</span>
+</div>
+
+<script>
+(function () {
+  var sheets = [].slice.call(document.querySelectorAll('.sheet'));
+  if (!sheets.length) return;
+
+  var nav = document.getElementById('nav');
+  var curNo = document.getElementById('curNo');
+  var curAll = document.getElementById('curAll');
+  var curTtl = document.getElementById('curTtl');
+  var stage = document.getElementById('stage');
+  var current = 0;
+  var buffer = '';
+
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  function titleOf(i) { return sheets[i].getAttribute('data-t') || ('p.' + pad(i + 1)); }
+
+  function sync() {
+    curNo.textContent = pad(current + 1);
+    curAll.textContent = sheets.length;
+    curTtl.textContent = titleOf(current);
+    if (history.replaceState) history.replaceState(null, '', '#' + (current + 1));
+  }
+
+  function goto(i, smooth) {
+    current = Math.max(0, Math.min(sheets.length - 1, i));
+    sheets[current].scrollIntoView({ behavior: smooth === false ? 'auto' : 'smooth', block: 'start' });
+    sync();
+  }
+
+  function nearest() {
+    var mid = window.innerHeight / 2, best = 0;
+    for (var i = 0; i < sheets.length; i++) {
+      if (sheets[i].getBoundingClientRect().top <= mid) best = i;
+    }
+    return best;
+  }
+
+  function fit() {
+    var avail = document.documentElement.clientWidth - 16;
+    var w = sheets[0].getBoundingClientRect().width;
+    if (!w) return;
+    var scale = Math.min(1, avail / w);
+    if (scale < 1) {
+      stage.style.transform = 'scale(' + scale + ')';
+      stage.style.width = (w * scale) + 'px';
+      stage.style.marginLeft = 'auto';
+      stage.style.marginRight = 'auto';
+    } else {
+      stage.style.transform = '';
+      stage.style.width = '';
+      stage.style.marginLeft = '';
+      stage.style.marginRight = '';
+    }
+  }
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fit, 120);
+  });
+
+  [].slice.call(document.querySelectorAll('[data-go]')).forEach(function (el) {
+    el.addEventListener('click', function () { goto(parseInt(el.getAttribute('data-go'), 10)); });
+  });
+
+  document.getElementById('first').addEventListener('click', function () { goto(0); });
+  document.getElementById('prev').addEventListener('click', function () { goto(current - 1); });
+  document.getElementById('next').addEventListener('click', function () { goto(current + 1); });
+  document.getElementById('last').addEventListener('click', function () { goto(sheets.length - 1); });
+
+  var jumpTimer = null;
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+
+    if (k >= '0' && k <= '9') {
+      buffer += k;
+      clearTimeout(jumpTimer);
+      jumpTimer = setTimeout(function () {
+        var n = parseInt(buffer, 10);
+        buffer = '';
+        if (n >= 1 && n <= sheets.length) goto(n - 1);
+      }, 600);
+      return;
+    }
+
+    switch (k) {
+      case 'ArrowRight': case 'PageDown': case ' ': case 'Enter':
+        e.preventDefault(); goto(current + 1); break;
+      case 'ArrowLeft': case 'PageUp': case 'Backspace':
+        e.preventDefault(); goto(current - 1); break;
+      case 'Home':
+        e.preventDefault(); goto(0); break;
+      case 'End':
+        e.preventDefault(); goto(sheets.length - 1); break;
+      case 'p': case 'P':
+        e.preventDefault(); window.print(); break;
+      default: break;
+    }
+  });
+
+  var scrollTimer = null;
+  window.addEventListener('scroll', function () {
+    if (scrollTimer) return;
+    scrollTimer = setTimeout(function () {
+      scrollTimer = null;
+      var n = nearest();
+      if (n !== current) { current = n; sync(); }
+    }, 80);
+  });
+
+  nav.hidden = false;
+  fit();
+
+  var hash = parseInt((location.hash || '').replace('#', ''), 10);
+  if (hash >= 1 && hash <= sheets.length) {
+    current = hash - 1;
+    setTimeout(function () {
+      sheets[current].scrollIntoView({ block: 'start' });
+      sync();
+    }, 30);
+  } else {
+    sync();
+  }
+})();
+</script>
+</div>
+</div>
+</body>
+</html>

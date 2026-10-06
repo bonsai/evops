@@ -1,0 +1,308 @@
+<!-- ============ 02 プログラム 1 ============ -->
+<section class="sheet cat-deliver" data-t="プログラム 構成">
+  <div class="hd">
+    <span class="hd-kicker">納品物 4 — プログラム</span>
+    <h2 class="hd-title">プログラムの構成とディレクトリ<small>1 ファイル 1 クラス。main.py は例外。</small></h2>
+    <span class="hd-no">21</span>
+  </div>
+  <div class="body">
+    <div class="cols c-64">
+      <div class="card">
+        <div class="card-h">ファイル構成</div>
+        <pre><span class="cm"># kyoyu/python/総合演習(卒業制作)/&lt;各自&gt;/</span>
+├── <span class="kw">main.py</span>                    <span class="cm"># エントリポイント（起動のみ）</span>
+├── <span class="st">domain/</span>
+│   ├── <span class="st">__init__.py</span>
+│   ├── <span class="kw">record.py</span>              <span class="cm"># 《entity》台帳項目</span>
+│   ├── <span class="kw">ledger.py</span>             <span class="cm"># 《entity》台帳（集合）</span>
+│   └── <span class="kw">user.py</span>               <span class="cm"># 《entity》利用者情報</span>
+├── <span class="st">service/</span>
+│   ├── <span class="st">__init__.py</span>
+│   ├── <span class="kw">record_service.py</span>     <span class="cm"># 《control》登録／検索</span>
+│   └── <span class="kw">user_service.py</span>       <span class="cm"># 《control》ログイン</span>
+├── <span class="st">repository/</span>
+│   ├── <span class="st">__init__.py</span>
+│   ├── <span class="kw">base.py</span>               <span class="cm"># «interface» Repository</span>
+│   ├── <span class="kw">json_repository.py</span>    <span class="cm"># JSON での実装</span>
+│   └── <span class="kw">memory_repository.py</span>  <span class="cm"># メモリ実装（テスト用）</span>
+├── <span class="st">ui/</span>
+│   ├── <span class="st">__init__.py</span>
+│   ├── <span class="kw">main_window.py</span>        <span class="cm"># 《boundary》Tk 画面</span>
+│   └── <span class="kw">message.py</span>            <span class="cm"># 《boundary》通知</span>
+├── <span class="st">tests/</span>
+│   ├── <span class="st">__init__.py</span>
+│   └── <span class="kw">test_record.py</span>        <span class="cm"># unittest</span>
+├── <span class="st">figures/</span>                 <span class="cm"># UML 図の原本</span>
+├── <span class="kw">config.json</span>               <span class="cm"># 設定（DB パスなど）</span>
+└── <span class="kw">README.md</span></pre>
+      </div>
+
+      <div class="stack">
+        <div class="card soft">
+          <div class="card-h">main.py の責務</div>
+          <pre><span class="kw">from</span> ui.main_window <span class="kw">import</span> MainWindow
+
+<span class="kw">def</span> <span class="st">main</span>() -> <span class="kw">None</span>:
+    root = <span class="st">MainWindow</span>()
+    root.mainloop()
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    main()</pre>
+          <p style="margin-top:2mm"><small>ロジックを一切書かない。起動と終了だけ。</small></p>
+        </div>
+        <div class="card soft">
+          <div class="card-h">命名規則</div>
+          <table>
+            <tr><th style="width:34mm">対象</th><th>規則</th></tr>
+            <tr><td>モジュール・関数・変数</td><td><code>snake_case</code></td></tr>
+            <tr><td>クラス</td><td><code>PascalCase</code></td></tr>
+            <tr><td>定数</td><td><code>UPPER_SNAKE</code></td></tr>
+            <tr><td>非公開メンバ</td><td><code>_name</code></td></tr>
+            <tr><td>.boilerplate</td><td>コメント・空行-GFP を意識</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:4mm">
+      <b>Pep8 と GFP：</b>主語と動詞を全ての関数で明確にする。<code>record.add()</code> は GFP、<code>process(data)</code> は GFP でない。
+      関数名は<b>動詞</b>を主語より前に置く。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 プログラム 2 ============ -->
+<section class="sheet cat-deliver" data-t="プログラム 主要部">
+  <div class="hd">
+    <span class="hd-kicker">納品物 4 — プログラム</span>
+    <h2 class="hd-title">主要クラスとテスト<small>全文は掲載しない。設計図に対応する主要部だけ貼る。</small></h2>
+    <span class="hd-no">22</span>
+  </div>
+  <div class="body">
+    <div class="cols c-2">
+      <div class="card">
+        <div class="card-h"><span class="no">a</span>domain/record.py — 《entity》</div>
+        <pre><span class="kw">from</span> dataclasses <span class="kw">import</span> dataclass
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime
+
+<span class="st">@dataclass</span>
+<span class="kw">class</span> <span class="st">Record</span>:
+    <span class="cm">"""台帳の 1 項目を表すエンティティ。"""</span>
+    _id: <span class="kw">int</span>
+    _name: <span class="kw">str</span>
+    _updated: datetime
+
+    <span class="kw">def</span> <span class="st">__post_init__</span>(self) -> <span class="kw">None</span>:
+        self._updated = datetime.now()
+
+    <span class="kw">@property</span>
+    <span class="kw">def</span> <span class="st">name</span>(self) -&gt; <span class="kw">str</span>:
+        <span class="kw">return</span> self._name
+
+    <span class="kw">@name.setter</span>
+    <span class="kw">def</span> <span class="st">name</span>(self, value: <span class="kw">str</span>) -&gt; <span class="kw">None</span>:
+        <span class="kw">if</span> <span class="kw">not</span> value.strip():
+            <span class="kw">raise</span> <span class="st">ValueError</span>(<span class="st">"名称は必須です"</span>)
+        self._name = value</pre>
+      </div>
+      <div class="card">
+        <div class="card-h"><span class="no">b</span>service/record_service.py — 《control》</div>
+        <pre><span class="kw">from</span> domain.record <span class="kw">import</span> Record
+<span class="kw">from</span> repository.base <span class="kw">import</span> RecordRepository
+
+<span class="kw">class</span> <span class="st">RecordService</span>:
+    <span class="cm">"""登録・検索のユースケースを実行する。"""</span>
+    <span class="kw">def</span> <span class="st">__init__</span>(self, repo: RecordRepository) -&gt; <span class="kw">None</span>:
+        self._repo = repo
+
+    <span class="kw">def</span> <span class="st">register</span>(self, name: <span class="kw">str</span>) -&gt; Record:
+        record = Record(_id=self._repo.next_id(), _name=name)
+        self._repo.save(record)
+        <span class="kw">return</span> record
+
+    <span class="kw">def</span> <span class="st">search</span>(self, keyword: <span class="kw">str</span>) -&gt; <span class="kw">list</span>[Record]:
+        records = self._repo.all()
+        <span class="kw">return</span> [r <span class="kw">for</span> r <span class="kw">in</span> records
+                <span class="kw">if</span> keyword <span class="kw">in</span> r.name]</pre>
+      </div>
+    </div>
+
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card">
+        <div class="card-h"><span class="no">c</span>tests/test_record.py — テスト</div>
+        <pre><span class="kw">import</span> unittest
+<span class="kw">from</span> domain.record <span class="kw">import</span> Record
+
+<span class="kw">class</span> <span class="st">TestRecord</span>(unittest.TestCase):
+    <span class="kw">def</span> <span class="st">test_name_is_required</span>(self):
+        <span class="kw">with</span> self.assertRaises(ValueError):
+            Record(_id=1, _name=<span class="st">"  "</span>)
+
+    <span class="kw">def</span> <span class="st">test_name_can_be_set</span>(self):
+        r = Record(_id=1, _name=<span class="st">"初期"</span>)
+        r.name = <span class="st">"変更後"</span>
+        self.assertEqual(r.name, <span class="st">"変更後"</span>)
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    unittest.main()</pre>
+        <p style="margin-top:2mm"><small>実行：<code>python -m unittest discover -s tests -v</code></small></p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">設計との対応関係</div>
+        <table>
+          <tr><th style="width:40mm">図（p.19–20）</th><th>実装</th></tr>
+          <tr><td>«interface» ○○Repository</td><td>repository/base.py</td></tr>
+          <tr><td>Record — 属性・操作</td><td>domain/record.py</td></tr>
+          <tr><td>○○制御 — 登録／検索</td><td>service/record_service.py</td></tr>
+          <tr><td>MainWindow — on_submit</td><td>ui/main_window.py</td></tr>
+          <tr><td>メッセージ 5 : 入力受付</td><td>MainWindow._on_submit</td></tr>
+        </table>
+        <p style="margin-top:2.4mm"><small><b>発表では：</b>「設計図のどのクラスをどのファイルに書いたか」を 1 枚で説明できるようにしておく。</small></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 操作マニュアル ============ -->
+<section class="sheet cat-deliver" data-t="操作マニュアル">
+  <div class="hd">
+    <span class="hd-kicker">納品物 5 — 操作マニュアル</span>
+    <h2 class="hd-title">操作マニュアル<small>「このソフトを知らない人向け」に書く。</small></h2>
+    <span class="hd-no">23</span>
+  </div>
+  <div class="body">
+    <div class="cols c-73">
+      <div class="stack">
+        <div class="card">
+          <div class="card-h">1. 動作環境</div>
+          <table>
+            <tr><th style="width:28mm">項目</th><th>内容</th></tr>
+            <tr><td>OS</td><td><span class="fill"></span>（Windows 11 / Ubuntu 24.04 など）</td></tr>
+            <tr><td>Python</td><td><span class="fill"></span>（例 3.12.x）</td></tr>
+            <tr><td>ライブラリ</td><td><span class="fill l"></span>（標準のみなら「標準ライブラリのみ」）</td></tr>
+            <tr><td>その他</td><td><span class="fill l"></span></td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-h">2. 起動方法</div>
+          <pre><span class="cm"># 1) リポジトリの配置</span>
+<span class="st">cd</span> ~/kyoyu/python/総合演習\(卒業制作\)/&lt;各自&gt;
+
+<span class="cm"># 2) 仮想環境（任意）</span>
+python -m venv .venv
+<span class="st">source</span> .venv/bin/activate   <span class="cm"># Windows: .venv\Scripts\activate</span>
+
+<span class="cm"># 3) 起動</span>
+python main.py</pre>
+        </div>
+        <div class="card">
+          <div class="card-h">3. 操作手順</div>
+          <ol>
+            <li>「<span class="fill" style="min-width:34mm"></span>」を開始する。<span class="fill"></span>）を選択する。</li>
+            <li>項目に <span class="fill"></span> を入力し「登録」ボタンを押す。</li>
+            <li>一覧に反映されたことを確認する。</li>
+            <li>「<span class="fill" style="min-width:30mm"></span>」で絞り込み表示する。</li>
+            <li>終了はウィンドウの×ボタン（データは自動的に保存される）。</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="card soft">
+          <div class="card-h">4. 画面の説明</div>
+          <table>
+            <tr><th>要素</th><th>説明</th></tr>
+            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
+            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
+            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
+          </table>
+          <p style="margin-top:2.2mm"><small>説明文は「〜できる」の形で。操作以外の説明は書かない。</small></p>
+        </div>
+        <div class="card soft">
+          <div class="card-h">5. エラー対処</div>
+          <table>
+            <tr><th style="width:34mm">症状</th><th>対処</th></tr>
+            <tr><td>ModuleNotFoundError</td><td><code>main.py</code> と同じディレクトリで実行</td></tr>
+            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
+            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
+          </table>
+        </div>
+        <div class="note warn">
+          <b>必須：</b>「授業で自分の PC で動かす」前提で書く。ファイルパスの絶対パスは書かない。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 実行イメージ ============ -->
+<section class="sheet cat-deliver" data-t="実行イメージ">
+  <div class="hd">
+    <span class="hd-kicker">納品物 6 — 実行イメージ</span>
+    <h2 class="hd-title">実行イメージ（スクリーンショット）<small>実演で<u>必ず見せる画面</u>を先に撮っておく。</small></h2>
+    <span class="hd-no">24</span>
+  </div>
+  <div class="body">
+    <div class="cols c-2">
+      <div>
+        <div class="ph" style="height:78mm">
+          <div class="ph-tag">SHOT 1</div>
+          <div class="ph-title">メイン画面（起動直後）</div>
+          <div style="text-align:center;padding:0 20mm">
+            <div style="border:.4mm solid var(--rule);border-radius:1.2mm;background:#fff;padding:3.5mm;text-align:left;font-size:8.6pt">
+              <div style="display:flex;gap:2mm;margin-bottom:3mm"><span style="width:2.6mm;height:2.6mm;border-radius:50%;background:#e0e3e7"></span><span style="width:2.6mm;height:2.6mm;border-radius:50%;background:#e0e3e7"></span><span style="width:2.6mm;height:2.6mm;border-radius:50%;background:#e0e3e7"></span><span style="flex:1;margin-left:2mm;height:5mm;border-radius:.8mm;background:#f1f3f6"></span></div>
+              <div style="border-bottom:.4mm solid var(--accent);padding-bottom:1.6mm;margin-bottom:2.4mm;font-weight:800;color:var(--accent)">○○システム</div>
+              <div style="display:flex;gap:3mm">
+                <div style="flex:1;border-right:.3mm solid var(--rule2);padding-right:3mm"><div style="font-size:7.6pt;color:var(--ink3);margin-bottom:1.4mm">検索</div><div style="border:.3mm solid var(--rule);border-radius:.8mm;height:6mm"></div></div>
+                <div style="flex:1.4"><div style="font-size:7.6pt;color:var(--ink3);margin-bottom:1.4mm">一覧</div><div style="border:.3mm dashed var(--rule);border-radius:.8mm;height:38mm"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ph-cap">図 6-1　メイン画面　／　説明：<span class="fill l" style="min-width:60mm"></span></div>
+      </div>
+      <div>
+        <div class="ph" style="height:78mm">
+          <div class="ph-tag">SHOT 2</div>
+          <div class="ph-title">操作結果（登録後・実演の核）</div>
+          <div style="text-align:center;padding:0 20mm">
+            <div style="border:.4mm solid var(--rule);border-radius:1.2mm;background:#fff;padding:3.5mm;text-align:left;font-size:8.6pt">
+              <div style="display:flex;gap:2mm;margin-bottom:3mm"><span style="width:2.6mm;height:2.6mm;border-radius:50%;background:#e0e3e7"></span><span style="width:2.6mm;height:2.6mm;border-radius:50%;background:#e0e3e7"></span><span style="width:2.6mm;height:2.6mm;border-radius:50%;background:#e0e3e7"></span><span style="flex:1;margin-left:2mm;height:5mm;border-radius:.8mm;background:#f1f3f6"></span></div>
+              <div style="border-bottom:.4mm solid var(--accent);padding-bottom:1.6mm;margin-bottom:2.4mm;font-weight:800;color:var(--accent)">登録結果</div>
+              <div style="background:var(--accent-bg);border-left:.9mm solid var(--accent);padding:2.2mm;margin-bottom:2.4mm;font-size:7.8pt">「<span class="fill" style="min-width:26mm"></span>」を登録しました</div>
+              <div style="border:.3mm dashed var(--rule);border-radius:.8mm;height:42mm;display:flex;align-items:center;justify-content:center;font-size:7.6pt;color:var(--ink3)">一覧表示</div>
+            </div>
+          </div>
+        </div>
+        <div class="ph-cap">図 6-2　操作結果　／　説明：<span class="fill l" style="min-width:60mm"></span></div>
+      </div>
+    </div>
+
+    <div class="cols c-3" style="margin-top:4mm">
+      <div class="card soft">
+        <div class="card-h">撮影の条件</div>
+        <ul>
+          <li>実演で使うデータ<b>入り</b>の状態（空画面は不可）</li>
+          <li>ウィンドウサイズは 1280×800 程度に統一</li>
+          <li>通知バー・時計など personally を切る</li>
+          <li>ファイル名は <code>01_main.png</code> の連番</li>
+        </ul>
+      </div>
+      <div class="card soft">
+        <div class="card-h">枚数の目安</div>
+        <ul>
+          <li>最低 3 枚（起動／操作中／結果）</li>
+          <li>エラー画面の 1 枚も入れると印象が良い</li>
+          <li>本文には <code>figures/</code> から読む</li>
+        </ul>
+      </div>
+      <div class="card soft">
+        <div class="card-h">発表での繋げ方</div>
+        <p>「まず起動します」（SHOT 1 を指す）→「操作します」→「結果です」（SHOT 2）。<b>指差し</b>を言葉にしてから指を動かしながら進める。</p>
+      </div>
+    </div>
+    <div class="note" style="margin-top:3.4mm">
+      <b>注意：</b>スクリーンショットには<b>他人の氏名や実データ</b>を入れない。ダミー化する。
+    </div>
+  </div>
+</section>

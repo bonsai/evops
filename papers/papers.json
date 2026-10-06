@@ -1,0 +1,106 @@
+{
+  "title": "SSSS Papers",
+  "research_question": "LMS/VLMを共通評価器として使い、評価結果をDBへ蓄積し、MLによる改善へ接続できるか。",
+  "theme1_category": "評価Ontology・VLM 評価",
+  "theme2_category": "3D 生成・VLM 評価の基礎",
+  "papers": [
+    {
+      "id": 1,
+      "title": "VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Models",
+      "venue": "ICML 2026",
+      "year": 2026,
+      "short": "Text-to-motion と生成動画の意味一致を VLM で評価",
+      "body": "Text-to-motion と生成動画の意味的一致を Video Language Model で評価する研究。Animation Intent → Render → VLM 評価の主要参考。",
+      "relevance": "評価 Ontology 設計、VLM 評価器の構成の参考。",
+      "categories": ["evaluation", "v lm"]
+    },
+    {
+      "id": 2,
+      "title": "EvalCrafter: Benchmarking and Evaluating Large Video Generation Models",
+      "venue": "CVPR 2024",
+      "year": 2024,
+      "short": "動画生成モデルを多軸で評価するベンチマーク",
+      "body": "Visual Quality、Motion、Text-Video Alignment、Temporal Consistency など複数軸で動画生成を評価する。評価 Ontology 設計の主要参考。",
+      "relevance": "多軸評価軸の設計（semantic / motion / temporal / composition）。",
+      "categories": ["evaluation", "benchmark"]
+    },
+    {
+      "id": 3,
+      "title": "VideoScore: Building Automatic Metrics to Simulate Fine-grained Human Feedback for Video Generation",
+      "venue": "EMNLP 2024",
+      "year": 2024,
+      "short": "細粒度な人間評価を自動評価へ変換",
+      "body": "細粒度な人間評価を自動評価へ変換する研究。評価器を生成改善への Feedback source として扱う設計に対応。",
+      "relevance": "VLM 評価を生成改善のフィードバックへ接続する設計の根拠。",
+      "categories": ["evaluation", "feedback"]
+    },
+    {
+      "id": 4,
+      "title": "VisualPrompter",
+      "venue": "ICLR 2026",
+      "year": 2026,
+      "short": "視覚的評価から不足概念を発見・プロンプト改善へ接続",
+      "body": "視覚的評価から不足概念を発見し、プロンプト改善へ接続する方向の研究。VLM 出力を failure / repair instruction として保存する設計に対応。",
+      "relevance": "failure 記述 → repair instruction の変換設計。",
+      "categories": ["evaluation", "prompt-improvement"]
+    },
+    {
+      "id": 5,
+      "title": "3D Human Animation Quality Assessment: Subjective and Objective Evaluation",
+      "venue": "IEEE TVCG 2026",
+      "year": 2026,
+      "short": "3D アニメーションの主観・客観評価と品質予測",
+      "body": "3D アニメーションの主観・客観評価と品質予測を扱う。VLM、Python 測定、人間検証を分離する設計の参考。",
+      "relevance": "3D 生成物評価の主観・客観・自動測定の分離設計。",
+      "categories": ["evaluation", "3d", "quality-assessment"]
+    },
+    {
+      "id": 6,
+      "title": "DreamFusion: Text-to-3D using 3D Diffusion",
+      "venue": "CVPR 2023",
+      "year": 2023,
+      "short": "Score Distillation Sampling でテキストから 3D 造型を最適化",
+      "body": "Text-to-3D の金字塔。Score Distillation Sampling でテキストから 3D 造型を最適化。テーマ 2 の「テキスト → bpy」生成の先例。",
+      "relevance": "テキスト → 3D 生成パイプラインの先例。",
+      "categories": ["3d", "generation"]
+    },
+    {
+      "id": 7,
+      "title": "Point-E: A System for Generating 3D Point Clouds from Textual Descriptions",
+      "venue": "ICCV 2023",
+      "year": 2023,
+      "short": "Text-to-3D の高速生成パイプライン",
+      "body": "Text-to-3D の高速生成パイプライン。生成→評価ループの高速化の先例。",
+      "relevance": "生成→評価ループの高速化先例。",
+      "categories": ["3d", "generation", "fast"]
+    },
+    {
+      "id": 8,
+      "title": "Magic3D: High-Resolution Text-to-3D Content Creation",
+      "venue": "CVPR 2024",
+      "year": 2024,
+      "short": "多段階生成→upscale で高解像度化",
+      "body": "Text-to-3D の高解像度化。多段階生成→upscale の設計。",
+      "relevance": "多段階生成設計の参考。",
+      "categories": ["3d", "generation", "high-resolution"]
+    },
+    {
+      "id": 9,
+      "title": "What matters when building vision-language models? (Idefics2)",
+      "venue": "arXiv 2024",
+      "year": 2024,
+      "short": "VLM 設計の決定要因を実験的に明らかに",
+      "body": "VLM 設計の決定要因を実験的に明らかに。評価器選び（サイズ・データ）の指針。Idefics2 は 8B で大規模モデルに匹敵。",
+      "relevance": "評価器（ローカル VLM）のサイズ・選択指針。",
+      "categories": ["v lm", "foundation"]
+    }
+  ],
+  "synthesis": [
+    "動画評価は多軸化する。",
+    "VLM を semantic/perceptual evaluator として利用する。",
+    "評価を生成改善の Feedback へ接続する。",
+    "評価履歴を構造化データとして蓄積する。",
+    "蓄積履歴から ML で ranking、prediction、repair strategy を改善する。"
+  ],
+  "loop": "Generation → LMS/VLM → DB → ML → Repair → Generation の継続的な評価・学習ループ"
+}

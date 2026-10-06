@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# WSL Zone.Identifier
+*:Zone.Identifier
+
+# Embedded git repositories (handle as submodules separately)
+db/mcp-db/
+mcp/bpy/egg-shadow/
+mcp/bpy/blender-animation/
+mission/kaikaikiki-jobs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log

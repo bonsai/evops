@@ -3,62 +3,212 @@
   "title": "VLMを用いた異種アニメーション生成バックエンドの共通評価・改善ループ",
   "status": "research",
   "duration_days": 10,
-  "goal": "Blender/bpy、SVG/CSS、SD1.5を同一の評価軸で比較し、VLMを中心とした評価→失敗分析→修正→再生成ループの有効性を検証する。",
+  "goal": "Blender/bpy（テーマ2: ドラえもん）、SVG/CSS（テーマ1）、SD1.5を同一の評価軸で比較し、VLMを中心とした評価→失敗分析→修正→再生成ループ、およびbqmliteによる自動修復戦略学習の有効性を検証する。",
   "hypotheses": [
-    {"id":"H1","statement":"VLMベースの意味・知覚評価は異なる生成バックエンドで共通利用できる。"},
-    {"id":"H2","statement":"評価軸を構造化してDB化すると、実験比較と改善知識の再利用性が高まる。"},
-    {"id":"H3","statement":"VLMの失敗記述を修正指示へ変換すると、次回生成の品質改善に利用できる。"},
-    {"id":"H4","statement":"Blender/bpyやSVG/CSSの決定的バックエンドは、SD1.5より短く制御しやすい改善ループを構成できる。"}
+    {
+      "id": "H1",
+      "statement": "VLMベースの意味・知覚評価は異なる生成バックエンドで共通利用できる。"
+    },
+    {
+      "id": "H2",
+      "statement": "評価軸を構造化してDB化すると、実験比較と改善知識の再利用性が高まる。"
+    },
+    {
+      "id": "H3",
+      "statement": "VLMの失敗記述を修正指示へ変換すると、次回生成の品質改善に利用できる。"
+    },
+    {
+      "id": "H4",
+      "statement": "Blender/bpyやSVG/CSSの決定的バックエンドは、SD1.5より短く制御しやすい改善ループを構成できる。"
+    }
   ],
-  "common_loop": ["intent","generate","render","evaluate","failure_analysis","repair","regenerate"],
+  "common_loop": [
+    "intent",
+    "generate",
+    "render",
+    "evaluate",
+    "failure_analysis",
+    "repair",
+    "regenerate"
+  ],
   "backends": [
-    {"id":"blender","technology":"Blender/bpy","role":"main","reason":"決定的・編集可能・3Dアニメーションに適する"},
-    {"id":"svg_css","technology":"SVG/CSS","role":"baseline","reason":"高速な2Dアニメーション評価環境"},
-    {"id":"sd15","technology":"Stable Diffusion 1.5","role":"baseline","reason":"生成AI系との比較。速度と時間的一貫性を測定"}
+    {
+      "id": "blender",
+      "technology": "Blender/bpy",
+      "role": "main",
+      "reason": "決定的・編集可能・3Dアニメーションに適する"
+    },
+    {
+      "id": "svg_css",
+      "technology": "SVG/CSS",
+      "role": "baseline",
+      "reason": "高速な2Dアニメーション評価環境"
+    },
+    {
+      "id": "sd15",
+      "technology": "Stable Diffusion 1.5",
+      "role": "baseline",
+      "reason": "生成AI系との比較。速度と時間的一貫性を測定"
+    }
   ],
   "evaluation_axes": [
-    {"id":"semantic","name":"Semantic Alignment","method":"VLM","direction":"higher_better"},
-    {"id":"motion","name":"Motion Quality","method":"VLM+Python","direction":"higher_better"},
-    {"id":"temporal","name":"Temporal Consistency","method":"VLM+Python","direction":"higher_better"},
-    {"id":"character","name":"Character Consistency","method":"VLM","direction":"higher_better"},
-    {"id":"composition","name":"Composition","method":"VLM","direction":"higher_better"},
-    {"id":"visual_quality","name":"Visual Quality","method":"VLM","direction":"higher_better"},
-    {"id":"artifact","name":"Artifact","method":"VLM+Python","direction":"lower_better"}
+    {
+      "id": "semantic",
+      "name": "Semantic Alignment",
+      "method": "VLM",
+      "direction": "higher_better"
+    },
+    {
+      "id": "motion",
+      "name": "Motion Quality",
+      "method": "VLM+Python",
+      "direction": "higher_better"
+    },
+    {
+      "id": "temporal",
+      "name": "Temporal Consistency",
+      "method": "VLM+Python",
+      "direction": "higher_better"
+    },
+    {
+      "id": "character",
+      "name": "Character Consistency",
+      "method": "VLM",
+      "direction": "higher_better"
+    },
+    {
+      "id": "composition",
+      "name": "Composition",
+      "method": "VLM",
+      "direction": "higher_better"
+    },
+    {
+      "id": "visual_quality",
+      "name": "Visual Quality",
+      "method": "VLM",
+      "direction": "higher_better"
+    },
+    {
+      "id": "artifact",
+      "name": "Artifact",
+      "method": "VLM+Python",
+      "direction": "lower_better"
+    }
   ],
   "architecture": {
-    "python":"評価、画像/動画解析、DB、研究用ライブラリ、プロトタイピング",
-    "mcp":"Blender等の外部ツール操作インターフェース",
-    "skill":"評価知識・制作知識・修正知識の再利用可能な手順",
-    "rust":"実測された画像/動画処理ボトルネックがある場合のみ導入",
-    "vlm":"意味・知覚・失敗理由・修正指示の評価者"
+    "python": "評価、画像/動画解析、DB、研究用ライブラリ、プロトタイピング",
+    "mcp": "Blender等の外部ツール操作インターフェース",
+    "skill": "評価知識・制作知識・修正知識の再利用可能な手順",
+    "rust": "実測された画像/動画処理ボトルネックがある場合のみ導入",
+    "vlm": "意味・知覚・失敗理由・修正指示の評価者",
+    "bqmlite": "評価履歴からの学習（bpy 改造項 x VLM スコア）"
   },
   "days": [
-    {"day":1,"theme":"文献・評価軸","deliverable":"papers.md と evaluation axes の初版"},
-    {"day":2,"theme":"評価DB","deliverable":"JSONL schema と実験記録の初版"},
-    {"day":3,"theme":"VLM evaluator","deliverable":"JSON出力を強制する評価prompt"},
-    {"day":4,"theme":"SVG/CSS baseline","deliverable":"高速2D生成・レンダリング・評価"},
-    {"day":5,"theme":"Blender/bpy baseline","deliverable":"基本キャラクターと歩行等の生成・評価"},
-    {"day":6,"theme":"Blender MCP","deliverable":"MCP経由の生成・再生成ループ"},
-    {"day":7,"theme":"SD1.5 baseline","deliverable":"生成時間・品質・一貫性の比較データ"},
-    {"day":8,"theme":"repair loop","deliverable":"VLM failure → repair instruction → regenerate"},
-    {"day":9,"theme":"cross-backend experiment","deliverable":"同一Intentによる3バックエンド比較"},
-    {"day":10,"theme":"分析・公開","deliverable":"HTML dashboard と研究結果まとめ"}
+    {
+      "day": 1,
+      "theme": "文献・評価軸",
+      "deliverable": "papers.md と evaluation axes の初版"
+    },
+    {
+      "day": 2,
+      "theme": "評価DB",
+      "deliverable": "JSONL schema と実験記録の初版"
+    },
+    {
+      "day": 3,
+      "theme": "VLM evaluator",
+      "deliverable": "JSON出力を強制する評価prompt"
+    },
+    {
+      "day": 4,
+      "theme": "SVG/CSS baseline",
+      "deliverable": "高速2D生成・レンダリング・評価"
+    },
+    {
+      "day": 5,
+      "theme": "Blender/bpy baseline",
+      "deliverable": "基本キャラクターと歩行等の生成・評価"
+    },
+    {
+      "day": 6,
+      "theme": "Blender MCP",
+      "deliverable": "MCP経由の生成・再生成ループ"
+    },
+    {
+      "day": 7,
+      "theme": "bqmlite MCP / LangGraph repair loop",
+      "deliverable": "bqmlite MCP 公開と LangGraph による修復ループ実装"
+    },
+    {
+      "day": 8,
+      "theme": "repair loop",
+      "deliverable": "VLM failure → repair instruction → regenerate"
+    },
+    {
+      "day": 9,
+      "theme": "cross-backend + bqmlite learning",
+      "deliverable": "matplotlib/pandas/plotly/PyVista ダッシュボード"
+    },
+    {
+      "day": 10,
+      "theme": "分析・公開",
+      "deliverable": "HTML dashboard と研究結果まとめ"
+    }
   ],
   "primary_experiment": {
-    "intent_id":"character_walk_001",
-    "subject":"simple cartoon robot",
-    "action":"walk left to right",
-    "scene":"simple studio",
-    "camera":"medium shot, static",
-    "duration_seconds":3,
-    "style":"cartoon"
+    "intent_id": "character_walk_001",
+    "subject": "simple cartoon robot",
+    "action": "walk left to right",
+    "scene": "simple studio",
+    "camera": "medium shot, static",
+    "duration_seconds": 3,
+    "style": "cartoon"
   },
-  "deliverables": ["plan.json","plan.md","plan.html","papers.md","evaluation-axes.jsonl","experiments.jsonl","evaluations.jsonl","iterations.jsonl"],
+  "deliverables": [
+    "plan.json",
+    "plan.md",
+    "plan.html",
+    "papers.md",
+    "evaluation-axes.jsonl",
+    "experiments.jsonl",
+    "evaluations.jsonl",
+    "iterations.jsonl"
+  ],
   "success_criteria": [
     "同一Intentを3バックエンドで実行できる",
     "共通評価JSONを取得できる",
     "失敗理由から修正指示を生成できる",
     "少なくとも1回の再生成で改善差を測定できる",
     "結果をHTMLで比較表示できる"
-  ]
+  ],
+  "themes": [
+    {
+      "id": "theme1",
+      "name": "テーマ1",
+      "description": "2D 描画（SVG/CSS）。高速バメイントライン。",
+      "backend": "svg_css"
+    },
+    {
+      "id": "theme2",
+      "name": "テーマ2",
+      "description": "3D 造型（Blender/bpy）。VLM→bqmlite→自動修復ループ。起点プロンプト: ドラえもん。",
+      "backend": "blender"
+    }
+  ],
+  "learning_engine": "bqmlite (deterministic mean / linear_regression / logistic_regression, SHA-256 fingerprint)",
+  "orchestration": "LangChain 3 兄弟 (LangChain: ツール/プロンプト, LangGraph: 評価→学習→修復の循環状態機械, LangSmith: 各ターントレーシング)",
+  "mcp": {
+    "a2a": "bpy/Blender, bqmlite, LM Studio MCP サーバでレイヤー間を agent-to-agent 接続",
+    "primary": "Blender MCP",
+    "learning": "bqmlite MCP",
+    "eval": "LM Studio MCP"
+  },
+  "visualization": [
+    "matplotlib",
+    "pandas",
+    "numpy",
+    "plotly",
+    "pyvista (https://pyvista.org/) for 3D mesh"
+  ],
+  "code_diff_management": "GitHub（git）: bpy コード差分の管理・バージョン化・diff reviewer"
 }

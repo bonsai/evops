@@ -1,0 +1,473 @@
+<!-- ============ 02 セッション扉 ============ -->
+<section class="sheet divider cat-deliver" data-t="納品物 扉">
+  <div class="divider-in">
+    <div class="divider-num">PART 02 — 納品物</div>
+    <h1 class="divider-h1">納品物 6 項目</h1>
+    <p class="divider-h2">要求 → 分析 → 設計 → 実装 → マニュアル → 実行イメージ。<br>
+      10/28（水）提出分。 UML は分析与設計で 2 段階に分けて書く。</p>
+    <div class="divider-list">
+      <div><b>10</b>提出物一覧・チェックリスト</div>
+      <div><b>11</b>要求：システム境界とアクター</div>
+      <div><b>12</b>要求：ユースケース図</div>
+      <div><b>13</b>要求：ユースケース仕様 UC1</div>
+      <div><b>14</b>要求：ユースケース仕様 UC2 ほか</div>
+      <div><b>15</b>分析：ロバストネス分析</div>
+      <div><b>16</b>分析：分析クラス一覧</div>
+      <div><b>17</b>分析：シーケンス図</div>
+      <div><b>18</b>設計：パッケージ構成</div>
+      <div><b>19</b>設計：クラス図</div>
+      <div><b>20</b>設計：シーケンス図</div>
+      <div><b>21</b>プログラム：構成と実行方法</div>
+      <div><b>22</b>プログラム：主要ソースと導通テスト</div>
+      <div><b>23</b>操作マニュアル</div>
+      <div><b>24</b>実行イメージ（画面キャプチャ）</div>
+    </div>
+    <div class="divider-foot">
+      <span>総合演習（卒業制作）／ 西尾 公伸 先生</span>
+      <span>提出 2026.10.28（水）　／　p.09</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 納品物一覧 ============ -->
+<section class="sheet cat-deliver" data-t="納品物 チェックリスト">
+  <div class="hd">
+    <span class="hd-kicker">納品物</span>
+    <h2 class="hd-title">提出物一覧・チェックリスト<small>ここにチェックを入れると提出漏れがなくなる。</small></h2>
+    <span class="hd-no">10</span>
+  </div>
+  <div class="body">
+    <div class="cols c-64">
+      <div class="stack">
+        <div class="card">
+          <div class="card-h">必須 6 項目（各 A4 1 ページ以上）</div>
+          <table>
+            <tr><th style="width:10mm" class="c">#</th><th>提出物</th><th style="width:24mm" class="c">本ファイル</th><th style="width:16mm" class="c">済</th></tr>
+            <tr><td class="num c">1</td><td>要求モデル（ユースケース図 ＋ ユースケース仕様）</td><td class="c num">p.11–14</td><td class="c"><span class="fill" style="min-width:11mm"></span></td></tr>
+            <tr><td class="num c">2</td><td>分析モデル（ロバストネス図 ＋ シーケンス図）</td><td class="c num">p.15–17</td><td class="c"><span class="fill" style="min-width:11mm"></span></td></tr>
+            <tr><td class="num c">3</td><td>設計モデル（クラス図・シーケンス図）</td><td class="c num">p.18–20</td><td class="c"><span class="fill" style="min-width:11mm"></span></td></tr>
+            <tr><td class="num c">4</td><td>プログラム</td><td class="c num">p.21–22</td><td class="c"><span class="fill" style="min-width:11mm"></span></td></tr>
+            <tr><td class="num c">5</td><td>操作マニュアル（実装方法・操作方法）</td><td class="c num">p.23</td><td class="c"><span class="fill" style="min-width:11mm"></span></td></tr>
+            <tr><td class="num c">6</td><td>実行イメージ（実行画面のスクリーンショット）</td><td class="c num">p.24</td><td class="c"><span class="fill" style="min-width:11mm"></span></td></tr>
+          </table>
+        </div>
+        <div class="card soft">
+          <div class="card-h">推奨（発表で触れなければ減点）</div>
+          <ul class="check">
+            <li>検討項目 1〜5（10/02 提出分）</li>
+            <li>発表資料（発表 5 分 ＋ 実演）</li>
+            <li>スケジュールと進捗の履歴</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="card">
+          <div class="card-h">設置場所</div>
+          <pre>kyoyu/python/<span class="kw">総合演習(卒業制作)</span>/&lt;各自&gt;/
+├── <span class="kw">総合演習_&lt;氏名&gt;_&lt;システム名&gt;.html</span>
+├── <span class="st">figures/</span>   <span class="cm"># UML 図の原本（.drawio / .puml）</span>
+├── <span class="st">src/</span>       <span class="cm"># プログラム（p.21 の構成）</span>
+└── <span class="st">README.md</span>  <span class="cm"># 実行方法</span></pre>
+          <p style="margin-top:2.4mm"><small>図の原本は必ず同梱する。先生から「図の出典は？」と聞かれる。</small></p>
+        </div>
+        <div class="note warn">
+          <b>注意：</b>ファイル名が <code>index.html</code> のままだと内容が分からないので
+          <code>総合演習_&lt;氏名&gt;_&lt;システム名&gt;.html</code> にリネームして提出する。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 要求 境界とアクター ============ -->
+<section class="sheet cat-deliver" data-t="要求 境界とアクター">
+  <div class="hd">
+    <span class="hd-kicker">納品物 1 — 要求モデル</span>
+    <h2 class="hd-title">システム境界とアクター<small>境界の決め方がユースケースの質を決める。ここで迷わない。</small></h2>
+    <span class="hd-no">11</span>
+  </div>
+  <div class="body">
+    <div class="cols c-64">
+      <div class="card">
+        <div class="card-h">アクター一覧</div>
+        <table>
+          <tr><th style="width:34mm">アクター</th><th style="width:28mm">種別</th><th>目的（システムから得られる価値）</th></tr>
+          <tr><td>○○利用者</td><td>人</td><td><span class="fill l"></span></td></tr>
+          <tr><td>システム管理者</td><td>人</td><td><span class="fill l"></span></td></tr>
+          <tr><td>時刻（スケジュール）</td><td>時間</td><td><span class="fill l"></span></td></tr>
+          <tr><td>○○外部システム</td><td>外部システム</td><td><span class="fill l"></span></td></tr>
+        </table>
+        <div class="h4">アクターの留意点</div>
+        <ul>
+          <li>必ずシステムの<b>外側</b>に存在する。田中さんではなく「○○利用者」という役割で表す。</li>
+          <li>実在の人物名は<b>使わない</b>。</li>
+          <li>「時刻」がアクターになるなら ⇔ バッチ処理がある。日時指定の処理も表現する。</li>
+          <li>インストール・起動／停止・保守を担当する実体もアクター。</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="card soft">
+          <div class="card-h">境界の判断基準</div>
+          <table>
+            <tr><th style="width:38mm">問い</th><th>答え</th></tr>
+            <tr><td>誰が（何が）使うか</td><td><span class="fill"></span></td></tr>
+            <tr><td>どこで責任を切るか</td><td><span class="fill"></span></td></tr>
+            <tr><td>保存データはどこ</td><td><span class="fill"></span></td></tr>
+            <tr><td>UI は内側か外側か</td><td><span class="fill"></span></td></tr>
+          </table>
+          <p style="margin-top:2.4mm"><small><b>原則：</b>「入力値の検証」と「表示」はシステム<b>内</b>。利用者本人の手作業は<b>外</b>。</small></p>
+        </div>
+        <div class="card">
+          <div class="card-h">講義の事例（酒問屋）</div>
+          <p><small>顧客が直接注文する場合 → 境界は「注文を受ける」。<br>
+          受付係が処理する場合 → 境界は「受付処理」。Swing などで自動化するなら内側。</small></p>
+          <p style="margin-top:1.4mm">→ 自分のシステムで同じ検討を 1 度書く。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 要求 UC 図 ============ -->
+<section class="sheet cat-deliver" data-t="要求 ユースケース図">
+  <div class="hd">
+    <span class="hd-kicker">納品物 1 — 要求モデル</span>
+    <h2 class="hd-title">ユースケース図<small>&lt;&lt;include&gt;&gt; と &lt;&lt;extend&gt;&gt; を使い分ける。</small></h2>
+    <span class="hd-no">12</span>
+  </div>
+  <div class="body">
+    <div class="ph" style="height:116mm">
+      <div class="ph-tag">FIG 1-1</div>
+      <div class="ph-title">ユースケース図　／　&lt;&lt;system boundary&gt;&gt; サブジェクト名</div>
+      <svg viewBox="0 0 720 330" preserveAspectRatio="xMidYMid meet" aria-label="ユースケース図">
+        <defs>
+          <marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#5b6470"/></marker>
+        </defs>
+        <rect x="112" y="40" width="524" height="252" rx="4" fill="#fbfcfe" stroke="#9aa2ab" stroke-width="1.1"/>
+        <text class="t-st" x="122" y="60" fill="#1d4ed8">&lt;&lt;system boundary&gt;&gt; サブジェクト名</text>
+
+        <g class="actorline">
+          <circle cx="52" cy="126" r="11"/>
+          <line x1="52" y1="137" x2="52" y2="184"/>
+          <line x1="30" y1="152" x2="74" y2="152"/>
+          <line x1="52" y1="184" x2="34" y2="212"/>
+          <line x1="52" y1="184" x2="70" y2="212"/>
+        </g>
+        <text class="t-name" x="52" y="232" text-anchor="middle">利用者</text>
+        <text class="t-xs" x="52" y="247" text-anchor="middle">○○利用者</text>
+
+        <g class="actorline">
+          <circle cx="688" cy="126" r="11"/>
+          <line x1="688" y1="137" x2="688" y2="184"/>
+          <line x1="666" y1="152" x2="710" y2="152"/>
+          <line x1="688" y1="184" x2="670" y2="212"/>
+          <line x1="688" y1="184" x2="706" y2="212"/>
+        </g>
+        <text class="t-name" x="688" y="232" text-anchor="middle">時刻</text>
+        <text class="t-xs" x="688" y="247" text-anchor="middle">スケジュール</text>
+
+        <ellipse class="uc" cx="252" cy="102" rx="88" ry="26"/>
+        <text class="t-name" x="252" y="106" text-anchor="middle">① 検索する</text>
+        <ellipse class="uc" cx="494" cy="102" rx="88" ry="26"/>
+        <text class="t-name" x="494" y="106" text-anchor="middle">③ 通知する</text>
+        <ellipse class="uc" cx="252" cy="174" rx="88" ry="26"/>
+        <text class="t-name" x="252" y="178" text-anchor="middle">② 登録する</text>
+        <ellipse class="uc" cx="494" cy="174" rx="88" ry="26"/>
+        <text class="t-name" x="494" y="178" text-anchor="middle">④ 保存する</text>
+        <ellipse class="uc" cx="252" cy="246" rx="88" ry="26"/>
+        <text class="t-name" x="252" y="250" text-anchor="middle">⑤ 履歴を参照</text>
+        <ellipse class="uc" cx="494" cy="246" rx="88" ry="26"/>
+        <text class="t-name" x="494" y="250" text-anchor="middle">⑥ レポート出力</text>
+
+        <line class="ln" x1="70" y1="144" x2="176" y2="110"/>
+        <line class="ln" x1="52" y1="137" x2="180" y2="170"/>
+        <line class="ln" x1="52" y1="184" x2="176" y2="238"/>
+        <line class="ln" x1="670" y1="144" x2="574" y2="110"/>
+        <line class="ln" x1="688" y1="137" x2="570" y2="172"/>
+        <line class="ln" x1="688" y1="184" x2="570" y2="238"/>
+
+        <line x1="340" y1="108" x2="410" y2="164" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a2)"/>
+        <text class="t-st" x="350" y="126" fill="#1d4ed8">&lt;&lt;include&gt;&gt;</text>
+        <line x1="252" y1="220" x2="252" y2="202" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a2)"/>
+        <text class="t-st" x="252" y="214" fill="#1d4ed8" text-anchor="middle">&lt;&lt;extend&gt;&gt;</text>
+      </svg>
+    </div>
+    <div class="ph-cap">図 1-1　ユースケース図　／　番号はユースケース仕様（p.13–14）と 1 対 1 で対応させる</div>
+
+    <div class="cols c-3" style="margin-top:4mm">
+      <div class="card soft">
+        <div class="card-h">《include》</div>
+        <p>毎回<b>必ず</b>実行される共通処理。起点 UC から include 先へ破線矢印（依存）。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">《extend》</div>
+        <p>条件によって<b>条件付き</b>で実行。拡張元の動作から &lt;&lt;extends&gt;&gt; の破線矢印。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">命名の注意</div>
+        <p>主語は「動詞 ＋ 目的語」（例「検索する」「通知する」）。名詞・形容詞は不可。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 要求 UC 仕様 1 ============ -->
+<section class="sheet cat-deliver" data-t="要求 UC仕様 1">
+  <div class="hd">
+    <span class="hd-kicker">納品物 1 — 要求モデル</span>
+    <h2 class="hd-title">ユースケース仕様　UC1「<span class="fill"></span>」<small>主要 1 つだけ詳細に。残りは簡易表でよい。</small></h2>
+    <span class="hd-no">13</span>
+  </div>
+  <div class="body">
+    <div class="cols c-46">
+      <div class="card">
+        <div class="card-h">概要</div>
+        <table>
+          <tr><th style="width:30mm">ユースケース名</th><td><span class="fill l"></span></td></tr>
+          <tr><th>アクター</th><td><span class="fill l"></span></td></tr>
+          <tr><th>概要</th><td><span class="blank"></span><span class="blank"></span></td></tr>
+          <tr><th>前提条件</th><td><span class="blank"></span><span class="blank"></span></td></tr>
+          <tr><th>事後条件</th><td><span class="blank"></span><span class="blank"></span></td></tr>
+          <tr><th>トリガ</th><td><span class="blank"></span></td></tr>
+        </table>
+      </div>
+      <div class="card soft">
+        <div class="card-h">関連 UC・優先度</div>
+        <table>
+          <tr><th style="width:34mm">《include》</th><td><span class="fill l"></span></td></tr>
+          <tr><th>《extend》</th><td><span class="fill l"></span></td></tr>
+          <tr><th>優先度</th><td><span class="fill"></span></td></tr>
+          <tr><th>利用頻度</th><td><span class="fill"></span></td></tr>
+        </table>
+        <div class="h4">入力・出力・制約</div>
+        <ul>
+          <li>入力：<span class="fill l"></span></li>
+          <li>出力：<span class="fill l"></span></li>
+          <li>制約：<span class="fill l"></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card">
+        <div class="card-h"><span class="no">A</span>基本フロー（メインシナリオ）</div>
+        <p><small>番号は「分岐番号.内の連番」（例 4.1.2）にする。例外フローと対応させる。</small></p>
+        <p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p>
+      </div>
+      <div class="card">
+        <div class="card-h"><span class="no">B</span>代替フロー（代替シナリオ）</div>
+        <p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p>
+      </div>
+    </div>
+
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card">
+        <div class="card-h"><span class="no">C</span>例外フロー</div>
+        <p class="blank"></p><p class="blank"></p><p class="blank"></p>
+      </div>
+      <div class="card">
+        <div class="card-h"><span class="no">D</span>業務ルール・非機能要求</div>
+        <p class="blank"></p><p class="blank"></p><p class="blank"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 要求 UC 仕様 2 ============ -->
+<section class="sheet cat-deliver" data-t="要求 UC仕様 2">
+  <div class="hd">
+    <span class="hd-kicker">納品物 1 — 要求モデル</span>
+    <h2 class="hd-title">ユースケース仕様　UC2 ほか（簡易表）<small>主要 UC1 以外は 1 行ずつ。全部を詳細に書く必要はない。</small></h2>
+    <span class="hd-no">14</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h">主要ユースケース一覧（簡易仕様）</div>
+      <table>
+        <tr>
+          <th style="width:14mm">No</th><th style="width:38mm">ユースケース名</th>
+          <th style="width:28mm">アクター</th><th style="width:44mm">概要</th>
+          <th style="width:24mm">優先度</th><th>《include》／《extend》</th>
+        </tr>
+        <tr><td class="num">UC1</td><td><span class="fill"></span></td><td><span class="fill"></span></td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td class="num">UC2</td><td><span class="fill"></span></td><td><span class="fill"></span></td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td class="num">UC3</td><td><span class="fill"></span></td><td><span class="fill"></span></td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td class="num">UC4</td><td><span class="fill"></span></td><td><span class="fill"></span></td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td class="num">UC5</td><td><span class="fill"></span></td><td><span class="fill"></span></td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td class="num">UC6</td><td><span class="fill"></span></td><td><span class="fill"></span></td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+      </table>
+    </div>
+
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card soft">
+        <div class="card-h">優先度の決め方</div>
+        <table>
+          <tr><th style="width:20mm" class="c">順位</th><th>基準</th></tr>
+          <tr><td class="c">1</td><td>実演で見せる／毎日使う</td></tr>
+          <tr><td class="c">2</td><td>実演に含める／週 1 回程度</td></tr>
+          <tr><td class="c">3</td><td>月 1 回以下／余裕があれば</td></tr>
+        </table>
+        <p style="margin-top:2mm"><small>優先度 3 は Won't に入れてよい（→p.08）。</small></p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">要求の不整合チェック</div>
+        <ul class="check">
+          <li>同じことを 2 つの UC で表現していないか</li>
+          <li>UC 名（動詞）と基本フローの動詞が一致しているか</li>
+          <li>例外フローに画面のエラーメッセージがあるか</li>
+          <li>《include》は本当に共通処理か</li>
+          <li>複数の目的が 1 つの UC に詰め込まれていないか</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 分析 ロバストネス ============ -->
+<section class="sheet cat-deliver" data-t="分析 ロバストネス">
+  <div class="hd">
+    <span class="hd-kicker">納品物 2 — 分析モデル</span>
+    <h2 class="hd-title">ロバストネス分析（ロバストネス図）<small>3 種類の分析クラス：バウンダリ／コントロール／エンティティ。</small></h2>
+    <span class="hd-no">15</span>
+  </div>
+  <div class="body">
+    <div class="ph" style="height:106mm">
+      <div class="ph-tag">FIG 2-1</div>
+      <div class="ph-title">ロバストネス図　／　UC1「<span class="fill" style="min-width:18mm"></span>」の実現</div>
+      <svg viewBox="0 0 720 290" preserveAspectRatio="xMidYMid meet" aria-label="ロバストネス図">
+        <defs>
+          <marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#5b6470"/></marker>
+          <marker id="a3o" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto"><path d="M0 1 L10 5.5 L0 10 z" fill="#fff" stroke="#5b6470" stroke-width="1"/></marker>
+        </defs>
+
+        <g transform="translate(486,8)">
+          <rect class="box-bnd" x="0" y="0" width="60" height="14" rx="2"/>
+          <text class="t-xs" x="66" y="10.5">&lt;&lt;boundary&gt;&gt;</text>
+          <rect class="box-ctl" x="0" y="20" width="60" height="14" rx="2"/>
+          <text class="t-xs" x="66" y="30.5">&lt;&lt;control&gt;&gt;</text>
+          <rect class="box-ent" x="0" y="40" width="60" height="14" rx="2"/>
+          <text class="t-xs" x="66" y="50.5">&lt;&lt;entity&gt;&gt;</text>
+        </g>
+
+        <g class="actorline">
+          <circle cx="46" cy="140" r="11"/>
+          <line x1="46" y1="151" x2="46" y2="196"/>
+          <line x1="24" y1="166" x2="68" y2="166"/>
+          <line x1="46" y1="196" x2="28" y2="222"/>
+          <line x1="46" y1="196" x2="64" y2="222"/>
+        </g>
+        <text class="t-name" x="46" y="240" text-anchor="middle">利用者</text>
+
+        <rect class="box-bnd" x="118" y="30" width="150" height="26" rx="3"/>
+        <text class="t-st" x="124" y="47" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
+        <text class="t-name" x="262" y="47" text-anchor="end">開始メニュー</text>
+        <rect class="box-bnd" x="118" y="128" width="150" height="26" rx="3"/>
+        <text class="t-st" x="124" y="145" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
+        <text class="t-name" x="262" y="145" text-anchor="end">メッセージ表示</text>
+        <rect class="box-bnd" x="118" y="226" width="150" height="26" rx="3"/>
+        <text class="t-st" x="124" y="243" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
+        <text class="t-name" x="262" y="243" text-anchor="end">入力デバイス</text>
+
+        <rect class="box-ctl" x="334" y="128" width="158" height="26" rx="3"/>
+        <text class="t-st" x="340" y="145" fill="#b5811f">&lt;&lt;control&gt;&gt;</text>
+        <text class="t-name" x="486" y="145" text-anchor="end">○○制御</text>
+
+        <rect class="box-ent" x="558" y="30" width="146" height="26" rx="3"/>
+        <text class="t-st" x="564" y="47" fill="#5b83c4">&lt;&lt;entity&gt;&gt;</text>
+        <text class="t-name" x="698" y="47" text-anchor="end">利用者情報</text>
+        <rect class="box-ent" x="558" y="128" width="146" height="26" rx="3"/>
+        <text class="t-st" x="564" y="145" fill="#5b83c4">&lt;&lt;entity&gt;&gt;</text>
+        <text class="t-name" x="698" y="145" text-anchor="end">○○台帳</text>
+        <rect class="box-ent" x="558" y="226" width="146" height="26" rx="3"/>
+        <text class="t-st" x="564" y="243" fill="#5b83c4">&lt;&lt;entity&gt;&gt;</text>
+        <text class="t-name" x="698" y="243" text-anchor="end">履歴</text>
+
+        <line x1="66" y1="158" x2="116" y2="158" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
+        <line x1="268" y1="43" x2="332" y2="128" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
+        <text class="t-xs" x="288" y="80">処理開始</text>
+        <line x1="268" y1="141" x2="332" y2="141" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
+        <line x1="268" y1="239" x2="332" y2="154" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
+        <text class="t-xs" x="286" y="208">入力</text>
+        <line x1="492" y1="136" x2="556" y2="136" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
+        <text class="t-xs" x="524" y="127" text-anchor="middle">参照</text>
+        <line x1="492" y1="150" x2="556" y2="232" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
+        <text class="t-xs" x="516" y="200" text-anchor="middle">更新</text>
+        <line x1="631" y1="56" x2="631" y2="126" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a3o)"/>
+        <text class="t-xs" x="638" y="94">取得</text>
+        <line x1="334" y1="147" x2="270" y2="147" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a3o)"/>
+        <text class="t-xs" x="302" y="163" text-anchor="middle">結果</text>
+      </svg>
+    </div>
+    <div class="ph-cap">図 2-1　ロバストネス図　／　凡例：緑＝バウンダリ、黄＝コントロール、青＝エンティティ</div>
+
+    <div class="cols c-3" style="margin-top:4mm">
+      <div class="card soft">
+        <div class="card-h">《boundary》バウンダリ</div>
+        <p>アクターとの接点。ユーザー IF／システム IF／デバイス IF の 3 種。画面やフォームの抽象化。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">《control》コントロール</div>
+        <p>複数のクラスをまたぐ動作を調整する。UC 開始で生成、終了で破棄される。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">《entity》エンティティ</div>
+        <p>永続性のある情報。複数の UC で共有される。get／set のみが基本。</p>
+      </div>
+    </div>
+    <div class="note" style="margin-top:4mm">
+      <b>通信ルール：</b>アクター⇔バウンダリのみ／バウンダリ⇔コントロール／エンティティ⇔コントロールのみ。
+      エンティティ同士が直接通信するのは禁止。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 分析 クラス一覧 ============ -->
+<section class="sheet cat-deliver" data-t="分析 クラス一覧">
+  <div class="hd">
+    <span class="hd-kicker">納品物 2 — 分析モデル</span>
+    <h2 class="hd-title">分析クラス一覧とコミュニケーション図<small>各手法の結果を統合して、単一の UML モデルにまとめる。</small></h2>
+    <span class="hd-no">16</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h">分析クラス一覧（名詞／動詞分析法・CRC 分析・ロバストネス分析を統合）</div>
+      <table>
+        <tr>
+          <th style="width:18mm">区分</th><th style="width:38mm">クラス名</th>
+          <th style="width:42mm">責務</th><th style="width:42mm">主な属性</th><th>他クラスとの関連</th>
+        </tr>
+        <tr><td><b>境界</b></td><td>開始メニュー</td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td><b>境界</b></td><td>入力デバイス</td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td><b>境界</b></td><td>メッセージ表示</td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td><b>制御</b></td><td>○○制御</td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td><b>エンティティ</b></td><td>利用者情報</td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td><b>エンティティ</b></td><td>○○台帳</td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td><b>エンティティ</b></td><td>履歴</td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        <tr><td colspan="5" style="background:#fff"><span class="blank"></span></td></tr>
+      </table>
+      <p style="margin-top:2mm"><small><b>統合手順：</b>① 各手法の結果を並べる → ② 同義語・類語を解決して統一 → ③ 手法ごとの差異から不十分な箇所を特定 → ④ CRC のコラボレータに関連を設定 → ⑤ 名称を命名規則に合わせる。</small></p>
+    </div>
+
+    <div class="cols c-46" style="margin-top:4mm">
+      <div class="card soft">
+        <div class="card-h">用語のゆれチェック</div>
+        <table>
+          <tr><th>使い分けている言葉</th><th>統一後</th></tr>
+          <tr><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+          <tr><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+          <tr><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
+        </table>
+      </div>
+      <div class="card soft">
+        <div class="card-h">他の抽出手法から漏れたクラス</div>
+        <ul>
+          <li><b>物理的な存在</b>（機器・建物・人）</li>
+          <li><b>書類</b>（請求書・伝票・台帳）</li>
+          <li><b>既存のインタフェース</b>（画面・周辺機器・外部システム）</li>
+          <li><b>概念的な実体</b>（ポイント制度・権限など）</li>
+        </ul>
+        <p><small>上記観点で見つかったクラス：<span class="fill l"></span></small></p>
+      </div>
+    </div>
+  </div>
+</section>
