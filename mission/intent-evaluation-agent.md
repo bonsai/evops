@@ -5,6 +5,41 @@
 > 自然言語のプロンプト調整ではなく、**人間が何を高く評価するか**を推定し、  
 > そのインテント（意図）に合わせて評価基準を試行錯誤するエージェントを設計する。
 
+## 全体像
+
+```mermaid
+flowchart TB
+    subgraph H[人間]
+        H1[採点 & コメント]
+    end
+
+    subgraph A[IntentEvaluationAgent]
+        I[Intent Estimator<br/>人間の価値関数を推定]
+        C[Criteria Generator<br/>評価基準を生成]
+        E[Evaluator<br/>生成物を採点]
+        M[Meta-Optimizer<br/>基準を最適化]
+    end
+
+    subgraph G[生成側]
+        P[Generator]
+        O[生成物]
+    end
+
+    P --> O
+    O --> E
+    E --> H1
+    H1 --> I
+    I --> C
+    C --> E
+    H1 --> M
+    E --> M
+    M --> I
+
+    style H fill:#ffe6e6
+    style A fill:#e6f3ff
+    style G fill:#e6ffe6
+```
+
 ## なぜインテント推定か
 
 - 自然言語での「良くなれ」は曖昧で、同じ言葉でも人によって期待が違う。
@@ -21,15 +56,27 @@
 
 ## エージェント構成
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                    IntentEvaluationAgent                    │
-├─────────────┬─────────────┬─────────────┬───────────────────┤
-│   Intent    │  Criteria   │  Evaluator  │   Meta-Optimizer  │
-│  Estimator  │  Generator  │             │                   │
-├─────────────┴─────────────┴─────────────┴───────────────────┤
-│                       Human-in-the-Loop                      │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph Agent[IntentEvaluationAgent]
+        direction TB
+        I[Intent Estimator]
+        C[Criteria Generator]
+        E[Evaluator]
+        M[Meta-Optimizer]
+    end
+
+    H[人間] -->|採点・コメント| I
+    I -->|インテントベクトル| C
+    C -->|評価基準| E
+    E -->|スコア| H
+    H -->|人間スコア| M
+    E -->|エージェントスコア| M
+    M -->|基準更新| I
+    M -->|重み調整| C
+
+    style H fill:#ffe6e6
+    style Agent fill:#e6f3ff
 ```
 
 ### 1. Intent Estimator（インテント推定器）
@@ -108,29 +155,24 @@ maximize  corr(人間スコア, エージェント総合スコア)
 
 ## LangGraph ワークフロー
 
-```text
-[開始]
-  │
-  ▼
-[Intent Estimator] ←────────────────────────┐
-  │                                          │
-  ▼                                          │
-[Criteria Generator]                         │
-  │                                          │
-  ▼                                          │
-[Human Approval] ──否──► [基準修正] ──────────┤
-  │是                                        │
-  ▼                                          │
-[Evaluator]                                  │
-  │                                          │
-  ▼                                          │
-[Generator Agent] ──► [生成物]               │
-  │                                          │
-  ▼                                          │
-[Human Scoring]                              │
-  │                                          │
-  ▼                                          │
-[Meta-Optimizer] ──► インテント・基準更新 ───┘
+```mermaid
+flowchart TB
+    Start([開始]) --> IE[Intent Estimator]
+    IE --> CG[Criteria Generator]
+    CG --> HA{人間承認}
+    HA -- 否 --> CM[基準修正] --> CG
+    HA -- 是 --> EV[Evaluator]
+    EV --> GA[Generator Agent]
+    GA --> GI[生成物]
+    GI --> HS[人間採点]
+    HS --> MO[Meta-Optimizer]
+    MO --> UP[インテント・基準更新]
+    UP --> IE
+
+    style Start fill:#f0f0f0
+    style HA fill:#fff4e6
+    style HS fill:#ffe6e6
+    style MO fill:#e6f3ff
 ```
 
 ## 状態管理（LangGraph State）
@@ -147,6 +189,32 @@ class EvaluationState(TypedDict):
     iteration: int
 ```
 
+## 自然言語 vs インテント推定
+
+```mermaid
+flowchart LR
+    subgraph NL[自然言語中心]
+        direction TB
+        W1["『もっとかわいく』"]
+        W2["プロンプト微修正"]
+        W3["曖昧な解釈"]
+    end
+
+    subgraph IN[インテント中心]
+        direction TB
+        V1["人間の採点履歴"]
+        V2["インテントベクトル推定"]
+        V3["かわいい = 丸み + 彩度高め + シンプル"]
+        V4["測定可能な基準へ変換"]
+    end
+
+    W1 --> W2 --> W3
+    V1 --> V2 --> V3 --> V4
+
+    style NL fill:#fff4f4
+    style IN fill:#f4fff4
+```
+
 ## 自然言語よりインテントにフォーカスする理由
 
 | 自然言語中心 | インテント中心 |
@@ -158,7 +226,39 @@ class EvaluationState(TypedDict):
 
 ## 人間の高得点を引き出す戦略
 
-1. **探索と活用のバランス**
+```mermaid
+flowchart TB
+    subgraph EXP[探索]
+        E1[多様な基準を試す]
+        E2[予期しない嗜好を発見]
+    end
+
+    subgraph EXP2[活用]
+        U1[高得点方向を深掘り]
+        U2[基準を絞り込む]
+    end
+
+    subgraph NEG[負の例活用]
+        N1[低得点作品を分析]
+        N2[避けるべき属性を学習]
+    end
+
+    subgraph REL[相対評価]
+        R1[A vs B どちらが良い？]
+        R2[Bradley-Terry モデル]
+    end
+
+    EXP --> EXP2
+    NEG --> EXP
+    REL --> EXP
+
+    style EXP fill:#e6f3ff
+    style EXP2 fill:#e6ffe6
+    style NEG fill:#ffe6e6
+    style REL fill:#fff4e6
+```
+
+1. **探索と活用のバランス"
    - 初期は多様な基準を試す（探索）
    - 人間スコアが高い方向を深掘り（活用）
 
