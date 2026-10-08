@@ -1,0 +1,1 @@
+.paper-flow{stroke:#7c3aed;stroke-width:5;stroke-dasharray:12 10;animation:paperDash 2s linear infinite}.paper-node{fill:#f3e8ff;stroke:#7c3aed;stroke-width:3;animation:paperPulse 2.4s ease-in-out infinite}@keyframes paperDash{to{stroke-dashoffset:-44}}@keyframes paperPulse{50%{opacity:.7;transform:scale(1.04)}}
