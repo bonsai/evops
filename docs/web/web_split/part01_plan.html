@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>総合演習 卒業制作 — 提出一式 &amp; 発表資料（A4横）</title>
+<style>
+@page { size: A4 landscape; margin: 0; }
+
+:root{
+  --pw:297mm; --ph:210mm;
+  --ink:#16191d; --ink2:#464d55; --ink3:#7b838c;
+  --rule:#d5dae0; --rule2:#eceef1;
+  --paper:#fff; --screen:#23262b;
+  --f-ja:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Meiryo",system-ui,sans-serif;
+  --f-la:"Inter","Helvetica Neue","Segoe UI",Roboto,system-ui,sans-serif;
+  --f-mono:"SFMono-Regular","Cascadia Mono","Consolas","Roboto Mono",ui-monospace,monospace;
+  --c-plan:#b45309;    --c-plan-bg:#fdf5ea;
+  --c-deliver:#1d4ed8; --c-deliver-bg:#eef3fe;
+  --c-present:#047857; --c-present-bg:#e9faf3;
+  --c-app:#4b5563;     --c-app-bg:#f3f4f6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--screen)}
+body{font-family:var(--f-la),var(--f-ja);color:var(--ink);-webkit-font-smoothing:antialiased}
+.stage{transform-origin:top center}
+.stage-inner{padding:10mm 0 18mm}
+
+.sheet{
+  position:relative;width:var(--pw);height:var(--ph);background:var(--paper);
+  overflow:hidden;margin:0 auto;box-shadow:0 6px 28px rgba(0,0,0,.45);
+  padding:13mm 15mm 12mm;display:flex;flex-direction:column;
+  font-size:10.3pt;line-height:1.74;
+  --accent:var(--c-app); --accent-bg:var(--c-app-bg);
+}
+.sheet+.sheet{margin-top:8mm}
+.sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:2.2mm;background:var(--accent)}
+.sheet.cat-plan{--accent:var(--c-plan);--accent-bg:var(--c-plan-bg)}
+.sheet.cat-deliver{--accent:var(--c-deliver);--accent-bg:var(--c-deliver-bg)}
+.sheet.cat-present{--accent:var(--c-present);--accent-bg:var(--c-present-bg)}
+.sheet.cat-app{--accent:var(--c-app);--accent-bg:var(--c-app-bg)}
+
+.hd{display:flex;align-items:flex-end;gap:6mm;padding-bottom:2.2mm;
+    border-bottom:.4mm solid var(--rule);flex:0 0 auto}
+.hd-kicker{font-size:8.2pt;font-weight:800;letter-spacing:.13em;color:var(--accent);
+  background:var(--accent-bg);padding:1mm 2.8mm;border-radius:1mm;white-space:nowrap}
+.hd-title{font-size:15.5pt;font-weight:800;letter-spacing:.01em;line-height:1.28;flex:1 1 auto;margin:0}
+.hd-title small{display:block;font-size:9pt;font-weight:500;color:var(--ink3);margin-top:.9mm;letter-spacing:.02em}
+.hd-no{font-family:var(--f-mono);font-size:9pt;color:var(--ink3);white-space:nowrap}
+.body{flex:1 1 auto;padding-top:4.4mm;min-height:0}
+
+.sheet.cover{padding:0}
+.cover-in{height:100%;display:flex;flex-direction:column;justify-content:center;
+  padding:0 24mm;position:relative}
+.cover-in::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14mm;background:var(--accent)}
+.cover-label{font-size:9.5pt;letter-spacing:.28em;color:var(--accent);font-weight:800;margin-bottom:6mm}
+.cover-h1{font-size:30pt;font-weight:800;line-height:1.3;margin:0 0 6mm}
+.cover-h2{font-size:12.5pt;font-weight:500;color:var(--ink2);line-height:1.75;margin:0 0 15mm}
+.cover-meta{display:flex;gap:11mm;border-top:.4mm solid var(--rule);padding-top:6mm;font-size:10pt}
+.cover-meta>div{min-width:32mm}
+.cover-meta .k{font-size:8pt;letter-spacing:.14em;color:var(--ink3);display:block;margin-bottom:1.4mm}
+.cover-meta .v{font-weight:700}
+.cover-foot{position:absolute;left:24mm;right:24mm;bottom:11mm;font-size:8.2pt;color:var(--ink3);
+  border-top:.3mm solid var(--rule2);padding-top:3mm;display:flex;justify-content:space-between}
+
+.cols{display:grid;gap:5mm}
+.c-2{grid-template-columns:1fr 1fr}
+.c-3{grid-template-columns:1fr 1fr 1fr}
+.c-64{grid-template-columns:6fr 4fr}
+.c-46{grid-template-columns:4fr 6fr}
+.c-73{grid-template-columns:7fr 3fr}
+.stack>*+*{margin-top:4mm}
+
+.card{border:.35mm solid var(--rule);border-radius:1.2mm;padding:3.4mm 4mm;background:#fff}
+.card.soft{background:#fbfcfd}
+.card-h{font-size:9.3pt;font-weight:800;letter-spacing:.04em;color:var(--accent);
+  display:flex;align-items:center;gap:2.2mm;margin-bottom:2.4mm}
+.card-h .no{font-family:var(--f-mono);font-size:7.8pt;background:var(--accent);color:#fff;
+  border-radius:1mm;padding:.5mm 1.7mm;letter-spacing:0}
+
+.h4{font-size:9.1pt;font-weight:800;color:var(--ink2);margin:3mm 0 1.3mm}
+.h4:first-child{margin-top:0}
+p{margin:0 0 2.3mm}
+p:last-child{margin-bottom:0}
+ul,ol{margin:0 0 2.3mm;padding-left:5mm}
+li{margin-bottom:1mm}
+ul:last-child,ol:last-child{margin-bottom:0}
+small{font-size:8.5pt;color:var(--ink3)}
+.lead{font-size:10.6pt;line-height:1.85}
+
+.fill{display:inline-block;min-width:22mm;border-bottom:.35mm solid var(--ink3);height:1.1em}
+.fill.l{min-width:52mm}
+.fill.xl{min-width:92mm}
+.blank{display:block;border-bottom:.3mm dashed var(--rule);height:6.6mm;margin-top:1.6mm}
+.blank.tall{height:11mm}
+
+.ph{border:.4mm dashed var(--rule);border-radius:1.2mm;background:#fcfdfe;position:relative;
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph>svg{width:100%;height:100%;display:block}
+.ph-cap{font-size:8.1pt;color:var(--ink3);text-align:center;margin-top:1.6mm}
+.ph-tag{position:absolute;top:1.5mm;right:2mm;font-family:var(--f-mono);font-size:7.3pt;
+  color:var(--ink3);background:#fff;border:.3mm solid var(--rule);border-radius:1mm;padding:.3mm 1.3mm}
+.ph-title{position:absolute;top:1.4mm;left:2mm;font-size:7.9pt;font-weight:800;color:var(--ink2)}
+
+table{width:100%;border-collapse:collapse;font-size:9.1pt}
+th,td{border:.3mm solid var(--rule);padding:1.6mm 2.1mm;vertical-align:top;text-align:left}
+th{background:var(--accent-bg);color:var(--accent);font-weight:800;font-size:8.7pt;letter-spacing:.03em}
+td.c,th.c{text-align:center}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.must td{background:#fff8f2}
+
+pre{margin:0;padding:2.8mm 3.2mm;background:#11151a;color:#dde4ea;border-radius:1.2mm;
+  font-family:var(--f-mono);font-size:8.2pt;line-height:1.58;white-space:pre;overflow:hidden}
+pre .cm{color:#78838f}
+pre .kw{color:#8fb8ff}
+pre .st{color:#9ad39a}
+code{font-family:var(--f-mono);font-size:8.7pt;background:#f1f3f6;padding:.2mm .8mm;border-radius:.6mm}
+
+.note{border-left:.9mm solid var(--accent);background:var(--accent-bg);
+  padding:2.6mm 3.2mm;font-size:9.1pt;border-radius:0 1mm 1mm 0}
+.note b{color:var(--accent)}
+.note.warn{border-left-color:#b91c1c;background:#fdf2f2}
+.note.warn b{color:#b91c1c}
+
+.check{list-style:none;padding:0;margin:0}
+.check li{display:flex;gap:2.5mm;align-items:flex-start;margin-bottom:1.7mm}
+.check li::before{content:"";flex:0 0 auto;width:3.8mm;height:3.8mm;margin-top:1.6mm;
+  border:.35mm solid var(--ink3);border-radius:.6mm;background:#fff}
+
+.kv{display:grid;grid-template-columns:auto 1fr;gap:1.3mm 4mm;font-size:9.1pt;align-items:baseline}
+.kv dt{font-weight:800;color:var(--ink2);white-space:nowrap}
+.kv dd{margin:0}
+
+.flow{display:flex}
+.flow .step{flex:1;border:.35mm solid var(--rule);border-radius:1mm;padding:2.2mm 2.4mm;
+  font-size:8.7pt;text-align:center;position:relative}
+.flow .step+.step{margin-left:3.2mm}
+.flow .step+.step::before{content:"\203A";position:absolute;left:-3.1mm;top:50%;
+  transform:translateY(-50%);color:var(--ink3);font-size:11pt}
+.flow .step b{display:block;font-size:7.9pt;color:var(--accent);margin-bottom:.5mm}
+
+.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm 6mm}
+.toc-sec{border-top:.9mm solid var(--accent);padding-top:2.4mm}
+.toc-sec h4{margin:0 0 2.2mm;font-size:10.4pt;font-weight:800;color:var(--accent);letter-spacing:.03em}
+.toc-sec .dl{font-family:var(--f-mono);font-size:8pt;color:var(--ink3);margin-left:1.6mm;font-weight:400}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li{display:flex;gap:2.2mm;align-items:baseline;margin-bottom:1.4mm;font-size:8.8pt;cursor:pointer}
+.toc li:hover{color:var(--accent)}
+.toc li .pg{font-family:var(--f-mono);font-size:7.9pt;color:var(--ink3);min-width:9mm;text-align:right}
+.toc li .txt{flex:1}
+
+svg text{font-family:var(--f-la),var(--f-ja);fill:var(--ink)}
+svg .t-name{font-size:11px}
+svg .t-ttl{font-size:12px;font-weight:800}
+svg .t-sm{font-size:9.5px;fill:#464d55}
+svg .t-xs{font-size:8.4px;fill:#7b838c}
+svg .t-st{font-size:8.8px;font-style:italic}
+svg .box-pkg{fill:#f6f6f8;stroke:#8b9198;stroke-width:1.1}
+svg .box-ent{fill:#f2f6fe;stroke:#5b83c4;stroke-width:1.1}
+svg .box-ctl{fill:#fff7ea;stroke:#c08a2e;stroke-width:1.1}
+svg .box-bnd{fill:#f1faf5;stroke:#4f9c78;stroke-width:1.1}
+svg .uc{fill:#fff;stroke:#1d4ed8;stroke-width:1.25}
+svg .lifeh{fill:#e9edf2;stroke:#6f767e;stroke-width:1.1}
+svg .lifeline{stroke:#6f767e;stroke-width:1.05;stroke-dasharray:4 3}
+svg .actorline{stroke:#6f767e;stroke-width:1.3;fill:none}
+svg .ln{stroke:#6f767e;stroke-width:1.1;fill:none}
+
+.sheet.divider{padding:0}
+.divider-in{height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 24mm;position:relative}
+.divider-in::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14mm;background:var(--accent)}
+.divider-num{font-family:var(--f-mono);font-size:10pt;letter-spacing:.3em;color:var(--accent);font-weight:800;margin-bottom:5mm}
+.divider-h1{font-size:26pt;font-weight:800;line-height:1.32;margin:0 0 5mm}
+.divider-h2{font-size:11pt;font-weight:500;color:var(--ink2);line-height:1.8;margin:0 0 12mm}
+.divider-list{border-top:.4mm solid var(--rule);padding-top:5mm;font-size:9.4pt;columns:2;column-gap:10mm}
+.divider-list div{margin-bottom:1.6mm;break-inside:avoid}
+.divider-list b{color:var(--accent);font-family:var(--f-mono);font-size:8.6pt;margin-right:2mm}
+.divider-foot{position:absolute;left:24mm;right:24mm;bottom:11mm;font-size:8.2pt;color:var(--ink3);
+  border-top:.3mm solid var(--rule2);padding-top:3mm;display:flex;justify-content:space-between}
+
+.nav{position:fixed;left:50%;bottom:5mm;transform:translateX(-50%);
+  display:flex;align-items:center;gap:1.6mm;
+  background:rgba(20,22,26,.92);border:1px solid rgba(255,255,255,.14);
+  border-radius:999px;padding:1.5mm 2.2mm;z-index:50;
+  color:#e8ecf1;box-shadow:0 6px 20px rgba(0,0,0,.45)}
+.nav button{all:unset;cursor:pointer;padding:1.1mm 2.6mm;border-radius:999px;color:#cfd6de;font-size:11px}
+.nav button:hover{background:rgba(255,255,255,.14);color:#fff}
+.nav .cur{font-family:var(--f-mono);font-size:11px;padding:0 1.6mm;min-width:22mm;
+  text-align:center;color:#fff;font-variant-numeric:tabular-nums}
+.nav .cur em{color:#7f8b98;font-style:normal}
+.nav .sep{width:1px;height:14px;background:rgba(255,255,255,.16)}
+.nav .ttl{font-size:10.4px;padding:0 1mm;color:#9aa5b1;max-width:40mm;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+@media print{
+  html,body{background:#fff!important}
+  .nav{display:none!important}
+  .stage{transform:none!important}
+  .stage-inner{padding:0!important}
+  .sheet{box-shadow:none!important;margin:0!important;break-after:page;page-break-after:always}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+<div class="stage-inner" id="sheets">
+
+<!-- ============ 00 表紙 ============ -->
+<section class="sheet cover cat-plan" data-t="表紙">
+  <div class="cover-in">
+    <div class="cover-label">総合演習（卒業制作）</div>
+    <h1 class="cover-h1"><span class="fill xl">AI評価・修復ループ<br>生成画像で作品をつくるアーティストが<br>思い通りの画像を作れないという課題を解決する</span></h1>
+    <p class="cover-h2">提出一式（検討項目／要求・分析・設計モデル／プログラム／操作マニュアル）<br>と発表資料を 1 冊にまとめた、提出・発表ドキュメント。</p>
+    <div class="cover-meta">
+      <div><span class="k">PRESENTED BY</span><span class="v"><span class="fill">bons</span>（<span class="fill">AI画像生成クリエイター</span>）</span></div>
+      <div><span class="k">CLASS / NO</span><span class="v"><span class="fill">—</span></span></div>
+      <div><span class="k">INSTRUCTOR</span><span class="v">西尾 公伸 先生</span></div>
+      <div><span class="k">SUBMITTED</span><span class="v">2026.10.28</span></div>
+      <div><span class="k">PRESENTED</span><span class="v">2026.10.29</span></div>
+    </div>
+    <div class="cover-foot">
+      <span>A4 横・全 33 ページ／ウェブ発表と印刷提出を兼用</span>
+      <span>印刷：Ctrl / ⌘ + P　→　向き「横」・倍率 100%・余白「なし」　／　p.01</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 00 目次 ============ -->
+<section class="sheet cat-app" data-t="目次">
+  <div class="hd">
+    <span class="hd-kicker">TOC</span>
+    <h2 class="hd-title">目次<small>画面上ではクリックでジャンプ。印刷すると 1 枚だけの目次になる。</small></h2>
+    <span class="hd-no">02</span>
+  </div>
+  <div class="body">
+    <div class="toc">
+      <div class="toc-sec" style="--accent:var(--c-plan)">
+        <h4>検討項目<span class="dl">10/02 Fri</span></h4>
+        <ol>
+          <li data-go="3"><span class="pg">04</span><span class="txt">何を作るか？</span></li>
+          <li data-go="4"><span class="pg">05</span><span class="txt">どんな効果があるか（何を解決するか）</span></li>
+          <li data-go="5"><span class="pg">06</span><span class="txt">Java か、Python か？</span></li>
+          <li data-go="6"><span class="pg">07</span><span class="txt">システムの全体像（自然語＋図）</span></li>
+          <li data-go="7"><span class="pg">08</span><span class="txt">開発対象（部分）機能・構造とスケジュール</span></li>
+        </ol>
+      </div>
+      <div class="toc-sec" style="--accent:var(--c-deliver)">
+        <h4>納品物<span class="dl">10/28 Wed</span></h4>
+        <ol>
+          <li data-go="9"><span class="pg">10</span><span class="txt">提出物一覧・チェックリスト</span></li>
+          <li data-go="10"><span class="pg">11</span><span class="txt">要求モデル：システム境界とアクター</span></li>
+          <li data-go="11"><span class="pg">12</span><span class="txt">要求モデル：ユースケース図</span></li>
+          <li data-go="12"><span class="pg">13</span><span class="txt">要求モデル：ユースケース仕様 UC1</span></li>
+          <li data-go="13"><span class="pg">14</span><span class="txt">要求モデル：ユースケース仕様 UC2 ほか</span></li>
+          <li data-go="14"><span class="pg">15</span><span class="txt">分析モデル：ロバストネス分析</span></li>
+          <li data-go="15"><span class="pg">16</span><span class="txt">分析モデル：分析クラス一覧</span></li>
+          <li data-go="16"><span class="pg">17</span><span class="txt">分析モデル：シーケンス図</span></li>
+          <li data-go="17"><span class="pg">18</span><span class="txt">設計モデル：パッケージ構成</span></li>
+          <li data-go="18"><span class="pg">19</span><span class="txt">設計モデル：クラス図</span></li>
+          <li data-go="19"><span class="pg">20</span><span class="txt">設計モデル：シーケンス図</span></li>
+          <li data-go="20"><span class="pg">21</span><span class="txt">プログラム：構成と実行方法</span></li>
+          <li data-go="21"><span class="pg">22</span><span class="txt">プログラム：主要ソースと導通テスト</span></li>
+          <li data-go="22"><span class="pg">23</span><span class="txt">操作マニュアル</span></li>
+          <li data-go="23"><span class="pg">24</span><span class="txt">実行イメージ（画面キャプチャ）</span></li>
+        </ol>
+      </div>
+      <div class="toc-sec" style="--accent:var(--c-present)">
+        <h4>発表資料<span class="dl">10/29 Thu</span></h4>
+        <ol>
+          <li data-go="25"><span class="pg">26</span><span class="txt">発表カバー（氏名・システム名）</span></li>
+          <li data-go="26"><span class="pg">27</span><span class="txt">システムの簡単な説明</span></li>
+          <li data-go="27"><span class="pg">28</span><span class="txt">問題意識</span></li>
+          <li data-go="28"><span class="pg">29</span><span class="txt">機能説明（ユースケース）</span></li>
+          <li data-go="29"><span class="pg">30</span><span class="txt">構造の説明（設計モデル）</span></li>
+          <li data-go="30"><span class="pg">31</span><span class="txt">実演</span></li>
+          <li data-go="31"><span class="pg">32</span><span class="txt">全体スケジュールと振り返り</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="cols c-73" style="margin-top:6mm">
+      <div class="card soft">
+        <div class="card-h"><span class="no">運用</span>このファイルの使いどころ</div>
+        <ul class="check">
+          <li>ページ内の点線の部分を埋めるだけで本文が完成する。</li>
+          <li>図はすべて SVG のスケルトン。draw.io などで描き直して差し替える。</li>
+          <li>発表は「発表資料」節（p.26–32）だけを使えば 5 分に収まる。</li>
+          <li>実演は p.31 の操作手順と p.24 の画面キャプチャを一致させる。</li>
+        </ul>
+      </div>
+      <div class="card soft">
+        <div class="card-h"><span class="no">印刷</span>Brother HL-2380DW の設定</div>
+        <dl class="kv">
+          <dt>用紙</dt><dd>A4 横</dd>
+          <dt>倍率</dt><dd>100%（拡大縮小しない）</dd>
+          <dt>余白</dt><dd>なし（余白は本文側に内包）</dd>
+          <dt>両面</dt><dd>長辺綴じ</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 セッション扉 ============ -->
+<section class="sheet divider cat-plan" data-t="検討項目 扉">
+  <div class="divider-in">
+    <div class="divider-num">PART 01 — 検討項目</div>
+    <h1 class="divider-h1">検討項目 1–5</h1>
+    <p class="divider-h2">「何を作るか」から「何をどこまで作るか」まで。<br>
+      10/02（金）提出分。この 5 枚が、以後のすべての設計の前提になる。</p>
+    <div class="divider-list">
+      <div><b>04</b>検討 1　何を作るか？</div>
+      <div><b>05</b>検討 2　どんな効果があるか（何を解決するか）</div>
+      <div><b>06</b>検討 3　Java か、Python か？</div>
+      <div><b>07</b>検討 4　システムの全体像（自然語＋図）</div>
+      <div><b>08</b>検討 5　開発対象（部分）機能・構造とスケジュール</div>
+    </div>
+    <div class="divider-foot">
+      <span>総合演習（卒業制作）／ 西尾 公伸 先生</span>
+      <span>提出 2026.10.02（金）　／　p.03</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 検討 1 ============ -->
+<section class="sheet cat-plan" data-t="検討1 何を作るか">
+  <div class="hd">
+    <span class="hd-kicker">検討項目 1 / 10</span>
+    <h2 class="hd-title">何を作るか？<small>1 文で言い切る。ぼかすと全部が湧かなくなる。</small></h2>
+    <span class="hd-no">04</span>
+  </div>
+  <div class="body">
+<div class="cols c-64">
+      <div class="stack">
+        <div class="card">
+          <div class="card-h"><span class="no">回答</span>1 文で</div>
+          <p class="lead" style="font-weight:800">「<span class="fill xl">生成画像で作品をつくるアーティストが思い通りの画像を作れないという課題を解決する</span>を、<span class="fill l">AI画像生成クリエイター</span>が使う <span class="fill l">AI評価・修復ループシステム</span>を作る。</p>
+          <p class="blank"></p><p class="blank"></p>
+        </div>
+        <div class="card soft">
+          <div class="card-h">書き方の注意</div>
+          <ul>
+            <li>「<b>誰の</b>」「<b>何に困っているか</b>」「<b>何をするか</b>」の 3 点。</li>
+            <li>技術ではなく <b>目的</b> を書く。Python であることはここでは書かない（→p.06）。</li>
+            <li>副題を付けるなら「○○を○○するシステム」の形。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="card">
+          <div class="card-h">対象を 4 行で</div>
+          <table>
+            <tr><th style="width:30mm">対象ユーザー</th><td><span class="fill">AI画像生成クリエイター</span></td></tr>
+            <tr><th>解決したい課題</th><td><span class="fill">生成画像が意図通りにならない、試行錯誤が大きい</span></td></tr>
+            <tr><th>提供する機能</th><td><span class="fill">VLM評価×修復ループで自動最適化</span></td></tr>
+            <tr><th>先行事例</th><td><span class="fill">ComfyUI / SDXL / DALL-E / Midjourney</span></td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-h">背景データ・根拠</div>
+          <p>画像生成の品質はプロンプトの質に直結し、試行回数 × GPUコストが課題。VLM による自動評価で人間のフィードバック量を削減。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 検討 2 ============ -->
+<section class="sheet cat-plan" data-t="検討2 効果">
+  <div class="hd">
+    <span class="hd-kicker">検討項目 2 / 10</span>
+    <h2 class="hd-title">どういう効果を持っているか（どんな問題を解決するか）？<small>Before / After で書くと説得力が出る。</small></h2>
+    <span class="hd-no">05</span>
+  </div>
+  <div class="body">
+    <div class="cols c-2">
+      <div class="card">
+        <div class="card-h"><span class="no">BEFORE</span>現状の問題</div>
+<table>
+            <tr><th style="width:44mm">項目</th><th style="width:24mm">現状</th><th>件数／時間</th></tr>
+            <tr><td><span class="fill">プロンプト試行回数</span></td><td class="c"><span class="fill" style="min-width:12mm">50〜200回／案</span></td><td><span class="fill">数時間〜数日</span></td></tr>
+            <tr><td><span class="fill">GPU利用コスト</span></td><td class="c"><span class="fill" style="min-width:12mm">$0.1〜$0.5/画像</span></td><td><span class="fill">数百ドル／案</span></td></tr>
+            <tr><td><span class="fill">継ぎ落とし</span></td><td class="c"><span class="fill" style="min-width:12mm">20〜40%</span></td><td><span class="fill">リトライ回数増加</span></td></tr>
+          </table>
+          <p class="blank tall"></p>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="no">AFTER</span>このシステムを入れると</div>
+          <table>
+            <tr><th style="width:44mm">項目</th><th style="width:24mm">改善後</th><th>短縮率</th></tr>
+            <tr><td><span class="fill">プロンプト試行回数</span></td><td class="c"><span class="fill" style="min-width:12mm">5〜10回/案</span></td><td><span class="fill">80%削減</span></td></tr>
+            <tr><td><span class="fill">GPU利用コスト</span></td><td class="c"><span class="fill" style="min-width:12mm">$0.01〜$0.05/画像</span></td><td><span class="fill">90%削減</span></td></tr>
+            <tr><td><span class="fill">継ぎ落とし</span></td><td class="c"><span class="fill" style="min-width:12mm">5〜10%</span></td><td><span class="fill">75%改善</span></td></tr>
+          </table>
+          <p class="blank tall"></p>
+        </div>
+    </div>
+
+    <div class="cols c-3" style="margin-top:5mm">
+      <div class="card soft">
+        <div class="card-h">① 工数・時間の削減</div>
+        <p>プロンプト試行を 50→5 回に削減。1 案あたり数時間→30 分で完了。</p>
+        <p>VLM 自動評価で人間の判断待ち時間を排除。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">② 誤り・抜けの防止</div>
+        <p>構造化された修復指示で「プロンプトに書き忘れ」を防止。</p>
+        <p>評価軸（構造/スタイル/品質/意図一致）のチェックリスト化。</p>
+      </div>
+      <div class="card soft">
+        <div class="card-h">③ 見える化・共有</div>
+        <p>生成履歴・評価スコア・修復内容を DB に蓄積し、チームで再利用。</p>
+        <p>ダッシュボードで「どのプロンプトが成功したか」を可視化。</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:5mm">
+      <b>チェック：</b>「どんな問題を解決するか」が 1 文で言えないなら、対象ユーザーが広すぎる可能性がある。
+      <span class="fill" style="min-width:36mm">特定のジャンル</span> に絞れるか検討し、難しければ検討項目 1 に戻る。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 検討 3 ============ -->
+<section class="sheet cat-plan" data-t="検討3 Python">
+  <div class="hd">
+    <span class="hd-kicker">検討項目 3 / 10</span>
+    <h2 class="hd-title">Java か、Python か？<small>言語は手段。採用理由と不採用理由の両方を書く。</small></h2>
+    <span class="hd-no">06</span>
+  </div>
+  <div class="body">
+    <div class="cols c-64">
+      <div class="card">
+        <div class="card-h"><span class="no">結論</span>採用言語</div>
+        <p class="lead" style="font-weight:800"><u style="text-decoration-color:var(--accent);text-underline-offset:2mm;text-decoration-thickness:.7mm;">Python 3.13</u> を採用する。</p>
+        <div class="h4">採用理由</div>
+        <ul>
+          <li>bpy ネイティブで Blender と統合できる。</li>
+          <li>MCP server 群（db / evaluator / blender-bpy）が Python で実装済み。</li>
+          <li>VLM クライアント・FastMCP が PyPI で利用可能。</li>
+          <li>SVG 生成・シーケンス描画に標準ライブラリ（svgwrite）が使える。</li>
+        </ul>
+        <div class="h4">Java を採用しなかった理由</div>
+        <ul>
+          <li>bpy のメインベースが Python。JNI 経由だと遅延が高い。</li>
+          <li>VLM クライアント・ML ライブラリ（scikit-learn / sentence-transformers）が Python 環境で完結。</li>
+          <li>1 人の開発スピードを優先し、言語統一で構成を簡潔にする。</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="card soft">
+          <div class="card-h">比較表</div>
+          <table>
+            <tr><th>観点</th><th class="c">Python</th><th class="c">Java</th></tr>
+            <tr><td>開発速度</td><td class="c">◎</td><td class="c">△</td></tr>
+            <tr><td>GUI／画像処理</td><td class="c">◎</td><td class="c">△</td></tr>
+            <tr><td>静的解析</td><td class="c">△</td><td class="c">◎</td></tr>
+            <tr><td>学習コスト</td><td class="c">低</td><td class="c">中</td></tr>
+            <tr><td>実行性能（本件）</td><td class="c">十分</td><td class="c">十分</td></tr>
+            <tr><td colspan="3" style="background:#fff"><span class="blank"></span></td></tr>
+          </table>
+        </div>
+        <div class="note">
+          <b>書き方：</b>「Java が劣る」ではなく「本件の要求に対しては Python の方が適している」と書く。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 検討 4 ============ -->
+<section class="sheet cat-plan" data-t="検討4 全体像">
+  <div class="hd">
+    <span class="hd-kicker">検討項目 4 / 10</span>
+    <h2 class="hd-title">システムの全体像（自然語＋図）<small>外部システム・ハードウェアとの入出力まで含める。</small></h2>
+    <span class="hd-no">07</span>
+  </div>
+  <div class="body">
+    <div class="cols c-64">
+<div class="card">
+          <div class="card-h"><span class="no">自然語</span>4 段落</div>
+        <p>本システムは <span class="fill l">AI評価・修復ループ</span> である。主要な利用者は <span class="fill l">AI画像生成クリエイター</span> であり、利用者は <span class="fill l">思い通りの画像を作れない</span> と困っている。システムは <span class="fill l">プロンプト調整なしで最適画像を生成</span> を行う。</p>
+        <p>構成要素は <span class="fill l">MCP server 3 基（db / evaluator / blender-bpy）</span> からなる。<span class="fill l">VLM 評価</span> が中心となる。</p>
+        <p>データは <span class="fill l">SQLite</span> に永続化される。<span class="fill l">ループ回数と画像品質の相関</span> である。</p>
+        <p>他のシステムとの関係は <span class="fill l">MCP stdio 接続で連携</span> である。</p>
+      </div>
+<div class="card soft">
+          <div class="card-h">前提・制約</div>
+          <ul>
+            <li>動作環境：<span class="fill">CPU 16GB（GPU なし）</span></li>
+            <li>入力：<span class="fill">プロンプト（自然言語）</span></li>
+            <li>出力：<span class="fill">SVG／PNG 画像</span></li>
+            <li>制約：<span class="fill">Blender MCP + bpy（CPU レンダリング）</span></li>
+            <li>対象外：<span class="fill">GPU マシン・リアルタイムレンダリング</span></li>
+          </ul>
+          <div class="h4">既存手段との比較</div>
+          <table>
+            <tr><th style="width:26mm">手段</th><th>良い点</th><th>不足点</th></tr>
+            <tr><td>手作業</td><td><span class="fill">完全に手動で調整可能</span></td><td><span class="fill">試行回数が無制限・コストが高い</span></td></tr>
+            <tr><td>既存ソフト</td><td><span class="fill">即座に利用可能</span></td><td><span class="fill">プロンプト調整に依存・品質にばらつき</span></td></tr>
+          </table>
+        </div>
+    </div>
+<div style="margin-top:4mm">
+        <div class="ph" style="height:64mm">
+          <div class="ph-tag">FIG 4-1</div>
+          <div class="ph-title">システム全体像（コンテキスト図）</div>
+          <svg viewBox="0 0 1000 190" preserveAspectRatio="xMidYMid meet" aria-label="システム全体像図">
+          <defs>
+            <marker id="a1" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#5b6470"/></marker>
+            <marker id="a1o" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto"><path d="M0 1 L10 5.5 L0 10 z" fill="#fff" stroke="#5b6470" stroke-width="1"/></marker>
+          </defs>
+          <rect class="box-pkg" x="352" y="44" width="296" height="104" rx="6"/>
+          <text class="t-ttl" x="500" y="72" text-anchor="middle">AI評価・修復ループ</text>
+          <text class="t-sm" x="500" y="94" text-anchor="middle">生成→評価→修復→再生成</text>
+          <text class="t-xs" x="500" y="118" text-anchor="middle">MCP server 3 基（db / evaluator / blender-bpy）</text>
+          <text class="t-st" x="500" y="138" text-anchor="middle" fill="#4b5563">&lt;&lt;system&gt;&gt;</text>
+
+          <rect class="box-bnd" x="36" y="56" width="200" height="48" rx="5"/>
+          <text class="t-name" x="136" y="78" text-anchor="middle">利用者（アクター）</text>
+          <text class="t-xs" x="136" y="95" text-anchor="middle">AI画像生成クリエイター</text>
+
+          <rect class="box-ent" x="764" y="28" width="200" height="48" rx="5"/>
+          <text class="t-name" x="864" y="50" text-anchor="middle">VLM 評価モデル</text>
+          <text class="t-xs" x="864" y="67" text-anchor="middle">LM Studio / CLIP-small</text>
+
+          <rect class="box-ent" x="764" y="106" width="200" height="48" rx="5"/>
+          <text class="t-name" x="864" y="128" text-anchor="middle">Blender</text>
+          <text class="t-xs" x="864" y="145" text-anchor="middle">bpy / SVG レンダリング</text>
+
+          <line x1="236" y1="72" x2="350" y2="72" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a1)"/>
+          <text class="t-xs" x="293" y="65" text-anchor="middle">生成依頼</text>
+          <line x1="350" y1="94" x2="236" y2="94" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a1)"/>
+          <text class="t-xs" x="293" y="112" text-anchor="middle">評価結果</text>
+
+          <line x1="648" y1="74" x2="762" y2="74" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a1)"/>
+          <text class="t-xs" x="705" y="67" text-anchor="middle">生成結果</text>
+          <line x1="762" y1="98" x2="648" y2="98" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a1)"/>
+          <text class="t-xs" x="705" y="100" text-anchor="middle">修復指示</text>
+
+          <line x1="648" y1="128" x2="762" y2="128" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a1)"/>
+          <text class="t-xs" x="705" y="120" text-anchor="middle">SVG出力</text>
+          <line x1="762" y1="150" x2="648" y2="150" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a1)"/>
+          <text class="t-xs" x="705" y="167" text-anchor="middle">レンダリング要求</text>
+        </svg>
+      </div>
+      <div class="ph-cap">図 4-1　システム全体像（対象システムと外部要素）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 検討 5 ============ -->
+<section class="sheet cat-plan" data-t="検討5 範囲とスケジュール">
+  <div class="hd">
+    <span class="hd-kicker">検討項目 5 / 10</span>
+    <h2 class="hd-title">今回の開発対象（部分）機能・構造とスケジュール案<small>全部やると 10/26 に間に合わない。スコープを切る。</small></h2>
+    <span class="hd-no">08</span>
+  </div>
+  <div class="body">
+    <div class="cols c-46">
+      <div class="card">
+        <div class="card-h">今回やる / やらない</div>
+        <table>
+          <tr><th style="width:22mm">区分</th><th>対象</th></tr>
+          <tr><td><b>Must</b></td><td><span class="fill l">MCP 3 基の stdio 接続稼働</span></td></tr>
+          <tr><td><b>Should</b></td><td><span class="fill l">SVG 生成→評価→修復→再生成ループ</span></td></tr>
+          <tr><td><b>Won't</b></td><td><span class="fill l">GPU マシン・複数エージェント並列</span></td></tr>
+        </table>
+        <div class="h4">Must を選ぶ基準</div>
+        <ul>
+          <li>発表の「実演」で動かせる機能。</li>
+          <li>3 モデル（要求・分析・設計）がすべて揃う範囲。</li>
+          <li>1 人で 10/26 までに導通テストできる量。</li>
+        </ul>
+      </div>
+      <div class="card soft">
+        <div class="card-h">開発対象の構造（パッケージ案）</div>
+        <table>
+          <tr><th style="width:38mm">パッケージ</th><th>責務</th></tr>
+          <tr><td><code>ui</code></td><td><span class="fill l">画面表示・プロンプト入力・結果表示</span></td></tr>
+          <tr><td><code>service</code></td><td><span class="fill l">生成→評価→修復→再生成ループ制御</span></td></tr>
+          <tr><td><code>domain</code></td><td><span class="fill l">評価基準・修復指示のデータモデル</span></td></tr>
+          <tr><td><code>repository</code></td><td><span class="fill l">SQLite DB へのデータ永続化</span></td></tr>
+        </table>
+        <div class="note" style="margin-top:3mm">
+          <b>依存方向を 1 つに：</b>ui → service → domain → repository。逆向きは禁止。
+        </div>
+      </div>
+    </div>
+
+<div class="card">
+        <div class="card-h">今回やる / やらない</div>
+        <table>
+          <tr><th style="width:22mm">区分</th><th>対象</th></tr>
+          <tr><td><b>Must</b></td><td><span class="fill l">MCP server 3 基（db / evaluator / blender-bpy）の stdio 接続稼働</span></td></tr>
+          <tr><td><b>Should</b></td><td><span class="fill l">Doraemon SVG 生成→評価→修復→再生成のループ 1 ターン実装</span></td></tr>
+          <tr><td><b>Won't</b></td><td><span class="fill l">GPU マシン利用、複数エージェント並列処理</span></td></tr>
+        </table>
+        <div class="h4">Must を選ぶ基準</div>
+        <ul>
+          <li>発表の「実演」で動かせる機能。</li>
+          <li>3 モデル（要求・分析・設計）がすべて揃う範囲。</li>
+          <li>1 人で 10/26 までに導通テストできる量。</li>
+        </ul>
+      </div>
+
+    <div style="margin-top:4mm">
+      <table>
+        <tr>
+          <th style="width:24mm">日程</th><th style="width:16mm" class="c">曜日</th>
+          <th style="width:20mm" class="c">重要度</th><th>提出物 / 作業内容</th>
+          <th style="width:20mm" class="c">状態</th>
+        </tr>
+        <tr class="must"><td class="num">10/02</td><td class="c">金</td><td class="c"><b>MUST</b></td><td>検討項目 1〜5 第 1 版（本 p.04–08）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+        <tr><td class="num">10/06</td><td class="c">火</td><td class="c">-</td><td>要求モデル完成（p.11–14）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+        <tr><td class="num">10/09</td><td class="c">金</td><td class="c">-</td><td>分析モデル完成（p.15–17）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+        <tr><td class="num">10/13</td><td class="c">火</td><td class="c">OP</td><td>設計モデル完成（p.18–20）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+        <tr><td class="num">10/14</td><td class="c">水</td><td class="c">-</td><td>プログラミング開始（MCP server 接続確認）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+        <tr><td class="num">10/26</td><td class="c">月</td><td class="c">-</td><td>動作確認（導通テスト）・デバッグ・リファクタリング</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+        <tr class="must"><td class="num">10/28</td><td class="c">水</td><td class="c"><b>MUST</b></td><td>納品・発表資料完成（本ファイル）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+        <tr class="must"><td class="num">10/29</td><td class="c">木</td><td class="c"><b>MUST</b></td><td>プレゼン（発表 5 分 ＋ 実演）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
+      </table>
+      <p style="margin-top:2mm"><small>※ ガイダンスの曜日表記に誤記あり。2026/10/02 = 金 を基準に補正（10/09=金、10/13=火、10/14=水）。各項目 A4 1 ページ以上。</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 セッション扉 ============ -->
