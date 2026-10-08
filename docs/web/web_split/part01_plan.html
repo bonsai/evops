@@ -604,23 +604,40 @@ svg .ln{stroke:#6f767e;stroke-width:1.1;fill:none}
         </ul>
       </div>
 
-    <div style="margin-top:4mm">
-      <table>
-        <tr>
-          <th style="width:24mm">日程</th><th style="width:16mm" class="c">曜日</th>
-          <th style="width:20mm" class="c">重要度</th><th>提出物 / 作業内容</th>
-          <th style="width:20mm" class="c">状態</th>
-        </tr>
-        <tr class="must"><td class="num">10/02</td><td class="c">金</td><td class="c"><b>MUST</b></td><td>検討項目 1〜5 第 1 版（本 p.04–08）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-        <tr><td class="num">10/06</td><td class="c">火</td><td class="c">-</td><td>要求モデル完成（p.11–14）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-        <tr><td class="num">10/09</td><td class="c">金</td><td class="c">-</td><td>分析モデル完成（p.15–17）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-        <tr><td class="num">10/13</td><td class="c">火</td><td class="c">OP</td><td>設計モデル完成（p.18–20）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-        <tr><td class="num">10/14</td><td class="c">水</td><td class="c">-</td><td>プログラミング開始（MCP server 接続確認）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-        <tr><td class="num">10/26</td><td class="c">月</td><td class="c">-</td><td>動作確認（導通テスト）・デバッグ・リファクタリング</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-        <tr class="must"><td class="num">10/28</td><td class="c">水</td><td class="c"><b>MUST</b></td><td>納品・発表資料完成（本ファイル）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-        <tr class="must"><td class="num">10/29</td><td class="c">木</td><td class="c"><b>MUST</b></td><td>プレゼン（発表 5 分 ＋ 実演）</td><td class="c"><span class="fill" style="min-width:13mm"></span></td></tr>
-      </table>
-      <p style="margin-top:2mm"><small>※ ガイダンスの曜日表記に誤記あり。2026/10/02 = 金 を基準に補正（10/09=金、10/13=火、10/14=水）。各項目 A4 1 ページ以上。</small></p>
+     </div>
+</section>
+
+<!-- ============ 01 カレンダー ============ -->
+<section class="sheet cat-plan" data-t="開発カレンダー">
+  <div class="hd">
+    <span class="hd-kicker">検討項目 5 / 10</span>
+    <h2 class="hd-title">開発カレンダー<small>スケジュールだけを独立ページにして、A4横1ページで見切れないようにする。</small></h2>
+    <span class="hd-no">09</span>
+  </div>
+  <div class="body">
+    <div class="card soft" style="margin-bottom:5mm">
+      <div class="card-h">全体スケジュール</div>
+      <p>10/02の検討項目から10/29の発表までを、提出物・実装・検証の順に追う。</p>
+    </div>
+    <table style="font-size:10pt">
+      <tr>
+        <th style="width:28mm">日程</th>
+        <th style="width:18mm" class="c">曜日</th>
+        <th style="width:25mm" class="c">重要度</th>
+        <th>提出物 / 作業内容</th>
+        <th style="width:28mm" class="c">状態</th>
+      </tr>
+      <tr class="must"><td class="num">10/02</td><td class="c">金</td><td class="c"><b>MUST</b></td><td>検討項目 1〜5 第1版</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+      <tr><td class="num">10/06</td><td class="c">火</td><td class="c">-</td><td>要求モデル完成</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+      <tr><td class="num">10/09</td><td class="c">金</td><td class="c">-</td><td>分析モデル完成</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+      <tr><td class="num">10/13</td><td class="c">火</td><td class="c">OP</td><td>設計モデル完成</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+      <tr><td class="num">10/14</td><td class="c">水</td><td class="c">-</td><td>プログラミング開始（MCP server 接続確認）</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+      <tr><td class="num">10/26</td><td class="c">月</td><td class="c">-</td><td>動作確認・デバッグ・リファクタリング</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+      <tr class="must"><td class="num">10/28</td><td class="c">水</td><td class="c"><b>MUST</b></td><td>納品・発表資料完成</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+      <tr class="must"><td class="num">10/29</td><td class="c">木</td><td class="c"><b>MUST</b></td><td>プレゼン（5分＋実演）</td><td class="c"><span class="fill" style="min-width:18mm"></span></td></tr>
+    </table>
+    <div class="note" style="margin-top:7mm">
+      <b>基準日：</b>2026/10/02 = 金。曜日はこの基準で補正済み。
     </div>
   </div>
 </section>
