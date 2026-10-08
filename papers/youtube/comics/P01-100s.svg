@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1400">
+  <title>P01 VeMo — 100秒論文消化</title>
+  <desc>VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Models を8コマ100秒で説明するSVGアニメーション</desc>
+  <style>
+    text{font-family:"Noto Sans JP","Noto Sans","Yu Gothic",sans-serif;fill:#24103f}
+    .title{font-size:34px;font-weight:900}
+    .sub{font-size:20px}
+    .num{font-size:28px;font-weight:900}
+    .emoji{font-size:58px}
+    .body{font-size:25px;font-weight:700}
+    .small{font-size:18px}
+    .panel{fill:#fff;stroke:#7c3aed;stroke-width:4}
+    .arrow{stroke:#7c3aed;stroke-width:6;fill:none;stroke-linecap:round}
+    .dot{fill:#7c3aed}
+    .frame{animation:show 100s infinite}
+    .p1{animation-delay:0s}.p2{animation-delay:12.5s}.p3{animation-delay:25s}.p4{animation-delay:37.5s}
+    .p5{animation-delay:50s}.p6{animation-delay:62.5s}.p7{animation-delay:75s}.p8{animation-delay:87.5s}
+    @keyframes show{
+      0%,12.49%{opacity:1}
+      12.5%,100%{opacity:0}
+    }
+    .progress{animation:progress 100s linear infinite;transform-origin:left}
+    @keyframes progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  </style>
+
+  <rect width="1200" height="1400" fill="#faf7ff"/>
+  <rect width="1200" height="105" fill="#7c3aed"/>
+  <text x="45" y="65" font-size="25" fill="white" style="fill:white;font-weight:900">P01 · PAPER DIGEST · 100 SEC</text>
+  <text x="600" y="165" text-anchor="middle" class="title">VeMo: AIに「動き」を採点させる</text>
+  <text x="600" y="200" text-anchor="middle" class="sub">Zero-Shot Text-to-Motion Evaluation using Video Language Models · ICML 2026</text>
+
+  <g class="frame p1">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">① 0–12.5秒　🎯 問題</text>
+    <text x="105" y="385" class="emoji">🏃‍♂️</text>
+    <text x="190" y="390" class="body">「人が右手を振る」</text>
+    <text x="105" y="475" class="body">文章から3Dの動きを生成できる。</text>
+    <text x="105" y="525" class="body">でも……その動画、本当に文章どおり？</text>
+    <path class="arrow" d="M560 650 C700 570 790 570 930 650"/>
+    <text x="600" y="735" text-anchor="middle" class="emoji">🤔</text>
+    <text x="600" y="805" text-anchor="middle" class="body">生成できても、評価が難しい。</text>
+    <text x="600" y="850" text-anchor="middle" class="small">既存指標だけでは「意味が合っているか」を捉えにくい</text>
+  </g>
+
+  <g class="frame p2">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">② 12.5–25秒　😩 困りごと</text>
+    <text x="105" y="400" class="emoji">📝</text>
+    <text x="185" y="395" class="body">Text Prompt</text>
+    <text x="105" y="510" class="emoji">🕺</text>
+    <text x="185" y="505" class="body">Generated Motion</text>
+    <path class="arrow" d="M470 430 H900"/>
+    <text x="685" y="400" text-anchor="middle" class="emoji">❓</text>
+    <text x="600" y="650" text-anchor="middle" class="body">「この2つ、意味として一致してる？」</text>
+    <text x="600" y="710" text-anchor="middle" class="small">人間なら見て判断できる。でも大量生成では人手評価が重い。</text>
+  </g>
+
+  <g class="frame p3">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">③ 25–37.5秒　💡 発想</text>
+    <text x="600" y="405" text-anchor="middle" class="emoji">🎥</text>
+    <text x="600" y="475" text-anchor="middle" class="body">3D Motion → Video</text>
+    <path class="arrow" d="M600 535 V660"/>
+    <text x="600" y="745" text-anchor="middle" class="emoji">🧠</text>
+    <text x="600" y="815" text-anchor="middle" class="body">Video Language Model</text>
+    <text x="600" y="875" text-anchor="middle" class="body">に意味を判断させる。</text>
+  </g>
+
+  <g class="frame p4">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">④ 37.5–50秒　🔧 仕組み</text>
+    <text x="115" y="410" class="emoji">📝</text>
+    <text x="185" y="405" class="body">文章</text>
+    <path class="arrow" d="M330 395 H470"/>
+    <text x="510" y="410" class="emoji">🎥</text>
+    <text x="580" y="405" class="body">動画</text>
+    <path class="arrow" d="M730 395 H870"/>
+    <text x="915" y="410" class="emoji">🧠</text>
+    <text x="990" y="405" class="body">VLM</text>
+    <text x="600" y="570" text-anchor="middle" class="body">ゼロショットで評価</text>
+    <text x="600" y="635" text-anchor="middle" class="small">motion-specificな評価器を新たに学習させなくてもよい</text>
+    <text x="600" y="740" text-anchor="middle" class="body">確率を正規化して alignment score にする</text>
+    <text x="600" y="820" text-anchor="middle" class="small">「どれくらい文章に合っている？」を数値化</text>
+  </g>
+
+  <g class="frame p5">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">⑤ 50–62.5秒　👀 もう一つの問題</text>
+    <text x="600" y="415" text-anchor="middle" class="emoji">🧍‍♂️</text>
+    <text x="600" y="500" text-anchor="middle" class="body">3Dの動きを2D動画にすると……</text>
+    <text x="600" y="590" text-anchor="middle" class="emoji">📷  ↔  📷  ↔  📷</text>
+    <text x="600" y="670" text-anchor="middle" class="body">見る角度によって情報が変わる。</text>
+    <text x="600" y="750" text-anchor="middle" class="emoji">📉</text>
+    <text x="600" y="815" text-anchor="middle" class="body">そこで「不確かな視点」を entropy で分析。</text>
+  </g>
+
+  <g class="frame p6">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">⑥ 62.5–75秒　📈 結果</text>
+    <text x="600" y="410" text-anchor="middle" class="emoji">🧪</text>
+    <text x="600" y="500" text-anchor="middle" class="body">人間が「合っている」と判断した評価と比較。</text>
+    <text x="600" y="610" text-anchor="middle" class="emoji">👥  ❤️  ↔  🤖</text>
+    <text x="600" y="700" text-anchor="middle" class="body">VeMoは既存の評価指標より</text>
+    <text x="600" y="755" text-anchor="middle" class="body">人間の判断と高く相関。</text>
+    <text x="600" y="850" text-anchor="middle" class="small">複数のText-to-Motionモデルを含む人手評価ベンチマークも用意</text>
+  </g>
+
+  <g class="frame p7">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">⑦ 75–87.5秒　🤔 それでも万能ではない</text>
+    <text x="600" y="420" text-anchor="middle" class="emoji">⚠️</text>
+    <text x="600" y="510" text-anchor="middle" class="body">視点・レンダリング・プロンプトへの頑健性</text>
+    <text x="600" y="570" text-anchor="middle" class="body">計算コストなど、まだ検討事項がある。</text>
+    <text x="600" y="700" text-anchor="middle" class="emoji">🎯  ≠  🪄</text>
+    <text x="600" y="780" text-anchor="middle" class="body">VLMを使えば全部解決、ではない。</text>
+    <text x="600" y="840" text-anchor="middle" class="small">評価器そのものも評価し続ける必要がある。</text>
+  </g>
+
+  <g class="frame p8">
+    <rect class="panel" x="70" y="245" width="1060" height="900" rx="28"/>
+    <text x="105" y="300" class="num">⑧ 87.5–100秒　🚀 この論文を持ち帰る</text>
+    <text x="600" y="405" text-anchor="middle" class="emoji">🎨</text>
+    <text x="600" y="475" text-anchor="middle" class="body">生成する</text>
+    <path class="arrow" d="M600 510 V570"/>
+    <text x="600" y="650" text-anchor="middle" class="emoji">🧠</text>
+    <text x="600" y="720" text-anchor="middle" class="body">VLMで評価する</text>
+    <path class="arrow" d="M600 755 V815"/>
+    <text x="600" y="900" text-anchor="middle" class="emoji">🔄</text>
+    <text x="600" y="970" text-anchor="middle" class="body">評価結果を次の生成へ戻す</text>
+    <text x="600" y="1040" text-anchor="middle" class="body">これがEVOPSの評価ループにつながる。</text>
+  </g>
+
+  <rect x="70" y="1185" width="1060" height="12" rx="6" fill="#e5d8ff"/>
+  <rect class="progress" x="70" y="1185" width="1060" height="12" rx="6" fill="#7c3aed"/>
+  <text x="600" y="1260" text-anchor="middle" class="small">Paper → 8コマ → 100秒 → SVG → MP4 → VLM評価</text>
+  <text x="600" y="1300" text-anchor="middle" class="small">P01 · VeMo · ICML 2026</text>
+</svg>
