@@ -19,7 +19,7 @@
 {"id":"lasso","title":"Regression Shrinkage and Selection via the Lasso","year":1996,"venue":"Journal of the Royal Statistical Society: Series B","category":"Statistics / Regularization","url":"https://doi.org/10.1111/j.2517-6161.1996.tb02080.x"}
 {"id":"ridge","title":"Ridge Regression: Biased Estimation for Nonorthogonal Problems","year":1970,"venue":"Technometrics","category":"Statistics / Regularization","url":"https://doi.org/10.1080/00401706.1970.10488634"}
 {"id":"human-preferences","title":"Deep Reinforcement Learning from Human Preferences","year":2017,"venue":"NeurIPS","category":"Preference Learning / RLHF","url":"https://proceedings.neurips.cc/paper/2017/hash/d5e2c0adad503c91f91df240d0cd4e49-Abstract.html"}
-{"id":"instructgpt","title":"Training language models to follow instructions with human feedback","year":2022,"venue":"NeurIPS","category":"Preference Learning / RLHF","url":"https://proceedings.neurips.cc/paper/2022/hash/b1efde53be0d5f8f9f9f9f9f9f9f9f9-Abstract.html"}
+{"id":"instructgpt","title":"Training language models to follow instructions with human feedback","year":2022,"venue":"NeurIPS","category":"Preference Learning / RLHF","url":"https://arxiv.org/abs/2203.02155"}
 {"id":"dpo","title":"Direct Preference Optimization: Your Language Model is Secretly a Reward Model","year":2023,"venue":"NeurIPS","category":"Preference Learning","url":"https://arxiv.org/abs/2305.18290"}
 {"id":"pick-a-pic","title":"Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation","year":2024,"venue":"NeurIPS","category":"Preference Learning / Vision","url":"https://arxiv.org/abs/2308.08076"}
 {"id":"imagereward","title":"ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation","year":2023,"venue":"NeurIPS","category":"Preference Learning / Vision","url":"https://arxiv.org/abs/2304.05977"}
@@ -38,3 +38,6 @@
 {"id":"phi-3","title":"Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone","year":2024,"venue":"arXiv","category":"Small Language Models","url":"https://arxiv.org/abs/2404.14219"}
 {"id":"llama-3-2","title":"The Llama 3 Herd of Models","year":2024,"venue":"arXiv","category":"Language Models / Multimodal","url":"https://arxiv.org/abs/2407.21783"}
 {"id":"watermark-llm","title":"A Watermark for Large Language Models","year":2023,"venue":"ICML","category":"Reliability / Provenance","url":"https://proceedings.mlr.press/v202/kirchenbauer23a.html"}
+{"id":"hpsv2","title":"Human Preference Score v2: A Generalist Reward Model for Text-to-Image Generation","year":2023,"venue":"arXiv","category":"Preference Learning / Vision","url":"https://arxiv.org/abs/2306.09341"}
+{"id":"active-learning-llm-chatbots","title":"Active Learning for Large Language Model-based Chatbots","year":2023,"venue":"EMNLP","category":"Active Learning","url":"https://aclanthology.org/2023.emnlp-main.179/"}
+{"id":"false-dawn","title":"The False Dawn: Reevaluating Performance Gains of Language Models","year":2024,"venue":"arXiv","category":"Small Language Models / Evaluation","url":"https://arxiv.org/"}
