@@ -1,0 +1,43 @@
+name: SF Paper Animation Render
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "papers/youtube/comics/P*.svg"
+      - "scripts/render_paper_comics.sh"
+      - ".github/workflows/sf-paper-animation-render.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install SVG renderer and FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends librsvg2-bin ffmpeg
+
+      - name: Render P01-P25 MP4
+        run: |
+          chmod +x scripts/render_paper_comics.sh
+          ./scripts/render_paper_comics.sh
+
+      - name: Build manifest
+        run: |
+          printf '{"generated_at":"%s","format":"mp4","episodes":[' "$(date -u +%FT%TZ)" > artifacts/paper-animation/manifest.json
+          find artifacts/paper-animation -name 'P*.mp4' -printf '"%f",' | sed 's/,$//' >> artifacts/paper-animation/manifest.json
+          printf ']}\n' >> artifacts/paper-animation/manifest.json
+
+      - name: Upload MP4 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sf-paper-animation-mp4
+          path: artifacts/paper-animation/
+          if-no-files-found: error
+          retention-days: 14
