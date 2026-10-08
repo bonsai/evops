@@ -1,51 +1,35 @@
 <!doctype html>
 <html lang="ja">
 <meta charset="utf-8">
-<title>SSSS Kanban</title>
+<title>hw-sotsusei Kanban</title>
 <style>
-body{
-  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans CJK JP",sans-serif;
-  font-size:20pt;
-  color:#ffffff;
-  background:#000000;
-  max-width:1400px;
-  margin:0 auto;
-  padding:40px 20px;
-  line-height:1.6;
-}
-h1{font-size:32pt;color:#58a6ff;margin-bottom:20px}
-.board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.col{background:#111111;border:1px solid #333333;border-radius:8px;padding:12px;min-height:400px}
-.col h2{font-size:18pt;color:#8b949e;border-bottom:1px solid #333333;padding-bottom:8px;margin:0 0 12px}
-.card{background:#1a1a1a;border:1px solid #333333;border-radius:6px;padding:12px;margin-bottom:8px}
-.card h3{font-size:16pt;color:#58a6ff;margin:0 0 6px}
-.card p{font-size:14pt;color:#cccccc;margin:0;line-height:1.5}
-.badge{display:inline-block;font-size:12px;padding:2px 6px;border-radius:4px;background:#238636;color:#fff;margin-right:4px}
-.badge-warning{background:#d29922}
-.badge-danger{background:#da3633}
-.day{font-size:12px;color:#888888;font-family:monospace}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans CJK JP",sans-serif;font-size:18pt;color:#fff;background:#000;max-width:1500px;margin:0 auto;padding:32px 20px;line-height:1.5}
+h1{font-size:30pt;color:#58a6ff;margin:0 0 8px} .lead{color:#aaa;margin:0 0 24px}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.col{background:#111;border:1px solid #333;border-radius:8px;padding:14px;min-height:520px}
+.col h2{font-size:19pt;color:#8b949e;border-bottom:1px solid #333;padding-bottom:8px;margin:0 0 12px}.card{background:#1a1a1a;border:1px solid #333;border-radius:6px;padding:12px;margin-bottom:10px}
+.card h3{font-size:16pt;color:#58a6ff;margin:0 0 6px}.card p{font-size:13pt;color:#ccc;margin:4px 0}.badge{display:inline-block;font-size:11px;padding:2px 7px;border-radius:4px;background:#238636;color:#fff;margin-right:4px}.badge-warning{background:#d29922}.badge-danger{background:#da3633}.done{opacity:.8}
 </style>
-<h1>SSSS Kanban — 10 Days</h1>
+<h1>hw-sotsusei Kanban — 0 → 1 → 2</h1>
+<p class="lead">MCP完全化 → 論文SF落語動画化 → ドラえもん成長・進化ループ</p>
 <div class="board">
-  <div class="col"><h2>📋 Backlog</h2>
-    <div class="card"><h3>Papers / Ontology</h3><p class="day">Day 1</p><p>評価Ontology設計、論文22本から多軸評価軸抽出</p></div>
-    <div class="card"><h3>DB / JSONL</h3><p class="day">Day 2</p><p>SQLite+JSONLスキーマ、sync-db連携、canonical化</p></div>
-    <div class="card"><h3>SVG/CSS Baseline</h3><p class="day">Day 4</p><p>高速ベースライン、CLIP/PickScore統合</p></div>
-    <div class="card"><h3>SD1.5 Generative</h3><p class="day">Day 7</p><p>Diffusionバックエンド、ControlNet連携</p></div>
-    <div class="card"><h3>Cross-backend ML</h3><p class="day">Day 9</p><p>バックエンド横断ランキング、転移学習</p></div>
+  <div class="col"><h2>🔧 0｜MCP完全化</h2>
+    <div class="card"><h3>MCP Scheme / Practice 分離</h3><span class="badge">Priority</span><p>知識・定義と実行・操作を分離</p></div>
+    <div class="card"><h3>Research / Production MCP</h3><p>Paper / DB / File / Render / VLM / Artifactを共通操作</p></div>
+    <div class="card"><h3>AW / WF 接続</h3><p>判断はAW、決定的実行はWFへ分離</p></div>
+    <div class="card"><h3>Renderer MCP</h3><p>SVG / CSS / Pygame / Blender / Godotを接続</p></div>
   </div>
-  <div class="col"><h2>🔄 In Progress</h2>
-    <div class="card"><h3>LMS/VLM Evaluator</h3><span class="badge">Active</span><p class="day">Day 3</p><p>CLIP, PickScore, ImageReward, HPSv2実装</p></div>
-    <div class="card"><h3>Blender/bpy</h3><p class="day">Day 5</p><p>メインバックエンド、bpy操作・レンダリング</p></div>
+  <div class="col"><h2>🎭 1｜論文SF落語</h2>
+    <div class="card"><h3>Paper → SF落語</h3><span class="badge">P01–P25</span><p>論文を噛み砕き、問題→異変→発明→オチへ変換</p></div>
+    <div class="card"><h3>SVG → CSS Animation</h3><p>4コマ／シーンをSVG化しCSSで時間軸アニメーション</p></div>
+    <div class="card"><h3>VLM Evaluation</h3><p>理解度・事実性・文字可読性・研究核心を評価</p></div>
+    <div class="card"><h3>MP4 Artifact</h3><p>最終デプロイは動画。改善前後を比較可能にする</p></div>
   </div>
-  <div class="col"><h2>⏳ Waiting</h2>
-    <div class="card"><h3>Blender MCP</h3><span class="badge badge-warning">Blocked</span><p class="day">Day 6</p><p>MCP Server実装待ち、ツール層標準化</p></div>
-    <div class="card"><h3>Repair Loop</h3><span class="badge badge-warning">Blocked</span><p class="day">Day 8</p><p>DPO/Active Learningパイプライン</p></div>
-    <div class="card"><h3>Analysis</h3><p class="day">Day 10</p><p>指標改善分析、ドキュメント化</p></div>
-  </div>
-  <div class="col"><h2>✅ Done</h2>
-    <div class="card"><h3>Papers Research</h3><span class="badge">Done</span><p class="day">Day 1 ✓</p><p>22論文収集、papers.json/md/html再生成済</p></div>
-    <div class="card"><h3>Plan Update</h3><span class="badge">Done</span><p class="day">Today ✓</p><p>plan.html 400字、diagram.svg 作成済</p></div>
+  <div class="col"><h2>🤖 2｜ドラえもん成長ループ</h2>
+    <div class="card"><h3>DB / Generation History</h3><span class="badge-warning">Next</span><p>generation / method / genome / candidate / evaluation / fitnessを蓄積</p></div>
+    <div class="card"><h3>VLM → Fitness</h3><p>自然言語・コード・ピクセル・mm・角度・比率から類似度を評価</p></div>
+    <div class="card"><h3>Evolution</h3><p>Elite / Mutation / Crossover / Repair / Kill → Next Generation</p></div>
+    <div class="card"><h3>成長アニメ</h3><p>「似ていない → 似る → 目標へ近似」の世代変化を動画化</p></div>
+    <div class="card"><h3>Restart</h3><p>停滞時はGeneration Methodから再探索</p></div>
   </div>
 </div>
 </html>
