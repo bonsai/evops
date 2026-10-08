@@ -10,61 +10,61 @@
 :root{--pw:297mm;--ph:210mm;--ink:#16191d;--ink2:#464d55;--ink3:#7b838c;--rule:#d5dae0;--rule2:#eceef1;--paper:#fff;--screen:#23262b;--c-plan:#b45309;--c-plan-bg:#fdf5ea;--c-deliver:#1d4ed8;--c-deliver-bg:#eef3fe;--c-present:#047857;--c-present-bg:#e9faf3;--f-ja:"Noto Sans JP","Noto Sans CJK JP","Hiragino Kaku Gothic ProN","Yu Gothic UI",system-ui,sans-serif;--f-la:"Inter","Helvetica Neue","Segoe UI",system-ui,sans-serif;--f-mono:"SFMono-Regular","Cascadia Mono","Consolas",ui-monospace,monospace;}
 *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--screen)}body{font-family:var(--f-la),var(--f-ja);color:var(--ink);-webkit-font-smoothing:antialiased}
 .stage{transform-origin:top center}
-.sheet{position:relative;width:var(--pw);height:var(--ph);background:var(--paper);overflow:hidden;margin:0 auto;box-shadow:0 6px 28px rgba(0,0,0,.45);padding:13mm 15mm 12mm;display:flex;flex-direction:column;font-size:28.200000000000003pt;line-height:1.68;--accent:var(--c-plan);--accent-bg:var(--c-plan-bg)}
+.sheet{position:relative;width:var(--pw);height:var(--ph);background:var(--paper);overflow:hidden;margin:0 auto;box-shadow:0 6px 28px rgba(0,0,0,.45);padding:13mm 15mm 12mm;display:flex;flex-direction:column;font-size:18.8pt;line-height:1.68;--accent:var(--c-plan);--accent-bg:var(--c-plan-bg)}
 .cat-paper{--accent:var(--c-plan);--accent-bg:var(--c-plan-bg)}
 .cat-vlm{--accent:var(--c-deliver);--accent-bg:var(--c-deliver-bg)}
 .cat-3d{--accent:var(--c-present);--accent-bg:var(--c-present-bg)}
 .sheet+.sheet{margin-top:8mm}
 .sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:2.2mm;background:var(--accent)}
 .hd{display:flex;align-items:flex-end;gap:6mm;padding-bottom:2.2mm;border-bottom:.4mm solid var(--rule);flex:0 0 auto}
-.hd-kicker{font-size:24.599999999999998pt;font-weight:800;letter-spacing:.13em;color:var(--accent);background:var(--accent-bg);padding:1mm 2.8mm;border-radius:1mm;white-space:nowrap}
-.hd-title{font-size:38.400000000000006pt;font-weight:800;letter-spacing:.01em;line-height:1.26;flex:1 1 auto;margin:0}
-.hd-title small{display:block;font-size:25.200000000000003pt;font-weight:500;color:var(--ink3);margin-top:.75mm}
-.hd-meta{font-family:var(--f-mono);font-size:25.200000000000003pt;color:var(--ink3)}
-.hd-no{font-family:var(--f-mono);font-size:27pt;color:var(--ink3);white-space:nowrap}
+.hd-kicker{font-size:16.4pt;font-weight:800;letter-spacing:.13em;color:var(--accent);background:var(--accent-bg);padding:1mm 2.8mm;border-radius:1mm;white-space:nowrap}
+.hd-title{font-size:25.600000000000005pt;font-weight:800;letter-spacing:.01em;line-height:1.26;flex:1 1 auto;margin:0}
+.hd-title small{display:block;font-size:16.8pt;font-weight:500;color:var(--ink3);margin-top:.75mm}
+.hd-meta{font-family:var(--f-mono);font-size:16.8pt;color:var(--ink3)}
+.hd-no{font-family:var(--f-mono);font-size:18pt;color:var(--ink3);white-space:nowrap}
 .body{flex:1 1 auto;padding-top:3.8mm;min-height:0}
 .cover{padding:0}
 .cover-in{height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 24mm;position:relative}
 .cover-in::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14mm;background:var(--accent)}
-.cover-label{font-size:28.5pt;letter-spacing:.28em;color:var(--accent);font-weight:800;margin-bottom:6mm}
-.cover-h1{font-size:84pt;font-weight:800;line-height:1.28;margin:0 0 5mm}
-.cover-sub{font-size:31.5pt;color:var(--ink2);margin:0 0 15mm;line-height:1.6}
-.cover-meta{display:flex;gap:11mm;border-top:.4mm solid var(--rule);padding-top:6mm;font-size:29.400000000000002pt}
+.cover-label{font-size:19pt;letter-spacing:.28em;color:var(--accent);font-weight:800;margin-bottom:6mm}
+.cover-h1{font-size:56pt;font-weight:800;line-height:1.28;margin:0 0 5mm}
+.cover-sub{font-size:21pt;color:var(--ink2);margin:0 0 15mm;line-height:1.6}
+.cover-meta{display:flex;gap:11mm;border-top:.4mm solid var(--rule);padding-top:6mm;font-size:19.6pt}
 .cover-meta>div{min-width:32mm}
-.cover-meta .k{font-size:23.4pt;letter-spacing:.14em;color:var(--ink3);display:block;margin-bottom:1.2mm}
+.cover-meta .k{font-size:15.6pt;letter-spacing:.14em;color:var(--ink3);display:block;margin-bottom:1.2mm}
 .cover-meta .v{font-weight:700}
 .card{border:.35mm solid var(--rule);border-radius:1.2mm;padding:2.8mm 3.4mm;background:#fff}
-.card-h{font-size:25.799999999999997pt;font-weight:800;letter-spacing:.04em;color:var(--accent);display:flex;align-items:center;gap:2.2mm;margin-bottom:1.8mm}
-.card-h .no{font-family:var(--f-mono);font-size:22.200000000000003pt;background:var(--accent);color:#fff;border-radius:1mm;padding:.5mm 1.6mm;letter-spacing:0}
-.lead{font-size:30.599999999999998pt;line-height:1.75}
+.card-h{font-size:17.2pt;font-weight:800;letter-spacing:.04em;color:var(--accent);display:flex;align-items:center;gap:2.2mm;margin-bottom:1.8mm}
+.card-h .no{font-family:var(--f-mono);font-size:14.800000000000002pt;background:var(--accent);color:#fff;border-radius:1mm;padding:.5mm 1.6mm;letter-spacing:0}
+.lead{font-size:20.4pt;line-height:1.75}
 p{margin:0 0 2mm}p:last-child{margin-bottom:0}
-small{font-size:24.599999999999998pt;color:var(--ink3)}
-.meta-row{display:grid;grid-template-columns:auto 1fr;gap:1.1mm 4mm;font-size:26.400000000000002pt;margin:2.3mm 0}
+small{font-size:16.4pt;color:var(--ink3)}
+.meta-row{display:grid;grid-template-columns:auto 1fr;gap:1.1mm 4mm;font-size:17.6pt;margin:2.3mm 0}
 .meta-row dt{font-weight:800;color:var(--ink2);white-space:nowrap}
 .tags{display:flex;flex-wrap:wrap;gap:2.8mm;margin:2.2mm 0}
-.tag{font-size:22.5pt;padding:.5mm 1.3mm;border-radius:.8mm;background:var(--accent-bg);color:var(--accent);font-weight:700;white-space:nowrap}
-.note{border-left:.9mm solid var(--accent);background:var(--accent-bg);padding:2.3mm 3mm;font-size:27pt;border-radius:0 1mm 1mm 0}
+.tag{font-size:15pt;padding:.5mm 1.3mm;border-radius:.8mm;background:var(--accent-bg);color:var(--accent);font-weight:700;white-space:nowrap}
+.note{border-left:.9mm solid var(--accent);background:var(--accent-bg);padding:2.3mm 3mm;font-size:18pt;border-radius:0 1mm 1mm 0}
 .note b{color:var(--accent)}
-.footer{display:flex;justify-content:space-between;padding-top:3mm;border-top:.3mm solid var(--rule2);font-size:23.1pt;color:var(--ink3);margin-top:3mm}
+.footer{display:flex;justify-content:space-between;padding-top:3mm;border-top:.3mm solid var(--rule2);font-size:15.4pt;color:var(--ink3);margin-top:3mm}
 .syn-list{margin:0;padding-left:0;list-style:none}
 .syn-list li{display:flex;gap:3mm;margin-bottom:1.8mm}
-.syn-list .n{font-family:var(--f-mono);font-size:22.799999999999997pt;color:var(--accent);min-width:20mm}
+.syn-list .n{font-family:var(--f-mono);font-size:15.199999999999998pt;color:var(--accent);min-width:20mm}
 .syn-list .t{flex:1}
 .syn-list .t b{color:var(--ink2)}
 .nav{position:fixed;left:50%;bottom:5mm;transform:translateX(-50%);display:flex;align-items:center;gap:1.6mm;background:rgba(20,22,26,.92);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:1.5mm 2.2mm;z-index:50;color:#e8ecf1;box-shadow:0 6px 20px rgba(0,0,0,.45)}
-.nav button{all:unset;cursor:pointer;padding:1.1mm 2.6mm;border-radius:999px;color:#cfd6de;font-size:33px}
+.nav button{all:unset;cursor:pointer;padding:1.1mm 2.6mm;border-radius:999px;color:#cfd6de;font-size:22px}
 .nav button:hover{background:rgba(255,255,255,.14);color:#fff}
-.nav .cur{font-family:var(--f-mono);font-size:33px;padding:0 1.6mm;min-width:22mm;text-align:center;color:#fff;font-variant-numeric:tabular-nums}
+.nav .cur{font-family:var(--f-mono);font-size:22px;padding:0 1.6mm;min-width:22mm;text-align:center;color:#fff;font-variant-numeric:tabular-nums}
 .nav .cur em{color:#7f8b98;font-style:normal}
 .nav .sep{width:1px;height:14px;background:rgba(255,255,255,.16)}
-.nav .ttl{font-size:31.200000000000003px;padding:0 1mm;color:#9aa5b1;max-width:40mm;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nav .ttl{font-size:20.8px;padding:0 1mm;color:#9aa5b1;max-width:40mm;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .toc{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm 5mm}
 .toc-sec{border-top:.9mm solid var(--accent);padding-top:2.2mm}
-.toc-sec h4{margin:0 0 2mm;font-size:29.400000000000002pt;font-weight:800;color:var(--accent);letter-spacing:.03em}
+.toc-sec h4{margin:0 0 2mm;font-size:19.6pt;font-weight:800;color:var(--accent);letter-spacing:.03em}
 .toc-sec ol{list-style:none;margin:0;padding:0}
-.toc li{display:flex;gap:2mm;align-items:baseline;margin-bottom:1.2mm;font-size:24.900000000000002pt;cursor:pointer}.toc li a{display:flex;gap:2mm;align-items:baseline;width:100%;color:inherit;text-decoration:none}.toc li a:hover{color:var(--accent)}
+.toc li{display:flex;gap:2mm;align-items:baseline;margin-bottom:1.2mm;font-size:16.6pt;cursor:pointer}.toc li a{display:flex;gap:2mm;align-items:baseline;width:100%;color:inherit;text-decoration:none}.toc li a:hover{color:var(--accent)}
 .toc li:hover{color:var(--accent)}
-.toc li .pg{font-family:var(--f-mono);font-size:22.799999999999997pt;color:var(--ink3);min-width:9mm;text-align:right}
+.toc li .pg{font-family:var(--f-mono);font-size:15.199999999999998pt;color:var(--ink3);min-width:9mm;text-align:right}
 .toc li .txt{flex:1}
 </style>
 <script>
@@ -95,7 +95,7 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     <span class="hd-no">01</span>
   </div>
   <div class="body">
-    <div class="toc"><div class="toc-sec"><h4>PAPER 01-09</h4><ol><li><a href="#paper-01"><span class="pg">02</span><span class="txt">VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Models</span></a></li><li><a href="#paper-02"><span class="pg">03</span><span class="txt">EvalCrafter: Benchmarking and Evaluating Large Video Generation Models</span></a></li><li><a href="#paper-03"><span class="pg">04</span><span class="txt">VideoScore: Building Automatic Metrics to Simulate Fine-grained Human Feedback for Video Generation</span></a></li><li><a href="#paper-04"><span class="pg">05</span><span class="txt">VisualPrompter</span></a></li><li><a href="#paper-05"><span class="pg">06</span><span class="txt">3D Human Animation Quality Assessment: Subjective and Objective Evaluation</span></a></li><li><a href="#paper-06"><span class="pg">07</span><span class="txt">DreamFusion: Text-to-3D using 2D Diffusion</span></a></li><li><a href="#paper-07"><span class="pg">08</span><span class="txt">Point-E: A System for Generating 3D Point Clouds from Textual Descriptions</span></a></li><li><a href="#paper-08"><span class="pg">09</span><span class="txt">Magic3D: High-Resolution Text-to-3D Content Creation</span></a></li><li><a href="#paper-09"><span class="pg">10</span><span class="txt">What matters when building vision-language models? (Idefics2)</span></a></li></ol></div><div class="toc-sec"><h4>PAPER 10-18</h4><ol><li><a href="#paper-10"><span class="pg">11</span><span class="txt">CLIP: Learning Transferable Visual Models From Natural Language Supervision</span></a></li><li><a href="#paper-11"><span class="pg">12</span><span class="txt">Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation</span></a></li><li><a href="#paper-12"><span class="pg">13</span><span class="txt">ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation</span></a></li><li><a href="#paper-13"><span class="pg">14</span><span class="txt">Human Preference Score v2: A Solid Benchmark for Evaluating Human Preferences of Text-to-Image Synthesis</span></a></li><li><a href="#paper-14"><span class="pg">15</span><span class="txt">Training language models to follow instructions with human feedback (InstructGPT / RLHF)</span></a></li><li><a href="#paper-15"><span class="pg">16</span><span class="txt">Direct Preference Optimization: Your Language Model is Secretly a Reward Model</span></a></li><li><a href="#paper-16"><span class="pg">17</span><span class="txt">Active Learning for Large Language Model-based Chatbots</span></a></li><li><a href="#paper-17"><span class="pg">18</span><span class="txt">Model Context Protocol (MCP)</span></a></li><li><a href="#paper-18"><span class="pg">19</span><span class="txt">Agent2Agent Protocol (A2A)</span></a></li></ol></div><div class="toc-sec"><h4>PAPER 19-25</h4><ol><li><a href="#paper-19"><span class="pg">20</span><span class="txt">Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone</span></a></li><li><a href="#paper-20"><span class="pg">21</span><span class="txt">Llama 3.2: Revolutionizing edge AI and vision with open, Customizable Models</span></a></li><li><a href="#paper-21"><span class="pg">22</span><span class="txt">The False Dawn: Reevaluating Performance Gains of Small Language Models</span></a></li><li><a href="#paper-22"><span class="pg">23</span><span class="txt">A Watermark for Large Language Models</span></a></li><li><a href="vquala-2025.md"><span class="pg">24</span><span class="txt">VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models</span></a></li><li><a href="uniapo-2025.md"><span class="pg">25</span><span class="txt">UniAPO: Unified Multimodal Automated Prompt Optimization</span></a></li><li><a href="b-coder-2024.md"><span class="pg">26</span><span class="txt">B-CODER: Value-Based Deep Reinforcement Learning for Program Synthesis</span></a></li></ol></div></div></div>
+    <div class="toc"><div class="toc-sec"><h4>PAPER 01-09</h4><ol><li><a href="vemo.html"><span class="pg">P01</span><span class="txt">VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Models</span></a></li><li><a href="evalcrafter.html"><span class="pg">P02</span><span class="txt">EvalCrafter: Benchmarking and Evaluating Large Video Generation Models</span></a></li><li><a href="videoscore.html"><span class="pg">P03</span><span class="txt">VideoScore: Building Automatic Metrics to Simulate Fine-grained Human Feedback for Video Generation</span></a></li><li><a href="visualprompter.html"><span class="pg">P04</span><span class="txt">VisualPrompter</span></a></li><li><a href="3d-human-animation-qa.html"><span class="pg">P05</span><span class="txt">3D Human Animation Quality Assessment: Subjective and Objective Evaluation</span></a></li><li><a href="dreamfusion.html"><span class="pg">P06</span><span class="txt">DreamFusion: Text-to-3D using 2D Diffusion</span></a></li><li><a href="point-e.html"><span class="pg">P07</span><span class="txt">Point-E: A System for Generating 3D Point Clouds from Textual Descriptions</span></a></li><li><a href="magic3d.html"><span class="pg">P08</span><span class="txt">Magic3D: High-Resolution Text-to-3D Content Creation</span></a></li><li><a href="idefics2.html"><span class="pg">P09</span><span class="txt">What matters when building vision-language models? (Idefics2)</span></a></li></ol></div><div class="toc-sec"><h4>PAPER 10-18</h4><ol><li><a href="clip.html"><span class="pg">P10</span><span class="txt">CLIP: Learning Transferable Visual Models From Natural Language Supervision</span></a></li><li><a href="pick-a-pic.html"><span class="pg">P11</span><span class="txt">Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation</span></a></li><li><a href="imagereward.html"><span class="pg">P12</span><span class="txt">ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation</span></a></li><li><a href="hpsv2.html"><span class="pg">P13</span><span class="txt">Human Preference Score v2: A Solid Benchmark for Evaluating Human Preferences of Text-to-Image Synthesis</span></a></li><li><a href="instructgpt.html"><span class="pg">P14</span><span class="txt">Training language models to follow instructions with human feedback (InstructGPT / RLHF)</span></a></li><li><a href="dpo.html"><span class="pg">P15</span><span class="txt">Direct Preference Optimization: Your Language Model is Secretly a Reward Model</span></a></li><li><a href="active-learning-chatbots.html"><span class="pg">P16</span><span class="txt">Active Learning for Large Language Model-based Chatbots</span></a></li><li><a href="mcp.html"><span class="pg">P17</span><span class="txt">Model Context Protocol (MCP)</span></a></li><li><a href="a2a.html"><span class="pg">P18</span><span class="txt">Agent2Agent Protocol (A2A)</span></a></li></ol></div><div class="toc-sec"><h4>PAPER 19-25</h4><ol><li><a href="phi-3.html"><span class="pg">P19</span><span class="txt">Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone</span></a></li><li><a href="llama-3.2.html"><span class="pg">P20</span><span class="txt">Llama 3.2: Revolutionizing edge AI and vision with open, Customizable Models</span></a></li><li><a href="false-dawn.html"><span class="pg">P21</span><span class="txt">The False Dawn: Reevaluating Performance Gains of Small Language Models</span></a></li><li><a href="watermark.html"><span class="pg">P22</span><span class="txt">A Watermark for Large Language Models</span></a></li><li><a href="vquala-2025.html"><span class="pg">P23</span><span class="txt">VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models</span></a></li><li><a href="uniapo-2025.html"><span class="pg">P24</span><span class="txt">UniAPO: Unified Multimodal Automated Prompt Optimization</span></a></li><li><a href="b-coder-2024.html"><span class="pg">P25</span><span class="txt">B-CODER: Value-Based Deep Reinforcement Learning for Program Synthesis</span></a></li></ol></div></div></div>
 </section>
 
 <section class="sheet cat-paper" data-t="Synthesis">
@@ -136,8 +136,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">evaluation</span><span class="tag">vlm</span></div>
     <div class="footer">
-      <span><button disabled class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button></span>
-      <span>EvalCrafter: Benchmarking and Evaluating Large Vid <button data-go="2" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button disabled class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button></span>
+      <span>EvalCrafter: Benchmarking and Evaluating Large Vid <button data-go="2" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -161,8 +161,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">evaluation</span><span class="tag">benchmark</span></div>
     <div class="footer">
-      <span><button data-go="0" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>VeMo: Zero-Shot Text-to-Motion Evaluation using Vi</span>
-      <span>VideoScore: Building Automatic Metrics to Simulate <button data-go="3" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="0" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>VeMo: Zero-Shot Text-to-Motion Evaluation using Vi</span>
+      <span>VideoScore: Building Automatic Metrics to Simulate <button data-go="3" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -186,8 +186,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">evaluation</span><span class="tag">feedback</span></div>
     <div class="footer">
-      <span><button data-go="1" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>EvalCrafter: Benchmarking and Evaluating Large Vid</span>
-      <span>VisualPrompter <button data-go="4" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="1" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>EvalCrafter: Benchmarking and Evaluating Large Vid</span>
+      <span>VisualPrompter <button data-go="4" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -211,8 +211,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">evaluation</span><span class="tag">prompt-improvement</span></div>
     <div class="footer">
-      <span><button data-go="2" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>VideoScore: Building Automatic Metrics to Simulate</span>
-      <span>3D Human Animation Quality Assessment: Subjective  <button data-go="5" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="2" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>VideoScore: Building Automatic Metrics to Simulate</span>
+      <span>3D Human Animation Quality Assessment: Subjective  <button data-go="5" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -236,8 +236,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">evaluation</span><span class="tag">3d</span><span class="tag">quality-assessment</span></div>
     <div class="footer">
-      <span><button data-go="3" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>VisualPrompter</span>
-      <span>DreamFusion: Text-to-3D using 2D Diffusion <button data-go="6" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="3" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>VisualPrompter</span>
+      <span>DreamFusion: Text-to-3D using 2D Diffusion <button data-go="6" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -261,8 +261,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">3d</span><span class="tag">generation</span></div>
     <div class="footer">
-      <span><button data-go="4" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>3D Human Animation Quality Assessment: Subjective </span>
-      <span>Point-E: A System for Generating 3D Point Clouds f <button data-go="7" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="4" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>3D Human Animation Quality Assessment: Subjective </span>
+      <span>Point-E: A System for Generating 3D Point Clouds f <button data-go="7" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -286,8 +286,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">3d</span><span class="tag">generation</span><span class="tag">fast</span></div>
     <div class="footer">
-      <span><button data-go="5" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>DreamFusion: Text-to-3D using 2D Diffusion</span>
-      <span>Magic3D: High-Resolution Text-to-3D Content Creati <button data-go="8" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="5" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>DreamFusion: Text-to-3D using 2D Diffusion</span>
+      <span>Magic3D: High-Resolution Text-to-3D Content Creati <button data-go="8" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -311,8 +311,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">3d</span><span class="tag">generation</span><span class="tag">high-resolution</span></div>
     <div class="footer">
-      <span><button data-go="6" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Point-E: A System for Generating 3D Point Clouds f</span>
-      <span>What matters when building vision-language models? <button data-go="9" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="6" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Point-E: A System for Generating 3D Point Clouds f</span>
+      <span>What matters when building vision-language models? <button data-go="9" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -336,8 +336,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">vlm</span><span class="tag">foundation</span></div>
     <div class="footer">
-      <span><button data-go="7" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Magic3D: High-Resolution Text-to-3D Content Creati</span>
-      <span>CLIP: Learning Transferable Visual Models From Nat <button data-go="10" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="7" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Magic3D: High-Resolution Text-to-3D Content Creati</span>
+      <span>CLIP: Learning Transferable Visual Models From Nat <button data-go="10" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -361,8 +361,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">vlm</span><span class="tag">evaluation</span><span class="tag">cpu-friendly</span></div>
     <div class="footer">
-      <span><button data-go="8" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>What matters when building vision-language models?</span>
-      <span>Pick-a-Pic: An Open Dataset of User Preferences fo <button data-go="11" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="8" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>What matters when building vision-language models?</span>
+      <span>Pick-a-Pic: An Open Dataset of User Preferences fo <button data-go="11" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -386,8 +386,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">preference-learning</span><span class="tag">evaluation</span><span class="tag">image-generation</span></div>
     <div class="footer">
-      <span><button data-go="9" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>CLIP: Learning Transferable Visual Models From Nat</span>
-      <span>ImageReward: Learning and Evaluating Human Prefere <button data-go="12" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="9" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>CLIP: Learning Transferable Visual Models From Nat</span>
+      <span>ImageReward: Learning and Evaluating Human Prefere <button data-go="12" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -411,8 +411,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">preference-learning</span><span class="tag">evaluation</span><span class="tag">image-generation</span></div>
     <div class="footer">
-      <span><button data-go="10" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Pick-a-Pic: An Open Dataset of User Preferences fo</span>
-      <span>Human Preference Score v2: A Solid Benchmark for E <button data-go="13" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="10" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Pick-a-Pic: An Open Dataset of User Preferences fo</span>
+      <span>Human Preference Score v2: A Solid Benchmark for E <button data-go="13" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -436,8 +436,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">preference-learning</span><span class="tag">evaluation</span><span class="tag">benchmark</span></div>
     <div class="footer">
-      <span><button data-go="11" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>ImageReward: Learning and Evaluating Human Prefere</span>
-      <span>Training language models to follow instructions wi <button data-go="14" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="11" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>ImageReward: Learning and Evaluating Human Prefere</span>
+      <span>Training language models to follow instructions wi <button data-go="14" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -461,8 +461,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">preference-learning</span><span class="tag">rlhf</span><span class="tag">feedback</span></div>
     <div class="footer">
-      <span><button data-go="12" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Human Preference Score v2: A Solid Benchmark for E</span>
-      <span>Direct Preference Optimization: Your Language Mode <button data-go="15" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="12" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Human Preference Score v2: A Solid Benchmark for E</span>
+      <span>Direct Preference Optimization: Your Language Mode <button data-go="15" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -486,8 +486,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">preference-learning</span><span class="tag">dpo</span><span class="tag">efficiency</span></div>
     <div class="footer">
-      <span><button data-go="13" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Training language models to follow instructions wi</span>
-      <span>Active Learning for Large Language Model-based Cha <button data-go="16" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="13" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Training language models to follow instructions wi</span>
+      <span>Active Learning for Large Language Model-based Cha <button data-go="16" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -511,8 +511,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">active-learning</span><span class="tag">cost</span><span class="tag">human-feedback</span></div>
     <div class="footer">
-      <span><button data-go="14" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Direct Preference Optimization: Your Language Mode</span>
-      <span>Model Context Protocol (MCP) <button data-go="17" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="14" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Direct Preference Optimization: Your Language Mode</span>
+      <span>Model Context Protocol (MCP) <button data-go="17" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -536,8 +536,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">mcp</span><span class="tag">agent</span><span class="tag">protocol</span></div>
     <div class="footer">
-      <span><button data-go="15" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Active Learning for Large Language Model-based Cha</span>
-      <span>Agent2Agent Protocol (A2A) <button data-go="18" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="15" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Active Learning for Large Language Model-based Cha</span>
+      <span>Agent2Agent Protocol (A2A) <button data-go="18" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -561,8 +561,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">a2a</span><span class="tag">agent</span><span class="tag">protocol</span></div>
     <div class="footer">
-      <span><button data-go="16" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Model Context Protocol (MCP)</span>
-      <span>Phi-3 Technical Report: A Highly Capable Language  <button data-go="19" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="16" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Model Context Protocol (MCP)</span>
+      <span>Phi-3 Technical Report: A Highly Capable Language  <button data-go="19" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -586,8 +586,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">slm</span><span class="tag">local-model</span><span class="tag">efficiency</span></div>
     <div class="footer">
-      <span><button data-go="17" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Agent2Agent Protocol (A2A)</span>
-      <span>Llama 3.2: Revolutionizing edge AI and vision with <button data-go="20" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="17" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Agent2Agent Protocol (A2A)</span>
+      <span>Llama 3.2: Revolutionizing edge AI and vision with <button data-go="20" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -611,8 +611,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">slm</span><span class="tag">vlm</span><span class="tag">local-model</span></div>
     <div class="footer">
-      <span><button data-go="18" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Phi-3 Technical Report: A Highly Capable Language </span>
-      <span>The False Dawn: Reevaluating Performance Gains of  <button data-go="21" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="18" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Phi-3 Technical Report: A Highly Capable Language </span>
+      <span>The False Dawn: Reevaluating Performance Gains of  <button data-go="21" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -636,8 +636,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">slm</span><span class="tag">cost</span><span class="tag">efficiency</span></div>
     <div class="footer">
-      <span><button data-go="19" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>Llama 3.2: Revolutionizing edge AI and vision with</span>
-      <span>A Watermark for Large Language Models <button data-go="22" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="19" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>Llama 3.2: Revolutionizing edge AI and vision with</span>
+      <span>A Watermark for Large Language Models <button data-go="22" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -661,8 +661,8 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="tags"><span class="tag">trust</span><span class="tag">provenance</span></div>
     <div class="footer">
-      <span><button data-go="20" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-right:4px;">&larr; Prev</button>The False Dawn: Reevaluating Performance Gains of </span>
-      <span>To Contents <button disabled class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:24.599999999999998pt;margin-left:4px;">Next &rarr;</button></span>
+      <span><button data-go="20" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-right:4px;">&larr; Prev</button>The False Dawn: Reevaluating Performance Gains of </span>
+      <span>To Contents <button disabled class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:16.4pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
   </div>
 </section>
@@ -681,7 +681,7 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="meta-row" style="margin-top:3mm"><dt>Relevance to theme</dt><dd><p style="margin:0">VLM 評価を単一スコアだけでなく、pairwise preference と confidence を含む評価器として設計する。</p></dd></div>
     <div class="tags"><span class="tag">vlm</span><span class="tag">evaluation</span><span class="tag">pairwise</span><span class="tag">confidence</span></div>
-    <div class="footer"><span><button data-go="21" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:24.599999999999998pt;">← Prev</button> A Watermark for Large Language Models</span><span>UniAPO: Unified Multimodal Automated Prompt Optimization <button data-go="24" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:24.599999999999998pt;">Next →</button></span></div>
+    <div class="footer"><span><button data-go="21" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:16.4pt;">← Prev</button> A Watermark for Large Language Models</span><span>UniAPO: Unified Multimodal Automated Prompt Optimization <button data-go="24" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:16.4pt;">Next →</button></span></div>
   </div>
 </section>
 
@@ -698,7 +698,7 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="meta-row" style="margin-top:3mm"><dt>Relevance to theme</dt><dd><p style="margin:0">Prompt → Generate → Evaluate → Feedback → Mutation → Prompt の履歴型最適化を研究ループへ導入する。</p></dd></div>
     <div class="tags"><span class="tag">prompt-optimization</span><span class="tag">multimodal</span><span class="tag">feedback</span><span class="tag">memory</span></div>
-    <div class="footer"><span><button data-go="23" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:24.599999999999998pt;">← Prev</button> VQualA 2025</span><span>B-CODER: Value-Based Deep Reinforcement Learning for Program Synthesis <button data-go="25" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:24.599999999999998pt;">Next →</button></span></div>
+    <div class="footer"><span><button data-go="23" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:16.4pt;">← Prev</button> VQualA 2025</span><span>B-CODER: Value-Based Deep Reinforcement Learning for Program Synthesis <button data-go="25" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:16.4pt;">Next →</button></span></div>
   </div>
 </section>
 
@@ -715,7 +715,7 @@ small{font-size:24.599999999999998pt;color:var(--ink3)}
     </div>
     <div class="meta-row" style="margin-top:3mm"><dt>Relevance to theme</dt><dd><p style="margin:0">Code → Execute / Render → Verifiable Reward → Value Model → Selection という探索ループの根拠。</p></dd></div>
     <div class="tags"><span class="tag">program-synthesis</span><span class="tag">reinforcement-learning</span><span class="tag">code-as-genome</span><span class="tag">selection</span></div>
-    <div class="footer"><span><button data-go="24" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:24.599999999999998pt;">← Prev</button> UniAPO</span><span>To Contents</span></div>
+    <div class="footer"><span><button data-go="24" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:16.4pt;">← Prev</button> UniAPO</span><span>To Contents</span></div>
   </div>
 </section>
 
