@@ -1,0 +1,10 @@
+flowchart LR
+I[Intent] --> P[Prompt]
+H[History] --> F[Feedback Model]
+P --> G[Generate]
+G --> O[Multimodal Output]
+O --> E[Evaluate]
+E --> F
+F --> M[Prompt Mutation]
+M --> P
+H --> M
