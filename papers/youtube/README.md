@@ -38,3 +38,12 @@ Paper → Research finding → 4-panel SF script → SVG storyboard → SVG anim
 - 演出: キャラクター、台詞、未来設定、オチ
 - 研究接続: hw-sotsuseiでどう使うか
 SF部分を膨らませても、論文の実験結果を創作しない。
+
+## MP4 production
+
+AW/WFでSVGからMP4までを自動化する。
+
+- AW: .github/workflows/paper-animation.md — 研究内容の確認とRender WFのオーケストレーション
+- Render WF: .github/workflows/sf-paper-animation-render.yml — 決定的なSVG→MP4変換
+- Renderer: scripts/render_paper_comics.sh — 4コマをカメラ移動付き12秒MP4へ変換
+- Artifact: sf-paper-animation-mp4 — P01〜P25のMP4 + manifest
