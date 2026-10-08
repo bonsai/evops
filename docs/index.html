@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>hw-sotsusei — 研究の5本柱</title>
+<style>
+body{font-family:system-ui,"Noto Sans JP",sans-serif;max-width:1200px;margin:48px auto;padding:0 24px;line-height:1.7;background:#f7f7f7;color:#222}
+h1{font-size:34px;margin:0 0 8px}.lead{font-size:18px;color:#666;margin:0}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:32px}
+.card{background:#fff;border:1px solid #ddd;border-radius:14px;padding:22px;min-height:220px}
+.num{font-size:14px;color:#777;font-weight:800;letter-spacing:.08em}
+h2{font-size:22px;margin:6px 0}.desc{color:#666;min-height:72px}
+a{display:block;color:#0645ad;text-decoration:none;padding:5px 0;font-weight:600}a:hover{text-decoration:underline}
+.flow{margin-top:32px;padding:22px;background:#fff;border:1px solid #ddd;border-radius:14px;font-size:20px;text-align:center;font-weight:700}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<h1>hw-sotsusei — 研究の5本柱</h1>
+<p class="lead">卒業制作の研究体系を「前提 → 計画 → 実験 → 調査 → 発表」の5本柱で整理する。</p>
+
+<div class="grid">
+<section class="card">
+<div class="num">P01</div><h2>前提</h2>
+<p class="desc">研究の出発点、問題設定、Intent、仮説、研究対象を定義する。</p>
+<a href="seed/index.html">前提・研究体系</a>
+</section>
+<section class="card">
+<div class="num">P02</div><h2>計画</h2>
+<p class="desc">研究計画、10日間の実施計画、Issue、Kanbanを管理する。</p>
+<a href="seed/0.html">計画概要</a>
+<a href="plan/kanban.html">計画進行 / Kanban</a>
+</section>
+<section class="card">
+<div class="num">P03</div><h2>実験・評価</h2>
+<p class="desc">生成 → Render → VLM/LMS評価 → DB → ML → 選択という実験ループ。</p>
+<a href="plan/kanban.html">実験進行</a>
+<a href="../papers/ontology.html">評価Ontology</a>
+</section>
+<section class="card">
+<div class="num">P04</div><h2>調査</h2>
+<p class="desc">関連論文、手法、評価指標、Ontologyを研究根拠として整理する。</p>
+<a href="../papers/index.html">論文Index</a>
+<a href="../papers/papers.html">論文目次</a>
+<a href="../papers/ontology.html">Ontology Graph</a>
+</section>
+<section class="card">
+<div class="num">P05</div><h2>発表</h2>
+<p class="desc">研究成果をWebプレゼンとして構成し、ブラウザで閲覧・発表する。</p>
+<a href="web/index.html">Webプレゼン</a>
+<a href="web/web_split/part01_plan.html">Part 01 — Plan</a>
+<a href="web/web_split/part02_deliver.html">Part 02 — Deliver</a>
+<a href="web/web_split/part03_present.html">Part 03 — Present</a>
+</section>
+</div>
+
+<div class="flow">前提 → 計画 → 実験・評価 → 調査 → 発表</div>
+</body>
+</html>
