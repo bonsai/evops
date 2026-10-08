@@ -1,18 +1,16 @@
-"""SQLite MCP server for the visual evaluation loop.
+"""SQLite MCP server with FastAPI integration.
 
-Provides structured storage for generated items, parameters, evaluations,
-human feedback, and intent vectors.
+Run standalone MCP:
+    python mcp/db/server.py          # stdio mode for MCP SDK clients
+    python mcp/db/server.py --http   # HTTP mode on port 8001
 
-Run:
-    python mcp/db/server.py
-
-Then query via HTTP:
-    curl -X POST http://localhost:8001/call \
-      -H "Content-Type: application/json" \
-      -d '{"name":"save_record","arguments":{"table":"experiments","record":{"name":"test","task_context":"image","intent_text":"cute character"}}}'
+Or import as module:
+    from mcp.db.server import mcp, app
+    # app is FastAPI with /mcp endpoint and /health probes
 """
 from __future__ import annotations
 
+import argparse
 import json
 import sqlite3
 from contextlib import closing
@@ -21,6 +19,9 @@ from pathlib import Path
 from typing import Any
 
 from fastmcp import FastMCP
+
+# Base server pattern: adds FastAPI app alongside MCP tools
+from mcp.base_server import create_mcp_app, run_mcp_server
 
 DB_PATH = Path(__file__).resolve().parent / "sotsusei.db"
 
@@ -34,7 +35,6 @@ CREATE TABLE IF NOT EXISTS experiments (
     intent_text TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS parameters (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     experiment_id INTEGER REFERENCES experiments(id),
@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS parameters (
     tool_version TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS generated_items (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     parameter_id INTEGER REFERENCES parameters(id),
@@ -51,7 +50,6 @@ CREATE TABLE IF NOT EXISTS generated_items (
     item_type TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS auto_evaluations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_id INTEGER REFERENCES generated_items(id),
@@ -61,7 +59,6 @@ CREATE TABLE IF NOT EXISTS auto_evaluations (
     raw_output TEXT,
     evaluated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS human_evaluations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_id INTEGER REFERENCES generated_items(id),
@@ -71,7 +68,6 @@ CREATE TABLE IF NOT EXISTS human_evaluations (
     evaluator_id TEXT,
     evaluated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS pairwise_comparisons (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_a_id INTEGER REFERENCES generated_items(id),
@@ -80,7 +76,6 @@ CREATE TABLE IF NOT EXISTS pairwise_comparisons (
     reason TEXT,
     evaluated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS feedback (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_id INTEGER REFERENCES generated_items(id),
@@ -88,7 +83,6 @@ CREATE TABLE IF NOT EXISTS feedback (
     repair_instruction TEXT,
     next_parameters TEXT
 );
-
 CREATE TABLE IF NOT EXISTS intent_vectors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     experiment_id INTEGER REFERENCES experiments(id),
@@ -127,13 +121,9 @@ def init_schema() -> dict[str, Any]:
 def save_record(table: str, record: dict[str, Any]) -> dict[str, Any]:
     """Insert a record into a table. JSON fields are serialized automatically."""
     _init_db()
-    # Auto-serialize known JSON columns
     json_cols = {
-        "param_json",
-        "axis_scores",
-        "next_parameters",
-        "vector_json",
-        "raw_output",
+        "param_json", "axis_scores", "next_parameters",
+        "vector_json", "raw_output",
     }
     record = {
         k: _serialize(v) if k in json_cols and not isinstance(v, str) else v
@@ -165,9 +155,7 @@ def query_records(
     for k, v in filters.items():
         where_clauses.append(f"{k} = ?")
         params.append(v)
-    where_sql = ""
-    if where_clauses:
-        where_sql = "WHERE " + " AND ".join(where_clauses)
+    where_sql = "WHERE " + " AND ".join(where_clauses) if where_clauses else ""
     order_sql = f"ORDER BY {order_by}" if order_by else ""
     sql = f"SELECT * FROM {table} {where_sql} {order_sql} LIMIT ?"
     params.append(limit)
@@ -207,21 +195,14 @@ def get_recent_evaluations(limit: int = 10) -> list[dict[str, Any]]:
     _init_db()
     sql = """
     SELECT
-        gi.id AS item_id,
-        gi.file_path,
-        p.prompt_text,
-        ae.evaluator_name,
-        ae.axis_name,
-        ae.score AS auto_score,
-        he.overall_score AS human_score,
-        he.comment,
-        gi.created_at
+        gi.id AS item_id, gi.file_path, p.prompt_text,
+        ae.evaluator_name, ae.axis_name, ae.score AS auto_score,
+        he.overall_score AS human_score, he.comment, gi.created_at
     FROM generated_items gi
     LEFT JOIN parameters p ON gi.parameter_id = p.id
     LEFT JOIN auto_evaluations ae ON ae.item_id = gi.id
     LEFT JOIN human_evaluations he ON he.item_id = gi.id
-    ORDER BY gi.created_at DESC
-    LIMIT ?
+    ORDER BY gi.created_at DESC LIMIT ?
     """
     with closing(sqlite3.connect(DB_PATH)) as conn:
         conn.row_factory = sqlite3.Row
@@ -229,7 +210,17 @@ def get_recent_evaluations(limit: int = 10) -> list[dict[str, Any]]:
         return [dict(r) for r in rows]
 
 
+# FastAPI app for HTTP mode (mounted at /mcp)
+app = create_mcp_app(mcp, transport="http")
+
+
 if __name__ == "__main__":
-    _init_db()
-    # stdio is the standard MCP transport; clients connect via MCP client SDK.
-    mcp.run(transport="stdio")
+    parser = argparse.ArgumentParser(description="sotsusei-db MCP server")
+    parser.add_argument("--http", action="store_true", help="Run HTTP server instead of stdio")
+    parser.add_argument("--port", type=int, default=8001, help="HTTP port (default 8001)")
+    args = parser.parse_args()
+
+    if args.http:
+        run_mcp_server(mcp, port=args.port, transport="http")
+    else:
+        mcp.run(transport="stdio")

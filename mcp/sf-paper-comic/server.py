@@ -1,11 +1,14 @@
-"""SF paper comic MCP server.
+"""SF paper comic MCP server with FastAPI integration.
 
 Paper -> four-panel SF storyboard -> SVG animation metadata.
-The server is deliberately small: it prepares structured episode data;
-rendering remains deterministic and can be handled by SVG/HTML tooling.
 """
+from __future__ import annotations
 
-from mcp.server.fastmcp import FastMCP
+import argparse
+from typing import Any
+
+from fastmcp import FastMCP
+from mcp.base_server import create_mcp_app, run_mcp_server
 
 mcp = FastMCP("sf-paper-comic")
 
@@ -19,7 +22,7 @@ def make_episode(
     panel2: str,
     panel3: str,
     panel4: str,
-) -> dict:
+) -> dict[str, Any]:
     """Create a four-panel SF paper episode specification."""
     return {
         "id": paper_id,
@@ -38,7 +41,7 @@ def make_episode(
 
 
 @mcp.tool()
-def make_timeline(duration: int = 60) -> dict:
+def make_timeline(duration: int = 60) -> dict[str, Any]:
     """Return a default four-panel timing plan in seconds."""
     duration = max(45, min(duration, 90))
     intro = 4
@@ -55,5 +58,14 @@ def make_timeline(duration: int = 60) -> dict:
     }
 
 
+app = create_mcp_app(mcp, transport="http")
+
 if __name__ == "__main__":
-    mcp.run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--http", action="store_true")
+    parser.add_argument("--port", type=int, default=8004)
+    args = parser.parse_args()
+    if args.http:
+        run_mcp_server(mcp, port=args.port, transport="http")
+    else:
+        mcp.run(transport="stdio")

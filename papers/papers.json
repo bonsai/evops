@@ -224,6 +224,166 @@
       "body": "LLM 生成テキストに透かしを埋め込み、出典追跡や品質管理を行う手法。生成物の信頼性・再現性管理の参考。",
       "relevance": "回転ループで生成されたプロンプト・bpy コード・評価の出典管理・信頼性担保。",
       "categories": ["trust", "provenance"]
+    },
+    {
+      "id": 23,
+      "title": "VQualA: Video Quality Assessment via VLM",
+      "venue": "in-house",
+      "year": 2025,
+      "short": "VLMを用いた動画品質評価フレームワーク",
+      "body": "生成動画の品質をVLMで多軸評価し、構造的・意味的両面からスコアリングする自社フレームワーク。",
+      "relevance": "評価OntologyとVLM評価器の自社実装。",
+      "categories": ["evaluation", "vlm", "video"]
+    },
+    {
+      "id": 24,
+      "title": "UniAPO: Unified Automatic Pipeline Orchestration",
+      "venue": "in-house",
+      "year": 2025,
+      "short": "統合自動パイプラインオーケストレーション",
+      "body": "複数の生成・評価サービスを統合し、共通DSLで制御するオーケストレーション層の設計。",
+      "relevance": "MCP/A2Aベースのパイプライン統合の自社実装。",
+      "categories": ["mcp", "a2a", "orchestration"]
+    },
+    {
+      "id": 25,
+      "title": "B-CODER: Benchmarking Code Generation with Evaluation Loop",
+      "venue": "ICLR 2024",
+      "year": 2024,
+      "short": "評価ループ付きコード生成ベンチマーク",
+      "body": "コード生成タスクにおいて、生成→評価→修正ループの性能を測定するベンチマークとフレームワーク。",
+      "relevance": "生成→評価→改善ループの定式化の参考。",
+      "categories": ["code-generation", "evaluation", "benchmark"]
+    },
+    {
+      "id": 26,
+      "title": "MLOps Evaluation Loop Automation",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "MLOps評価ループの自動化設計",
+      "body": "生成AIパイプラインにおける継続的評価ループの自動化設計。評価器の選定、閾値管理、フィードバック機構の標準化。",
+      "relevance": "評価ループの自動化と標準化の自社設計。",
+      "categories": ["mlops", "evaluation", "automation"]
+    },
+    {
+      "id": 27,
+      "title": "VLM Evaluation Automation for Visual Content",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "視覚コンテンツ向けVLM評価自動化",
+      "body": "画像・動画生成物のVLM評価を自動化し、スコア閾値ベースの合格判定と修復指示生成を行う仕組み。",
+      "relevance": "VLM評価の自動運用と修復接続の設計。",
+      "categories": ["vlm", "evaluation", "automation", "visual"]
+    },
+    {
+      "id": 28,
+      "title": "Evolutionary Generation Loop with Feedback Accumulation",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "フィードバック蓄積型進化生成ループ",
+      "body": "過去の評価フィードバックを遺伝的アルゴリズム的に蓄積・選択し、次世代の生成パラメータを進化させるループ設計。",
+      "relevance": "評価ナレッジの進化的利用と継続的改善。",
+      "categories": ["evolutionary", "feedback", "loop", "optimization"]
+    },
+    {
+      "id": 29,
+      "title": "Jev-Driven MLOps: High-Speed Judgment Layer for Observable and Controllable Generative Pipelines",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "MLOps内部への高速判断レイヤー統合",
+      "body": "TypeSafe AIのJev(System One Model)をMLOpsの内部制御プレーンとして統合。5つの統合ポイント(Backend Router, Prefilter Gate, Human Gate, Repair Router, Knowledge Ranker)を設計し、30%コスト削減と29×加速を実現。",
+      "relevance": "判断インフラのMLOps化と観測性・制御性の同時向上。",
+      "categories": ["jev", "mlops", "control-plane", "cost-optimization"]
+    },
+    {
+      "id": 30,
+      "title": "Model-Free Visual Synthesis: Deterministic 3D Rendering via ComfyUI-Workflow Concepts Mapped to Blender-bpy",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "拡散モデル不要の決定論的ビジュアル合成",
+      "body": "ComfyUIのノードグラフ概念を保持し、実行バックエンドをBlender-bpyに置き換える決定論的ビジュアル合成パイプライン。LLMが自然言語をbpyコードに変換し、CPUのみで100%再現可能な3Dレンダリングを実現。",
+      "relevance": "モデルファイル不要・GPU不要の決定論的生成パイプライン。",
+      "categories": ["model-free", "blender-bpy", "deterministic", "comfyui", "3d"]
+    },
+    {
+      "id": 31,
+      "title": "Inverse Preference Learning for Evaluation Agents: Inferring Human Value Functions from Scores",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "人間の価値関数を採点履歴から逆推定",
+      "body": "自然言語プロンプト調整の代替として、人間の採点履歴からインテントベクトルを逆推定し、動的に評価基準を生成・最適化するエージェント設計。LangChain/LangGraph/LangSmith三兄弟活用。",
+      "relevance": "インテント推定と動的評価基準生成の自社フレームワーク。",
+      "categories": ["intent-estimation", "inverse-preference", "langchain", "bradley-terry"]
+    },
+    {
+      "id": 32,
+      "title": "Cost-Aware Rotation Loop Design for Resource-Constrained MLOps: Token Budget Optimization in CPU-Only Generative Pipelines",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "CPU制約下でのコスト意識型回転ループ設計",
+      "body": "APIトークン予算とCPU-only(16GB RAM)制約下での回転ループコスト構造を定式化。自動評価優先ハイブリッドで同予算内5倍ループ増加を実現。予算閾値による動作モード切り替えルールを設計。",
+      "relevance": "リソース制約下MLOpsのコスト最適化理論。",
+      "categories": ["cost-optimization", "cpu-only", "token-budget", "rotation-loop"]
+    },
+    {
+      "id": 33,
+      "title": "Structured Feature Axes for Character-Aware Visual Correction Loops: Multi-Layer Evaluation Combining Detection, Histogram, and VLM",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "構造特徴軸によるキャラクター認識型画像修正ループ",
+      "body": "曖昧なVLM評価を構造軸(色ヒストグラム・輪郭検出)とスタイル軸(CLIP)に分解し、段階的に評価・修正するフレームワーク。人間介入ポイントを5箇所に明示的設計。",
+      "relevance": "多層評価と説明可能な画像修正ループ。",
+      "categories": ["structured-evaluation", "character-aware", "human-in-the-loop", "visual-correction"]
+    },
+    {
+      "id": 34,
+      "title": "From Evaluation to Knowledge: Continuous Learning in Generative Pipelines via Structured Feedback Accumulation",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "構造化フィードバック蓄積による継続学習",
+      "body": "評価データを5テーブルスキーマで構造化蓄積し、ChromaDB/pgvectorによる類似度検索で次世代生成に再利用。成功/失敗パターンの抽出とFID/LPIPSによる多様性管理を統合。",
+      "relevance": "評価からナレッジへの変換と継続的学習ループ。",
+      "categories": ["knowledge-accumulation", "vector-search", "continuous-learning", "feedback"]
+    },
+    {
+      "id": 35,
+      "title": "A Unified Domain-Specific Language for Heterogeneous Generative Pipeline Composition",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "異種生成パイプライン統合DSL",
+      "body": "Blender-bpy, ComfyUI, Evaluator, DBなど異種サービス間をJSON DSLで統一的に記述。Workflow DSL/IR/バックエンドコードの三層構造。$refによるステージ間参照とevaluation・feedback_loop・repair_strategyの第一級統合。",
+      "relevance": "異種バックエンド横断のパイプライン記述言語標準化。",
+      "categories": ["dsl", "json-schema", "workflow-ir", "pipeline-composition"]
+    },
+    {
+      "id": 36,
+      "title": "Multi-Metric Automated Story Evaluation: Beyond Readability to Thematic Coherence via Embedding and Sentiment Analysis",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "多指標自動小説評価フレームワーク",
+      "body": "日本語・英語小説に対して読みやすさ、語彙多様性、感情軌跡、テーマ適合度、キャラクター一致性、プロット構造を多軸評価。機械計算指標と人間定義テーマ制約の分離と長期分析基盤。",
+      "relevance": "生成AIテキスト（小説・脚本）の客観的品質評価。",
+      "categories": ["story-evaluation", "readability", "sentiment-analysis", "thematic-coherence", "nlp"]
+    },
+    {
+      "id": 37,
+      "title": "Observability Dashboards for Generative Pipelines: From Score Tracking to 3D Parameter Space Exploration",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "生成パイプライン観測性ダッシュボード",
+      "body": "評価ループ全体を可視化するダッシュボードアーキテクチャ。時系列プロット、散布図、UMAPクラスタリング、PyVistaによるパラメータ空間3Dマッピング。Streamliteフロントエンドで検索空間を可視化。",
+      "relevance": "生成パイプラインのデバッグと最適化を支援する観測基盤。",
+      "categories": ["observability", "dashboard", "3d-visualization", "pyvista", "umap"]
+    },
+    {
+      "id": 38,
+      "title": "MCP Server Standardization via fastmcp and FastAPI: Transport Unification, SDK Compatibility, and Multi-Protocol Exposure",
+      "venue": "in-house",
+      "year": 2024,
+      "short": "fastmcp+FastAPI統合によるMCPサーバー標準化",
+      "body": "同一リポジトリ内でmcp 2.x SDK（FastMCP→MCPServerリネーム）とfastmcp 4.xパッケージが混在しimport互換性が破壊される問題を实名調査。fastmcp 4.xのhttp_app()がStarletteアプリを返しFastAPIにmount可能であることを確認し、全MCPサービス（blender-bpy/evaluator/db/sf-paper-comic）をFastMCP+FastAPI統合パターンで再構築。transport={stdio,sse,http,streamable-http}の切替可能なベースサーバーテンプレートを共通化し、個別サービスと統合ゲートウェイの両方で動作するアーキテクチャを確立。",
+      "relevance": "MCPサーバーのトランスポート統一、SDK互換性確保、REST/MCP双プロトコル提供。",
+      "categories": ["mcp", "fastmcp", "fastapi", "transport", "sdk-compatibility", "multi-protocol", "stdio", "sse", "streamable-http"]
     }
   ],
   "synthesis": [

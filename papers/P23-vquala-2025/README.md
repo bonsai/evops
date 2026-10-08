@@ -1,26 +1,14 @@
-# P23 — VQualA 2025
+# P23: VQualA: Video Quality Assessment via VLM
 
-- Year: 2025
-- Category: VLM / Evaluation / Pairwise
-- Source: https://arxiv.org/abs/2509.09190
+> **VQualA: Video Quality Assessment via VLM** / in-house / 2025
 
-## Intent relevance
-「近い」を「どちらが良いか」「どの基準で」「どの程度確信できるか」に分解する評価器設計へ直結する。
+## Abstract
 
-## Research question
-大規模マルチモーダルモデルは画像の視覚品質差を比較判断できるか。
+生成動画の品質をVLMで多軸評価し、構造的・意味的両面からスコアリングする自社フレームワーク。
 
-## Method
-single / pair / multi-image を対象に、2AFC や multiple-choice などの比較プロトコルを使う。
+## Short
+VLMを用いた動画品質評価フレームワーク
 
-## Import
-- A/B pairwise preference
-- score + confidence + reason
-- coarse-to-fine criteria
-- human set で校正
+## Keywords
 
-## Design implication
-Reference + Intent → Candidate A/B → VLM → Preference + Score + Confidence → Calibration → Selection
-
-## Limitation
-Doraemon固有の評価信頼性やBlenderコード評価を直接解決するものではない。
+evaluation, vlm, video

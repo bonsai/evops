@@ -3,43 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>hw-sotsusei Papers</title>
+<title>EvOps Papers</title>
 <style>
 body{font-family:system-ui,sans-serif;max-width:1100px;margin:40px auto;padding:0 20px;line-height:1.6}
 h1{margin-bottom:4px} .lead{color:#555}
 article{border:1px solid #ddd;border-radius:10px;padding:16px;margin:12px 0}
 h2{margin:0 0 4px;font-size:1.05rem} p{margin:4px 0 8px}
 a{color:#0645ad}
+.section-title{margin-top:32px;font-size:1.3rem;border-bottom:2px solid #333;padding-bottom:4px}
 </style>
 </head>
 <body>
-<h1>Papers — Research Evidence</h1>
-<p class="lead">研究DBの25本を一覧化。概要と原論文PDFだけを掲載。</p>
+<h1>EvOps Papers — Research Evidence</h1>
+<p class="lead">Research question: LMS/VLMを共通評価器として使い、評価結果をDBへ蓄積し、MLによる改善へ接続できるか。</p>
 
-<article><h2>P01 VeMo — Zero-Shot Text-to-Motion Evaluation using Video Language Models</h2><p>Text-to-motion と生成動画の意味的一致を VLM で評価。</p><a href="https://proceedings.mlr.press/v306/ji26l/ji26l.pdf">PDF</a></article>
-<article><h2>P02 EvalCrafter — Benchmarking and Evaluating Large Video Generation Models</h2><p>動画生成を visual quality、content、motion、text-video alignment の多軸で評価。</p><a href="https://arxiv.org/pdf/2310.11440">PDF</a></article>
-<article><h2>P03 VideoScore — Building Automatic Metrics to Simulate Fine-grained Human Feedback for Video Generation</h2><p>人間の細粒度評価を自動動画評価へ変換し、生成改善のフィードバックに利用。</p><a href="https://arxiv.org/pdf/2406.15252">PDF</a></article>
-<article><h2>P04 VisualPrompter — Semantic-Aware Prompt Optimization with Visual Feedback</h2><p>生成画像から不足概念を発見し、プロンプトを細粒度に修正。</p><a href="https://proceedings.iclr.cc/paper_files/paper/2026/file/33c8427b6fbd5622a04b51b0af7d705c-Paper-Conference.pdf">PDF</a></article>
-<article><h2>P05 Quality Assessment of 3D Human Animation: Subjective and Objective Evaluation</h2><p>3D人間アニメーションの主観評価データから品質予測モデルを構築。</p><a href="https://arxiv.org/pdf/2505.23301">PDF</a></article>
-<article><h2>P06 DreamFusion — Text-to-3D using 2D Diffusion</h2><p>Score Distillation Sampling によりテキストから3Dを最適化。</p><a href="https://arxiv.org/pdf/2209.14988">PDF</a></article>
-<article><h2>P07 Point-E — A System for Generating 3D Point Clouds from Textual Descriptions</h2><p>テキストから3D point cloudを高速生成するパイプライン。</p><a href="https://arxiv.org/pdf/2212.08751">PDF</a></article>
-<article><h2>P08 Magic3D — High-Resolution Text-to-3D Content Creation</h2><p>多段階生成により高解像度なText-to-3Dを実現。</p><a href="https://arxiv.org/pdf/2211.10440">PDF</a></article>
-<article><h2>P09 What matters when building vision-language models? (Idefics2)</h2><p>VLMのモデル構成・データ・学習方法が性能に与える影響を実験。</p><a href="https://arxiv.org/pdf/2405.02246">PDF</a></article>
-<article><h2>P10 CLIP — Learning Transferable Visual Models From Natural Language Supervision</h2><p>画像とテキストを共通埋め込み空間で扱う基盤モデル。</p><a href="https://arxiv.org/pdf/2103.00020">PDF</a></article>
-<article><h2>P11 Pick-a-Pic — An Open Dataset of User Preferences for Text-to-Image Generation</h2><p>実ユーザーの画像嗜好を収集し、PickScoreによる自動評価へ接続。</p><a href="https://arxiv.org/pdf/2305.01569">PDF</a></article>
-<article><h2>P12 ImageReward — Learning and Evaluating Human Preferences for Text-to-Image Generation</h2><p>人間の画像嗜好を学習した報酬モデルで生成物を評価。</p><a href="https://arxiv.org/pdf/2304.05977">PDF</a></article>
-<article><h2>P13 Human Preference Score v2</h2><p>Text-to-image生成に対する大規模な人間嗜好ベンチマークとスコア。</p><a href="https://arxiv.org/pdf/2306.09341">PDF</a></article>
-<article><h2>P14 Training language models to follow instructions with human feedback (InstructGPT / RLHF)</h2><p>人間のランキングを報酬モデルと強化学習につなげ、意図への整合を改善。</p><a href="https://arxiv.org/pdf/2203.02155">PDF</a></article>
-<article><h2>P15 Direct Preference Optimization (DPO)</h2><p>報酬モデルを別途学習せず、ペアワイズ嗜好から直接最適化。</p><a href="https://arxiv.org/pdf/2305.18290">PDF</a></article>
-<article><h2>P16 Active Learning for Large Language Model-based Chatbots</h2><p>人間アノテーションを効率化し、高情報量データを選ぶアクティブラーニング。</p><p>※ 現在のDB記載タイトルに対応する原論文PDFを確認できず。</p></article>
-<article><h2>P17 Model Context Protocol (MCP)</h2><p>LLMと外部ツール・データを標準的に接続するプロトコル。</p><a href="https://modelcontextprotocol.io/specification/2024-11-05">Spec</a></article>
-<article><h2>P18 Agent2Agent Protocol (A2A)</h2><p>異なるAIエージェント同士を相互運用するための通信プロトコル。</p><a href="https://a2a-protocol.org/latest/specification/">Spec</a></article>
-<article><h2>P19 Phi-3 Technical Report</h2><p>小規模モデルでも高い性能を狙い、ローカル・エッジ推論を可能にする設計。</p><a href="https://arxiv.org/pdf/2404.14219">PDF</a></article>
-<article><h2>P20 Llama 3.2 — Revolutionizing edge AI and vision with open, customizable models</h2><p>1B/3Bの軽量モデルと11B/90BのVisionモデルを含むエッジ向け系列。</p><a href="https://arxiv.org/pdf/2410.08016">PDF</a></article>
-<article><h2>P21 The False Dawn: Reevaluating Performance Gains of Small Language Models</h2><p>小規模モデルの性能・コストのトレードオフを検討するためのDB登録項目。</p><p>※ 現在のDB記載タイトルと一致する原論文PDFを確認できず。</p></article>
-<article><h2>P22 A Watermark for Large Language Models</h2><p>LLM生成テキストに検出可能な透かしを埋め込み、出典追跡を可能にする。</p><a href="https://arxiv.org/pdf/2301.10226">PDF</a></article>
-<article><h2>P23 VQualA 2025 — Visual Quality Comparison for Large Multimodal Models</h2><p>VLM/LMMの視覚品質評価とpairwise preference。</p><a href="https://arxiv.org/pdf/2509.09190">PDF</a></article>
-<article><h2>P24 UniAPO — Unified Multimodal Automated Prompt Optimization</h2><p>履歴と過去プロンプトを使い、マルチモーダル生成プロンプトを自動最適化。</p><a href="https://arxiv.org/pdf/2508.17890">PDF</a></article>
-<article><h2>P25 B-CODER — Value-Based Deep Reinforcement Learning for Program Synthesis</h2><p>実行可能コードを評価対象とし、value-based RLでプログラム生成を改善。</p><a href="https://arxiv.org/pdf/2310.03173">PDF</a></article>
+<h2 class="section-title">External Papers</h2>
+<article><h2>P01 — VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Models</h2><p>Text-to-motion と生成動画の意味一致を VLM で評価</p><p><strong>ICML 2026</strong> / 2026 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P02 — EvalCrafter: Benchmarking and Evaluating Large Video Generation Models</h2><p>動画生成モデルを多軸で評価するベンチマーク</p><p><strong>CVPR 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P03 — VideoScore: Building Automatic Metrics to Simulate Fine-grained Human Feedback for Video Generation</h2><p>細粒度な人間評価を自動評価へ変換</p><p><strong>EMNLP 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P04 — VisualPrompter</h2><p>視覚的評価から不足概念を発見・プロンプト改善へ接続</p><p><strong>ICLR 2026</strong> / 2026 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P05 — 3D Human Animation Quality Assessment: Subjective and Objective Evaluation</h2><p>3D アニメーションの主観・客観評価と品質予測</p><p><strong>IEEE TVCG 2026</strong> / 2026 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P06 — DreamFusion: Text-to-3D using 2D Diffusion</h2><p>Score Distillation Sampling でテキストから 3D 造型を最適化</p><p><strong>ICCV 2023</strong> / 2023 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P07 — Point-E: A System for Generating 3D Point Clouds from Textual Descriptions</h2><p>Text-to-3D の高速生成パイプライン</p><p><strong>CVPR 2023</strong> / 2023 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P08 — Magic3D: High-Resolution Text-to-3D Content Creation</h2><p>多段階生成→upscale で高解像度化</p><p><strong>CVPR 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P09 — What matters when building vision-language models? (Idefics2)</h2><p>VLM 設計の決定要因を実験的に明らかに</p><p><strong>arXiv 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P10 — CLIP: Learning Transferable Visual Models From Natural Language Supervision</h2><p>画像とテキストを共通空間に埋め込むゼロショット評価の基盤</p><p><strong>ICML 2021</strong> / 2021 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P11 — Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation</h2><p>テキスト画像生成のための大規模嗜好データセット</p><p><strong>NeurIPS 2023</strong> / 2023 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P12 — ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation</h2><p>人間の嗜好を学習したテキスト画像評価モデル</p><p><strong>NeurIPS 2023</strong> / 2023 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P13 — Human Preference Score v2: A Solid Benchmark for Evaluating Human Preferences of Text-to-Image Synthesis</h2><p>テキスト画像生成の人間嗜好ベンチマーク</p><p><strong>arXiv 2023</strong> / 2023 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P14 — Training language models to follow instructions with human feedback (InstructGPT / RLHF)</h2><p>人間フィードバックからの強化学習による指示追従</p><p><strong>NeurIPS 2022</strong> / 2022 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P15 — Direct Preference Optimization: Your Language Model is Secretly a Reward Model</h2><p>報酬モデルなしで嗜好データから直接最適化</p><p><strong>NeurIPS 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P16 — Active Learning for Large Language Model-based Chatbots</h2><p>LLM チャットボットのためのアクティブラーニング</p><p><strong>EMNLP 2023</strong> / 2023 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P17 — Model Context Protocol (MCP)</h2><p>LLM と外部ツール・データソースを標準接続するプロトコル</p><p><strong>Anthropic Technical Specification</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P18 — Agent2Agent Protocol (A2A)</h2><p>エージェント間の相互運用プロトコル</p><p><strong>Google Technical Specification</strong> / 2025 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P19 — Phi-3 Technical Report: A Highly Capable Language Model Locally on Your Phone</h2><p>小規模・高品質な言語モデル</p><p><strong>arXiv 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P20 — Llama 3.2: Revolutionizing edge AI and vision with open, Customizable Models</h2><p>エッジデバイス向け軽量マルチモーダルモデル</p><p><strong>Meta Technical Report</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P21 — The False Dawn: Reevaluating Performance Gains of Small Language Models</h2><p>小規模言語モデルの実用上の限界と可能性</p><p><strong>arXiv 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P22 — A Watermark for Large Language Models</h2><p>LLM 出力の追跡可能な透かし</p><p><strong>ICML 2023</strong> / 2023 / <span style="color:#999">PDF unavailable</span></p></article>
+<article><h2>P25 — B-CODER: Benchmarking Code Generation with Evaluation Loop</h2><p>評価ループ付きコード生成ベンチマーク</p><p><strong>ICLR 2024</strong> / 2024 / <span style="color:#999">PDF unavailable</span></p></article>
+<h2 class="section-title">EvOps Original Papers</h2>
+<article><h2>P23 — VQualA: Video Quality Assessment via VLM</h2><p>VLMを用いた動画品質評価フレームワーク</p><p><strong>in-house</strong> / 2025 / <a href="P23-vlmを用いた動画品質評価フレームワーク-2025/README.md">Doc</a></p></article>
+<article><h2>P24 — UniAPO: Unified Automatic Pipeline Orchestration</h2><p>統合自動パイプラインオーケストレーション</p><p><strong>in-house</strong> / 2025 / <a href="P24-統合自動パイプラインオーケストレーション-2025/README.md">Doc</a></p></article>
+<article><h2>P26 — MLOps Evaluation Loop Automation</h2><p>MLOps評価ループの自動化設計</p><p><strong>in-house</strong> / 2024 / <a href="P26-mlops評価ループの自動化設計-2024/README.md">Doc</a></p></article>
+<article><h2>P27 — VLM Evaluation Automation for Visual Content</h2><p>視覚コンテンツ向けVLM評価自動化</p><p><strong>in-house</strong> / 2024 / <a href="P27-視覚コンテンツ向けvlm評価自動化-2024/README.md">Doc</a></p></article>
+<article><h2>P28 — Evolutionary Generation Loop with Feedback Accumulation</h2><p>フィードバック蓄積型進化生成ループ</p><p><strong>in-house</strong> / 2024 / <a href="P28-フィードバック蓄積型進化生成ループ-2024/README.md">Doc</a></p></article>
+<article><h2>P29 — Jev-Driven MLOps: High-Speed Judgment Layer for Observable and Controllable Generative Pipelines</h2><p>MLOps内部への高速判断レイヤー統合</p><p><strong>in-house</strong> / 2024 / <a href="P29-mlops内部への高速判断レイヤー統合-2024/README.md">Doc</a></p></article>
+<article><h2>P30 — Model-Free Visual Synthesis: Deterministic 3D Rendering via ComfyUI-Workflow Concepts Mapped to Blender-bpy</h2><p>拡散モデル不要の決定論的ビジュアル合成</p><p><strong>in-house</strong> / 2024 / <a href="P30-拡散モデル不要の決定論的ビジュアル合成-2024/README.md">Doc</a></p></article>
+<article><h2>P31 — Inverse Preference Learning for Evaluation Agents: Inferring Human Value Functions from Scores</h2><p>人間の価値関数を採点履歴から逆推定</p><p><strong>in-house</strong> / 2024 / <a href="P31-人間の価値関数を採点履歴から逆推定-2024/README.md">Doc</a></p></article>
+<article><h2>P32 — Cost-Aware Rotation Loop Design for Resource-Constrained MLOps: Token Budget Optimization in CPU-Only Generative Pipelines</h2><p>CPU制約下でのコスト意識型回転ループ設計</p><p><strong>in-house</strong> / 2024 / <a href="P32-cpu制約下でのコスト意識型回転ループ設計-2024/README.md">Doc</a></p></article>
+<article><h2>P33 — Structured Feature Axes for Character-Aware Visual Correction Loops: Multi-Layer Evaluation Combining Detection, Histogram, and VLM</h2><p>構造特徴軸によるキャラクター認識型画像修正ループ</p><p><strong>in-house</strong> / 2024 / <a href="P33-構造特徴軸によるキャラクター認識型画像修正ループ-2024/README.md">Doc</a></p></article>
+<article><h2>P34 — From Evaluation to Knowledge: Continuous Learning in Generative Pipelines via Structured Feedback Accumulation</h2><p>構造化フィードバック蓄積による継続学習</p><p><strong>in-house</strong> / 2024 / <a href="P34-構造化フィードバック蓄積による継続学習-2024/README.md">Doc</a></p></article>
+<article><h2>P35 — A Unified Domain-Specific Language for Heterogeneous Generative Pipeline Composition</h2><p>異種生成パイプライン統合DSL</p><p><strong>in-house</strong> / 2024 / <a href="P35-異種生成パイプライン統合dsl-2024/README.md">Doc</a></p></article>
+<article><h2>P36 — Multi-Metric Automated Story Evaluation: Beyond Readability to Thematic Coherence via Embedding and Sentiment Analysis</h2><p>多指標自動小説評価フレームワーク</p><p><strong>in-house</strong> / 2024 / <a href="P36-多指標自動小説評価フレームワーク-2024/README.md">Doc</a></p></article>
+<article><h2>P37 — Observability Dashboards for Generative Pipelines: From Score Tracking to 3D Parameter Space Exploration</h2><p>生成パイプライン観測性ダッシュボード</p><p><strong>in-house</strong> / 2024 / <a href="P37-生成パイプライン観測性ダッシュボード-2024/README.md">Doc</a></p></article>
+<article><h2>P38 — MCP Server Standardization via fastmcp and FastAPI: Transport Unification, SDK Compatibility, and Multi-Protocol Exposure</h2><p>fastmcp+FastAPI統合によるMCPサーバー標準化</p><p><strong>in-house</strong> / 2024 / <a href="P38-fastmcp+fastapi統合によるmcpサーバー標準化-2024/README.md">Doc</a></p></article>
 </body>
 </html>

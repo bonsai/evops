@@ -1,4 +1,4 @@
-"""Blender + SVG MCP server.
+"""Blender + SVG MCP server with FastAPI integration.
 
 Provides:
 - Parameterized SVG generation
@@ -6,22 +6,22 @@ Provides:
 - Scene setup helpers
 
 Run:
-    python mcp/blender-bpy/server.py
-
-This server does NOT run inside Blender's Python; it shells out to
-`blender --background --python render_script.py` for rendering.
+    python mcp/blender-bpy/server.py        # stdio mode
+    python mcp/blender-bpy/server.py --http # HTTP mode on port 8003
 """
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import subprocess
-import tempfile
 from pathlib import Path
 from typing import Any
 
 import svgwrite
 from fastmcp import FastMCP
+
+from mcp.base_server import create_mcp_app, run_mcp_server
 
 mcp = FastMCP("sotsusei-blender-bpy")
 
@@ -36,31 +36,23 @@ def generate_svg(
     height: int = 512,
     shapes: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Generate an SVG file from a list of shape parameters.
-
-    shapes example:
-        [
-          {"type": "circle", "cx": 256, "cy": 256, "r": 100, "fill": "#ff5555"},
-          {"type": "rect", "x": 100, "y": 100, "width": 200, "height": 200, "fill": "#55ff55"}
-        ]
-    """
+    """Generate an SVG file from a list of shape parameters."""
     shapes = shapes or []
     dwg = svgwrite.Drawing(output_path, size=(width, height))
     dwg.add(dwg.rect(insert=(0, 0), size=(width, height), fill="#ffffff"))
-
+    shape_map = {
+        "circle": dwg.circle,
+        "rect": dwg.rect,
+        "ellipse": dwg.ellipse,
+        "polygon": dwg.polygon,
+    }
     for s in shapes:
         t = s.pop("type", "circle")
-        if t == "circle":
-            dwg.add(dwg.circle(**s))
-        elif t == "rect":
-            dwg.add(dwg.rect(**s))
-        elif t == "ellipse":
-            dwg.add(dwg.ellipse(**s))
-        elif t == "polygon":
-            dwg.add(dwg.polygon(**s))
-        else:
+        fn = shape_map.get(t, dwg.circle)
+        try:
+            dwg.add(fn(**s))
+        except Exception:
             dwg.add(dwg.circle(cx=width / 2, cy=height / 2, r=10, fill="#cccccc"))
-
     dwg.save()
     return {"status": "ok", "output_path": output_path, "shape_count": len(shapes)}
 
@@ -72,92 +64,54 @@ def generate_doraemon_svg(
     height: int = 512,
     action: str = "standing",
 ) -> dict[str, Any]:
-    """Generate a simple Doraemon-like character SVG (educational example).
-
-    This is a geometric placeholder for character-structure evaluation.
-    For production, replace with an original character to avoid copyright issues.
-
-    action: "standing" | "reading" | "flying"
-    """
+    """Generate a simple Doraemon-like character SVG (educational example)."""
     dwg = svgwrite.Drawing(output_path, size=(width, height))
     dwg.add(dwg.rect(insert=(0, 0), size=(width, height), fill="#f0f8ff"))
-
     cx, cy = width // 2, height // 2
-    body_r = 90
-    head_r = 70
-    blue = "#1e90ff"
-    red = "#ff0000"
-    yellow = "#ffd700"
-    white = "#ffffff"
-    black = "#000000"
+    blue, red, yellow, white, black = "#1e90ff", "#ff0000", "#ffd700", "#ffffff", "#000000"
 
     # Body
-    dwg.add(dwg.circle(center=(cx, cy + 20), r=body_r, fill=blue, stroke=black, stroke_width=2))
-    # Belly / pocket
+    dwg.add(dwg.circle(center=(cx, cy + 20), r=90, fill=blue, stroke=black, stroke_width=2))
     dwg.add(dwg.circle(center=(cx, cy + 25), r=55, fill=white, stroke=black, stroke_width=1.5))
     dwg.add(dwg.ellipse(center=(cx, cy + 45), rx=30, ry=18, fill=white, stroke=black, stroke_width=1.5))
-    # Collar
     dwg.add(dwg.ellipse(center=(cx, cy - 35), rx=55, ry=12, fill=red, stroke=black, stroke_width=1.5))
-    # Bell
     dwg.add(dwg.circle(center=(cx, cy - 25), r=12, fill=yellow, stroke=black, stroke_width=1.5))
-    dwg.add(dwg.line(start=(cx - 10, cy - 22), end=(cx + 10, cy - 22), stroke=black, stroke_width=1))
-    dwg.add(dwg.circle(center=(cx, cy - 22), r=2, fill=black))
 
     # Head
-    dwg.add(dwg.circle(center=(cx, cy - 90), r=head_r, fill=blue, stroke=black, stroke_width=2))
-    # Face
+    dwg.add(dwg.circle(center=(cx, cy - 90), r=70, fill=blue, stroke=black, stroke_width=2))
     dwg.add(dwg.circle(center=(cx, cy - 80), r=55, fill=white, stroke=black, stroke_width=1.5))
-    # Eyes
-    dwg.add(dwg.ellipse(center=(cx - 18, cy - 110), rx=14, ry=18, fill=white, stroke=black, stroke_width=1.5))
-    dwg.add(dwg.ellipse(center=(cx + 18, cy - 110), rx=14, ry=18, fill=white, stroke=black, stroke_width=1.5))
+
+    # Eyes, nose, whiskers, mouth...
+    for dx, dy in [(-18, -110), (18, -110)]:
+        dwg.add(dwg.ellipse(center=(cx + dx, cy + dy), rx=14, ry=18, fill=white, stroke=black, stroke_width=1.5))
     dwg.add(dwg.circle(center=(cx - 14, cy - 105), r=3, fill=black))
     dwg.add(dwg.circle(center=(cx + 14, cy - 105), r=3, fill=black))
-    # Nose
     dwg.add(dwg.circle(center=(cx, cy - 95), r=10, fill=red, stroke=black, stroke_width=1.5))
     dwg.add(dwg.line(start=(cx, cy - 85), end=(cx, cy - 60), stroke=black, stroke_width=1.5))
-    # Whiskers
-    for dx in (-35, -35, -35):
-        pass
-    dwg.add(dwg.line(start=(cx - 50, cy - 95), end=(cx - 20, cy - 90), stroke=black, stroke_width=1.5))
-    dwg.add(dwg.line(start=(cx - 50, cy - 80), end=(cx - 20, cy - 80), stroke=black, stroke_width=1.5))
-    dwg.add(dwg.line(start=(cx - 50, cy - 65), end=(cx - 20, cy - 70), stroke=black, stroke_width=1.5))
-    dwg.add(dwg.line(start=(cx + 50, cy - 95), end=(cx + 20, cy - 90), stroke=black, stroke_width=1.5))
-    dwg.add(dwg.line(start=(cx + 50, cy - 80), end=(cx + 20, cy - 80), stroke=black, stroke_width=1.5))
-    dwg.add(dwg.line(start=(cx + 50, cy - 65), end=(cx + 20, cy - 70), stroke=black, stroke_width=1.5))
-
-    # Mouth
+    for dx in [-50, 50]:
+        for dy in [-95, -80, -65]:
+            end_x = cx + (20 if dx > 0 else -20)
+            dwg.add(dwg.line(start=(cx + dx, cy + dy), end=(end_x, cy + dy + 5), stroke=black, stroke_width=1.5))
     dwg.add(dwg.path(d=f"M {cx - 30},{cy - 70} Q {cx},{cy - 40} {cx + 30},{cy - 70}", fill="none", stroke=black, stroke_width=2))
 
-    # Arms
+    # Arms & hands
     dwg.add(dwg.ellipse(center=(cx - 90, cy + 10), rx=15, ry=35, fill=blue, stroke=black, stroke_width=1.5, transform=f"rotate(30, {cx - 90}, {cy + 10})"))
     dwg.add(dwg.ellipse(center=(cx + 90, cy + 10), rx=15, ry=35, fill=blue, stroke=black, stroke_width=1.5, transform=f"rotate(-30, {cx + 90}, {cy + 10})"))
-    # Hands
     dwg.add(dwg.circle(center=(cx - 115, cy - 15), r=15, fill=white, stroke=black, stroke_width=1.5))
     dwg.add(dwg.circle(center=(cx + 115, cy - 15), r=15, fill=white, stroke=black, stroke_width=1.5))
 
-    # Action-specific props
     if action == "reading":
-        # Book in front
         dwg.add(dwg.rect(insert=(cx - 40, cy + 60), size=(80, 50), fill="#8b4513", stroke=black, stroke_width=1.5))
         dwg.add(dwg.rect(insert=(cx - 35, cy + 65), size=(70, 40), fill="#fff8dc", stroke=black, stroke_width=1))
     elif action == "flying":
-        # Takecopter above head
         dwg.add(dwg.ellipse(center=(cx, cy - 175), rx=70, ry=8, fill="#deb887", stroke=black, stroke_width=1.5))
-        dwg.add(dwg.rect(insert=(cx - 3, cy - 170), size=(6, 25), fill="#deb887", stroke=black, stroke_width=1))
 
     # Feet
     dwg.add(dwg.ellipse(center=(cx - 40, cy + 105), rx=30, ry=15, fill=white, stroke=black, stroke_width=1.5))
     dwg.add(dwg.ellipse(center=(cx + 40, cy + 105), rx=30, ry=15, fill=white, stroke=black, stroke_width=1.5))
 
     dwg.save()
-    return {
-        "status": "ok",
-        "output_path": output_path,
-        "width": width,
-        "height": height,
-        "action": action,
-        "note": "Educational placeholder; use original characters in production.",
-    }
+    return {"status": "ok", "output_path": output_path, "width": width, "height": height, "action": action}
 
 
 @mcp.tool()
@@ -168,36 +122,17 @@ def render_svg_with_blender(
     resolution: int = 512,
     samples: int = 32,
 ) -> dict[str, Any]:
-    """Render an SVG as a PNG using Blender headless mode.
-
-    Requires Blender installed and available on PATH or via BLENDER_EXECUTABLE.
-    """
+    """Render an SVG as a PNG using Blender headless mode."""
     render_script = HERE / "render_in_blender.py"
     if not render_script.exists():
-        return {
-            "status": "error",
-            "message": f"{render_script} not found. Please create the Blender render script.",
-        }
+        return {"status": "error", "message": f"{render_script} not found"}
 
     cmd = [
-        blender_executable,
-        "--background",
-        "--python",
-        str(render_script),
-        "--",
-        svg_path,
-        output_path,
-        str(resolution),
-        str(samples),
+        blender_executable, "--background", "--python", str(render_script),
+        "--", svg_path, output_path, str(resolution), str(samples),
     ]
-
     try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=300,
-        )
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
         success = result.returncode == 0 and Path(output_path).exists()
         return {
             "status": "ok" if success else "error",
@@ -207,10 +142,7 @@ def render_svg_with_blender(
             "stderr_tail": "\n".join(result.stderr.splitlines()[-20:]),
         }
     except FileNotFoundError:
-        return {
-            "status": "error",
-            "message": f"Blender not found: {blender_executable}",
-        }
+        return {"status": "error", "message": f"Blender not found: {blender_executable}"}
     except subprocess.TimeoutExpired:
         return {"status": "error", "message": "Blender render timed out"}
 
@@ -218,21 +150,13 @@ def render_svg_with_blender(
 @mcp.tool()
 def list_capabilities() -> dict[str, Any]:
     """List capabilities and check Blender availability."""
-    blender_ok = False
-    version = None
+    blender_ok, version = False, None
     try:
-        result = subprocess.run(
-            [DEFAULT_BLENDER, "--version"],
-            capture_output=True,
-            text=True,
-            timeout=10,
-        )
+        result = subprocess.run([DEFAULT_BLENDER, "--version"], capture_output=True, text=True, timeout=10)
         blender_ok = result.returncode == 0
-        if blender_ok:
-            version = result.stdout.splitlines()[0]
+        version = result.stdout.splitlines()[0] if blender_ok else None
     except Exception:
         pass
-
     return {
         "svg_generation": True,
         "blender_available": blender_ok,
@@ -241,6 +165,14 @@ def list_capabilities() -> dict[str, Any]:
     }
 
 
+app = create_mcp_app(mcp, transport="http")
+
 if __name__ == "__main__":
-    # stdio is the standard MCP transport; clients connect via MCP client SDK.
-    mcp.run(transport="stdio")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--http", action="store_true")
+    parser.add_argument("--port", type=int, default=8003)
+    args = parser.parse_args()
+    if args.http:
+        run_mcp_server(mcp, port=args.port, transport="http")
+    else:
+        mcp.run(transport="stdio")
