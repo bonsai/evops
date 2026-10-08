@@ -79,8 +79,8 @@ small{font-size:8.2pt;color:var(--ink3)}
     <h1 class="cover-h1">Papers</h1>
     <p class="cover-sub">LMS/VLMを共通評価器として使い、評価結果をDBへ蓄積し、MLによる改善へ接続できるか。</p>
     <div class="cover-meta">
-      <div><span class="k">papers</span><span class="v">22 papers &middot; JSON + 1 paper 1 page</span></div>
-      <div><span class="k">loop</span><span class="v">Generation &rarr; VLM &rarr; DB &rarr; ML &rarr; Repair &rarr; Generation</span></div>
+      <div><span class="k">papers</span><span class="v">25 papers &middot; JSON + 1 paper 1 page</span></div>
+      <div><span class="k">loop</span><span class="v">Intent &rarr; Method Selection &rarr; Generate &rarr; Evaluate &rarr; Select &rarr; Next Generation</span></div>
     </div>
   </div>
 </section>
@@ -88,7 +88,7 @@ small{font-size:8.2pt;color:var(--ink3)}
 <section class="sheet cat-paper" data-t="Contents">
   <div class="hd">
     <span class="hd-kicker">Contents</span>
-    <h2 class="hd-title">Papers<small>22 papers</small></h2>
+    <h2 class="hd-title">Papers<small>25 papers</small></h2>
     <span class="hd-no">01</span>
   </div>
   <div class="body">
@@ -662,6 +662,58 @@ small{font-size:8.2pt;color:var(--ink3)}
       <span><button data-go="20" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-right:4px;">&larr; Prev</button>The False Dawn: Reevaluating Performance Gains of </span>
       <span>To Contents <button disabled class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);background:none;border:none;padding:0;font-size:8.2pt;margin-left:4px;">Next &rarr;</button></span>
     </div>
+  </div>
+</section>
+
+
+<section class="sheet cat-vlm" data-t="VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 23</span>
+    <h2 class="hd-title">VQualA 2025 Challenge on Visual Quality Comparison for Large Multimodal Models<small>マルチモーダルモデルによる視覚品質比較・ペアワイズ評価</small></h2>
+    <span class="hd-meta">arXiv 2025 / 2025</span>
+    <span class="hd-no">24</span>
+  </div>
+  <div class="body">
+    <div class="card"><div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">LMM に単画像・画像ペア・複数画像の視覚品質比較を行わせ、2AFC や MCQ で評価するチャレンジ。候補 A/B の比較、選好、理由、信頼度を評価ループへ取り込む際の重要な参考。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm"><dt>Relevance to theme</dt><dd><p style="margin:0">VLM 評価を単一スコアだけでなく、pairwise preference と confidence を含む評価器として設計する。</p></dd></div>
+    <div class="tags"><span class="tag">vlm</span><span class="tag">evaluation</span><span class="tag">pairwise</span><span class="tag">confidence</span></div>
+    <div class="footer"><span><button data-go="21" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:8.2pt;">← Prev</button> A Watermark for Large Language Models</span><span>UniAPO: Unified Multimodal Automated Prompt Optimization <button data-go="24" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:8.2pt;">Next →</button></span></div>
+  </div>
+</section>
+
+<section class="sheet cat-vlm" data-t="UniAPO Unified Multimodal Automated Prompt Optimization">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 24</span>
+    <h2 class="hd-title">UniAPO: Unified Multimodal Automated Prompt Optimization<small>マルチモーダル出力を評価し、履歴とフィードバックからプロンプトを自動改善</small></h2>
+    <span class="hd-meta">arXiv 2025 / 2025</span>
+    <span class="hd-no">25</span>
+  </div>
+  <div class="body">
+    <div class="card"><div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">マルチモーダルなタスクに対して、生成・評価・フィードバック・プロンプト改変を閉ループ化する研究。短期・長期メモリを使い、過去の試行を次のプロンプト改善へ利用する。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm"><dt>Relevance to theme</dt><dd><p style="margin:0">Prompt → Generate → Evaluate → Feedback → Mutation → Prompt の履歴型最適化を研究ループへ導入する。</p></dd></div>
+    <div class="tags"><span class="tag">prompt-optimization</span><span class="tag">multimodal</span><span class="tag">feedback</span><span class="tag">memory</span></div>
+    <div class="footer"><span><button data-go="23" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:8.2pt;">← Prev</button> VQualA 2025</span><span>B-CODER: Value-Based Deep Reinforcement Learning for Program Synthesis <button data-go="25" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:8.2pt;">Next →</button></span></div>
+  </div>
+</section>
+
+<section class="sheet cat-3d" data-t="B-CODER Value-Based Deep Reinforcement Learning for Program Synthesis">
+  <div class="hd">
+    <span class="hd-kicker">PAPER 25</span>
+    <h2 class="hd-title">B-CODER: Value-Based Deep Reinforcement Learning for Program Synthesis<small>コードを実行可能な候補として評価し、価値モデルで探索する</small></h2>
+    <span class="hd-meta">ICLR 2024 / 2024</span>
+    <span class="hd-no">26</span>
+  </div>
+  <div class="body">
+    <div class="card"><div class="card-h"><span class="no">01</span>Summary</div>
+      <p class="lead">プログラム合成において、生成コードを実行・検証可能な候補として扱い、過去のプログラム履歴から Value Model を学習して探索を改善する。bpy コードを genome として扱う研究設計に直結する。</p>
+    </div>
+    <div class="meta-row" style="margin-top:3mm"><dt>Relevance to theme</dt><dd><p style="margin:0">Code → Execute / Render → Verifiable Reward → Value Model → Selection という探索ループの根拠。</p></dd></div>
+    <div class="tags"><span class="tag">program-synthesis</span><span class="tag">reinforcement-learning</span><span class="tag">code-as-genome</span><span class="tag">selection</span></div>
+    <div class="footer"><span><button data-go="24" class="navbutton" style="all:unset;cursor:inherit;color:var(--ink3);font-size:8.2pt;">← Prev</button> UniAPO</span><span>To Contents</span></div>
   </div>
 </section>
 
