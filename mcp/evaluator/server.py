@@ -1,4 +1,4 @@
-"""Lightweight image evaluation MCP server with FastAPI integration.
+"""Lightweight image/video evaluation MCP server with FastAPI integration.
 
 Run:
     python mcp/evaluator/server.py        # stdio mode
@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import argparse
 import math
+import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +18,14 @@ from PIL import Image
 from fastmcp import FastMCP
 
 from mcp.base_server import create_mcp_app, run_mcp_server
+
+# Local video evaluation helper
+try:
+    from mcp.evaluator.tools.video_eval import video_metrics
+    _HAS_VIDEO_EVAL = True
+except Exception:
+    _HAS_VIDEO_EVAL = False
+    def video_metrics(path): return {"axis": "video_metrics", "status": "error", "reason": "video_eval not available"}
 
 try:
     import torch
@@ -53,11 +63,15 @@ def list_capabilities() -> dict[str, Any]:
     """List available evaluators and their status."""
     return {
         "clip_available": _HAS_CLIP,
+        "video_eval_available": _HAS_VIDEO_EVAL,
         "capabilities": [
             "clip_text_similarity",
             "clip_image_similarity",
             "basic_image_metrics",
             "color_statistics",
+            "video_metrics",
+            "ascii_art_metrics",
+            "effect_metrics",
         ],
     }
 
@@ -151,6 +165,69 @@ def evaluate_image(
     if scores:
         results["aggregate"] = {"mean": round(sum(scores) / len(scores), 4), "count": len(scores)}
     return {"image_path": image_path, "prompt": prompt, "results": results}
+
+
+@mcp.tool()
+def evaluate_video(video_path: str) -> dict[str, Any]:
+    """Evaluate a video file: duration, resolution, fps, bitrate."""
+    metrics = video_metrics(video_path)
+    return {"video_path": video_path, "results": metrics}
+
+
+@mcp.tool()
+def ascii_art_metrics(ascii_path: str) -> dict[str, Any]:
+    """Evaluate ASCII art text file: line count, width, height, density."""
+    p = Path(ascii_path)
+    if not p.exists():
+        return {"axis": "ascii_art", "status": "error", "reason": "file not found"}
+    lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
+    h = len(lines)
+    w = max(len(l) for l in lines) if lines else 0
+    density = sum(len(l.strip()) for l in lines) / (w * h) if w * h else 0
+    non_ascii_ratio = sum(1 for l in lines for ch in l if ord(ch) > 127) / max(sum(len(l) for l in lines), 1)
+    return {
+        "axis": "ascii_art",
+        "width": w, "height": h,
+        "line_count": len(lines),
+        "density": round(density, 4),
+        "non_ascii_ratio": round(non_ascii_ratio, 4),
+    }
+
+
+@mcp.tool()
+def effect_metrics(effect_video_path: str, effect_type: str = "generic") -> dict[str, Any]:
+    """Evaluate a video effect output (zanzou, bpy, mediapipe).
+    Calls bridge scripts for type-specific metrics."""
+    bridges = {
+        "zanzou": "/home/bons/evops/skills/effect-eval/scripts/zanzou_bridge.py",
+        "bpy": "/home/bons/evops/skills/effect-eval/scripts/bpy_video_bridge.py",
+        "mediapipe": "/home/bons/evops/skills/effect-eval/scripts/mediapipe_bridge.py",
+    }
+    script = bridges.get(effect_type)
+    if script:
+        result = subprocess.run(["python3", script, effect_video_path], capture_output=True, text=True)
+        if result.returncode == 0:
+            return json.loads(result.stdout)
+    # Fallback to generic video metrics
+    return video_metrics(effect_video_path)
+
+
+@mcp.tool()
+def evaluate_all(artifacts_dir: str, prompt: str | None = None) -> dict[str, Any]:
+    """Batch evaluate all artifacts in a directory."""
+    base = Path(artifacts_dir)
+    report = {}
+    for p in sorted(base.rglob("*")):
+        if not p.is_file():
+            continue
+        suffix = p.suffix.lower()
+        if suffix in (".png", ".jpg", ".jpeg"):
+            report[str(p)] = evaluate_image(str(p), prompt=prompt).get("results", {})
+        elif suffix == ".mp4":
+            report[str(p)] = evaluate_video(str(p)).get("results", {})
+        elif suffix == ".txt":
+            report[str(p)] = ascii_art_metrics(str(p))
+    return {"artifacts_dir": artifacts_dir, "evaluated": len(report), "report": report}
 
 
 app = create_mcp_app(mcp, transport="http")

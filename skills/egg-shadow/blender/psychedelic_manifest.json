@@ -1,0 +1,60 @@
+{
+  "subject": "psychedelic",
+  "fps": 24,
+  "duration_seconds": 4.0,
+  "frame_start": 1,
+  "frame_end": 96,
+  "resolution": [
+    720,
+    540
+  ],
+  "scene": {
+    "torus": {
+      "major_radius": 1.4,
+      "minor_radius": 0.5
+    }
+  },
+  "assets": [
+    {
+      "id": "procedural:torus",
+      "source": "blender",
+      "type": "mesh"
+    },
+    {
+      "id": "procedural:lights",
+      "source": "blender",
+      "type": "light_array"
+    }
+  ],
+  "lighting": {
+    "count": 48,
+    "arrangement": "spiral_ring",
+    "colors": "hsl_hue_ring"
+  },
+  "camera": {
+    "location": [
+      4.5,
+      -4.5,
+      4.5
+    ],
+    "lens": 35
+  },
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "bloom": {
+      "threshold": 0.2,
+      "quality": 3
+    },
+    "output": "frames/frame_%04d.png"
+  },
+  "motion": [
+    {
+      "target": "Psychedelic",
+      "action": "multi_axis_rotate",
+      "frames": [
+        1,
+        96
+      ]
+    }
+  ]
+}

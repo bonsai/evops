@@ -1,0 +1,16 @@
+{
+  "id": "idol-x-history-001",
+  "seed_domain": "idol",
+  "title": "推し語り — グループXの軌跡",
+  "hook": "推しが輝く構造を知る",
+  "cast": ["はっちゃん", "熊さん", "ご隠居さん"],
+  "voice": "ななちゃん",
+  "panels": [
+    {"no": 1, "role": "problem", "text": "なんでこの曲がバズったの？", "speaker": "はっちゃん"},
+    {"no": 2, "role": "method", "text": "楽曲データとSNS指標を見てみよう", "speaker": "熊さん"},
+    {"no": 3, "role": "discovery", "text": "メンバー間の化学反応が起きた瞬間だ！", "speaker": "ご隠居さん"},
+    {"no": 4, "role": "connection", "text": "推しの軌道は、ファンとメンバーが描く物語", "speaker": "三人"}
+  ],
+  "font": "fontgen-handwriting",
+  "animation": {"sequence": [1, 2, 3, 4], "transition": "fade", "duration": 75}
+}

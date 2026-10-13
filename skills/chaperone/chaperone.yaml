@@ -1,0 +1,20 @@
+meta:
+  name: chaperone-evops
+  managed_workflow: /home/bons/evops/workflow.yaml
+  cast: [はっちゃん, 熊さん, ご隠居さん, ななちゃん]
+  timeout: 1800
+
+gateways:
+  mcp:
+    - {name: sf-paper-comic, port: 8004}
+    - {name: videogen, port: 8006}
+    - {name: evaluator, port: 8002}
+    - {name: bpy-gen, port: 8005}
+  external:
+    - {name: voicevox, host: http://localhost:50021}
+    - {name: kamishibai, path: /home/bons/kamishibai}
+
+policies:
+  on_failure: pause
+  on_timeout: 300
+  max_retries: 1

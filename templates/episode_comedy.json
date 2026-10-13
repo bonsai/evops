@@ -1,0 +1,16 @@
+{
+  "id": "comedy-tokisoba-001",
+  "seed_domain": "comedy",
+  "title": "落語解体 — 時そばのオチ構造",
+  "hook": "おもしろさには構造がある",
+  "cast": ["弥次", "喜多", "ご隠居"],
+  "voice": "ななちゃん",
+  "panels": [
+    {"no": 1, "role": "problem", "text": "そば屋で時間を売った？", "speaker": "弥次"},
+    {"no": 2, "role": "method", "text": "お客さんが『時間を買う』フリをするんだよ", "speaker": "喜多"},
+    {"no": 3, "role": "discovery", "text": "『口車』と『信頼』の逆転がオチの核だ", "speaker": "ご隠居"},
+    {"no": 4, "role": "connection", "text": "setup → 逆転 → オチ。笑いは三角形で成立する", "speaker": "三人"}
+  ],
+  "font": "IPAexMincho",
+  "animation": {"sequence": [1, 2, 3, 4], "transition": "cut", "duration": 70}
+}

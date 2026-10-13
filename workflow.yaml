@@ -1,0 +1,312 @@
+# evops — From Planning to Video Upload Workflow
+# Lang Brothers × SF 落語 4コマ漫画 → 動画アップロードまで
+# 疎結合設計：各ステップは JSON 契約で接続され、独立して実行・交換可能
+
+name: lang-brothers-sf-koma-to-video
+description: |
+  論文サーベイ → ラング三兄弟による 4 コマ企画 → SVG 描画 → アニメーション →
+  テロップ焼き込み → 動画編集 → 動画アップロード の一気通貫ワークフロー
+
+# =============================================================================
+# 環境設定
+# =============================================================================
+env:
+  VIDEOGEN_HOST: "http://localhost:8006"          # videogen MCP サーバー
+  KAMISHIBAI_DIR: "/home/bons/kamishibai"          # kamishibai CLI ディレクトリ
+  TELOP_SKILL_DIR: "/home/bons/evops/skills/telop" # telop CLI 技能ディレクトリ
+  VOICEVOX_SKILL_DIR: "/home/bons/evops/skills/voicevox" # Voicevox TTS (ななちゃん)
+  VOICEVOX_HOST: "http://localhost:50021"          # Voicevox サーバー
+  NARRATOR_SPEAKER: "2"                            # ななちゃん (speaker 2)
+  SFCOMIC_DIR: "/home/bons/evops/skills/sf-paper-comic"
+  LANG_BROTHERS_DIR: "/home/bons/evops/skills/lang-brothers"
+  PAPERS_DIR: "/home/bons/evops/mcp/papers"
+  OUTPUT_DIR: "/home/bons/outputs"                 # 最終出力先
+  FONT: "IPAexGothic"                              # 共通フォント
+  NARRATOR_CAST: "ななちゃん (Voicevox speaker 2)"  # ナレーション キャスト
+
+# =============================================================================
+# ステップ定義
+# =============================================================================
+steps:
+  # ---------------------------------------------------------------------------
+  # ステップ 1: 論文サーベイ
+  # ---------------------------------------------------------------------------
+  - id: survey
+    name: Paper Survey Agent
+    description: 論文データベースから対象論文を読み取り、アブストラクト・キーワード・関連性を抽出
+    type: node
+    inputs:
+      - papers_dir: $PAPERS_DIR
+    outputs:
+      - paper_data.json
+    action: |
+      python -m evops.paper_survey \
+        --papers-dir $PAPERS_DIR/P03-videoscore-2024 \
+        --out $WORKSPACE/paper_data.json
+
+  # ---------------------------------------------------------------------------
+  # ステップ 2: ラング三兄弟による 4 コマ企画
+  # ---------------------------------------------------------------------------
+  - id: plan
+    name: Lang Brothers Agent — 企画生成
+    description: |
+      抽出した論文データをラング三兄弟（はっちゃん・熊さん・ご隠居さん）に渡して、
+      SF 落語 4 コマ漫画の企画（episode.json）を生成
+    type: node
+    inputs:
+      - paper_data.json: $WORKSPACE/paper_data.json
+    outputs:
+      - episode.json
+    action: |
+      node $LANG_BROTHERS_DIR/scripts/plan.js \
+        --input $WORKSPACE/paper_data.json \
+        --format SF-4koma \
+        --characters hatchan,kuma,goin_kyo \
+        --output $WORKSPACE/episode.json
+
+  # ---------------------------------------------------------------------------
+  # ステップ 3: 文字票（text ticket）生成
+  # ---------------------------------------------------------------------------
+  - id: char_ticket
+    name: Text Ticket Extractor
+    description: 4 コマのセリフ・テロップ・オチを個別の文字票として生成
+    type: node
+    inputs:
+      - episode.json: $WORKSPACE/episode.json
+    outputs:
+      - char_tkt_001.json, char_tkt_002.json, char_tkt_003.json, char_tkt_004.json
+    action: |
+      python -m evops.text_ticket \
+        --episode $WORKSPACE/episode.json \
+        --out-dir $WORKSPACE/tickets/pending/
+      # 承認待ちに移動
+      mv $WORKSPACE/tickets/pending/*.json $WORKSPACE/tickets/approved/
+
+  # ---------------------------------------------------------------------------
+  # ステップ 4: SVG 描画
+  # ---------------------------------------------------------------------------
+  - id: svg
+    name: SVG Generator
+    description: 4 コマのセリフを吹き出し + テロップで SVG に描画
+    type: node
+    inputs:
+      - episode.json: $WORKSPACE/episode.json
+      - char_tkt_*: $WORKSPACE/tickets/approved/*
+    outputs:
+      - panel_1.svg, panel_2.svg, panel_3.svg, panel_4.svg
+    action: |
+      python $SFCOMIC_DIR/svg-gen.py \
+        --font $FONT \
+        --input-panel-svg $SFCOMIC_DIR/sf_comic.svg \
+        --panels 4 \
+        --bubbles "問題提起,異常/手法,発明/突破,つながり" \
+        --captions "はっちゃんが論文に困っている,ご隠居さんが教える,はっちゃんが気づく,三人でループを描く" \
+        --output-dir $WORKSPACE/svg
+
+  # ---------------------------------------------------------------------------
+  # ステップ 5: アニメーション化（kamishibai → MP4）
+  # ---------------------------------------------------------------------------
+  - id: animate
+    name: Kamishibai Renderer
+    description: SVG 配列を kamishibai CLI でアニメーション動画（raw MP4）に変換
+    type: node
+    inputs:
+      - episode.json: $WORKSPACE/episode.json
+      - panel_*.svg: $WORKSPACE/svg/panel_*.svg
+    outputs:
+      - raw.mp4
+    action: |
+      node $KAMISHIBAI_DIR/cli/render.js \
+        --svg-dir $WORKSPACE/svg \
+        --timeline $WORKSPACE/episode.json \
+        --output $WORKSPACE/raw.mp4
+
+  # ---------------------------------------------------------------------------
+  # ステップ 6: テロップ焼き込み
+  # ---------------------------------------------------------------------------
+  - id: telop
+    name: Telop Overlay
+    description: 文字票の字幕・クレジットを raw MP4 に焼き込み
+    type: node
+    inputs:
+      - raw.mp4: $WORKSPACE/raw.mp4
+      - telop_spec.json: $WORKSPACE/telop_spec.json
+    outputs:
+      - teloped.mp4
+    action: |
+      node $TELOP_SKILL_DIR/bin/telop-cli.js \
+        --input $WORKSPACE/raw.mp4 \
+        --spec $WORKSPACE/telop_spec.json \
+        --output $WORKSPACE/teloped.mp4
+
+  # ---------------------------------------------------------------------------
+  # ステップ 7: ななちゃん（Voicevox）でナレーション生成
+  # ---------------------------------------------------------------------------
+  - id: voicevox
+    name: Voicevox TTS — ななちゃん
+    description: |
+      ななちゃん（speaker 2）でナレーション音声を生成。
+      4コマ全体のテロップを自然につなげて Narration MP3 として出力。
+    type: node
+    inputs:
+      - episode.json: $WORKSPACE/episode.json
+    outputs:
+      - narration.mp3
+    action: |
+      python $VOICEVOX_SKILL_DIR/scripts/voicevox_batch.py \
+        --episode $WORKSPACE/episode.json \
+        --output $WORKSPACE/narration.mp3
+
+  # ---------------------------------------------------------------------------
+  # ステップ 8: 動画編集・合成
+  # ---------------------------------------------------------------------------
+  - id: edit
+    name: Video Editor (videogen)
+    description: テロップ済み動画にナレーション音声を合成・エンコード
+    type: node
+    inputs:
+      - teloped.mp4: $WORKSPACE/teloped.mp4
+      - narration.mp3: $WORKSPACE/narration.mp3
+    outputs:
+      - final.mp4
+    action: |
+      python /home/bons/evops/skills/videogen/server.py --http --port 8006 &
+      python -c "
+      import json, urllib.request
+      payload = {
+        'input_video': '$WORKSPACE/teloped.mp4',
+        'audio_path': '$WORKSPACE/narration.mp3',
+        'subtitle_path': '$WORKSPACE/subs.ass',
+        'output_path': '$WORKSPACE/final.mp4',
+        'resolution': 1280,
+        'fps': 30
+      }
+      req = urllib.request.Request('http://localhost:8006/mcp/tools/compose_video',
+        data=json.dumps(payload).encode(), headers={'Content-Type': 'application/json'})
+      resp = urllib.request.urlopen(req, timeout=300)
+      print(json.loads(resp.read().decode()))
+      "
+
+  # ---------------------------------------------------------------------------
+  # ステップ 9: 評価（ローカル + Kaggle + JEV）
+  # ---------------------------------------------------------------------------
+  - id: eval
+    name: Evaluator — 全成果物評価
+    description: |
+      SVG, 動画, テロップ, ナレーションを evaluator MCP で一括評価。
+      zanzou/bpy/mediapipe エフェクトも対象。
+      必要に応じて Kaggle GPU or JEV へ委譲。
+    type: node
+    inputs:
+      - artifacts_dir: $WORKSPACE
+    outputs:
+      - eval_report.json
+    action: |
+      python -c "
+      import json, urllib.request, os
+      payload = {'artifacts_dir': os.environ.get('WORKSPACE','/tmp/evops_run'), 'prompt': '4-panel manga'}
+      req = urllib.request.Request('http://localhost:8002/mcp/tools/evaluate_all',
+        data=json.dumps(payload).encode(), headers={'Content-Type': 'application/json'})
+      resp = urllib.request.urlopen(req, timeout=60)
+      report = json.loads(resp.read().decode())
+      with open(os.environ.get('WORKSPACE','/tmp/evops_run') + '/eval_report.json', 'w') as f:
+        json.dump(report, f, ensure_ascii=False, indent=2)
+      print(report)
+      "
+
+  # ---------------------------------------------------------------------------
+  # ステップ 10: 動画アップロード
+  # ---------------------------------------------------------------------------
+  - id: upload
+    name: Video Platform Uploader
+    description: 最終 MP4 を動画プラットフォーム（YouTube）にアップロード
+    type: node
+    inputs:
+      - final.mp4: $WORKSPACE/final.mp4
+    outputs:
+      - upload_url
+      - analytics.json
+    action: |
+      python -m evops.video_uploader \
+        --video $WORKSPACE/final.mp4 \
+        --title "${episode.title}" \
+        --description "SF 落語 4 コマ漫画：${episode.hook}" \
+        --tags "SF落語,4コマ漫画,${paper.title},${paper.keywords.join(',')}" \
+        --platform youtube \
+        --out $OUTPUT_DIR/${episode.title}.mp4
+
+# =============================================================================
+# バックエンドサービス（依存サービス）
+# =============================================================================
+services:
+  - name: sf-paper-comic
+    path: skills/sf-paper-comic/server.py
+    port: 8004
+  - name: evaluator
+    path: mcp/evaluator/server.py
+    port: 8002
+  - name: videogen
+    path: skills/videogen/server.py
+    port: 8006
+  - name: db
+    path: mcp/db/server.py
+    port: 8001
+
+# =============================================================================
+# データ契約（ステップ間の JSON 入出力）
+# =============================================================================
+contracts:
+  paper_data.json: |
+    { "id": "P03-videoscore-2024", "title": "...",
+      "abstract": "...", "keywords": [...], "relevance": "..." }
+  episode.json: |
+    { "id": "...", "title": "...", "hook": "...", "panels": [...] }
+  char_tkt_*.json: |
+    { "ticket_id": "char-tkt-001", "stage": "panel_text",
+      "text_content": "...", "font_spec": {...}, "approval": {...} }
+
+# =============================================================================
+# アートファクト出力
+# =============================================================================
+artifacts:
+  - svg/{panel_1,2,3,4}.svg   # 4 コマ SVG
+  - raw.mp4                    # 基本アニメーション
+  - teloped.mp4                # テロップ焼き込み
+  - final.mp4                  # 最終 MP4（ナレーション合成）
+
+# =============================================================================
+# ログ・履歴（DB への保存）
+# =============================================================================
+logging:
+  - event: pipeline_start
+    table: experiments
+    fields: [name, task_context, intent_text]
+  - event: episode_generated
+    table: experiments
+    fields: [generated_by, episode_id]
+  - event: video_uploaded
+    table: experiments
+    fields: [upload_url, status]
+
+# =============================================================================
+# 疎結合の原則
+# =============================================================================
+loose_coupling:
+  principle: "各ステップは JSON 契約（episode.json / char_tkt.json）でのみ接続。
+              直接の Python/Node 依存はなく、ffmpeg と MCP サーバーのみを使用。"
+  replaceable:
+    - svg_generator: svg-gen.py → 他レンダラーに交換可能
+    - renderer: kamishibai CLI → 他動画エンジンに交換可能
+    - telop: telop CLI → 他字幕ツールに交換可能
+    - editor: videogen → 他編集エンジンに交換可能
+
+# =============================================================================
+# 実行例（full pipeline）
+# =============================================================================
+example_run: |
+  # ステップ 1-8 を通して実行
+  bash mcp/scripts/run_pipeline.sh
+
+  # partial run（企画だけ）
+  node $LANG_BROTHERS_DIR/scripts/plan.js --input paper_data.json --output episode.json
+  cat $WORKSPACE/episode.json  # 企画案を確認

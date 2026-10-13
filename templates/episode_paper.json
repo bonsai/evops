@@ -1,0 +1,16 @@
+{
+  "id": "P03-videoscore-2024",
+  "seed_domain": "paper",
+  "title": "SF 落語 — VideoScore",
+  "hook": "評価ループが知識になる",
+  "cast": ["はっちゃん", "熊さん", "ご隠居さん"],
+  "voice": "ななちゃん",
+  "panels": [
+    {"no": 1, "role": "problem", "text": "評価はできるが、知識にどう繋がる？", "speaker": "はっちゃん"},
+    {"no": 2, "role": "method", "text": "細粒度評価を自動評価へ変換するんだ", "speaker": "ご隠居さん"},
+    {"no": 3, "role": "discovery", "text": "評価ループの中から成長パターンが見えた！", "speaker": "はっちゃん"},
+    {"no": 4, "role": "connection", "text": "生成→評価→修正→再生成。知識とはループである", "speaker": "三人"}
+  ],
+  "font": "IPAexGothic",
+  "animation": {"sequence": [1, 2, 3, 4], "transition": "cut", "duration": 60}
+}

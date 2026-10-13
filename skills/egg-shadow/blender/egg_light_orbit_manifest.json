@@ -1,0 +1,67 @@
+{
+  "subject": "egg",
+  "fps": 24,
+  "duration_seconds": 5.0,
+  "frame_start": 1,
+  "frame_end": 120,
+  "resolution": [
+    720,
+    540
+  ],
+  "scene": {
+    "egg": {
+      "height": 2.0
+    },
+    "floor": {
+      "size": 12
+    }
+  },
+  "assets": [
+    {
+      "id": "procedural:egg",
+      "source": "blender",
+      "type": "mesh"
+    },
+    {
+      "id": "procedural:floor",
+      "source": "blender",
+      "type": "mesh"
+    }
+  ],
+  "lighting": {
+    "key": {
+      "type": "area",
+      "motion": "orbit",
+      "radius": 3.6,
+      "height": 3.0,
+      "bob": 0.8,
+      "revolutions": 1
+    },
+    "rim": {
+      "type": "area",
+      "energy": 220
+    }
+  },
+  "camera": {
+    "location": [
+      4.6,
+      -6.2,
+      3.1
+    ],
+    "lens": 50
+  },
+  "motion": [
+    {
+      "target": "KeyLight",
+      "action": "orbit_around_subject",
+      "frames": [
+        1,
+        120
+      ]
+    }
+  ],
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "output": "frames/frame_%04d.png"
+  }
+}
