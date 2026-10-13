@@ -7,6 +7,7 @@ from typing import Any
 
 EVOPS_ROOT = Path("/home/bons/evops")
 _DEFAULT_REGISTRY = {
+    "paper-digest": {"port": 8008, "path": "skills/paper-digest/server.py"},
     "db": {"port": 8001, "path": "mcp/db/server.py"},
     "evaluator": {"port": 8002, "path": "mcp/evaluator/server.py"},
     "gateway": {"port": 8000, "path": "mcp/gateway/server.py"},
