@@ -1,0 +1,41 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "doraemon",
+      "label": "ドラえもん",
+      "script": "tools/doraemon_bpy.py",
+      "count": 1,
+      "style": "rounded primitive堆積",
+      "tags": ["character", "anime"]
+    },
+    {
+      "id": 2,
+      "name": "pagoda",
+      "label": "五重塔",
+      "script": "tools/pagoda_bpy.py",
+      "count": 2,
+      "style": "architectural tiers",
+      "tags": ["architecture", "japanese"]
+    },
+    {
+      "id": 3,
+      "name": "wooden_bear",
+      "label": "ローポリ木彫りクマ",
+      "script": "tools/bear_bpy.py",
+      "count": 3,
+      "style": "low-poly wood carving",
+      "tags": ["animal", "craft", "lowpoly"]
+    }
+    ,
+    {
+      "id": 4,
+      "name": "salmon_bear",
+      "label": "鮭をとる熊",
+      "script": "tools/salmon_bear_bpy.py",
+      "count": 4,
+      "style": "dynamic scene: bear catching leaping salmon",
+      "tags": ["animal", "action", "nature"]
+    }
+  ]
+}
