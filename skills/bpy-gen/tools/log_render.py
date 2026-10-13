@@ -9,7 +9,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from mcp.bpy_gen.tools.db import log_render as db_log_render
+from mcp_core.bpy_gen.tools.db import log_render as db_log_render
 
 LEDGER = Path.home() / "bpy-gen" / "outputs" / ".ledger.jsonl"
 

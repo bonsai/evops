@@ -17,11 +17,11 @@ import numpy as np
 from PIL import Image
 from fastmcp import FastMCP
 
-from mcp.base_server import create_mcp_app, run_mcp_server
+from mcp_core.base_server import create_mcp_app, run_mcp_server
 
 # Local video evaluation helper
 try:
-    from mcp.evaluator.tools.video_eval import video_metrics
+    from mcp_core.evaluator.tools.video_eval import video_metrics
     _HAS_VIDEO_EVAL = True
 except Exception:
     _HAS_VIDEO_EVAL = False

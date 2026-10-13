@@ -20,7 +20,7 @@ from typing import Any
 
 from fastmcp import FastMCP
 
-from mcp.base_server import create_mcp_app, run_mcp_server
+from mcp_core.base_server import create_mcp_app, run_mcp_server
 
 mcp = FastMCP("artcraft")
 EFFECTS = {

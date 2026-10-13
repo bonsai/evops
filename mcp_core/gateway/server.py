@@ -20,10 +20,10 @@ from fastapi import FastAPI
 from fastmcp import FastMCP
 
 # Import individual MCP instances (lightweight; no heavy models loaded unless tools called)
-from mcp.blender_bpy.server import mcp as blender_mcp
-from mcp.db.server import mcp as db_mcp
-from mcp.evaluator.server import mcp as eval_mcp
-from mcp.sf_paper_comic.server import mcp as comic_mcp
+from mcp_core.blender_bpy.server import mcp as blender_mcp
+from mcp_core.db.server import mcp as db_mcp
+from mcp_core.evaluator.server import mcp as eval_mcp
+from mcp_core.sf_paper_comic.server import mcp as comic_mcp
 
 # Build composite MCP
 gateway_mcp = FastMCP("evops-gateway")

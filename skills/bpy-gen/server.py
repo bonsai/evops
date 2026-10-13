@@ -4,7 +4,7 @@ sys.path.insert(0, "/home/bons/evops")
 import subprocess, os, json, tempfile
 from pathlib import Path
 from fastmcp import FastMCP
-from mcp.base_server import create_mcp_app, run_mcp_server
+from mcp_core.base_server import create_mcp_app, run_mcp_server
 
 mcp = FastMCP("bpy-gen")
 HERE = Path(__file__).resolve().parent

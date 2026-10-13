@@ -1,0 +1,15 @@
+[Script Info]
+Title: SF Rakugo 4-koma
+PlayResX: 640
+PlayResY: 480
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,IPAexGothic,24,&H00FFFFFF,&H000000FF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,2,0,2,10,10,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:05:00.00,Default,,0,0,0,,評価はできるが、知識にどう繋がる？\N— はっちゃん
+Dialogue: 0,0:05:00.00,0:10:00.00,Default,,0,0,0,,細粒度評価を自動評価へ変換するんだ\N— ご隠居さん
+Dialogue: 0,0:10:00.00,0:15:00.00,Default,,0,0,0,,評価ループの中から成長パターンが見えた！\N— はっちゃん
+Dialogue: 0,0:15:00.00,0:20:00.00,Default,,0,0,0,,生成→評価→修正→再生成。知識とはループである\N— 三人
