@@ -1,25 +1,60 @@
 <!doctype html>
 <html lang="ja">
+<head>
 <meta charset="utf-8">
-<title>SSSS 400字計画</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EVOPS 研究計画</title>
 <style>
-body{
-  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans CJK JP",sans-serif;
-  font-size:24pt;       /* でかい文字 */
-  color:#ffffff;        白文字
-  background:#000000;   黒バック
-  max-width:900px;
-  margin:40px auto;
-  padding:40px 20px;
-  line-height:1.6;
-}
-h1{font-size:32pt; margin-bottom:20px;}
-h2{font-size:20pt; color:#ffd700; margin-top:30px; margin-bottom:15px;}
-p{font-size:18pt; margin-bottom:15px;}
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Noto Sans CJK JP",sans-serif;color:#f4f4f5;background:#111;margin:0 auto;padding:28px 20px;max-width:900px;line-height:1.75}
+h1{font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.25}
+h2{font-size:1.15rem;color:#facc15;margin-top:2rem}
+p,li{font-size:1rem}
+.lead{font-size:1.15rem;color:#d4d4d8}
+.flow{padding:14px;border:1px solid #52525b;border-radius:12px;overflow-wrap:anywhere;font-weight:600}
+small{color:#a1a1aa}
 </style>
-<h1>SSSS Research Plan (400字)</h1>
-<h2>LMS/VLM → DB → ML → Repair → Regenerate</h2>
-<p>
-  本プロジェクトは LMS/VLM を共通評価器として使い、評価結果を DB へ蓄積し、ML による改善ループを回すことを目的とする。10 ヵ日のロードマップに従し、まず論文リサーチと評価 Ontology を設計し、CLIP、PickScore、ImageReward、HPSv2 といった軽量画像評価モデルを実装する。CPU 16GB 制約下では CLIP-small 等を活用し、多軸評価による質の近似を実現する。人間の嗜好はペアワイズ比較で収集し、Bradley-Terry や DPO により効率的に学習させ、高価な人間フィードバックのコストを抑える。MCP（Model Context Protocol）でツール層を標準化し、A2A（Agent2Agent Protocol）でジェネレータ・評価者・意図推定エージェント間の連携を実現する。Phi-3 や Llama 3.2 などの SLM を利用し、ローカル CPU 16GB 環境でループ回転させる。最終的に生成品質の指標改善と今後の展開を分析し、プロジェクトを完結させる。
-</p>
+</head>
+<body>
+<small>EVOPS RESEARCH PLAN · 更新 2026-10-14</small>
+<h1>低コストで再現可能なAI画像制作工程の構築</h1>
+<p class="lead">生成・編集・評価・履歴学習をつなぐ工房プロセス</p>
+<div class="flow">Intent → Source Asset → Generate/Edit → Evaluate → Human Review → Record → Repair → Regenerate</div>
+<h2>研究目的</h2>
+<p>画像生成を単発のプロンプト実行で終わらせず、制作意図、生成条件、出力画像、人間による修正、評価結果を一貫して記録する。再現可能な制作レシピを作り、過去の試行を次の制作へ再利用できるか検証する。</p>
+<h2>検証すること</h2>
+<ul>
+<li>同じキャラクターの色だけを変更し、主要な形や顔を保持できるか。</li>
+<li>顔の角度を変更し、その他の特徴をどの程度保持できるか。</li>
+<li>CLIP等の自動評価が、人間の採用・却下判断とどの程度一致するか。</li>
+<li>失敗理由と修正履歴を使い、品質・試行回数・時間・費用を改善できるか。</li>
+</ul>
+<h2>モデル選定</h2>
+<p>Google Imagen / AI Studioを候補として調査する。無料枠・API利用条件は実験開始時に確認し、無料利用を前提にしない。Stable Diffusion系や制御可能なSVG/CSSも比較候補とする。</p>
+<h2>評価と記録</h2>
+<p>Kaggle GPU NotebookでCLIP類似度を計算し、scores.csv・summary.csv・ヒストグラムを出力する。人間は属性変更の達成度、特徴保持、仕上がりを別々に評価する。プロンプト、モデル、パラメータ、元画像、出力、評価、修正履歴はJSONLに保存し、画像本体はURIで参照する。</p>
+<p><strong>注意：</strong>CLIPスコアは品質そのものではない。人間評価との比較・校正を行い、単独で採否を決めない。</p>
+<h2>10日間の計画</h2>
+<ol>
+<li>研究課題・関連研究・モデル利用条件</li>
+<li>アセット来歴とJSONLスキーマ</li>
+<li>元画像と実験条件の固定</li>
+<li>色変更の実験</li>
+<li>顔角度変更の実験</li>
+<li>KaggleでCLIP評価</li>
+<li>人間評価との比較</li>
+<li>EVOPSのJSONL／SQLiteへ統合</li>
+<li>修正指示による再生成とコスト比較</li>
+<li>HTML可視化と結果報告</li>
+</ol>
+<h2>成功基準</h2>
+<ul>
+<li>生成物の来歴とレシピを追跡できる。</li>
+<li>属性変更と特徴保持を分けて評価できる。</li>
+<li>自動評価と人間評価の差を分析できる。</li>
+<li>最低1回の改善ループを実行し、前後を比較できる。</li>
+<li>未実測の時間・費用・品質を実測値として報告しない。</li>
+</ul>
+</body>
 </html>
