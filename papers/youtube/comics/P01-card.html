@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>P01 VeMo · Paper Card</title>
+<style>
+:root{font-family:"Noto Sans JP",system-ui,sans-serif;background:#f7f5fb;color:#24103f}
+body{margin:0}.wrap{max-width:1100px;margin:auto;padding:28px}
+header{position:sticky;top:0;background:#f7f5fbdd;backdrop-filter:blur(10px);padding:12px 0;z-index:2}
+h1{margin:0 0 4px}.meta{color:#666}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+button{border:1px solid #c8b8df;background:white;border-radius:999px;padding:9px 14px;cursor:pointer}
+button.active{background:#7c3aed;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.card{background:white;border:3px solid #7c3aed;border-radius:20px;padding:22px;min-height:230px;box-shadow:0 8px 24px #24103f14;transition:.25s;animation:in .3s}
+.card:hover{transform:translateY(-3px)}
+.emoji{font-size:48px}.time{font-size:14px;color:#7c3aed;font-weight:800}.tag{display:inline-block;background:#eee6fa;border-radius:999px;padding:4px 9px;margin:3px;font-size:13px}
+h2{margin:8px 0}.score{font-size:14px;color:#666}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>🎥 P01 VeMo — 100秒論文カード</h1>
+<div class="meta">VeMo: Zero-Shot Text-to-Motion Evaluation using Video Language Models · ICML 2026</div>
+<div class="controls" id="controls"></div>
+</header>
+<main class="grid" id="cards"></main>
+</div>
+<script>
+const cards=[
+{id:1,t:"0–12.5秒",emoji:"🎯",title:"問題",text:"生成した3Dモーションが、文章どおりの意味になっているか？",criteria:["problem","research"]},
+{id:2,t:"12.5–25秒",emoji:"😩",title:"困りごと",text:"大量生成では、人間が毎回動画を見て評価するのは重い。",criteria:["problem","evaluation"]},
+{id:3,t:"25–37.5秒",emoji:"💡",title:"発想",text:"3Dモーションを動画として見せ、Video Language Modelに意味を判断させる。",criteria:["method","vlm"]},
+{id:4,t:"37.5–50秒",emoji:"🔧",title:"仕組み",text:"TextとVideoをVLMへ入力し、ゼロショットでalignment scoreを得る。",criteria:["method","evaluation"]},
+{id:5,t:"50–62.5秒",emoji:"👀",title:"視点問題",text:"3Dを2D動画にすると視点で情報が変わる。視点の不確かさも分析する。",criteria:["method","limitation"]},
+{id:6,t:"62.5–75秒",emoji:"📈",title:"結果",text:"人間による評価との相関を調べ、既存指標より意味的一致を捉えやすいことを示す。",criteria:["result","evaluation"]},
+{id:7,t:"75–87.5秒",emoji:"🤔",title:"限界",text:"視点、レンダリング、プロンプト、計算コストなど、評価器側にも検討事項が残る。",criteria:["limitation","research"]},
+{id:8,t:"87.5–100秒",emoji:"🚀",title:"EVOPSへの接続",text:"生成 → VLM評価 → スコア → 修正 → 再生成。評価を次の生成へ戻す。",criteria:["evops","application"]}
+];
+const labels={all:"全部",problem:"問題",method:"手法",evaluation:"評価",result:"結果",limitation:"限界",research:"研究",vlm:"VLM",evops:"EVOPS",application:"応用"};
+let criterion="all";
+function render(){
+ const list=criterion==="all"?cards:cards.filter(c=>c.criteria.includes(criterion));
+ document.querySelector("#cards").innerHTML=list.map(c=>`<article class="card">
+ <div class="time">${c.t}</div><div class="emoji">${c.emoji}</div><h2>${c.title}</h2>
+ <p>${c.text}</p><div>${c.criteria.map(x=>`<span class="tag">#${labels[x]}</span>`).join("")}</div>
+ </article>`).join("");
+}
+function controls(){
+ document.querySelector("#controls").innerHTML=Object.entries(labels).map(([k,v])=>
+  `<button class="${k==="all"?"active":""}" data-k="${k}">${v}</button>`).join("");
+ document.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+   criterion=b.dataset.k;
+   document.querySelectorAll("button").forEach(x=>x.classList.remove("active"));
+   b.classList.add("active");render();
+ });
+}
+controls();render();
+</script>
+</body>
+</html>
