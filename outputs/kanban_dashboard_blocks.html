@@ -1,144 +1,17 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanban Dashboard — ブロック配置版</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
-  :root { --bg:#0b0c15; --surface:#11121f; --text:#e6e8f0; --muted:#8a8f9d; --gold:#ffd966; --green:#4ade80; --yellow:#facc15; --red:#f87171; --blue:#60a5fa; --orange:#fb923c; --purple:#c084fc; }
-  * { box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Noto Sans JP',system-ui,sans-serif; padding:2rem 1rem; line-height:1.6; }
-  .container { max-width:1100px; margin:auto; }
-  h1 { font-family:'JetBrains Mono',monospace; font-size:2rem; letter-spacing:-0.03em; color:var(--gold); border-left:10px solid var(--gold); padding-left:1rem; margin-bottom:0.2rem; }
-  .subtitle { color:var(--muted); margin-bottom:2rem; font-size:0.95rem; }
-  .legend { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem; }
-  .legend-item { display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; }
-  .badge { width:14px; height:14px; border-radius:3px; display:inline-block; }
-  .badge.done { background:var(--green); }
-  .badge.in-progress { background:var(--yellow); }
-  .badge.pending { background:var(--red); }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; }
-  .block { background:var(--surface); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.35); transition:transform .15s ease; position:relative; overflow:hidden; }
-  .block:hover { transform: translateY(-3px); border-color:rgba(255,255,255,0.15); }
-  .block-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
-  .block-title { font-family:'JetBrains Mono',monospace; font-size:1.1rem; font-weight:700; color:#fff; }
-  .block-owner { font-size:0.75rem; color:var(--muted); background:rgba(255,255,255,0.05); padding:0.2rem 0.6rem; border-radius:999px; }
-  .status-row { display:flex; gap:0.5rem; margin-bottom:0.8rem; flex-wrap:wrap; }
-  .pill { padding:0.25rem 0.75rem; border-radius:999px; font-size:0.75rem; font-weight:700; letter-spacing:0.02em; }
-  .pill.done { background:rgba(74,222,128,0.15); color:var(--green); border:1px solid rgba(74,222,128,0.3); }
-  .pill.in-progress { background:rgba(250,204,21,0.15); color:#f59e0b; border:1px solid rgba(250,204,21,0.3); }
-  .pill.pending { background:rgba(248,113,113,0.15); color:var(--red); border:1px solid rgba(248,113,113,0.3); }
-  .asset-row { display:flex; align-items:center; justify-content:space-between; padding:0.55rem 0; border-bottom:1px solid rgba(255,255,255,0.06); }
-  .asset-row:last-child { border-bottom:none; }
-  .asset-name { font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:#cbd5e1; word-break:break-all; }
-  .asset-link { color:var(--gold); text-decoration:none; font-weight:700; font-size:0.8rem; border:1px solid rgba(255,217,102,0.3); padding:0.2rem 0.6rem; border-radius:6px; transition:background .15s; }
-  .asset-link:hover { background:rgba(255,217,102,0.15); }
-  .video-section { margin-top:3rem; background:linear-gradient(135deg,#0f0c29,#302b63); border-radius:16px; padding:2rem; border:1px solid rgba(255,255,255,0.08); }
-  .video-section h2 { color:var(--gold); font-family:'JetBrains Mono',monospace; margin-bottom:1rem; border-left:8px solid var(--gold); padding-left:0.75rem; }
-  .video-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2rem; }
-  .video-card { background:#16162f; border-radius:10px; padding:1.2rem; border:1px solid rgba(255,255,255,0.05); }
-  .video-card h3 { font-size:1rem; margin-bottom:0.6rem; color:#fff; }
-  .video-card a { display:inline-block; margin-top:0.5rem; color:var(--blue); text-decoration:none; font-size:0.85rem; }
-  .video-card .meta { color:var(--muted); font-size:0.75rem; margin-top:0.25rem; }
-  .note { color:var(--muted); font-size:0.85rem; margin-top:1.5rem; }
-</style>
-</head>
-<body>
-<div class="container">
-<h1>パイプライン進捗ダッシュボード（ブロック配置版）</h1>
-<p class="subtitle">各パイプライン（P01 / P02 / P03）の動画生成進捗を色とブロックで可視化。動画リンク付き。</p>
-
-<div class="legend">
-  <div class="legend-item"><span class="badge done"></span> 完了</div>
-  <div class="legend-item"><span class="badge in-progress"></span> 進行中</div>
-  <div class="legend-item"><span class="badge pending"></span> 待機</div>
-</div>
-
+<html lang="ja"><head><meta charset="utf-8"><title>Kanban Dashboard</title><style>
+body{font-family:system-ui,sans-serif;background:#1a1c23;color:#e8ecf1;padding:20px;line-height:1.6}
+h1{color:#b45309;border-bottom:3px solid #b45309;padding-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:20px}
+.card{background:#23262b;border:1px solid #333;border-radius:10px;padding:16px}
+.card h3{margin:0 0 8px;color:#fff;font-size:1rem}
+.card .asset{font-size:11pt;color:#aaa;margin:4px 0}
+.card .asset.ok{color:#1d4ed8}
+.card .asset.warn{color:#b45309}
+.card .asset.err{color:#dc2626}
+.tag{display:inline-block;padding:2px 6px;background:#b45309;color:#fff;border-radius:4px;font-size:9pt;margin:2px}
+</style></head><body>
+<h1>Video PM Kanban Dashboard</h1>
+<p>Last updated: 2026-10-14T15:34:16</p>
 <div class="grid">
-  <!-- P01 -->
-  <div class="block">
-    <div class="block-header">
-      <div class="block-title">P01 — VeMo: Zero-Shot Text-to-Motion</div>
-      <span class="block-owner">P01</span>
-    </div>
-    <div class="status-row">
-      <span class="pill in-progress">in-progress</span>
-      <span class="pill pending">pending: SVG</span>
-    </div>
-    <div class="asset-row">
-      <span class="asset-name">paper_videos/P01/video.mp4</span>
-      <a class="asset-link" href="paper_videos/P01/video.mp4">▶ 動画</a>
-    </div>
-    <div class="asset-row">
-      <span class="asset-name">paper_videos/P01/episode.json</span>
-      <a class="asset-link" href="paper_videos/P01/episode.json">▶ 原稿</a>
-    </div>
-  </div>
-
-  <!-- P02 -->
-  <div class="block">
-    <div class="block-header">
-      <div class="block-title">P02 — EvalCrafter: Benchmarking Video Gen</div>
-      <span class="block-owner">P02</span>
-    </div>
-    <div class="status-row">
-      <span class="pill in-progress">in-progress</span>
-      <span class="pill pending">pending: SVG</span>
-    </div>
-    <div class="asset-row">
-      <span class="asset-name">paper_videos/P02/video.mp4</span>
-      <a class="asset-link" href="paper_videos/P02/video.mp4">▶ 動画</a>
-    </div>
-    <div class="asset-row">
-      <span class="asset-name">paper_videos/P02/episode.json</span>
-      <a class="asset-link" href="paper_videos/P02/episode.json">▶ 原稿</a>
-    </div>
-  </div>
-
-  <!-- P03 -->
-  <div class="block">
-    <div class="block-header">
-      <div class="block-title">P03 — VideoScore: Fine-grained Feedback</div>
-      <span class="block-owner">P03</span>
-    </div>
-    <div class="status-row">
-      <span class="pill in-progress">in-progress</span>
-      <span class="pill pending">pending: SVG</span>
-    </div>
-    <div class="asset-row">
-      <span class="asset-name">paper_videos/P03/video.mp4</span>
-      <a class="asset-link" href="paper_videos/P03/video.mp4">▶ 動画</a>
-    </div>
-    <div class="asset-row">
-      <span class="asset-name">paper_videos/P03/episode.json</span>
-      <a class="asset-link" href="paper_videos/P03/episode.json">▶ 原稿</a>
-    </div>
-  </div>
-</div>
-
-<div class="video-section">
-  <h2>動画リンク（生成予定）</h2>
-  <div class="video-grid">
-    <div class="video-card">
-      <h3>P01 — VeMo</h3>
-      <a href="paper_videos/P01/video.mp4">▶ P01/video.mp4（生成予定）</a>
-      <div class="meta">ステータス: in-progress</div>
-    </div>
-    <div class="video-card">
-      <h3>P02 — EvalCrafter</h3>
-      <a href="paper_videos/P02/video.mp4">▶ P02/video.mp4（生成予定）</a>
-      <div class="meta">ステータス: in-progress</div>
-    </div>
-    <div class="video-card">
-      <h3>P03 — VideoScore</h3>
-      <a href="paper_videos/P03/video.mp4">▶ P03/video.mp4（生成予定）</a>
-      <div class="meta">ステータス: in-progress</div>
-    </div>
-  </div>
-</div>
-
-<p class="note">※ 動画リンクは生成完了後に `pending` → `done` に更新されます。現在はプレースホルダー（空ファイル）です。</p>
-</div>
-</body>
-</html>
+<div class="card"><h3>P01: P01</h3><div class="asset ok">📄 Episode JSON: episode.json</div><div class="asset ok">🎙 TTS Audio: assets/narration.mp3;assets/voice_02.mp3;assets/voice_04.mp3;assets/voice_01.mp3;assets/voice_03.mp3;assets/narration_padded.mp3</div><div class="asset ok">🎬 SVG Panels: panels/S01_panel_03.svg;panels/S01_panel_04.svg;panels/S01_panel_02.svg;panels/S01_panel_01.svg;svg/panel_03.svg;svg/panel_02.svg;svg/panel_01.svg;svg/panel_04.svg</div><div class="asset err">📖 4-Koma HTML: (missing)</div><div class="asset ok">🎥 Final Video: video.mp4;final.mp4;assets/raw.mp4</div><div class="asset warn">Last sync: 2026-10-14T15:34:16</div></div><div class="card"><h3>P02: P02</h3><div class="asset ok">📄 Episode JSON: episode.json</div><div class="asset err">🎙 TTS Audio: (missing)</div><div class="asset err">🎬 SVG Panels: (missing)</div><div class="asset err">📖 4-Koma HTML: (missing)</div><div class="asset ok">🎥 Final Video: video.mp4</div><div class="asset warn">Last sync: 2026-10-14T15:34:16</div></div><div class="card"><h3>P03: P03</h3><div class="asset ok">📄 Episode JSON: episode.json</div><div class="asset err">🎙 TTS Audio: (missing)</div><div class="asset err">🎬 SVG Panels: (missing)</div><div class="asset ok">📖 4-Koma HTML: comic_P03.html</div><div class="asset ok">🎥 Final Video: video.mp4</div><div class="asset warn">Last sync: 2026-10-14T15:34:16</div></div><div class="card"><h3>P10: P10</h3><div class="asset err">📄 Episode JSON: (missing)</div><div class="asset err">🎙 TTS Audio: (missing)</div><div class="asset err">🎬 SVG Panels: (missing)</div><div class="asset ok">📖 4-Koma HTML: comic_P10.html</div><div class="asset err">🎥 Final Video: (missing)</div><div class="asset warn">Last sync: 2026-10-14T15:34:16</div></div><div class="card"><h3>P17: P17</h3><div class="asset err">📄 Episode JSON: (missing)</div><div class="asset err">🎙 TTS Audio: (missing)</div><div class="asset err">🎬 SVG Panels: (missing)</div><div class="asset ok">📖 4-Koma HTML: comic_P17.html</div><div class="asset err">🎥 Final Video: (missing)</div><div class="asset warn">Last sync: 2026-10-14T15:34:16</div></div></div></body></html>

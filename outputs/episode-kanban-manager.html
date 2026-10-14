@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8"><title>Episode + Kanban + Scene Manager</title><style>
+body{font-family:system-ui,sans-serif;background:#23262b;color:#e8ecf1;padding:40px;line-height:1.7}
+h1{color:#b45309;border-bottom:3px solid #b45309;padding-bottom:10px}
+h2{color:#7c3aed;margin-top:32px;border-left:4px solid #7c3aed;padding-left:10px}
+.card{background:#1a1c23;border:1px solid #333;border-radius:10px;padding:16px;margin:12px 0}
+.card h3{margin:0 0 6px;color:#fff;font-size:1.05rem}
+.tag{display:inline-block;padding:2px 6px;background:#b45309;color:#fff;border-radius:4px;font-size:9pt;margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+pre{font-family:monospace;font-size:11pt;background:#121214;padding:10px;border-radius:6px;overflow-x:auto}
+a{color:#b45309}
+</style></head><body>
+<h1>シーン管理と生成物管理 — まるみえ</h1>
+<p>Episode JSON = daihon / TTS / SVG Animation / Kanban HTML / Scene + Generated Items</p>
+
+<h2>P01 — ResNet — Deep Learning Revolution (episode.json + TTS + SVG + Video)</h2>
+<div class="grid">
+<div class="card"><h3>📄 Episode / Daihon</h3><pre>episode.json → panels (setup/conflict/resolution/punchline)</pre><span class="tag">JSON</span></div>
+<div class="card"><h3>🎙 TTS / Voice</h3><pre>assets/narration.mp3<br/>assets/narration_padded.mp3<br/>assets/voice_01.mp3 … voice_04.mp3</pre><span class="tag">TTS</span></div>
+<div class="card"><h3>🎬 SVG Animation</h3><pre>svg/panel_01.svg</pre><span class="tag">SVG</span><br/>+ PNG panels (panel_01.png … panel_04.png)</div>
+<div class="card"><h3>🎥 Final Video</h3><pre>final.mp4</pre><span class="tag">MP4</span></div>
+<div class="card"><h3>📊 Comic / 4-koma</h3><pre>P01/ → episode.json + panels + SVG + video + comic (merged)</pre><span class="tag">EPISODE</span></div>
+</div>
+
+<h2>P03 — VideoScore / EMNLP 2024 (episode.json + Comic HTML)</h2>
+<div class="grid">
+<div class="card"><h3>📄 Episode / Daihon</h3><pre>episode.json → 4 panels (problem/conflict/solution/knowledge)</pre><span class="tag">JSON</span></div>
+<div class="card"><h3>📄 Comic (4-koma HTML)</h3><a href="P03/comic_P03.html">comic_P03.html</a> — 4-panel manga-style summary of VideoScore evaluation loop<br/><span class="tag">HTML</span></div>
+<div class="card"><h3>📄 Video (paper output)</h3><a href="P03/video.mp4">P03/video.mp4</a><span class="tag">MP4</span></div>
+</div>
+
+<h2>P10 — CLIP / ICML 2021</h2>
+<div class="grid">
+<div class="card"><h3>📄 Comic (4-koma HTML)</h3><a href="P10/comic_P10.html">comic_P10.html</a> — 4-panel comic on image-text embedding<br/><span class="tag">HTML</span></div>
+</div>
+
+<h2>P17 — MCP / Anthropic 2024</h2>
+<div class="grid">
+<div class="card"><h3>📄 Comic (4-koma HTML)</h3><a href="P17/comic_P17.html">comic_P17.html</a> — 4-panel comic on standardized tool connectivity<br/><span class="tag">HTML</span></div>
+</div>
+
+<h2>🍱 Kanban Dashboard (管理盤)</h2>
+<div class="grid">
+<div class="card"><h3><a href="kanban_dashboard_blocks.html">kanban_dashboard_blocks.html</a></h3><span class="tag">KANBAN</span> — Episode / Scene blocks</div>
+<div class="card"><h3><a href="kanban_dashboard_color.html">kanban_dashboard_color.html</a></h3><span class="tag">KANBAN</span> — Color-coded progress</div>
+<div class="card"><h3><a href="kanban_dashboard.md">kanban_dashboard.md</a></h3><span class="tag">MD</span> — Markdown history</div>
+<div class="card"><h3>📄 Progress Report</h3><a href="progress_report_chaperone.md">progress_report_chaperone.md</a><span class="tag">REPORT</span></div>
+</div>
+
+<h2>📋 生成物管理まとめ（Scene + Output map）</h2>
+<div class="card">
+<table style="width:100%;border-collapse:collapse;font-size:11pt">
+<thead><tr style="color:#fff"><th>Scene (Paper)</th><th>Daihon (episode.json)</th><th>TTS</th><th>SVG / Panel</th><th>4-koma HTML</th><th>Video / Final</th></tr></thead>
+<tbody style="color:#ccc">
+<tr><td>P01 — ResNet</td><td>✅ episode.json</td><td>✅ 5 voice/mp3</td><td>✅ svg + png panels</td><td>✅ (merged into P01/)</td><td>✅ final.mp4</td></tr>
+<tr><td>P03 — VideoScore</td><td>✅ episode.json</td><td>—</td><td>—</td><td>✅ comic_P03.html</td><td>✅ video.mp4</td></tr>
+<tr><td>P10 — CLIP</td><td>—</td><td>—</td><td>—</td><td>✅ comic_P10.html</td><td>—</td></tr>
+<tr><td>P17 — MCP</td><td>—</td><td>—</td><td>—</td><td>✅ comic_P17.html</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p style="margin-top:24px;color:#888">出力先: <code>/home/bons/evops/outputs/</code> — P01 (animation + episode) / P03 / P10 / P17 (4-koma comics) / kanban + reports</p>
+</body></html>

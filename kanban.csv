@@ -1,0 +1,6 @@
+scene,paper_id,paper_title,episode_json,tts_audio,svg_panels,comic_html,final_video,notes
+"P01","P01","P01","episode.json","assets/narration.mp3;assets/voice_02.mp3;assets/voice_04.mp3;assets/voice_01.mp3;assets/voice_03.mp3;assets/narration_padded.mp3","panels/S01_panel_03.svg;panels/S01_panel_04.svg;panels/S01_panel_02.svg;panels/S01_panel_01.svg;svg/panel_03.svg;svg/panel_02.svg;svg/panel_01.svg;svg/panel_04.svg","","video.mp4;final.mp4;assets/raw.mp4","Last sync: 2026-10-14T15:34:16"
+"P02","P02","P02","episode.json","","","","video.mp4","Last sync: 2026-10-14T15:34:16"
+"P03","P03","P03","episode.json","","","comic_P03.html","video.mp4","Last sync: 2026-10-14T15:34:16"
+"P10","P10","P10","","","","comic_P10.html","","Last sync: 2026-10-14T15:34:16"
+"P17","P17","P17","","","","comic_P17.html","","Last sync: 2026-10-14T15:34:16"

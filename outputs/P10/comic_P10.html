@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>CLIP — 4-Koma Comic</title>
+<style>
+  body {font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; background: #faf8ff; padding: 20px;}
+  h1 {color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 8px;}
+  .comic {background: white; border: 2px solid #7c3aed; border-radius: 12px; padding: 20px; margin: 20px 0;}
+  .panel {margin-bottom: 12px; min-height: 180px;}
+  .hd {display: flex; align-items: flex-end; gap: 8px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid #ddd;}
+  .hd-kicker {font-size: 10pt; font-weight: bold; color: #7c3aed; background: #e8eaff; padding: 2px 6px; border-radius: 4px; white-space: nowrap;}
+  .hd-title {font-size: 14pt; font-weight: 800; flex: 1;}
+  .speaker {color: #555; font-weight: 600; margin-left: 8px;}
+  .text {color: #222; line-height: 1.5; font-size: 13pt;}
+  .tag {display: inline-block; padding: 2px 6px; background: #e8eaff; color: #7c3aed; border-radius: 4px; font-size: 9pt; margin-right: 4px; margin-bottom: 4px;}
+  .prev {color: #888; font-size: 9pt; margin-left: auto;}
+  .nav {display: flex; gap: 8px; margin-top: 12px; justify-content: space-between;}
+  .nav button {background: none; border: none; color: #7c3aed; cursor: pointer; font-size: 11pt;}
+</style>
+</head>
+<body>
+<h1>CLIP — 4-Koma Comic (ICML 2021)</h1>
+
+<div class="comic">
+  <div class="panel">
+    <div class="hd">
+      <span class="hd-kicker">Panel 1: Problem</span>
+      <div class="hd-title">P1: 画像とテキスト、別々に学習してきた</div>
+      <span class="speaker">常識</span>
+    </div>
+    <div class="text">画像分類とテキスト理解は別々の世界だった…</div>
+    <div class="tag">problem</div>
+  </div>
+
+  <div class="panel">
+    <div class="hd">
+      <span class="hd-kicker">Panel 2: Anomaly</span>
+      <div class="hd-title">P2: 共通空間に埋め込めばゼロショットできる！</div>
+      <span class="speaker">研究者</span>
+    </div>
+    <div class="text">4億ペアの画像・テキストで共通空間へ埋め込む</div>
+    <div class="tag">anomaly</div>
+  </div>
+
+  <div class="panel">
+    <div class="hd">
+      <span class="hd-kicker">Panel 3: Invention</span>
+      <div class="hd-title">P3: ラベルなしでも分類できる！</div>
+      <span class="speaker">研究者</span>
+    </div>
+    <div class="text">「猫の写真」vs「犬の写真」のテキストと照合 → ゼロショット分類</div>
+    <div class="tag">invention</div>
+  </div>
+
+  <div class="panel">
+    <div class="hd">
+      <span class="hd-kicker">Panel 4: Connection</span>
+      <div class="hd-title">P4: CPU 16GB でも動く軽量評価器の基盤</div>
+      <span class="speaker">AI君</span>
+    </div>
+    <div class="text">CLIP があれば軽量に類似度計算 → 自動評価器の心臓部</div>
+    <div class="tag">cpu-friendly</div>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="prev">&larr; Prev</button>
+  <button class="nav">Next &rarr;</button>
+</div>
+
+<p style="margin-top: 20px; color: #666; font-size: 11pt;">
+Based on: <em>CLIP: Learning Transferable Visual Models From Natural Language Supervision</em> (ICML 2021)<br>
+Key insight: Image-text joint embedding enables zero-shot evaluation, foundation for CPU-friendly auto-eval
+</p>
+</body>
+</html>

@@ -1,0 +1,30 @@
+name: Video Manager Agent
+description: Responsible video management and workflow orchestration for EvOps papers
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  manage-videos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install fastmcp mcp_core fastapi python-multipart
+      - name: Run video manager
+        run: |
+          python -m agents.video_pm.cli manage \
+            --repo /home/bons/evops \
+            --output /home/bons/evops/outputs \
+            --kanban /home/bons/evops/kanban.csv \
+            --dashboard /home/bons/evops/outputs/kanban_dashboard_blocks.html
+      - name: Report status
+        run: |
+          echo "Video management workflow completed"
+          echo "Check outputs for updated kanbans and comics"
