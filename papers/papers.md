@@ -317,3 +317,31 @@ Blender-bpy, ComfyUI, Evaluator, DBなど異種サービス間をJSON DSLで統�
 
 ## Loop
 Generation → Auto Evaluation → Human Feedback → DB → Intent Estimation → Criteria Update → Repair → Generation の継続的な評価・学習ループ
+
+## 基礎論文：画像生成から3D生成へ
+
+評価系の論文を除き、生成技術の基礎を理解するための追加候補。推奨順に並べる。
+
+### 基礎01 — DDPM: Denoising Diffusion Probabilistic Models (2020)
+https://arxiv.org/abs/2006.11239
+
+ノイズを段階的に除去してデータを生成する拡散モデルの基本論文。後続の画像生成・3D生成研究を理解するための土台。
+
+### 基礎02 — High-Resolution Image Synthesis with Latent Diffusion Models (2022)
+https://arxiv.org/abs/2112.10752
+
+画像の潜在表現上で拡散過程を行い、計算効率と高解像度生成を両立する考え方を示す。Stable Diffusionにつながる重要な研究。
+
+### 基礎03 — NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis (2020)
+https://arxiv.org/abs/2003.08934
+
+複数視点の画像から、連続的な3Dシーン表現と新しい視点の画像合成を学習する。画像生成モデルを3Dへ応用する研究を読む前提として有用。
+
+### 推奨学習順
+1. DDPM — 拡散モデルの基本原理
+2. CLIP（既存登録）— 画像と言語の対応
+3. Latent Diffusion Models — 効率的な画像生成
+4. NeRF — 3Dシーン表現
+5. DreamFusion（既存登録）— 拡散モデルを利用したテキストからの3D生成
+
+この追加は生成技術の基礎を補うもので、評価系の論文は対象外。
