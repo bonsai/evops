@@ -1,214 +1,237 @@
 {
-  "project": "ssss",
-  "title": "VLMを用いた異種アニメーション生成バックエンドの共通評価・改善ループ",
+  "project": "evops",
+  "title": "低コストで再現可能なAI画像制作工程の構築 — 生成・編集・評価・履歴学習をつなぐ工房プロセス",
+  "updated_at": "2026-10-14",
   "status": "research",
   "duration_days": 10,
-  "goal": "Blender/bpy（テーマ2: ドラえもん）、SVG/CSS（テーマ1）、SD1.5を同一の評価軸で比較し、VLMを中心とした評価→失敗分析→修正→再生成ループ、およびbqmliteによる自動修復戦略学習の有効性を検証する。",
+  "goal": "生成条件・出力・人間の修正・評価結果を一貫して記録し、属性変更の達成度と特徴保持を測定しながら、低コストで再現可能な画像制作・改善ループを検証する。",
+  "research_questions": [
+    "色や顔角度など指定属性だけを変更し、その他の特徴をどの程度保持できるか。",
+    "生成レシピとアセット来歴の記録は再現性と修正効率を高めるか。",
+    "自動評価は人間の採用・却下判断をどの程度予測できるか。",
+    "過去の失敗・修正履歴は試行回数やコストの削減に役立つか。"
+  ],
   "hypotheses": [
     {
       "id": "H1",
-      "statement": "VLMベースの意味・知覚評価は異なる生成バックエンドで共通利用できる。"
+      "statement": "生成レシピとアセット来歴の構造化保存は再現性と比較可能性を高める。"
     },
     {
       "id": "H2",
-      "statement": "評価軸を構造化してDB化すると、実験比較と改善知識の再利用性が高まる。"
+      "statement": "属性変更の達成度と特徴保持を分けて評価する方が、単一類似度より制作上有用である。"
     },
     {
       "id": "H3",
-      "statement": "VLMの失敗記述を修正指示へ変換すると、次回生成の品質改善に利用できる。"
+      "statement": "自動評価と人間評価の差分を記録すると、自動評価の限界を把握し校正できる。"
     },
     {
       "id": "H4",
-      "statement": "Blender/bpyやSVG/CSSの決定的バックエンドは、SD1.5より短く制御しやすい改善ループを構成できる。"
+      "statement": "採用・却下・修正履歴を次の試行へ反映すると改善効率が向上する。"
     }
   ],
   "common_loop": [
     "intent",
-    "generate",
-    "render",
+    "source_asset",
+    "generate_or_edit",
     "evaluate",
-    "failure_analysis",
-    "repair",
+    "human_review",
+    "record",
+    "repair_instruction",
     "regenerate"
   ],
+  "minimum_experiment": {
+    "source": "1キャラクター画像、固定背景、固定画角",
+    "experiments": [
+      {
+        "id": "A",
+        "attribute": "color",
+        "goal": "色のみを変更し、形状・顔・構図を保持する"
+      },
+      {
+        "id": "B",
+        "attribute": "face_angle",
+        "goal": "顔の角度を変更し、キャラクターの主要特徴を保持する"
+      }
+    ],
+    "model_policy": "実験開始時に利用可能なモデル、無料枠、API条件を確認する。Google Imagen / AI Studioは候補だが、無料・API利用を前提にしない。Stable Diffusion系も比較候補とする。",
+    "evaluation": "Kaggle GPU NotebookでCLIP類似度を計算し、scores.csv、summary.csv、ヒストグラムを出力。人間評価との相関・誤差も測定する。"
+  },
   "backends": [
     {
-      "id": "blender",
-      "technology": "Blender/bpy",
-      "role": "main",
-      "reason": "決定的・編集可能・3Dアニメーションに適する"
+      "id": "imagen",
+      "technology": "Google Imagen / Google AI Studio",
+      "role": "candidate",
+      "condition": "モデル・地域・無料枠・API利用条件を実験時に確認"
+    },
+    {
+      "id": "sd15",
+      "technology": "Stable Diffusion 1.5系",
+      "role": "candidate_baseline",
+      "condition": "実行環境とライセンスを確認"
     },
     {
       "id": "svg_css",
       "technology": "SVG/CSS",
-      "role": "baseline",
-      "reason": "高速な2Dアニメーション評価環境"
-    },
-    {
-      "id": "sd15",
-      "technology": "Stable Diffusion 1.5",
-      "role": "baseline",
-      "reason": "生成AI系との比較。速度と時間的一貫性を測定"
+      "role": "controlled_baseline",
+      "condition": "幾何・色など制御可能な属性の基準比較"
     }
   ],
   "evaluation_axes": [
     {
-      "id": "semantic",
-      "name": "Semantic Alignment",
-      "method": "VLM",
+      "id": "attribute_adherence",
+      "name": "Attribute Adherence",
+      "method": "Human review + model-assisted",
       "direction": "higher_better"
     },
     {
-      "id": "motion",
-      "name": "Motion Quality",
-      "method": "VLM+Python",
-      "direction": "higher_better"
-    },
-    {
-      "id": "temporal",
-      "name": "Temporal Consistency",
-      "method": "VLM+Python",
-      "direction": "higher_better"
-    },
-    {
-      "id": "character",
-      "name": "Character Consistency",
-      "method": "VLM",
-      "direction": "higher_better"
-    },
-    {
-      "id": "composition",
-      "name": "Composition",
-      "method": "VLM",
+      "id": "identity_preservation",
+      "name": "Identity / Structure Preservation",
+      "method": "Image similarity + human review",
       "direction": "higher_better"
     },
     {
       "id": "visual_quality",
       "name": "Visual Quality",
-      "method": "VLM",
+      "method": "Human review + model-assisted",
       "direction": "higher_better"
     },
     {
-      "id": "artifact",
-      "name": "Artifact",
-      "method": "VLM+Python",
+      "id": "reproducibility",
+      "name": "Reproducibility",
+      "method": "Recipe replay",
+      "direction": "higher_better"
+    },
+    {
+      "id": "human_preference",
+      "name": "Human Preference",
+      "method": "Human accept/reject with reason",
+      "direction": "higher_better"
+    },
+    {
+      "id": "cost_latency",
+      "name": "Cost / Latency",
+      "method": "Measured runtime and API cost",
       "direction": "lower_better"
     }
   ],
-  "architecture": {
-    "python": "評価、画像/動画解析、DB、研究用ライブラリ、プロトタイピング",
-    "mcp": "Blender等の外部ツール操作インターフェース",
-    "skill": "評価知識・制作知識・修正知識の再利用可能な手順",
-    "rust": "実測された画像/動画処理ボトルネックがある場合のみ導入",
-    "vlm": "意味・知覚・失敗理由・修正指示の評価者",
-    "bqmlite": "評価履歴からの学習（bpy 改造項 x VLM スコア）"
+  "data_contract": {
+    "assets.jsonl": [
+      "asset_id",
+      "source_asset_id",
+      "asset_uri",
+      "origin_type",
+      "parent_asset_id"
+    ],
+    "experiments.jsonl": [
+      "experiment_id",
+      "intent_id",
+      "model",
+      "prompt",
+      "parameters",
+      "seed_if_available",
+      "timestamp",
+      "latency",
+      "cost_if_known"
+    ],
+    "evaluations.jsonl": [
+      "asset_id",
+      "evaluator",
+      "evaluation_axes",
+      "scores",
+      "rationale",
+      "evaluation_version"
+    ],
+    "iterations.jsonl": [
+      "previous_asset_id",
+      "failure_reason",
+      "repair_instruction",
+      "next_asset_id",
+      "decision",
+      "change_summary"
+    ]
   },
   "days": [
     {
       "day": 1,
-      "theme": "文献・評価軸",
-      "deliverable": "papers.md と evaluation axes の初版"
+      "theme": "研究課題・関連研究・モデル利用条件",
+      "deliverable": "研究課題とモデル選定条件"
     },
     {
       "day": 2,
-      "theme": "評価DB",
-      "deliverable": "JSONL schema と実験記録の初版"
+      "theme": "データスキーマ",
+      "deliverable": "アセット来歴とJSONLスキーマ"
     },
     {
       "day": 3,
-      "theme": "VLM evaluator",
-      "deliverable": "JSON出力を強制する評価prompt"
+      "theme": "実験条件の固定",
+      "deliverable": "元画像・属性変更指示・記録方法"
     },
     {
       "day": 4,
-      "theme": "SVG/CSS baseline",
-      "deliverable": "高速2D生成・レンダリング・評価"
+      "theme": "色変更実験",
+      "deliverable": "色変更の生成結果とレシピ"
     },
     {
       "day": 5,
-      "theme": "Blender/bpy baseline",
-      "deliverable": "基本キャラクターと歩行等の生成・評価"
+      "theme": "顔角度変更実験",
+      "deliverable": "角度変更の生成結果とレシピ"
     },
     {
       "day": 6,
-      "theme": "Blender MCP",
-      "deliverable": "MCP経由の生成・再生成ループ"
+      "theme": "Kaggle CLIP評価",
+      "deliverable": "scores.csv・summary.csv・ヒストグラム"
     },
     {
       "day": 7,
-      "theme": "bqmlite MCP / LangGraph repair loop",
-      "deliverable": "bqmlite MCP 公開と LangGraph による修復ループ実装"
+      "theme": "人間評価",
+      "deliverable": "自動評価との一致・誤差分析"
     },
     {
       "day": 8,
-      "theme": "repair loop",
-      "deliverable": "VLM failure → repair instruction → regenerate"
+      "theme": "EVOPS統合",
+      "deliverable": "JSONL／SQLite記録と修正指示"
     },
     {
       "day": 9,
-      "theme": "cross-backend + bqmlite learning",
-      "deliverable": "matplotlib/pandas/plotly/PyVista ダッシュボード"
+      "theme": "改善ループ",
+      "deliverable": "再生成前後の品質・時間・費用比較"
     },
     {
       "day": 10,
-      "theme": "分析・公開",
-      "deliverable": "HTML dashboard と研究結果まとめ"
+      "theme": "可視化・報告",
+      "deliverable": "HTML結果ページと再現手順"
     }
-  ],
-  "primary_experiment": {
-    "intent_id": "character_walk_001",
-    "subject": "simple cartoon robot",
-    "action": "walk left to right",
-    "scene": "simple studio",
-    "camera": "medium shot, static",
-    "duration_seconds": 3,
-    "style": "cartoon"
-  },
-  "deliverables": [
-    "plan.json",
-    "plan.md",
-    "plan.html",
-    "papers.md",
-    "evaluation-axes.jsonl",
-    "experiments.jsonl",
-    "evaluations.jsonl",
-    "iterations.jsonl"
   ],
   "success_criteria": [
-    "同一Intentを3バックエンドで実行できる",
-    "共通評価JSONを取得できる",
-    "失敗理由から修正指示を生成できる",
-    "少なくとも1回の再生成で改善差を測定できる",
-    "結果をHTMLで比較表示できる"
+    "元画像から生成物までの来歴を追跡できる",
+    "生成条件と評価結果を構造化データで保存できる",
+    "少なくとも一つの属性変更について変更達成度と特徴保持を別々に評価できる",
+    "自動評価と人間評価を比較し誤差・失敗例を報告できる",
+    "少なくとも1回の改善ループを実行し前後を比較できる",
+    "モデルの無料枠・API条件・実行時間・費用を記録し未実測値を実測として扱わない"
   ],
-  "themes": [
-    {
-      "id": "theme1",
-      "name": "テーマ1",
-      "description": "2D 描画（SVG/CSS）。高速バメイントライン。",
-      "backend": "svg_css"
-    },
-    {
-      "id": "theme2",
-      "name": "テーマ2",
-      "description": "3D 造型（Blender/bpy）。VLM→bqmlite→自動修復ループ。起点プロンプト: ドラえもん。",
-      "backend": "blender"
-    }
-  ],
-  "learning_engine": "bqmlite (deterministic mean / linear_regression / logistic_regression, SHA-256 fingerprint)",
-  "orchestration": "LangChain 3 兄弟 (LangChain: ツール/プロンプト, LangGraph: 評価→学習→修復の循環状態機械, LangSmith: 各ターントレーシング)",
-  "mcp": {
-    "a2a": "bpy/Blender, bqmlite, LM Studio MCP サーバでレイヤー間を agent-to-agent 接続",
-    "primary": "Blender MCP",
-    "learning": "bqmlite MCP",
-    "eval": "LM Studio MCP"
+  "responsibility_split": {
+    "generator": "画像生成・編集。特定ベンダーに固定しない。",
+    "kaggle": "GPUを用いた評価実験とCSV成果物の出力。",
+    "evops": "JSONL／SQLiteで実験・評価・修正履歴を管理し改善ループを調整。",
+    "human_review": "採用・却下と理由の記録。",
+    "dashboard": "HTMLで比較・分析結果を提示。"
   },
-  "visualization": [
-    "matplotlib",
-    "pandas",
-    "numpy",
-    "plotly",
-    "pyvista (https://pyvista.org/) for 3D mesh"
+  "limitations": [
+    "CLIP類似度は制作品質そのものではなく、単独で採否を決定しない。",
+    "モデル・バージョン・利用規約・無料枠は変更されるため実験日と条件を記録する。",
+    "結論は同条件・同一評価基準で比較した範囲に限定する。"
   ],
-  "code_diff_management": "GitHub（git）: bpy コード差分の管理・バージョン化・diff reviewer"
+  "deliverables": [
+    "docs/10-issue/12-plan.md",
+    "docs/10-issue/12-plan.json",
+    "docs/30-seed/plan.html",
+    "eval_kaggle/scores.csv",
+    "eval_kaggle/summary.csv",
+    "assets.jsonl",
+    "experiments.jsonl",
+    "evaluations.jsonl",
+    "iterations.jsonl",
+    "HTML result dashboard"
+  ]
 }
