@@ -1,62 +1,81 @@
-# SSSS Research Plan
+# EVOPS Research Plan
+更新日: 2026-10-14
 
-## Core loop
+## 研究題目
+**低コストで再現可能なAI画像制作工程の構築 — 生成・編集・評価・履歴学習をつなぐ工房プロセス**
 
-Intent → Generate → Render → LMS/VLM Evaluate → DB Store → ML Learn → Repair → Regenerate
+## 研究目的
+画像生成AIを単発のプロンプト実行で終わらせず、制作意図、生成条件、出力画像、人間による修正、評価結果を一貫して記録し、再利用できる制作工程を構築する。評価モデルは品質の絶対判定器とはみなさず、人間の評価との一致・不一致を測りながら、制作判断を支援するために使う。
 
-## Research focus
+## Research Question
+1. 同じ元画像について、指定した属性（まず色、次に顔の角度）だけを変え、その他の特徴をどの程度保持できるか。
+2. プロンプト・モデル・パラメータ・元画像・生成結果・人間の修正を記録すると、制作結果の再現性と修正効率が向上するか。
+3. CLIP等の自動評価は、人間の採用・却下判断をどの程度予測できるか。
+4. 過去の試行と失敗理由を次の生成指示へ戻すことで、少ない試行回数・費用で目標品質へ近づけるか。
 
-LMS/VLM を評価者として使い、生成結果・評価・失敗・修正履歴を DB に蓄積し、
-その履歴から ML で次の生成・修正戦略を改善する。
+## 仮説
+- H1: 生成レシピとアセットの来歴を構造化して保存すれば、結果を再現・比較しやすくなる。
+- H2: 属性変更の達成度と元画像の特徴保持を別々に評価すれば、単一の類似度スコアより制作上有用な判断ができる。
+- H3: 自動評価と人間評価の差分を記録すれば、自動評価を適切に校正し、選別支援に使える。
+- H4: 過去の採用・却下・修正履歴を次の試行へ利用することで、無作為なプロンプト変更より効率よく改善できる。
 
-## Themes
+## 最小実験
+- 対象: 1つのキャラクター画像、1つの背景、固定した画角。
+- 実験A: 色だけを変更する。
+- 実験B: 顔の角度だけを変更する。
+- 各条件で複数の生成結果を作り、元画像・指定属性・生成条件を紐づける。
+- 生成モデルは、実験時点で利用可能な無料枠・API条件を確認して選ぶ。Google Imagen / Google AI Studioは候補の一つとし、無料利用やAPI利用を前提条件にしない。比較可能な代替としてStable Diffusion系を検討する。
+- Kaggle GPU NotebookでCLIP類似度を計算し、scores.csv・summary.csv・ヒストグラムを出力する。
+- 人間が属性変更の達成度、特徴保持、見た目の品質を評価し、自動スコアとの相関・誤差を調べる。
 
-| テーマ | 生成対象 | ベース | 特徴 |
-|---|---|---|---|
-| テーマ 1 | 2D 描画 | SVG/CSS | 高速バメイントライン |
-| **テーマ 2** | **3D 造型** | **Blender/bpy** | **VLM→bqmlite→自動修復ループ（テーマ本体）** |
+## 共通ワークフロー
+Intent → Source Asset → Generate/Edit → Evaluate → Human Review → Record → Repair Instruction → Regenerate
 
-テーマ 2 の起点プロンプト：ドラえもん（bpy プリミティブで造型）。
+## 評価軸
+| 評価軸 | 確認すること |
+|---|---|
+| Attribute adherence | 指定した色・角度の変更が達成されたか |
+| Identity / structure preservation | キャラクターの形、顔、主要特徴が保たれたか |
+| Visual quality | 破綻、アーティファクト、構図、仕上がり |
+| Reproducibility | 記録した条件で結果を再生成できるか |
+| Human preference | 人間が採用・却下した理由 |
+| Cost / latency | 1試行あたりの時間、API費用、再試行数 |
 
-## Backends
-- Blender/bpy — main（テーマ 2）
-- SVG/CSS — fast baseline（テーマ 1）
-- SD1.5 — generative baseline
-- Blender MCP — operation layer
-- bqmlite MCP — learning layer
+CLIPスコアは画像とテキスト等の類似度指標であり、制作品質そのものとは同一視しない。単独の閾値で採否を自動決定せず、人間評価との比較・校正を経て利用する。
 
-## エージェント連携（A2A）
+## データ契約
+- `assets.jsonl`: asset_id、source_asset_id、画像URI、生成物／人間編集物の区分、親子関係。
+- `experiments.jsonl`: experiment_id、intent_id、model、prompt、parameters、seed（取得できる場合）、実行日時、所要時間、費用情報。
+- `evaluations.jsonl`: asset_id、評価者／評価モデル、各評価軸、スコア、理由、評価バージョン。
+- `iterations.jsonl`: 前回結果、失敗理由、修正指示、次の試行、採用／却下、変更点。
+- 画像本体はJSONLへ埋め込まず、ファイルまたはURIで参照する。秘密鍵や個人情報を記録しない。
 
-- MCP サーバ群（bpy/Blender, bqmlite, LM Studio）で各レイヤーを接続
-- LangChain 3 兄弟：LangChain（ツール/プロンプト）、LangGraph（評価→学習→修復の循環状態機械）、LangSmith（各ターントレーシング）
-- bpy コード差分は GitHub（git）で管理・バージョン化；diff reviewer が修正内容をレビュー
+## 10日計画
+1. 研究課題・関連研究・モデルの利用条件を整理する。
+2. アセット来歴と実験JSONLスキーマを定義する。
+3. 元画像と属性変更指示を固定し、生成条件を記録する。
+4. 色変更の小規模実験を行う。
+5. 顔角度変更の小規模実験を行う。
+6. Kaggle CLIP評価Notebookでscores.csv・summary.csvを生成する。
+7. 人間評価を収集し、自動評価との一致・誤差を分析する。
+8. EVOPSへJSONL／SQLiteで記録し、失敗理由から修正指示を作る。
+9. 1回以上の再生成で改善・コスト・再現性を比較する。
+10. HTMLで結果を可視化し、限界・次の実験・再現手順をまとめる。
 
-## 可視化・分析
+## 成功基準
+- 元画像から生成物までの来歴を追跡できる。
+- 生成条件と評価結果を構造化データとして保存できる。
+- 色変更と顔角度変更の少なくとも一方で、変更達成度と特徴保持を別々に評価できる。
+- 自動評価と人間評価を比較し、誤差や失敗例を報告できる。
+- 少なくとも1回の改善ループを実行し、変更前後を比較できる。
+- モデルの無料枠・API条件、実行時間、費用を明記し、未実行の結果を実測値として報告しない。
 
-- データ分析：matplotlib, pandas, numpy, plotly
-- 3D メッシュ可視化：https://pyvista.org/
-- ループ履歴・スコア推移・改造効果のダッシュボード
+## EVOPSとの責務分離
+- Generator: 画像を生成・編集する。特定ベンダーに固定しない。
+- Kaggle: GPUを使う評価・実験を実行し、CSV等の成果物を返す。
+- EVOPS: 実験履歴・評価・修正履歴をJSONL／SQLiteで管理し、改善ループを調整する。
+- Human review: 採用・却下と判断理由を記録する。
+- Dashboard: 比較・分析結果をHTMLで提示する。
 
-## 10-day plan
-1. Papers / evaluation ontology（VeMo, EvalCrafter, VideoScore, VisualPrompter, 3D Human Animation QA, DreamFusion, Idefics2）
-2. DB / JSONL schema
-3. LMS/VLM evaluator
-4. SVG/CSS baseline（テーマ 1）
-5. Blender/bpy baseline（ドラえもん、テーマ 2）
-6. Blender MCP / bqmlite MCP / LM Studio MCP
-7. SD1.5 baseline
-8. Repair loop（LangGraph 実装）
-9. ML / cross-backend comparison / 分析ダッシュボード（matplotlib/pandas/plotly/PyVista）
-10. Analysis / presentation
-
-## Repository separation
-- plan = what to verify
-- papers = prior research
-- lms = evaluation/reasoning
-- db = accumulated experiment knowledge
-- ml = learning from accumulated data
-- sdk = common loop
-- skills = reusable knowledge
-- mcp = external operations
-- crx = human observation/control
-- presen = communication
+## 研究上の限界
+自動類似度は人間の審美的判断を完全には代替しない。モデル・バージョン・利用規約・無料枠は変更されるため、実験日と実行条件を記録する。結果の改善は、同じ条件・同じ評価基準で比較できた範囲に限定して主張する。
