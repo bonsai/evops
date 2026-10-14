@@ -41,3 +41,6 @@
 {"id":"hpsv2","title":"Human Preference Score v2: A Generalist Reward Model for Text-to-Image Generation","year":2023,"venue":"arXiv","category":"Preference Learning / Vision","url":"https://arxiv.org/abs/2306.09341"}
 {"id":"active-learning-llm-chatbots","title":"Active Learning for Large Language Model-based Chatbots","year":2023,"venue":"EMNLP","category":"Active Learning","url":"https://aclanthology.org/2023.emnlp-main.179/"}
 {"id":"false-dawn","title":"The False Dawn: Reevaluating Performance Gains of Language Models","year":2024,"venue":"arXiv","category":"Small Language Models / Evaluation","url":"https://arxiv.org/"}
+{"id":"ddpm","title":"Denoising Diffusion Probabilistic Models","year":2020,"venue":"NeurIPS 2020","category":"Image Generation / Diffusion Models","url":"https://arxiv.org/abs/2006.11239"}
+{"id":"latent-diffusion-models","title":"High-Resolution Image Synthesis with Latent Diffusion Models","year":2022,"venue":"CVPR 2022","category":"Image Generation / Latent Diffusion","url":"https://arxiv.org/abs/2112.10752"}
+{"id":"nerf","title":"NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis","year":2020,"venue":"ECCV 2020","category":"3D Representation / Neural Rendering","url":"https://arxiv.org/abs/2003.08934"}
