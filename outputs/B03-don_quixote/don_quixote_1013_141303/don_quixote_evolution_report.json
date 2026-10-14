@@ -1,0 +1,159 @@
+{
+  "concept": "don_quixote",
+  "target_score": 75,
+  "max_iterations": 5,
+  "iterations": [
+    {
+      "iteration": 1,
+      "generation_id": "don_quixote_00",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance",
+      "score": 24,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_don_quixote_00",
+        "score": 24,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "armor",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "beard",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "stature",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "horse",
+            "status": "missing",
+            "score": 0.0
+          }
+        ],
+        "attribute_ratio": 0.29,
+        "prompt_score": 0.16,
+        "missing_attributes": [
+          "shield",
+          "armor",
+          "helmet",
+          "beard",
+          "horse"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "未指定の属性: shield, armor, helmet, beard, horse",
+            "action": "add_to_prompt",
+            "payload": {
+              "shield": "簡素な盾（Buckler）",
+              "armor": "錆びた鎧（既存の鎧を想像させる）",
+              "helmet": "バーベリ helm（錫製・似非兜）",
+              "beard": "痩せた顔に細い髭",
+              "horse": "痩せた馬（ロシナンテ）―optional"
+            }
+          },
+          {
+            "axis": "prompt",
+            "priority": "medium",
+            "issue": "プロンプトのユニーク情報量が不足",
+            "action": "lengthen_prompt"
+          }
+        ],
+        "converged": false
+      }
+    },
+    {
+      "iteration": 2,
+      "generation_id": "don_quixote_01",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せた馬（ロシナンテ）―optional, 長い槍（ロ Lance）を持つ, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional",
+      "score": 86,
+      "grade": "B",
+      "eval": {
+        "generation": "gen_don_quixote_01",
+        "score": 86,
+        "max_score": 100,
+        "grade": "B",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "armor",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "beard",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "stature",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "horse",
+            "status": "present",
+            "score": 1.0
+          }
+        ],
+        "attribute_ratio": 1.0,
+        "prompt_score": 0.54,
+        "missing_attributes": [],
+        "suggestions": [],
+        "converged": true
+      }
+    }
+  ],
+  "final_score": 86,
+  "converged": true,
+  "reference_concept": {
+    "title": "Don Quixote de la Mancha",
+    "attributes": {
+      "lance": "長い槍（ロ Lance）を持つ",
+      "shield": "簡素な盾（Buckler）",
+      "armor": "錆びた鎧（既存の鎧を想像させる）",
+      "helmet": "バーベリ helm（錫製・似非兜）",
+      "beard": "痩せた顔に細い髭",
+      "stature": "痩せこけた風貌、背は高い",
+      "horse": "痩せた馬（ロシナンテ）―optional"
+    },
+    "mood": "堂々とした、しかしどこか滑稽",
+    "reference_images": []
+  }
+}

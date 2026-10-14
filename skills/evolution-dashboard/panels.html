@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evolution Panels Visualization</title>
+<style>
+  :root {
+    --bg: #0f0f12;
+    --fg: #e8e8ec;
+    --accent: #7c3aed;
+    --ok: #3a3;
+    --warn: #f66;
+    --card: #1a1a20;
+    --panel-bg: #222228;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, "Noto Sans JP", sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  .meta {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .evolution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .evolution-card {
+    background: var(--card);
+    border: 1px solid #2a2a32;
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .iteration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .iteration-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .score-badge {
+    font-size: 20px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 8px;
+  }
+  .score-A { color: var(--ok); background: #1a3a1a; }
+  .score-B { color: #6f6; background: #1a3a1a; }
+  .score-C { color: #ff6; background: #3a1a1a; }
+  .score-D { color: var(--warn); background: #3a1a1a; }
+  .panel-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 12px 0;
+    border: 1px solid #2a2a32;
+  }
+  .attribute-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .attribute-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  .attr-ok { background: #1a3a1a; color: #5a5; }
+  .attr-miss { background: #3a1a1a; color: #a55; }
+  .suggestions {
+    margin-top: 12px;
+    padding: 8px;
+    background: #222;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .suggestion-item {
+    margin: 4px 0;
+    padding-left: 8px;
+    border-left: 2px solid #533;
+  }
+  .nav-links {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .nav-link {
+    padding: 8px 16px;
+    background: var(--card);
+    border: 1px solid #2a2a32;
+    border-radius: 6px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-link:hover {
+    background: #2a2a32;
+  }
+</style>
+</head>
+<body>
+<h1>🧬 Evolution Panels Visualization</h1>
+<p class="meta">Concept: <strong>__CONCEPT__</strong> | Iterations: __TOTAL__ | Generation: __GEN_COUNT__</p>
+
+<div class="nav-links">
+  <a href="/" class="nav-link">📊 Dashboard</a>
+  <a href="/api/report/latest" class="nav-link">📄 Latest Report</a>
+  <a href="/api/reports" class="nav-link">📋 All Reports</a>
+</div>
+
+<div class="evolution-grid">
+__PANEL_CARDS__
+</div>
+
+<script>
+// Auto-refresh every 30 seconds to catch new evolution iterations
+setTimeout(() => location.reload(), 30000);
+</script>
+</body>
+</html>

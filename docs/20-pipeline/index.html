@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>EvOps Docs — Evaluate Operations</title>
+<style>
+  :root { --bg:#0a0a0c; --fg:#e8e8ec; --accent:#7c3aed; --ok:#3a3; --warn:#f66; --card:#131318; }
+  body { background:var(--bg); color:var(--fg); font-family:system-ui,"Noto Sans JP",sans-serif; margin:0; padding:32px; }
+  h1 { font-size:32px; margin-bottom:4px; }
+  .subtitle { color:#666; font-size:14px; margin-bottom:32px; }
+  .tiers { display:flex; gap:12px; margin:24px 0; }
+  .tier { flex:1; background:var(--card); border:1px solid #2a2a32; border-radius:12px; padding:16px; font-size:13px; }
+  .tier h3 { margin:0 0 8px; font-size:15px; color:var(--accent); }
+  .tier.local { border-color:#3a6; }
+  .tier.kaggle { border-color:#6af; }
+  .tier.jev { border-color:#f66; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px; margin-top:24px; }
+  .card { background:var(--card); border:1px solid #2a2a32; border-radius:14px; padding:18px; text-decoration:none; color:var(--fg); display:block; transition:border-color .2s; }
+  .card:hover { border-color:var(--accent); }
+  .card h3 { margin:0 0 8px; font-size:16px; }
+  .card p { margin:0; font-size:13px; color:#888; line-height:1.4; }
+  .num { font-size:28px; font-weight:800; color:var(--accent); margin-bottom:6px; }
+</style>
+</head>
+<body>
+<h1>📚 EvOps Documentation</h1>
+<p class="subtitle" style="max-width:800px">Evaluate Operations — 生成→評価→進化のリアルタイム閉ループ基盤。Kaggle GPU を Tier-2 評価基盤として明示的に統合。</p>
+
+<div class="tiers">
+  <div class="tier local">
+    <h3>🖥️ Tier-1 Local CPU</h3>
+    <div>Fast structural checks</div>
+    <div style="margin-top:6px;color:#3a6">Wide Gate default</div>
+  </div>
+  <div class="tier kaggle">
+    <h3>🚀 Tier-2 Kaggle GPU</h3>
+    <div>CLIP / VideoScore scoring</div>
+    <div style="margin-top:6px;color:#6af">Precision Gate</div>
+  </div>
+  <div class="tier jev">
+    <h3>👁️ Tier-3 JEV Human</h3>
+    <div>Aesthetic & creative</div>
+    <div style="margin-top:6px;color:#f66">Narrow Gate</div>
+  </div>
+</div>
+
+<div class="grid">
+  <a class="card" href="00-concept/mission.md">
+    <div class="num">00</div>
+    <h3>Concept</h3>
+    <p>Mission, domains, intents — 前提・ミッション・戦略定義</p>
+  </a>
+  <a class="card" href="10-architecture/evaluation_tiers.md">
+    <div class="num">10</div>
+    <h3>Architecture</h3>
+    <p>3-Tier evaluation, Kaggle integration, system design</p>
+  </a>
+  <a class="card" href="20-pipeline/full_pipeline.md">
+    <div class="num">20</div>
+    <h3>Pipeline</h3>
+    <p>Digest → Storyboard → Gen → Eval → Evolve 全フロー</p>
+  </a>
+  <a class="card" href="30-operations/manual.md">
+    <div class="num">30</div>
+    <h3>Operations</h3>
+    <p>Evolve loop, dashboard, gate modes, troubleshooting</p>
+  </a>
+  <a class="card" href="40-references/">
+    <div class="num">40</div>
+    <h3>References</h3>
+    <p>Retrospective, devlog, seed domains, contracts, design intent</p>
+  </a>
+  <a class="card" href="evops-presentation.html">
+    <div class="num">📊</div>
+    <h3>Presentation</h3>
+    <p>Full system overview in HTML slides (15 slides)</p>
+  </a>
+</div>
+
+<h2 style="margin-top:40px;font-size:18px">Quick Links</h2>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+  <a href="10-architecture/kaggle_integration.md" style="background:#131318;border:1px solid #2a2a32;padding:10px 16px;border-radius:8px;text-decoration:none;color:#6af;font-size:13px">🚀 Kaggle Integration Guide</a>
+  <a href="20-pipeline/full_pipeline.md" style="background:#131318;border:1px solid #2a2a32;padding:10px 16px;border-radius:8px;text-decoration:none;color:#6af;font-size:13px">🔄 Full Pipeline</a>
+  <a href="30-operations/manual.md" style="background:#131318;border:1px solid #2a2a32;padding:10px 16px;border-radius:8px;text-decoration:none;color:#6af;font-size:13px">⚡ Operations Manual</a>
+  <a href="evops-presentation.html" style="background:#131318;border:1px solid #2a2a32;padding:10px 16px;border-radius:8px;text-decoration:none;color:#6af;font-size:13px">🖼️ System Presentation</a>
+</div>
+</body>
+</html>

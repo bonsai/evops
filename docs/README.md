@@ -1,44 +1,33 @@
 # EvOps Documentation
 
-Numbered document scheme (latest): `00-` → `50-` priority/phase order.
+Evaluate Operations — 自動生成→評価→進化 のリアルタイム閉ループ基盤
 
-## Root Design Documents
+## 📂 Directory Structure
 
-| # | File | Purpose |
-|---|------|---------|
-| 00 | `00-intent.md` | Research intent & problem statement |
-| 10 | `10-kpi.md` | Key performance indicators |
-| 20 | `20-mrd.md` | Market requirements document |
-| 21 | `21-prd.md` | Product requirements document |
-| 30 | `30-mvp.md` | Minimum viable product definition |
-| 40 | `40-poc.md` | Proof of concept plan |
+| Dir | Purpose |
+|-----|---------|
+| [`00-concept/`](00-concept/) | 前提・ミッション・戦略・ドメイン定義 |
+| [`10-architecture/`](10-architecture/) | システムアーキテクチャ、Kaggle統合評価基盤、3-Tier評価戦略 |
+| [`20-pipeline/`](20-pipeline/) | パイプライン設計（Digest → Storyboard → Gen → Eval → Evolve） |
+| [`30-operations/`](30-operations/) | 運用マニュアル（evolve_loop, dashboard, 閾値管理） |
+| [`40-references/`](40-references/) | 各種参考資料・契約・PRD開発ログ |
 
-## Task Tracking (`issue/`)
-
-| # | File | Topic |
-|---|------|-------|
-| 00 | `00-automation-design-evaluation.md` | Auto-evaluation design |
-| 01 | `01-evaluation-loop.md` | Evaluation loop architecture |
-| 02 | `02-intent-evaluation-agent.md` | Intent-based evaluation agent |
-| 03 | `03-doraemon-vlm-correction.md` | VLM character correction |
-| 04 | `04-cost-management.md` | Cost & resource management |
-| 05 | `05-visualization.md` | Visualization & dashboards |
-| 06 | `06-mcp-a2a-redesign.md` | MCP/A2A protocol redesign |
-| 07 | `07-image-generation-blender-bpy.md` | Blender-bpy image generation |
-| 08 | `08-data-collection-focus.md` | Data collection strategy |
-| 09 | `09-novel-evaluation.md` | Novel evaluation metrics |
-| 10 | `10-ml-kaggle.md` | ML/Kaggle experiments |
-| 11 | `11-roadmap.md` | Development roadmap |
-| 12 | `12-plan.md` / `12-plan.json` | Execution plan |
-
-## Presentation Artifacts
-
-- `index.html` — Integrated presentation
-- `hw-sotsusei-kanban.md` — kanban board view
-- `0.html` — MCP feedback-loop diagram (if present)
-
-## Research Loop
+## 🧪 Evaluation Tiers（Kaggle Explicit）
 
 ```
-Generation → VLM/LMS Evaluation → DB Accumulation → ML Learning → Repair → Regeneration
+Tier-1  Local CPU    → Basic metrics, fast feedback      (WSL 16GB)
+Tier-2  Kaggle GPU   → CLIP/ML-based scoring, GPU infer  (T4/A100)
+Tier-3  JEV Human    → Aesthetic & Creative judgment       (人間評価)
+```
+
+Kaggle は **Tier-2 評価基盤** として本システムに統合されています。
+詳細: [`10-architecture/evaluation_tiers.md`](10-architecture/evaluation_tiers.md)
+
+## 🚀 Quick Start
+
+```bash
+# 全パイプライン実行
+./evops-mcp start-all
+# Donpen 進化ループ（実物レンダリング込み）
+python3 scripts/evolve_loop.py --concept donpen --iterations 3 --target 70
 ```

@@ -1,0 +1,72 @@
+{
+  "source": "GIGAZINE 2026-10-05",
+  "title": "ArtCraft Crafting Apps — Adobe代替のオープンソースクリエイティブツール群",
+  "url": "https://getartcraft.com/apps",
+  "github": "https://github.com/storytold",
+  "date": "2026-10-05",
+  "summary": "ArtCraftが開発するAdobe Creative Cloud代替の7つのオープンソースアプリ（Rust製）",
+  "apps": [
+    {
+      "name": "PhotoCraft",
+      "adobe_alternative": "Photoshop",
+      "status": "Early alpha",
+      "features": ["レイヤー", "マスク", "調整レイヤー", "PSD/PSB対応", "CMYK/Lab/グレースケール", "ICCカラーマネジメント", "Metal/Vulkan/DX12/WebGPU"],
+      "file_formats": ["PSD", "PSB", "PNG", "JPEG", "WebP"],
+      "round_trip": "134/135テストファイルで成功"
+    },
+    {
+      "name": "VectorCraft",
+      "adobe_alternative": "Illustrator",
+      "status": "In development",
+      "features": ["ペンツール", "ブーリアン演算", "グラデーションメッシュ", "画像トレース", "2万図形を27msで描画"],
+      "file_formats": ["SVG", "PDF", "PNG", "JPEG", "WebP"]
+    },
+    {
+      "name": "FilmCraft",
+      "adobe_alternative": "Premiere",
+      "status": "In development",
+      "features": ["マルチトラックタイムライン", "3点編集", "カーブ/カラーホイール/HSL/LUT", "HDR/Log対応", "55種エフェクト/30種トランジション", "独自コーデック実装（ffmpeg非依存）"],
+      "file_formats": ["H.264", "HEVC", "ProRes", "VP9", "AAC", "Opus"]
+    },
+    {
+      "name": "LightCraft",
+      "adobe_alternative": "Lightroom",
+      "status": "In development",
+      "features": ["非破壊編集", "RAW現像", "8バンドカラーミキサー", "3ウェイカラーグレーディング", "マスク機能", "アルバム管理"],
+      "file_formats": ["DNG", "CR2", "ARW", "NEF", "RAF", "RW2", "PEF", "ORF"]
+    },
+    {
+      "name": "PrintCraft",
+      "adobe_alternative": "Acrobat",
+      "status": "Early alpha",
+      "features": ["PDF編集", "ページ操作", "暗号化対応（RC4〜AES-256）", "自動保存/クラッシュ復旧"],
+      "file_formats": ["PDF"]
+    },
+    {
+      "name": "EffectCraft",
+      "adobe_alternative": "After Effects",
+      "status": "In development",
+      "features": ["モーショングラフィックス", "3Dレイヤー", "カメラ/ライト対応", "259種エフェクト", "JavaScriptエクスプレッション"],
+      "file_formats": ["H.264", "ProRes", "PNG", "TIFF", "32bit EXR"]
+    },
+    {
+      "name": "DesignCraft",
+      "adobe_alternative": "InDesign",
+      "status": "In development",
+      "features": ["DTP・ページレイアウト", "Knuth-Plassアルゴリズム", "段落組版", "ハイフネーション", "CMYK/特色対応"],
+      "file_formats": ["PDF", "PDF/A"]
+    }
+  ],
+  "common_features": [
+    "Rustで一から開発",
+    "サブスクリプション不要",
+    "クラウド依存なし",
+    "ローカル処理",
+    "AIエージェント対応（CLI/JSON/MCP）",
+    "MCPサーバー経由での操作が可能",
+    "GUI＋CLI＋JSON制御チャンネル"
+  ],
+  "ai_models_supported": ["Nano Banana", "GPT Image", "FLUX", "Seedream", "Seedance", "Kling", "Veo", "Sora"],
+  "platforms": ["macOS", "Windows", "Linux（インストーラーは今後）"],
+  "our_project_relevance": "ArtCraftのMCP対応を活用し、当プロジェクトの動画生成（FilmCraft）・画像評価（PhotoCraft）・ベクター（VectorCraft）を置き換え可能。Kaggle GPU評価と組み合わせてMLワークフローを構築。"
+}

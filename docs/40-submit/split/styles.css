@@ -1,0 +1,69 @@
+:root {
+  --c-plan: #ff7f50;    --c-plan-bg: #fff0e6;
+  --c-deliver: #4682b4;  --c-deliver-bg: #e6f0ff;
+  --c-present: #3cb371;  --c-present-bg: #e6fff0;
+  --c-app: #808080;     --c-app-bg: #f5f5f5;
+  --c-cover: #808080;   --c-cover-bg: #f5f5f5;
+  --accent: var(--c-plan);
+  --accent-bg: var(--c-plan-bg);
+}
+
+/* Sheet styles */
+.sheet.cat-plan { --accent: var(--c-plan); --accent-bg: var(--c-plan-bg); }
+.sheet.cat-deliver { --accent: var(--c-deliver); --accent-bg: var(--c-deliver-bg); }
+.sheet.cat-present { --accent: var(--c-present); --accent-bg: var(--c-present-bg); }
+.sheet.cat-app { --accent: var(--c-app); --accent-bg: var(--c-app-bg); }
+.sheet.cover { --accent: var(--c-cover); --accent-bg: var(--c-cover-bg); }
+
+/* Basic layout */
+body { font-family: "Noto Sans JP", sans-serif; margin: 0; padding: 0; background: #fff; }
+.stage { width: 210mm; height: 297mm; margin: auto; position: relative; }
+.stage-inner { padding: 10mm; }
+
+/* Card styles */
+.card { border: 1px solid #ddd; border-radius: 4px; padding: 10px; margin: 10px 0; }
+.soft { background: #fafafa; }
+
+/* Table of contents */
+.toc { list-style: none; padding: 0; }
+.toc-sec { margin: 10px 0; }
+.toc-sec h4 { margin: 0; }
+
+/* Utility */
+.cols { display: flex; flex-wrap: wrap; }
+.c-73 { width: 73%; }
+c .c-3 { width: 27%; }
+
+/* Headings */
+h1, h2, h3, h4 { margin: 0; }
+
+/* Tables */
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+
+/* Lists */
+ul, ol { margin: 0; padding-left: 20px; }
+
+/* Links */
+a { color: #0066cc; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Images */
+img { max-width: 100%; height: auto; }
+
+/* Colors for specific elements */
+.fill.xl { color: var(--accent); font-weight: bold; }
+.fill { color: var(--accent); }
+
+/* Header styles */
+.hd {
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+/* Cards in grid */
+.cols.c-3 .card {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+}

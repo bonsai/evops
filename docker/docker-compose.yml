@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # --- Kaggle GPU Evaluation Service ---
+  kaggle-eval:
+    image: python:3.11-slim
+    container_name: evops-kaggle-eval
+    volumes:
+      # 評価対象の生成物（PNGなど）
+      - type: bind
+        source: ../outputs/evolution
+        target: /workspace/inputs
+      # Kaggle 結果の保存先
+      - type: bind
+        source: ../outputs/kaggle_results
+        target: /workspace/results
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+    working_dir: /workspace
+    command: >
+      bash -c "
+        pip install -q clip torch ftfy regex tqdm &&
+        python /workspace/eval_clip_gpu.py
+      "
+    shm_size: '8gb'
+    # GPU 利用時は docker run --gpus=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # --- Voicevox TTS Service ---
+  voicevox:
+    image: voicevox/voicevox_engine:latest
+    container_name: evops-voicevox
+    ports:
+      - "50021:50021"
+    environment:
+      - VOICEVOX_ENABLE_CROSS_LINGUAL=false
+    volumes:
+      - voicevox-models:/opt/voicevox/models
+    profiles: ["tts"]
+
+  # --- EvOps CLI Service ---
+  evops-cli:
+    image: python:3.11-slim
+    container_name: evops-cli
+    volumes:
+      - ..:/workspace/evops
+      - /workspace/outputs:/workspace/evops/outputs
+    working_dir: /workspace/evops
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+    command: bash -c "
+      pip install -q clip torch fastmcp mcp python-dotenv &&
+      python /workspace/evops/scripts/evolve/loop.py --concept donpen --iterations 3 --target 60 --use-kaggle
+    "
+    depends_on:
+      kaggle-eval:
+        condition: service_completed_successfully
+
+volumes:
+  voicevox-models:

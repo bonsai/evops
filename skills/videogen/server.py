@@ -81,15 +81,13 @@ def merge_panels(panel_dir: str, output_path: str = "/tmp/merged.mp4") -> dict[s
     finally:
         Path(list_file.name).unlink(missing_ok=True)
 
+# Create MCP app with HTTP transport
+app = create_mcp_app(mcp, transport="http")
+
 
 @app.get("/health")
 def health():
     return {"status": "ok", "service": "videogen", "ffmpeg_available": True}
-
-# Note: create_mcp_app requires the mcp instance to have http_app; 
-# we'll build this separately or import from base_server
-# For simplicity: expose as standalone CLI / HTTP server
-app = create_mcp_app(mcp, transport="http")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

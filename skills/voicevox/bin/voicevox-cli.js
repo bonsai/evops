@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// voicevox-cli.js — ななちゃん（Nana-chan / speaker 2）で音声生成
-// Usage: node bin/voicevox-cli.js --text "..." --speaker 2 --output narration.mp3
+// voicevox-cli.js — Hibiki（空野ヒビキ / speaker 8）で音声生成
+// Usage: node bin/voicevox-cli.js --text "..." --speaker 8 --output narration.mp3
 
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
 function parseArgs(argv) {
-  const args = { text: '', speaker: 2, output: '/tmp/voicevox_output.mp3', speed: 1.0, pitch: 0.0, intonation: 1.0 };
+  const args = { text: '', speaker: 8, output: '/tmp/voicevox_output.mp3', speed: 1.0, pitch: 0.0, intonation: 1.0 };
   for (let i = 2; i < argv.length; i++) {
     switch (argv[i]) {
       case '--text': args.text = argv[++i]; break;
@@ -24,7 +24,7 @@ function parseArgs(argv) {
 function main() {
   const args = parseArgs(process.argv);
   if (!args.text) {
-    console.error('Usage: node voicevox-cli.js --text "..." --speaker 2 [--output ...]');
+    console.error('Usage: node voicevox-cli.js --text "..." --speaker 8 [--output ...]');
     process.exit(1);
   }
 

@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EvOps — 7つの複合機能</title>
+<style>
+  :root { --bg:#0f0f12; --fg:#e8e8ec; --accent:#7c3aed; --muted:#888; --card:#1a1a20; }
+  * { box-sizing:border-box; margin:0; }
+  html, body { height:100%; overflow:hidden; background:var(--bg); color:var(--fg); font-family:system-ui,"Noto Sans JP",sans-serif; }
+  .slide { display:none; width:100%; height:100%; flex-direction:column; justify-content:center; align-items:center; padding:48px 64px; text-align:center; }
+  .slide.active { display:flex; animation:fadeIn .6s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:translateY(0);} }
+  h1 { font-size:52px; font-weight:800; margin-bottom:12px; letter-spacing:-.02em; }
+  h2 { font-size:36px; font-weight:700; margin-bottom:4px; color:var(--accent); }
+  h3 { font-size:20px; font-weight:600; margin:8px 0 4px; color:#bbb; }
+  p, li { font-size:20px; line-height:1.7; color:var(--fg); max-width:860px; }
+  ul { text-align:left; display:inline-block; margin-top:8px; }
+  li { margin:6px 0; }
+  .lead { font-size:24px; color:var(--muted); max-width:720px; margin-top:12px; }
+  .meta { position:absolute; bottom:24px; right:32px; font-size:13px; color:#555; }
+  .nav { position:absolute; bottom:24px; left:32px; display:flex; gap:12px; }
+  button { background:var(--card); border:1px solid #333; color:var(--fg); padding:8px 18px; border-radius:8px; cursor:pointer; font-size:14px; }
+  button:hover { border-color:var(--accent); }
+  .badge { display:inline-block; background:var(--accent); color:#fff; padding:4px 12px; border-radius:6px; font-size:13px; font-weight:700; margin-bottom:12px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:28px; max-width:900px; text-align:left; margin-top:20px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:960px; text-align:left; margin-top:20px; }
+  .grid7 { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; max-width:960px; text-align:left; margin-top:20px; }
+  .card { background:var(--card); border:1px solid #2a2a32; border-radius:14px; padding:20px; }
+  .card h4 { font-size:16px; color:var(--accent); margin-bottom:6px; }
+  .card p { font-size:14px; color:#aaa; line-height:1.5; }
+  .big { font-size:56px; font-weight:800; color:var(--accent); }
+  code { background:#222; padding:2px 8px; border-radius:4px; font-size:.9em; }
+  pre { background:var(--card); padding:20px; border-radius:12px; text-align:left; font-size:15px; line-height:1.6; overflow:auto; max-width:800px; max-height:420px; border:1px solid #2a2a32; }
+  .fbox { display:flex; gap:24px; align-items:flex-start; text-align:left; max-width:900px; margin-top:16px; }
+  .fnum { min-width:48px; height:48px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; color:#fff; flex-shrink:0; }
+  .func-title { font-size:22px; font-weight:700; color:var(--fg); }
+  .func-desc { font-size:16px; color:#aaa; line-height:1.5; margin-top:4px; }
+  .func-meta { font-size:13px; color:#555; margin-top:8px; }
+  .func-meta code { font-size:12px; }
+  .arrow { color:#555; font-size:18px; margin:8px 0; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide active">
+  <div class="badge">EvOps System Overview</div>
+  <h1>EvOps</h1>
+  <p class="lead">論文 → アニメ自動生成パイプライン<br>7つの複合機能</p>
+  <div class="grid7" style="max-width:720px; margin-top:32px; text-align:center;">
+    <div class="card" style="padding:12px;"><h4 style="font-size:14px;">1. Digest</h4></div>
+    <div class="card" style="padding:12px;"><h4 style="font-size:14px;">2. Plan</h4></div>
+    <div class="card" style="padding:12px;"><h4 style="font-size:14px;">3. Visual</h4></div>
+    <div class="card" style="padding:12px;"><h4 style="font-size:14px;">4. Audio</h4></div>
+    <div class="card" style="padding:12px;"><h4 style="font-size:14px;">5. Compose</h4></div>
+    <div class="card" style="padding:12px;"><h4 style="font-size:14px;">6. Evaluate</h4></div>
+    <div class="card" style="padding:12px;"><h4 style="font-size:14px;">7. Orchestrate</h4></div>
+  </div>
+</div>
+
+<!-- Slide 2: Phase 1 — Investigation & Planning -->
+<div class="slide">
+  <div class="badge">Phase 1 / 3</div>
+  <h2>調査と企画</h2>
+  <p class="lead">論文を理解し、物語として構成する</p>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card" style="border-color:var(--accent);">
+      <h4>1. Digest — 知識咀嚼</h4>
+      <p>論文を形態に依存しない中間表現に変換。専門用語を比喩に、構造を起承転結に。</p>
+      <div class="func-meta"><code>paper-digest / port 8008</code></div>
+    </div>
+    <div class="card" style="border-color:var(--accent);">
+      <h4>2. Plan — 物語構成</h4>
+      <p>episode.json からカット割り・タイムライン・必要アセットを設計。</p>
+      <div class="func-meta"><code>storyboard / port 8009</code></div>
+    </div>
+  </div>
+  <pre style="margin-top:20px;">
+Paper (arXiv / PDF)
+   ↓ [1 Digest]
+DigestedPaper (atoms + metaphors + skeleton)
+   ↓ [2 Plan]
+episode.json → CutPlan → Timeline (evops-timeline-v1)
+   ↓
+必要アセットが確定（svg, png, voice, subtitle）
+  </pre>
+</div>
+
+<!-- Slide 3: Phase 2 — Generation -->
+<div class="slide">
+  <div class="badge">Phase 2 / 3</div>
+  <h2>生成</h2>
+  <p class="lead">視覚・音声・字幕を並列に生成し、動画へ合成する</p>
+  <div class="grid3" style="margin-top:20px;">
+    <div class="card">
+      <h4>3. Visual</h4>
+      <p>2D SVG漫画 + 3D Blenderシーン</p>
+      <div class="func-meta"><code>sf-paper-comic:8004 / bpy-gen:8005</code></div>
+    </div>
+    <div class="card">
+      <h4>4. Audio</h4>
+      <p>日本語音声（Voicevox → gTTS fallback）</p>
+      <div class="func-meta"><code>voicevox / gTTS</code></div>
+    </div>
+    <div class="card">
+      <h4>5. Compose</h4>
+      <p>画像・音声・字幕をmux</p>
+      <div class="func-meta"><code>videogen / port 8006</code></div>
+    </div>
+  </div>
+  <pre style="margin-top:16px;">
+                    ┌─── [3 Visual] → panels/S01_panel_*.png
+                    │
+Timeline ──────────┼─── [4 Audio]  → assets/narration.mp3
+                    │
+                    └─── [5 Compose] → ffmpeg slideshow + fade + ASS mux
+                                          ↓
+                                       final.mp4
+  </pre>
+</div>
+
+<!-- Slide 4: Phase 3 — Evaluation & Feedback -->
+<div class="slide">
+  <div class="badge">Phase 3 / 3</div>
+  <h2>評価とフィードバック</h2>
+  <p class="lead">自動評価 → 改善提案 → 再生成 のループ</p>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card">
+      <h4>6. Evaluate — 品質評価</h4>
+      <p>• 視覚品質（輝度・解像度）<br>• 内容網羅性（字幕カバレッジ）<br>• 構造的一貫性（動画長 vs 期待値）<br>• Gate Mode: wide / narrow</p>
+      <div class="func-meta"><code>evaluator / port 8002</code></div>
+    </div>
+    <div class="card">
+      <h4>7. Orchestrate — 統合管理</h4>
+      <p>• 9台MCPサーバー監視・起動<br>• Workflow自動実行<br>• paper_id による成果物追跡</p>
+      <div class="func-meta"><code>evops-mcp + chaperone</code></div>
+    </div>
+  </div>
+  <pre style="margin-top:16px;">
+final.mp4 ──→ [6 Evaluate] review_paper_anime()
+                    ↓
+              score < target ? ──yes──→ [6 Evaluate] suggest_improvements()
+                    ↓ no                    ↓
+              PASS                      action: regenerate_panels / update_subtitles
+                    ↓                           ↓
+              DB保存 (sotsusei.db)        [2-5] 再実行
+                    ↓                           ↓
+              公開可能                    [6] 再評価 → 収束
+  </pre>
+</div>
+
+<!-- Slide 4: Function 1 — Digest -->
+<div class="slide">
+  <div class="badge">Function 1 / 7</div>
+  <h2>1. 知識咀嚼 (Digest)</h2>
+  <p class="lead">論文 → DigestedPaper（形態に依存しない中間表現）</p>
+  <div class="grid3" style="margin-top:24px;">
+    <div class="card">
+      <h4>Decompose</h4>
+      <p>主張・根拠・制約を原子知識に分解</p>
+    </div>
+    <div class="card">
+      <h4>Metaphorize</h4>
+      <p>専門用語を高校生レベルの比喩に翻訳</p>
+    </div>
+    <div class="card">
+      <h4>Structure</h4>
+      <p>起承転結の物語骨組みに構造化</p>
+    </div>
+  </div>
+  <pre style="margin-top:20px;">
+DigestedPaper
+├── atoms: List[AtomicKnowledge]
+├── metaphors: List[IntuitiveMetaphor]  →  "勾配消失 = 伝言ゲーム"
+└── skeleton: NarrativeSkeleton          →  setup / conflict / resolution / punchline
+  </pre>
+  <p class="func-meta" style="margin-top:12px;">paper-digest / port 8008 / HTTP + stdio</p>
+</div>
+
+<!-- Slide 5: Function 2 — Plan -->
+<div class="slide">
+  <div class="badge">Function 2 / 7</div>
+  <h2>2. 物語構成 (Plan)</h2>
+  <p class="lead">episode.json → カット割り → タイムライン</p>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card">
+      <h4>plan_cuts()</h4>
+      <p>各コマにID付与・所要時間（5秒）・必要アセット（svg/png/voice）を紐付け</p>
+    </div>
+    <div class="card">
+      <h4>export_timeline()</h4>
+      <p>evops-timeline-v1 形式で Video / Audio / Subtitle トラックを時系列配置</p>
+    </div>
+  </div>
+  <pre style="margin-top:20px;">
+{
+  "cut_id": "S01_cut_01",
+  "duration_sec": 5.0,
+  "required_assets": {
+    "svg": "S01_panel_01.svg",
+    "png": "S01_panel_01.png",
+    "voice": "S01_voice_01.mp3"
+  }
+}
+  </pre>
+  <p class="func-meta" style="margin-top:12px;">storyboard / port 8009 / HTTP + stdio</p>
+</div>
+
+<!-- Slide 6: Function 3 — Visual -->
+<div class="slide">
+  <div class="badge">Function 3 / 7</div>
+  <h2>3. 視覚生成 (Visual)</h2>
+  <p class="lead">2D漫画 + 3Dシーン の2つの生成パス</p>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card" style="border-color:#3a3;">
+      <h4 style="color:#3a3;">2D: sf-paper-comic</h4>
+      <p>• episode.json → 4コマSVG<br>• 棒人間 + 吹き出し + フォント制御（IPAexGothic）<br>• cairosvg → 640×480 PNG</p>
+      <div class="func-meta">port 8004 / <code>svg-gen.py</code></div>
+    </div>
+    <div class="card" style="border-color:#66f;">
+      <h4 style="color:#66f;">3D: bpy-gen</h4>
+      <p>• Blender 5.0 連携<br>• DSL（JSON）→ AST → IR → Blender Python<br>• キャラクター・建築・抽象形状</p>
+      <div class="func-meta">port 8005 / <code>bpy_gen_dsl()</code></div>
+    </div>
+  </div>
+  <p style="margin-top:20px; color:#888;">現状は2D（棒人間SVG）が主。3Dは将来の高品質化パス。</p>
+</div>
+
+<!-- Slide 7: Function 4 — Audio -->
+<div class="slide">
+  <div class="badge">Function 4 / 7</div>
+  <h2>4. 音声生成 (Audio)</h2>
+  <p class="lead">各コマのセリフを日本語音声へ変換</p>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card">
+      <h4>Primary: Voicevox（ななちゃん）</h4>
+      <p>• Speaker 47: 四国めたん・ノーマル<br>• 感情表現・ピッチ調整可能<br>• 現状: localhost:50021 未接続</p>
+      <div class="func-meta">skills/voicevox / <code>voicevox_batch.py</code></div>
+    </div>
+    <div class="card" style="border-color:var(--accent);">
+      <h4>Fallback: gTTS</h4>
+      <p>• Google Text-to-Speech<br>• 日本語対応<br>• 現在の実運用で使用中</p>
+      <div class="func-meta"><code>gTTS(text, lang='ja')</code></div>
+    </div>
+  </div>
+  <p style="margin-top:20px; color:#888;">Fallback Cascade: Voicevox → gTTS → 無音（システム停止しない設計）</p>
+</div>
+
+<!-- Slide 8: Function 5 — Compose -->
+<div class="slide">
+  <div class="badge">Function 5 / 7</div>
+  <h2>5. 動画合成 (Compose)</h2>
+  <p class="lead">画像・音声・字幕を1本の動画へmux</p>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card">
+      <h4>スライドショー生成</h4>
+      <p>• ffmpeg: 5秒/コマ × 4コマ = 20秒<br>• クロスフェード 1秒<br>• 5fps → 30fps アップコンバート</p>
+    </div>
+    <div class="card">
+      <h4>mux（多重化）</h4>
+      <p>• h264 映像 + aac 音声<br>• ASS字幕焼込み（IPAexGothic 24pt）<br>• 音声パディング（20秒に無音補完）</p>
+    </div>
+  </div>
+  <pre style="margin-top:20px;">
+# ffmpeg command chain
+# 1. concat images → raw.mp4 (with fade)
+# 2. concat audio  → narration.mp3
+# 3. mux video + audio + subs.ass → final.mp4
+  </pre>
+  <p class="func-meta" style="margin-top:12px;">videogen / port 8006</p>
+</div>
+
+<!-- Slide 9: Function 6 — Evaluate -->
+<div class="slide">
+  <div class="badge">Function 6 / 7</div>
+  <h2>6. 品質評価 (Evaluate)</h2>
+  <p class="lead">動画を多角的評価 → 改善提案 → ループ</p>
+  <div class="grid3" style="margin-top:20px;">
+    <div class="card">
+      <h4>review_paper_anime()</h4>
+      <p>視覚品質・内容網羅性・構造的一貫性・字幕音声同期をチェック</p>
+    </div>
+    <div class="card">
+      <h4>suggest_improvements()</h4>
+      <p>評価結果から優先度付きアクションを生成（regenerate / adjust / skip）</p>
+    </div>
+    <div class="card">
+      <h4>eval_loop()</h4>
+      <p>評価→提案→修正→再評価をmax_iterations回 or target_score達成まで</p>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:16px;">
+    <div class="card" style="border-color:#3a3;">
+      <h4 style="color:#3a3;">Wide Gate</h4>
+      <p>合格50 / A=80<br>字幕50% / 輝度0.15〜0.95<br>「ゆるくてOK」</p>
+    </div>
+    <div class="card" style="border-color:#f66;">
+      <h4 style="color:#f66;">Narrow Gate</h4>
+      <p>合格75 / A=95<br>字幕90% / 輝度0.35〜0.75<br>「高品質のみ」</p>
+    </div>
+  </div>
+  <p class="func-meta" style="margin-top:12px;">evaluator / port 8002 / <code>gate_mode="wide" or "narrow"</code></p>
+</div>
+
+<!-- Slide 10: Function 7 — Orchestrate -->
+<div class="slide">
+  <div class="badge">Function 7 / 7</div>
+  <h2>7. 統合管理 (Orchestrate)</h2>
+  <p class="lead">9台のMCPサーバーを一元管理</p>
+  <div class="grid2" style="margin-top:20px;">
+    <div class="card">
+      <h4>evops-mcp CLI</h4>
+      <p>• <code>list</code> — 全サーバー一覧<br>• <code>start-all</code> — 自動起動<br>• <code>status</code> — 生存確認<br>• <code>call &lt;server&gt; &lt;tool&gt; &lt;args&gt;</code> — リモート呼び出し</p>
+    </div>
+    <div class="card">
+      <h4>chaperone Workflow</h4>
+      <p>• YAML定義（10ステップ）<br>• 自動検証・実行・ログ蓄積<br>• 再現性のあるパイプライン実行</p>
+    </div>
+  </div>
+  <pre style="margin-top:16px; font-size:14px;">
+$ ./evops-mcp list
+  paper-digest    8008  skills/paper-digest/server.py
+  storyboard      8009  skills/storyboard/server.py
+  sf-paper-comic  8004  skills/sf-paper-comic/server.py
+  bpy-gen         8005  skills/bpy-gen/server.py
+  videogen        8006  skills/videogen/server.py
+  artcraft        8007  skills/artcraft/server.py
+  evaluator       8002  mcp_core/evaluator/server.py
+  db              8001  mcp_core/db/server.py
+  gateway         8000  mcp_core/gateway/server.py
+  </pre>
+</div>
+
+<!-- Slide 11: Data Flow -->
+<div class="slide">
+  <h2>7機能の連携フロー</h2>
+  <pre style="margin-top:16px; font-size:14px;">
+[1 Digest]     Paper → DigestedPaper (atoms + metaphors + skeleton)
+                    ↓
+[2 Plan]       episode.json → CutPlan + Timeline
+                    ├──────────────────────────────────────┐
+                    ↓                    ↓                   ↓
+[3 Visual]    panels/S01_panel_*.svg   [4 Audio]          [5 Compose]
+              ↓ cairosvg               voice_*.mp3         raw.mp4
+              panels/S01_panel_*.png   ↓ concat            + narration.mp3
+                                         narration.mp3      + subs.ass
+                                                           ↓ ffmpeg mux
+                                                           final.mp4
+                                                           ↓
+[6 Evaluate]   review_paper_anime() → suggest_improvements()
+                    ↓ fail / pass
+                    └──── eval_loop() ────→ 収束 or 再生成
+
+[7 Orchestrate]  evops-mcp + chaperone が全ステップを監視・実行
+  </pre>
+</div>
+
+<!-- Slide 12: Result -->
+<div class="slide">
+  <div class="badge">成果物</div>
+  <h2>S01 — ResNet 4コマアニメ</h2>
+  <p class="lead">7つの機能を全て通した完全パイプライン</p>
+  <div class="grid3" style="margin-top:24px; text-align:center;">
+    <div><div class="big">20</div><p style="color:#888;">秒</p></div>
+    <div><div class="big">4</div><p style="color:#888;">コマ</p></div>
+    <div><div class="big">298</div><p style="color:#888;">KB</p></div>
+  </div>
+  <div style="margin-top:24px; text-align:left; max-width:700px;">
+    <p style="font-size:17px; color:#aaa;">
+      1. <strong>Digest</strong> — ResNet論文を「伝言ゲーム」比喩で分解<br>
+      2. <strong>Plan</strong> — 4コマ構成（setup → conflict → resolution → punchline）<br>
+      3. <strong>Visual</strong> — 棒人間SVG × 4（640×480 PNG変換）<br>
+      4. <strong>Audio</strong> — gTTSによる4つのセリフ音声<br>
+      5. <strong>Compose</strong> — ffmpegスライドショー + 字幕焼込み<br>
+      6. <strong>Evaluate</strong> — Wide Gateで品質確認（score: 75+）<br>
+      7. <strong>Orchestrate</strong> — paper_id = S01 で統合管理
+    </p>
+  </div>
+</div>
+
+<!-- Slide 13: Architecture -->
+<div class="slide">
+  <h2>なぜ7機能に分離したか</h2>
+  <div class="grid2" style="margin-top:20px;">
+    <div class="card">
+      <h4>疎結合 (Loose Coupling)</h4>
+      <p>各機能はJSON spec + CLI呼び出しのみで連携。直接importしない。Python/Node/Blender 言語の壁を越える。</p>
+    </div>
+    <div class="card">
+      <h4>独立進化可能</h4>
+      <p>VisualizerをSDXLに差し替えても、DigestやAudioは変更なし。Adapter 1つ書くだけ。</p>
+    </div>
+    <div class="card">
+      <h4>段階的品質制御</h4>
+      <p>Wide Gate で全機能を「ゆるく」回して動作確認 → Narrow Gate で個別に品質絞り込み。</p>
+    </div>
+    <div class="card">
+      <h4>チーム開発対応</h4>
+      <p>7機能 = 7つの担当領域。MCP標準化により、外部Contributerもスキルを追加可能。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14: Closing -->
+<div class="slide">
+  <div class="badge">EvOps System Overview</div>
+  <h1 style="font-size:42px;">7つの機能で<br>論文を物語へ変換</h1>
+  <p class="lead" style="margin-top:24px;">
+    Digest → Plan → Visual → Audio → Compose → Evaluate → Orchestrate<br>
+    疎結合・段階的・自律的品質向上パイプライン
+  </p>
+  <div style="margin-top:32px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+    <code style="background:#222; padding:6px 14px; border-radius:6px; font-size:14px;">paper-digest</code>
+    <code style="background:#222; padding:6px 14px; border-radius:6px; font-size:14px;">storyboard</code>
+    <code style="background:#222; padding:6px 14px; border-radius:6px; font-size:14px;">sf-paper-comic</code>
+    <code style="background:#222; padding:6px 14px; border-radius:6px; font-size:14px;">bpy-gen</code>
+    <code style="background:#222; padding:6px 14px; border-radius:6px; font-size:14px;">voicevox</code>
+    <code style="background:#222; padding:6px 14px; border-radius:6px; font-size:14px;">videogen</code>
+    <code style="background:#222; padding:6px 14px; border-radius:6px; font-size:14px;">evaluator</code>
+  </div>
+  <p style="margin-top:40px; color:#555; font-size:16px;">
+    evops/docs/evops-presentation.html / 2026.10.13
+  </p>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">← Prev</button>
+  <button onclick="nextSlide()">Next →</button>
+  <span id="pageNum" style="color:#555; font-size:14px; align-self:center;">1 / 15</span>
+</div>
+<div class="meta">Press → or Space to advance</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+function show(i) {
+  slides[current].classList.remove('active');
+  current = (i + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  document.getElementById('pageNum').textContent = (current+1) + ' / ' + slides.length;
+}
+function nextSlide(){ show(current+1); }
+function prevSlide(){ show(current-1); }
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') nextSlide();
+  else if(e.key==='ArrowLeft') prevSlide();
+});
+</script>
+</body>
+</html>

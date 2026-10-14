@@ -1,0 +1,10 @@
+{
+  "title": "EvalCrafter: Benchmarking Large Video Generation Models",
+  "paper": "P02",
+  "panels": [
+    {"text": "動画生成モデルの評価が必要だ", "speaker": "はっちゃん"},
+    {"text": "多軸で評価して品質を測る", "speaker": "ご隠居さん"},
+    {"text": "評価結果で次の生成を改善", "speaker": "はっちゃん"},
+    {"text": "評価はループの一部だ", "speaker": "ご隠居さん"}
+  ]
+}

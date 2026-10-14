@@ -1,0 +1,13 @@
+{"_summary": "全体進捗", "total": 20, "done": 16, "in_progress": 3, "pending": 1, "done_pct": 80.0, "progress_pct": 95.0}
+{"project": "B01-doraemon", "items": 1, "done": 1, "in_progress": 0, "pending": 0, "done_pct": 100.0}
+{"project": "B02-bear", "items": 2, "done": 2, "in_progress": 0, "pending": 0, "done_pct": 100.0}
+{"project": "B03-don_quixote", "items": 1, "done": 1, "in_progress": 0, "pending": 0, "done_pct": 100.0}
+{"project": "B04-donpen", "items": 1, "done": 1, "in_progress": 0, "pending": 0, "done_pct": 100.0}
+{"project": "B06-salmon_bear", "items": 1, "done": 1, "in_progress": 0, "pending": 0, "done_pct": 100.0}
+{"project": "B07-video_audio", "items": 3, "done": 3, "in_progress": 0, "pending": 0, "done_pct": 100.0}
+{"project": "P01-Video", "items": 1, "done": 0, "in_progress": 1, "pending": 0, "done_pct": 0.0}
+{"project": "P02-Video", "items": 1, "done": 0, "in_progress": 1, "pending": 0, "done_pct": 0.0}
+{"project": "P03-Video", "items": 1, "done": 0, "in_progress": 1, "pending": 0, "done_pct": 0.0}
+{"project": "S01-resnet", "items": 3, "done": 3, "in_progress": 0, "pending": 0, "done_pct": 100.0}
+{"project": "S02-VeMo", "items": 1, "done": 0, "in_progress": 0, "pending": 1, "done_pct": 0.0}
+{"project": "S03-Rakugo", "items": 5, "done": 5, "in_progress": 0, "pending": 0, "done_pct": 100.0}

@@ -1,0 +1,108 @@
+{
+  "concept": "donpen",
+  "target_score": 60,
+  "max_iterations": 3,
+  "iterations": [
+    {
+      "iteration": 1,
+      "generation_id": "donpen_00",
+      "prompt": "Donpen, a cute chubby penguin character with pink cap",
+      "score": 64,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_donpen_00",
+        "score": 64,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "body",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "eyes",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "beak",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "cheeks",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "cap",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "star",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "wings",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "feet",
+            "status": "missing",
+            "score": 0.0
+          }
+        ],
+        "attribute_ratio": 0.62,
+        "prompt_score": 0.18,
+        "missing_attributes": [
+          "beak",
+          "wings",
+          "feet"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "Missing attrs: beak, wings, feet",
+            "action": "add_to_prompt",
+            "payload": {
+              "beak": "small yellow beak",
+              "wings": "short black stubby wings",
+              "feet": "yellow flipper feet"
+            }
+          },
+          {
+            "axis": "prompt",
+            "priority": "medium",
+            "issue": "Prompt richness too low",
+            "action": "lengthen_prompt"
+          }
+        ],
+        "converged": false,
+        "kaggle_score": 80,
+        "kaggle_used": true
+      }
+    }
+  ],
+  "final_score": 64,
+  "converged": false,
+  "reference_concept": {
+    "title": "Donpen-chan (ドン・キホーテ)",
+    "attributes": {
+      "body": "penguin body white belly black back",
+      "eyes": "big cute round eyes with catch-light",
+      "beak": "small yellow beak",
+      "cheeks": "pink blush circles",
+      "cap": "pink cone cap with dark pink brim",
+      "star": "gold star on cap front",
+      "wings": "short black stubby wings",
+      "feet": "yellow flipper feet"
+    },
+    "mood": "kawaii, cheerful, round and chubby",
+    "script": "skills/bpy-gen/tools/donpen_bpy.py"
+  }
+}

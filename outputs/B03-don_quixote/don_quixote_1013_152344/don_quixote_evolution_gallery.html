@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><title>Evolution — don_quixote</title>
+<style>
+:root{--bg:#0f0f12;--fg:#e8e8ec;--card:#1a1a20;--ok:#3a3;--warn:#f66}
+body{background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif;margin:0;padding:32px}
+h1{font-size:28px;margin-bottom:8px}.meta{color:#666;font-size:14px;margin-bottom:24px}
+.gen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.gen-card{background:var(--card);border:1px solid #2a2a32;border-radius:14px;padding:20px}
+.gen-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.gen-title{font-size:18px;font-weight:700}.score{font-size:24px;font-weight:800}
+.score.A{color:var(--ok)}.score.B{color:#6f6}.score.C{color:#ff6}.score.D{color:var(--warn)}
+.badge{font-size:11px;padding:2px 8px;border-radius:4px;background:#333;color:#aaa}
+.converged{background:var(--ok);color:#fff}.prompt-box{background:#222;border-radius:8px;padding:12px;font-size:13px;color:#bbb;margin:10px 0;word-break:break-all}
+.attr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;margin-top:10px}
+.attr{font-size:12px;padding:4px 8px;border-radius:4px;text-align:center}
+.attr.ok{background:#1a3a1a;color:#5a5}.attr.miss{background:#3a1a1a;color:#a55}
+.suggestions{margin-top:10px}.sug{font-size:12px;color:#a88;margin:3px 0;padding-left:12px;border-left:2px solid #533}
+</style></head>
+<body>
+<h1>🧬 Evolution — don_quixote</h1>
+<p class="meta">Target: 75 | Iterations: 2 | Final: 85 | Converged: YES</p>
+<div class="gen-grid"><div class="gen-card">
+  <div class="gen-header">
+    <span class="gen-title">Gen 1 — don_quixote_00</span>
+    <span class="score D">62</span>
+  </div>
+  <span class="badge">running...</span>
+  <div class="prompt-box">Don Quixote, a thin Spanish knight with a lance</div>
+  <div class="attr-grid"><div class="attr ok">lance 1</div>
+<div class="attr miss">shield 0</div>
+<div class="attr miss">armor 0</div>
+<div class="attr miss">helmet 0</div>
+<div class="attr ok">beard 1</div>
+<div class="attr ok">stature 1</div>
+<div class="attr ok">horse 1</div></div>
+  <div class="suggestions"><div class="sug">[HIGH] Missing attrs: shield, armor, helmet</div><div class="sug">[MEDIUM] Prompt richness too low</div></div>
+</div>
+<div class="gen-card">
+  <div class="gen-header">
+    <span class="gen-title">Gen 2 — don_quixote_01</span>
+    <span class="score A">85</span>
+  </div>
+  <span class="badge converged">✅ CONVERGED</span>
+  <div class="prompt-box">Don Quixote, a thin Spanish knight with a lance, simple buckler shield, rusty old armor, barber helmet (tin / makeshift), long lance (spear), simple buckler shield, rusty old armor, barber helmet (tin / makeshift), thin gaunt beard, tall and thin figure, thin horse (Rocinante)</div>
+  <div class="attr-grid"><div class="attr ok">lance 1</div>
+<div class="attr ok">shield 1</div>
+<div class="attr ok">armor 1</div>
+<div class="attr ok">helmet 1</div>
+<div class="attr ok">beard 1</div>
+<div class="attr ok">stature 1</div>
+<div class="attr ok">horse 1</div></div>
+  <div class="suggestions"></div>
+</div></div>
+<script>setTimeout(()=>location.reload(),10000)</script>
+</body></html>

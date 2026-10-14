@@ -1,0 +1,23 @@
+{"id": "S01-01", "asset": "S01-resnet/final.mp4", "status": "done", "category": "video", "owner": "S01-resnet"}
+{"id": "S01-02", "asset": "S01-resnet/assets/narration.mp3", "status": "done", "category": "audio", "owner": "S01-resnet"}
+{"id": "S01-03", "asset": "S01-resnet/panels/S01_panel_01.svg", "status": "done", "category": "svg", "owner": "S01-resnet"}
+{"id": "S02-01", "asset": "S02/panels/paper_1.svg", "status": "pending", "category": "svg", "owner": "S02-VeMo"}
+{"id": "S03-01", "asset": "S03/svg/knowledge_loop.svg", "status": "done", "category": "svg", "owner": "S03-Rakugo"}
+{"id": "S03-02", "asset": "S03/panels/panel_01.svg", "status": "done", "category": "svg", "owner": "S03-Rakugo"}
+{"id": "S03-03", "asset": "S03/panels/panel_02.svg", "status": "done", "category": "svg", "owner": "S03-Rakugo"}
+{"id": "S03-04", "asset": "S03/panels/panel_03.svg", "status": "done", "category": "svg", "owner": "S03-Rakugo"}
+{"id": "S03-05", "asset": "S03/panels/panel_04.svg", "status": "done", "category": "svg", "owner": "S03-Rakugo"}
+{"id": "B01-01", "asset": "B01-doraemon/doraemon.png", "status": "done", "category": "png", "owner": "B01-doraemon"}
+{"id": "B02-01", "asset": "B02-bear/20261010_180403_bear.png", "status": "done", "category": "png", "owner": "B02-bear"}
+{"id": "B03-01", "asset": "B03-don_quixote/don_quixote_evolution_report.json", "status": "done", "category": "json", "owner": "B03-don_quixote"}
+{"id": "B04-01", "asset": "B04-donpen/donpen_evolution_gallery.html", "status": "done", "category": "html", "owner": "B04-donpen"}
+{"id": "B06-01", "asset": "B06-salmon_bear/20261010_180843_salmon.png", "status": "done", "category": "png", "owner": "B06-salmon_bear"}
+{"id": "B07-01", "asset": "B07-video_audio/psychedelic_pose_20261008_170058.mp4", "status": "done", "category": "video", "owner": "B07-video_audio"}
+{"id": "B07-02", "asset": "B07-video_audio/final.mp4", "status": "done", "category": "video", "owner": "B07-video_audio"}
+{"id": "B07-03", "asset": "B07-video_audio/narration.mp3", "status": "done", "category": "audio", "owner": "B07-video_audio"}
+{"id": "PV01", "asset": "paper_videos/P01/video.mp4", "status": "pending", "category": "video", "owner": "P01"}
+{"id": "PV02", "asset": "paper_videos/P02/video.mp4", "status": "pending", "category": "video", "owner": "P02"}
+{"id": "PV03", "asset": "paper_videos/P03/video.mp4", "status": "pending", "category": "video", "owner": "P03"}
+{"id":"PV01","asset":"paper_videos/P01/video.mp4","status":"in-progress","category":"video","owner":"P01"}
+{"id":"PV02","asset":"paper_videos/P02/video.mp4","status":"in-progress","category":"video","owner":"P02"}
+{"id":"PV03","asset":"paper_videos/P03/video.mp4","status":"in-progress","category":"video","owner":"P03"}

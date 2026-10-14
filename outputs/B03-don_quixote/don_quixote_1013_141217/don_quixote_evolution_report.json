@@ -1,0 +1,414 @@
+{
+  "concept": "don_quixote",
+  "target_score": 75,
+  "max_iterations": 5,
+  "iterations": [
+    {
+      "iteration": 1,
+      "generation_id": "don_quixote_00",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance",
+      "score": 17,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_don_quixote_00",
+        "score": 17,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "armor",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "beard",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "stature",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "horse",
+            "status": "missing",
+            "score": 0.0
+          }
+        ],
+        "attribute_ratio": 0.14,
+        "prompt_score": 0.23,
+        "missing_attributes": [
+          "shield",
+          "armor",
+          "helmet",
+          "beard",
+          "stature",
+          "horse"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "未指定の属性: shield, armor, helmet, beard, stature, horse",
+            "action": "add_to_prompt",
+            "payload": {
+              "shield": "簡素な盾（Buckler）",
+              "armor": "錆びた鎧（既存の鎧を想像させる）",
+              "helmet": "バーベリ helm（錫製・似非兜）",
+              "beard": "痩せた顔に細い髭",
+              "stature": "痩せこけた風貌、背は高い",
+              "horse": "痩せた馬（ロシナンテ）―optional"
+            }
+          },
+          {
+            "axis": "prompt",
+            "priority": "medium",
+            "issue": "プロンプトが短すぎる（詳細不足）",
+            "action": "lengthen_prompt"
+          }
+        ],
+        "converged": false
+      }
+    },
+    {
+      "iteration": 2,
+      "generation_id": "don_quixote_01",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional",
+      "score": 40,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_don_quixote_01",
+        "score": 40,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "armor",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "beard",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "stature",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "horse",
+            "status": "missing",
+            "score": 0.0
+          }
+        ],
+        "attribute_ratio": 0.14,
+        "prompt_score": 1.0,
+        "missing_attributes": [
+          "shield",
+          "armor",
+          "helmet",
+          "beard",
+          "stature",
+          "horse"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "未指定の属性: shield, armor, helmet, beard, stature, horse",
+            "action": "add_to_prompt",
+            "payload": {
+              "shield": "簡素な盾（Buckler）",
+              "armor": "錆びた鎧（既存の鎧を想像させる）",
+              "helmet": "バーベリ helm（錫製・似非兜）",
+              "beard": "痩せた顔に細い髭",
+              "stature": "痩せこけた風貌、背は高い",
+              "horse": "痩せた馬（ロシナンテ）―optional"
+            }
+          }
+        ],
+        "converged": false
+      }
+    },
+    {
+      "iteration": 3,
+      "generation_id": "don_quixote_02",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional",
+      "score": 40,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_don_quixote_02",
+        "score": 40,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "armor",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "beard",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "stature",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "horse",
+            "status": "missing",
+            "score": 0.0
+          }
+        ],
+        "attribute_ratio": 0.14,
+        "prompt_score": 1.0,
+        "missing_attributes": [
+          "shield",
+          "armor",
+          "helmet",
+          "beard",
+          "stature",
+          "horse"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "未指定の属性: shield, armor, helmet, beard, stature, horse",
+            "action": "add_to_prompt",
+            "payload": {
+              "shield": "簡素な盾（Buckler）",
+              "armor": "錆びた鎧（既存の鎧を想像させる）",
+              "helmet": "バーベリ helm（錫製・似非兜）",
+              "beard": "痩せた顔に細い髭",
+              "stature": "痩せこけた風貌、背は高い",
+              "horse": "痩せた馬（ロシナンテ）―optional"
+            }
+          }
+        ],
+        "converged": false
+      }
+    },
+    {
+      "iteration": 4,
+      "generation_id": "don_quixote_03",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional",
+      "score": 40,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_don_quixote_03",
+        "score": 40,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "armor",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "beard",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "stature",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "horse",
+            "status": "missing",
+            "score": 0.0
+          }
+        ],
+        "attribute_ratio": 0.14,
+        "prompt_score": 1.0,
+        "missing_attributes": [
+          "shield",
+          "armor",
+          "helmet",
+          "beard",
+          "stature",
+          "horse"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "未指定の属性: shield, armor, helmet, beard, stature, horse",
+            "action": "add_to_prompt",
+            "payload": {
+              "shield": "簡素な盾（Buckler）",
+              "armor": "錆びた鎧（既存の鎧を想像させる）",
+              "helmet": "バーベリ helm（錫製・似非兜）",
+              "beard": "痩せた顔に細い髭",
+              "stature": "痩せこけた風貌、背は高い",
+              "horse": "痩せた馬（ロシナンテ）―optional"
+            }
+          }
+        ],
+        "converged": false
+      }
+    },
+    {
+      "iteration": 5,
+      "generation_id": "don_quixote_04",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional, 簡素な盾（Buckler）, 錆びた鎧（既存の鎧を想像させる）, バーベリ helm（錫製・似非兜）, 痩せた顔に細い髭, 痩せこけた風貌、背は高い, 痩せた馬（ロシナンテ）―optional",
+      "score": 40,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_don_quixote_04",
+        "score": 40,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "armor",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "beard",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "stature",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "horse",
+            "status": "missing",
+            "score": 0.0
+          }
+        ],
+        "attribute_ratio": 0.14,
+        "prompt_score": 1.0,
+        "missing_attributes": [
+          "shield",
+          "armor",
+          "helmet",
+          "beard",
+          "stature",
+          "horse"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "未指定の属性: shield, armor, helmet, beard, stature, horse",
+            "action": "add_to_prompt",
+            "payload": {
+              "shield": "簡素な盾（Buckler）",
+              "armor": "錆びた鎧（既存の鎧を想像させる）",
+              "helmet": "バーベリ helm（錫製・似非兜）",
+              "beard": "痩せた顔に細い髭",
+              "stature": "痩せこけた風貌、背は高い",
+              "horse": "痩せた馬（ロシナンテ）―optional"
+            }
+          }
+        ],
+        "converged": false
+      }
+    }
+  ],
+  "final_score": 40,
+  "converged": false,
+  "reference_concept": {
+    "title": "Don Quixote de la Mancha",
+    "attributes": {
+      "lance": "長い槍（ロ Lance）を持つ",
+      "shield": "簡素な盾（Buckler）",
+      "armor": "錆びた鎧（既存の鎧を想像させる）",
+      "helmet": "バーベリ helm（錫製・似非兜）",
+      "beard": "痩せた顔に細い髭",
+      "stature": "痩せこけた風貌、背は高い",
+      "horse": "痩せた馬（ロシナンテ）―optional"
+    },
+    "mood": "堂々とした、しかしどこか滑稽",
+    "reference_images": []
+  }
+}

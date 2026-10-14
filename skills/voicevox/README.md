@@ -1,11 +1,11 @@
-# Voicevox TTS Skill — ななちゃん（Nana-chan）
+# Voicevox TTS Skill — Hibiki（空野ヒビキ / speaker 8）
 
 音声生成スキル。Video pipeline のナレーション出力に特化。
 
 ## 役割
 
 - `episode.json` の `text` / `subtitle_track` から音声を生成
-- ななちゃん（Nana-chan）ボイスをデフォルトとする（親しみやすい口調）
+- Hibiki（空野ヒビキ）ボイスをデフォルトとする（男性・落ち着いた口調）
 - MP3 / WAV 出力（ffmpeg 互換）
 
 ## 接続（疎結合）
@@ -19,15 +19,15 @@
 ## 依存
 
 - Voicevox サーバー (`http://localhost:50021` 既定)
-- 仕様: `curl -X POST -H 'Content-Type: application/json' -d '{"text":"...","speaker":2}'`
-- ななちゃんの speaker ID は通常 `2`（Voicevox デフォルト）
+- 仕様: `curl -X POST -H 'Content-Type: application/json' -d '{"text":"...","speaker":8}'`
+- Hibiki の speaker ID は通常 `8`
 
 ## CLI 使用例
 
 ```bash
 node skills/voicevox/bin/voicevox-cli.js \
   --text "論文の評価はできるが、知識にどう繋がる？" \
-  --speaker 2 \
+  --speaker 8 \
   --output narration.mp3
 ```
 
@@ -36,7 +36,7 @@ node skills/voicevox/bin/voicevox-cli.js \
 ```bash
 python scripts/voicevox_batch.py \
   --episode episode.json \
-  --speaker 2 \
+  --speaker 8 \
   --output narration.mp3
 ```
 
@@ -46,7 +46,7 @@ python scripts/voicevox_batch.py \
 {
   "input": {
     "text": "...",
-    "speaker": 2,
+    "speaker": 8,
     "speed": 1.0,
     "pitch": 0.0,
     "intonation": 1.0

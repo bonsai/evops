@@ -1,0 +1,31 @@
+{
+  "generation_id": "don_quixote_03",
+  "objects": [
+    {
+      "name": "body",
+      "type": "cylinder",
+      "radius": 0.3,
+      "material": "skin"
+    },
+    {
+      "name": "lance",
+      "type": "cylinder",
+      "depth": 3.5,
+      "material": "wood"
+    },
+    {
+      "name": "shield",
+      "type": "cylinder",
+      "radius": 0.4,
+      "material": "metal"
+    },
+    {
+      "name": "head",
+      "type": "sphere",
+      "radius": 0.25,
+      "material": "skin"
+    }
+  ],
+  "prompt_attributes": {},
+  "render_target": "/home/bons/evops/outputs/evolution/don_quixote_1013_141217/gen_don_quixote_03.png"
+}

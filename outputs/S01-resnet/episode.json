@@ -1,0 +1,9 @@
+{
+  "title": "ResNet — Deep Learning Revolution",
+  "panels": [
+    {"text": "深く学習すれば賢くなる…はず", "speaker": "常識", "role": "setup"},
+    {"text": "深すぎると情報が届かない！伝言ゲーム状態", "speaker": "研究者", "role": "conflict"},
+    {"text": "ショートカット道(ResNet)を作れば解決！", "speaker": "研究者", "role": "resolution"},
+    {"text": "これでどんどん深く学べる！", "speaker": "AI君", "role": "punchline"}
+  ]
+}

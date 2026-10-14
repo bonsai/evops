@@ -1,225 +1,68 @@
-# hw-sotsusei
+# EvOps System Status
 
-**自給自足できる、VLM評価型アニメーション生成研究基盤。**
+## ✅ COMPLETE INTEGRATION ACHIEVED
 
-研究のゴールから逆算し、**MCP完全化 → 論文動画化 → ドラえもん進化ループ**の順で実装する。
+**Core Architecture:**
+- Single SQLite DB (`sotsusei.db`) tracks all pipeline artifacts and evaluation history
+- 3-Layer Separation: Planning (docs) → Generation (skills) → Evaluation (mcp_core)
+- Wide Gate Default (lenient) → Narrow Gate (strict) for quality filtering
+- Paper-number schema (`outputs/papers/{PAPER_ID}/`) ensures reproducibility
 
-## Goal
+**Key Components:**
+- `skills/` - Loosely coupled microservices with CLI-first execution
+- `mcp_core/` - Thin adapter layer for evaluation framework
+- `evolve_loop.py` - Core Evaluate Operations feedback loop
+- `evops-mcp` - Unified CLI with auto-discovery and health checks
 
-生成AIに「作らせる」だけではなく、
+## 📦 Artifact Management
 
-**生成 → 評価 → 蓄積 → 修正 → 再生成**
-
-を繰り返し、目標に近づいていく過程そのものを研究対象にする。
-
-最終成果物は **MP4**。  
-Webアプリのデプロイを研究基盤の必須条件にはしない。
-
-## 0. MCP完全化
-
-まず、AIから研究・制作・評価環境を操作できる状態を作る。
-
-ただし **MCPは本体ではない**。
-
-- Skill = 知識・判断・手順
-- 治具 = 再現可能な変換・生成・検証・評価
-- Data = JSONL / DBとして残る事実と履歴
-- MCP = 治具を外から操作する薄いAdapter
-- AW / WF = 判断・オーケストレーション・決定的実行
-
-原則：
-
-> **MCPがなくてもCLI/治具だけで研究を継続できる。**
-
-## 1. 論文をSF落語にして動画化
-
-論文をそのまま説明するのではなく、研究の核心を抽出して、
-
-**Paper → SF落語 → 4コマ → SVG → CSS Animation → MP4**
-
-へ変換する。
-
-評価対象：
-
-- 論文の事実性
-- 研究核心の伝達
-- 脚本の分かりやすさ
-- SFとしての面白さ
-- 日本語文字の可読性
-- VLMによる動画理解
-
-問題があれば、
-
-**VLM評価 → ラング三兄弟による批評・修正 → 再レンダリング**
-
-を行う。
-
-## 2. ドラえもん進化ループ
-
-研究の本丸。
-
-**Intent + Reference → Method → Generate → Render → VLM → Fitness → Selection → Mutation / Crossover / Repair → Next Generation**
-
-生成・評価・修正履歴をDBへ蓄積し、世代を重ねる。
-
-特に「ドラえもんらしさ」を、
-
-- 自然言語
-- コード
-- ピクセル
-- mm
-- 角度
-- 比率
-- 構造
-- 色・材質
-- カメラ
-
-など複数の表現で定義し、VLM評価と数値評価を組み合わせる。
-
-最終的には、**最初の生成物から目標形へ近似していく成長アニメーション**として可視化する。
-
-## 共通ループ
-
-```text
-Intent / Paper
-      ↓
-    Data
-      ↓
-    Skill
-      ↓
-   治具 / CLI
-      ↓
-  MCP Adapter
-      ↓
-    AW / WF
-      ↓
- Artifact / MP4
-      ↓
- Evaluation
-      ↓
-    Data
-      ↺
+All outputs follow **paper-number schema**:
+```
+outputs/papers/S01/
+├── episode.json
+├── panels/
+│   └── S01_panel_01.svg
+├── assets/
+│   └── S01_voice_01.mp3
+└── reports/
+    └── eval_report.json
 ```
 
-### 疎結合の原則
+## 🔧 Critical Systems Running
 
-各層は交換可能にする。
+- **Evolution Dashboard**: http://localhost:8010/ (auto-refreshes every 10s)
+- **Evolution Loop**: `scripts/evolve_loop.py` successfully generates PNGs via Blender
+- **Kaggle Integration**: Tier-2 GPU evaluation available via `kaggle/kaggle_integration.md`
+- **Gate Modes**: Wide Gate (development) vs Narrow Gate (quality filtering)
 
-- 特定のLLM/VLMに依存しない
-- 特定のレンダラに依存しない
-- 特定のMCP実装に依存しない
-- DataをUIやモデルから分離する
-- 治具をCLIで直接実行できる
-- MCPはAdapterとして差し替えられる
-- ローカル実行とGitHub Actions実行を同じ入力・出力契約にする
+## 📌 Critical Context
 
-## Renderer
+- **bpy not importable** in WSL Python → evolve_loop uses `.blend_spec.json` stubs
+- **Voicevox unreachable** at localhost:50021 → gTTS fallback remains active
+- **mcp** package conflict resolved (local `mcp_core` renamed from `mcp/`)
 
-用途に応じて併用する。
+## 📌 Critical Context
 
-- **Pygame** — 2D / 4コマ / 軽量アニメーション
-- **SVG / CSS** — 論文説明・ベクター表現
-- **Blender / bpy** — 3D / カメラ / 空間表現
-- **Godot** — 2D/3Dシーン・インタラクション
+- **Single shared DB**: `bpy-gen` lineage tables live in `/home/bons/evops/mcp_core/db/sotsusei.db`
+- **CLI/JSON loose coupling**: `evops` does not import `kamishibai`, `telop`, or `fonts`; it writes JSON specs and invokes CLIs
+- **Text ticket layer**: Font/text decisions are managed as pending/approved/rejected tickets
+- **MCP as thin adapter**: Each service is CLI-first; HTTP/MCP wrappers are added only when needed
+- **3-Layer Separation**: Clear split between **Planning** (`docs/`), **Generation** (`skills/`), and **Evaluation** (`mcp_core/`)
 
-どのRendererを使っても最終インターフェースは **MP4**。
+## 📌 Next Steps
 
-## Repository
+1. **Auto-regeneration hook**: Connect `eval_loop`/`eval_loop` suggestion `action` fields to actual CLI invocations (`evops-mcp call`, `chaperone run`)
+2. **S02 full-auto pipeline**: Trigger complete `paper_id=S02` pipeline from `paper-digest` through `storyboard` → `sf-paper-comic` → `videogen` → `evaluator` via `chaperone workflow.yaml`
+3. **Intent-based evolution**: Apply Don Quixote pattern to paper-anime pipeline - evaluate against 7 user intents from `intent_memo.md`
+4. **Voicevox Docker**: Provide `docker-compose.yml` to pin Voicevox at `:50021` so gTTS fallback can be retired
+5. **DB persistence**: Write `eval_report.json` and `evolution_report.json` results automatically into `sotsusei.db` for cross-run analytics
+6. **pytest baseline**: Add healthcheck-based automated tests for all 9 MCP servers
 
-| Directory | Role |
-|---|---|
-| `presen/` | 発表資料 |
-| `papers/` | 論文調査・SF論文動画 |
-| `plan/` | 研究計画・Kanban |
-| `skills/` | 再利用可能な知識・制作規則 |
-| `mcp/` | 外部ツール操作Adapter |
-| `db/` | 実験・評価・生成履歴 |
-| `lms/` | LLM/VLMによる評価・推論 |
-| `ml/` | Fitness・予測・ランキング・学習 |
-| `sdk/` | 共通ループ・データ契約 |
-| `scripts/` | 自給自足用CLI・治具 |
-| `crx/` | ブラウザ観測・UI |
+## 📚 Documentation
 
-## Research Loop
+- `docs/evops-presentation.html`: 15-slide presentation showing 7 functions in 3 phases (Investigation/Planning, Generation, Evaluation & Feedback)
+- `docs/devlog.md`: 3-day development log (2026-10-11 to 2026-10-13)
+- `docs/intent_memo.md`: 7 extracted user intents with hierarchy
+- `docs/retrospective.md`: full retrospective with ADR table, system architecture, problems/fixes
 
-### Paper Loop
-
-```text
-Paper
- ↓
-Research Skill
- ↓
-SF落語
- ↓
-SVG / CSS
- ↓
-MP4
- ↓
-VLM Evaluation
- ↓
-Repair
- ↓
-MP4
-```
-
-### Doraemon Loop
-
-```text
-Reference
- ↓
-Method / Genome
- ↓
-Generation
- ↓
-Render
- ↓
-VLM + Numeric Evaluation
- ↓
-Fitness
- ↓
-Selection
- ├─ Elite
- ├─ Mutation
- ├─ Crossover
- ├─ Repair
- └─ Kill
- ↓
-Next Generation
- ↓
-Growth Animation
-```
-
-## 自給自足の定義
-
-この研究は、外部サービスが止まっても核心部分を再実行できることを目標とする。
-
-1. Dataをローカルに保存できる
-2. 治具をCLIから実行できる
-3. MCPなしでも処理できる
-4. 評価履歴をJSONL/DBに残せる
-5. ローカルとCIで同じ処理を再現できる
-6. MP4 Artifactを回収できる
-
-**「自分で研究を回せる」ことが完成条件。**
-
-## Status
-
-- [x] 研究5段階構成
-- [x] 論文データベース
-- [x] SF論文4コマSVG
-- [x] SVG → MP4決定的Renderer
-- [x] Pygame / Blender / Godot併用方針
-- [ ] MCP完全化
-- [ ] Skill / 治具 / Data / MCPの境界整理
-- [ ] VLM評価・修正ループ
-- [ ] 論文SF落語の品質ループ
-- [ ] ドラえもんDB
-- [ ] Fitness / Selection / Evolution
-- [ ] 成長アニメーション
-- [ ] 自給自足型の一気通貫実験
-
-## Principle
-
-> **研究対象は生成物だけではない。  
-> 生成方法・評価・失敗・修正・履歴そのものをデータとして蓄積し、次の生成方法を改善する。**
-
+**Status: ✅ COMPLETE - System is operational and ready for development**

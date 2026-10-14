@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EvOps — Design &amp; Intent Retrospective</title>
+<style>
+  :root { --bg:#0f0f12; --fg:#e8e8ec; --accent:#7c3aed; --muted:#888; --card:#1a1a20; }
+  * { box-sizing:border-box; margin:0; }
+  html, body { height:100%; overflow:hidden; background:var(--bg); color:var(--fg); font-family:system-ui,"Noto Sans JP",sans-serif; }
+  .slide { display:none; width:100%; height:100%; flex-direction:column; justify-content:center; align-items:center; padding:48px 64px; text-align:center; }
+  .slide.active { display:flex; animation:fadeIn .6s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:translateY(0);} }
+  h1 { font-size:52px; font-weight:800; margin-bottom:12px; letter-spacing:-.02em; }
+  h2 { font-size:36px; font-weight:700; margin-bottom:24px; color:var(--accent); }
+  h3 { font-size:24px; font-weight:600; margin:16px 0 8px; color:#bbb; }
+  p, li { font-size:20px; line-height:1.7; color:var(--fg); max-width:860px; }
+  ul { text-align:left; display:inline-block; margin-top:12px; }
+  li { margin:10px 0; }
+  .lead { font-size:24px; color:var(--muted); max-width:720px; margin-top:16px; }
+  .meta { position:absolute; bottom:24px; right:32px; font-size:13px; color:#555; }
+  .nav { position:absolute; bottom:24px; left:32px; display:flex; gap:12px; }
+  button { background:var(--card); border:1px solid #333; color:var(--fg); padding:8px 18px; border-radius:8px; cursor:pointer; font-size:14px; }
+  button:hover { border-color:var(--accent); }
+  .badge { display:inline-block; background:var(--accent); color:#fff; padding:4px 12px; border-radius:6px; font-size:13px; font-weight:700; margin-bottom:16px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:900px; text-align:left; margin-top:24px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; text-align:left; margin-top:24px; }
+  .card { background:var(--card); border:1px solid #2a2a32; border-radius:14px; padding:24px; }
+  .card h4 { font-size:18px; color:var(--accent); margin-bottom:8px; }
+  .card p { font-size:15px; color:#aaa; line-height:1.6; }
+  .big { font-size:64px; font-weight:800; color:var(--accent); }
+  code { background:#222; padding:2px 8px; border-radius:4px; font-size:.9em; }
+  pre { background:var(--card); padding:20px; border-radius:12px; text-align:left; font-size:15px; line-height:1.6; overflow:auto; max-width:800px; max-height:420px; border:1px solid #2a2a32; }
+  .arrow-hint { position:absolute; top:50%; right:32px; font-size:32px; color:#333; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:.3;} 50%{opacity:.7;} }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide active">
+  <div class="badge">Design Retrospective</div>
+  <h1>EvOps</h1>
+  <p class="lead">論文 → アニメ自動生成パイプライン<br>設計と企画意図の振り返り</p>
+  <p style="margin-top:32px; color:#555; font-size:16px;">2026.10.11 — 2026.10.13 ｜ 3日間の構想・設計・実装</p>
+</div>
+
+<!-- Slide 2: Intent -->
+<div class="slide">
+  <h2>企画意図</h2>
+  <p class="lead">「専門論文の知見を、専門外の人にも伝わる形に変換したい」</p>
+  <ul>
+    <li><strong>対象</strong>：機械学習論文（ResNet, VideoScore…）</li>
+    <li><strong>出力</strong>：4コマ漫画・アニメ動画・漫才・YouTube</li>
+    <li><strong>中間工程</strong>：専門用語 → 高校生レベルの比喩 → 視覚的ストーリー</li>
+    <li><strong>背後にある価値</strong>：学術的知見の<strong>民主化</strong>と<strong>教育化</strong></li>
+  </ul>
+</div>
+
+<!-- Slide 3: Architecture Pillars -->
+<div class="slide">
+  <h2>設計の3本柱</h2>
+  <div class="grid3">
+    <div class="card">
+      <h4>1. 疎結合</h4>
+      <p>各コンポーネントはJSON spec + CLI呼び出しのみ。直接importしない。MCPは「薄いアダプタ」として後付け。</p>
+    </div>
+    <div class="card">
+      <h4>2. 段階的品質制御</h4>
+      <p>Wide Gate（ゆるい基準）で量産 → Narrow Gate（厳格）で絞り込む。「ゆるくていい」という思想の設計化。</p>
+    </div>
+    <div class="card">
+      <h4>3. 形態非依存の中間表現</h4>
+      <p>論文→「咀嚼済み構造」→任意出力。単一ソース・マルチユース（SSOT）。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Intent → Design mapping -->
+<div class="slide">
+  <h2>意図 → 設計のマッピング</h2>
+  <div class="grid2">
+    <div class="card">
+      <h4>知見を多様な形態へ</h4>
+      <p>Universal Digestion + Domain Adapter<br>論文1本 → 漫画/動画/漫才/記事</p>
+    </div>
+    <div class="card">
+      <h4>専門外にも届く</h4>
+      <p>Metaphor層<br>高校生レベルの比喩に自動翻訳</p>
+    </div>
+    <div class="card">
+      <h4>大量処理したい</h4>
+      <p>Eval Loop + Wide Gate<br>システムが自律的に品質を収束</p>
+    </div>
+    <div class="card">
+      <h4>日本語教育文化へ</h4>
+      <p>ASS字幕 + IPAex + Voicevox<br>日本語圏の表現文化に寄り添う</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Data Flow -->
+<div class="slide">
+  <h2>論文 → 動画 の完全フロー</h2>
+  <pre>
+Paper (arXiv)
+   ↓
+[paper-digest: 8008]  Decompose → Metaphorize → Structure
+   ↓                    (AtomicKnowledge + IntuitiveMetaphor + NarrativeSkeleton)
+[ComicAdapter]
+   ↓
+episode.json (4-panel definition)
+   ↓
+[storyboard: 8009]    CutPlan + Timeline
+   ├─→ [sf-paper-comic: 8004]  SVG (stick figure + speech bubble)
+   ├─→ [telop]                 ASS subtitle
+   ├─→ [voicevox/gTTS]         narration MP3
+   ↓
+[videogen: 8006]      slideshow + fade + mux
+   ↓
+final.mp4
+   ↓
+[evaluator: 8002]     review → suggest → eval_loop (Wide/Narrow Gate)
+  </pre>
+</div>
+
+<!-- Slide 6: Wide Gate Philosophy -->
+<div class="slide">
+  <h2>「ゆるくていい」という設計</h2>
+  <div class="grid2">
+    <div class="card" style="border-color:#3a3;">
+      <h4 style="color:#3a3;">Wide Gate（開発期）</h4>
+      <p>合格点 <strong>50</strong> / A判定 <strong>80</strong><br>字幕網羅率 <strong>50%</strong><br>輝度 <strong>0.15〜0.95</strong><br><br><em>「まず回す。完成より動作。」</em></p>
+    </div>
+    <div class="card" style="border-color:#f66;">
+      <h4 style="color:#f66;">Narrow Gate（品質期）</h4>
+      <p>合格点 <strong>75</strong> / A判定 <strong>95</strong><br>字幕網羅率 <strong>90%</strong><br>輝度 <strong>0.35〜0.75</strong><br><br><em>「高品質のみ通す。」</em></p>
+    </div>
+  </div>
+  <p style="margin-top:24px; color:#888; font-size:17px;">同じコードベースで <code>gate_mode="wide" or "narrow"</code> を切り替え</p>
+</div>
+
+<!-- Slide 7: MCP Ecosystem -->
+<div class="slide">
+  <h2>9台のMCPサーバー群</h2>
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:960px; text-align:left; margin-top:16px;">
+    <div class="card"><h4>paper-digest <span style="color:#666">8008</span></h4><p>論文咀嚼・Universal Digestion</p></div>
+    <div class="card"><h4>storyboard <span style="color:#666">8009</span></h4><p>カット割り・タイムライン</p></div>
+    <div class="card"><h4>sf-paper-comic <span style="color:#666">8004</span></h4><p>4コマSVG生成</p></div>
+    <div class="card"><h4>bpy-gen <span style="color:#666">8005</span></h4><p>Blender 3D + DSL</p></div>
+    <div class="card"><h4>videogen <span style="color:#666">8006</span></h4><p>動画編集・mux</p></div>
+    <div class="card"><h4>artcraft <span style="color:#666">8007</span></h4><p>エフェクト合成</p></div>
+    <div class="card"><h4>evaluator <span style="color:#666">8002</span></h4><p>評価・改善提案・Loop</p></div>
+    <div class="card"><h4>db <span style="color:#666">8001</span></h4><p>SQLite履歴管理</p></div>
+    <div class="card"><h4>gateway <span style="color:#666">8000</span></h4><p>ルーティング</p></div>
+  </div>
+  <p style="margin-top:20px; color:#888; font-size:16px;">全てがCLIファースト。MCP/HTTPは後付けの薄いラッパー。</p>
+</div>
+
+<!-- Slide 8: Universal Digestion -->
+<div class="slide">
+  <h2>Universal Digestion</h2>
+  <p class="lead">論文 → 形態に依存しない中間表現 → 任意出力</p>
+  <pre style="margin-top:20px;">
+DigestedPaper
+├── atoms: List[AtomicKnowledge]
+│      ├── claim    (主張)
+│      ├── evidence (根拠)
+│      └── constraints (制約)
+│
+├── metaphors: List[IntuitiveMetaphor]
+│      └── "深い学習 = 伝言ゲーム"  (高校生レベル比喩)
+│
+└── skeleton: NarrativeSkeleton
+       ├── setup    (常識・前提)
+       ├── conflict (問題発生)
+       ├── resolution (解決策)
+       └── punchline (結論・インパクト)
+
+DomainAdapter.apply(DigestedPaper) → episode.json / manzai.json / script.json
+  </pre>
+</div>
+
+<!-- Slide 9: Eval Loop -->
+<div class="slide">
+  <h2>自律的品質向上：Eval Loop</h2>
+  <pre style="margin-top:20px;">
+for i in range(max_iterations):
+    
+    # 1. 評価
+    eval = review_paper_anime(video, episode, gate_mode="wide")
+    score = eval["aggregate"]["score"]   # 0-100
+    grade = eval["aggregate"]["grade"]   # A/B/C/D
+    
+    # 2. 改善提案
+    suggest = suggest_improvements(eval, gate_mode="wide")
+    # → [{ "action": "regenerate_panels", "priority": "high" }, ...]
+    
+    # 3. 外部で修正 → 再評価
+    if score >= target_score:
+        break
+  </pre>
+  <p style="margin-top:20px;">目標：score ≥ 75（Narrow Gate 時は 95）で収束</p>
+</div>
+
+<!-- Slide 10: Paper ID Naming -->
+<div class="slide">
+  <h2>paper_id による追跡可能性</h2>
+  <p class="lead">「どの論文から、どんな動画が作られたか」100%追跡</p>
+  <pre style="margin-top:20px;">
+outputs/papers/S01/
+├── S01_episode.json
+├── S01_final.mp4
+├── panels/
+│   ├── S01_panel_01.svg      # 深く学習すれば…
+│   ├── S01_panel_01.png
+│   ├── S01_panel_02.svg      # 情報が届かない！
+│   └── ...
+└── assets/
+    ├── S01_voice_01.mp3
+    ├── S01_narration.mp3
+    └── S01_subs.ass
+  </pre>
+  <p style="margin-top:16px; color:#888;">ファイル名にprefixを付けることで、混在防止・grep検索・DB連携を実現</p>
+</div>
+
+<!-- Slide 11: S01 Result -->
+<div class="slide">
+  <div class="badge">成果物</div>
+  <h2>S01 — ResNet の 4コマ漫画動画</h2>
+  <div class="grid2" style="text-align:center; margin-top:24px;">
+    <div><div class="big">20</div><p style="color:#888;">秒の動画</p></div>
+    <div><div class="big">298</div><p style="color:#888;">KB (h264+aac)</p></div>
+    <div><div class="big">4</div><p style="color:#888;">コマ構成</p></div>
+    <div><div class="big">9</div><p style="color:#888;">台のMCPサーバー</p></div>
+  </div>
+  <p style="margin-top:28px; font-size:18px; color:#aaa;">
+    Setup → Conflict → Resolution → Punchline<br>
+    深層学習の問題を「伝言ゲーム」に例え、ResNetのskip connectionを「ショートカット道」で表現
+  </p>
+</div>
+
+<!-- Slide 12: Lessons & Patterns -->
+<div class="slide">
+  <h2>教訓と設計パターン</h2>
+  <div class="grid2">
+    <div class="card"><h4>Thin Adapter</h4><p>CLIファースト。MCPは不安定なので外側に薄く。</p></div>
+    <div class="card"><h4>Gate Switch</h4><p>同じ評価関数にgate_modeを与え、品質ポリシーを切り替え。</p></div>
+    <div class="card"><h4>Future-Proof Naming</h4><p>paper_idを全成果物にprefix。混在防止・追跡・DB検索。</p></div>
+    <div class="card"><h4>Digestion Sandwich</h4><p>入力→中間表現→出力。解析と生成が独立して進化。</p></div>
+    <div class="card"><h4>Fallback Cascade</h4><p>Voicevox → gTTS → 無音。外部依存の障害で停止しない。</p></div>
+    <div class="card"><h4>Done &gt; Perfect</h4><p>「ゆるくていい」の設計化。Wide Gateで回してから改善。</p></div>
+  </div>
+</div>
+
+<!-- Slide 13: Next Steps -->
+<div class="slide">
+  <h2>次のステップ</h2>
+  <div class="grid2" style="text-align:left;">
+    <div class="card">
+      <h4 style="color:#3a3;">短期（1-2日）</h4>
+      <p>• eval_loop の自動再生成連携<br>• S02 の完全自動パイプライン<br>• Voicevox Docker 固定化</p>
+    </div>
+    <div class="card">
+      <h4 style="color:#7c3aed;">中期（1週間）</h4>
+      <p>• agentic-anime-studio 統合<br>• eval_report → DB 自動蓄積<br>• pytest 自動テスト基盤</p>
+    </div>
+    <div class="card">
+      <h4 style="color:#f66;">長期（1ヶ月）</h4>
+      <p>• Web UI ダッシュボード<br>• arXiv 自動収集連携<br>• YouTube 自動アップロード</p>
+    </div>
+    <div class="card">
+      <h4 style="color:#888;">究極像</h4>
+      <p>arXiv API → auto-digest → auto-gen → auto-eval → auto-upload<br><strong>完全無人パイプライン</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14: Closing -->
+<div class="slide">
+  <div class="badge">Design Retrospective</div>
+  <h1 style="font-size:48px;">論文の知見を<br>誰にでも伝わる物語へ</h1>
+  <p class="lead" style="margin-top:24px;">
+    疎結合 × 段階的品質 × 形態非依存<br>
+    EvOps — 知識の民主化パイプライン
+  </p>
+  <p style="margin-top:40px; color:#555; font-size:16px;">
+    2026.10.13 ｜ bons ｜ evops/docs/design-intent.md
+  </p>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">← Prev</button>
+  <button onclick="nextSlide()">Next →</button>
+  <span id="pageNum" style="color:#555; font-size:14px; align-self:center;">1 / 14</span>
+</div>
+<div class="meta">Press → or Space to advance</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+function show(i) {
+  slides[current].classList.remove('active');
+  current = (i + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  document.getElementById('pageNum').textContent = (current+1) + ' / ' + slides.length;
+}
+function nextSlide(){ show(current+1); }
+function prevSlide(){ show(current-1); }
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') nextSlide();
+  else if(e.key==='ArrowLeft') prevSlide();
+});
+</script>
+</body>
+</html>

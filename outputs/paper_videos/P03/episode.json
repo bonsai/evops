@@ -1,0 +1,10 @@
+{
+  "title": "VideoScore: Fine‑grained Human Feedback for Video Generation",
+  "paper": "P03",
+  "panels": [
+    {"text": "細粒度評価を自動化したい", "speaker": "はっちゃん"},
+    {"text": "VLMで人間評価を模倣する", "speaker": "ご隠居さん"},
+    {"text": "自動評価で生成を改善", "speaker": "はっちゃん"},
+    {"text": "この循環が創造を支える", "speaker": "ご隠居さん"}
+  ]
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>総合演習 卒業制作 — 提出一式 &amp; 発表資料（A4横・全35ページ）</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="stage" id="stage">
+<div class="stage-inner" id="sheets">
+
+<!-- 01 表紙 -->
+<section class="sheet cover cat-cover" data-t="表紙">
+  <div class="cover-in">
+    <div class="cover-label">総合演習（卒業制作）</div>
+    <h1 class="cover-h1">AI評価・修復ループ<br>生成画像で作品をつくるアーティストが<br>思い通りの画像を作れないという課題を解決する</h1>
+    <p class="cover-h2">提出一式（検討項目／要求・分析・設計モデル／プログラム／操作マニュアル）<br>と発表資料を 1 冊にまとめた、提出・発表ドキュメント。</p>
+    <div class="cover-meta">
+      <div><span class="k">PRESENTED BY</span><span class="v"><span class="fill">bons</span>（<span class="fill">AI画像生成クリエイター</span>）</span></div>
+      <div><span class="k">CLASS / NO</span><span class="v"><span class="fill">—</span></span></div>
+      <div><span class="k">INSTRUCTOR</span><span class="v">西尾 公伸 先生</span></div>
+      <div><span class="k">SUBMITTED</span><span class="v">2026.10.28</span></div>
+      <div><span class="k">PRESENTED</span><span class="v">2026.10.29</span></div>
+    </div>
+    <div class="cover-foot">
+      <span>A4 横・全 35 ページ／ウェブ発表と印刷提出を兼用</span>
+      <span>印刷：Ctrl / ⌘ + P　→　向き「横」・倍率 100%・余白「なし」　／　p.01</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 目次 -->
+<section class="sheet cat-app" data-t="目次">
+  <div class="hd">
+    <h2 class="hd-title">目次<small>画面上ではクリックでジャンプ。印刷すると 1 枚だけの目次になる。</small></h2>
+  </div>
+  <div class="toc">
+    <div class="toc-sec" style="--accent:var(--c-plan)">
+      <h4>検討項目<span class="dl">10/02 Fri</span></h4>
+      <ol>
+        <li data-go="3">04 何を作るか？</li>
+        <li data-go="4">05 どんな効果があるか（何を解決するか）</li>
+        <li data-go="5">06 Java か、Python か？</li>
+        <li data-go="6">07 システムの全体像（自然語＋図）</li>
+        <li data-go="7">08 開発対象（部分）機能・構造とスケジュール</li>
+        <li data-go="8">09 開発カレンダー</li>
+      </ol>
+    </div>
+    <div class="toc-sec" style="--accent:var(--c-deliver)">
+      <h4>納品物<span class="dl">10/28 Wed</span></h4>
+      <ol>
+        <li data-go="10">10 提出物一覧・チェックリスト</li>
+        <li data-go="11">11 要求モデル：システム境界とアクター</li>
+        <li data-go="12">12 要求モデル：ユースケース図</li>
+        <li data-go="13">13 要求モデル：ユースケース仕様 UC1</li>
+        <li data-go="14">14 要求モデル：ユースケース仕様 UC2 ほか</li>
+        <li data-go="15">15 分析モデル：ロバストネス分析</li>
+        <li data-go="16">16 分析モデル：分析クラス一覧</li>
+        <li data-go="17">17 分析モデル：シーケンス図</li>
+        <li data-go="18">18 設計モデル：パッケージ構成</li>
+        <li data-go="19">19 設計モデル：クラス図</li>
+        <li data-go="20">20 設計モデル：シーケンス図</li>
+        <li data-go="21">21 プログラム：構成と実行方法</li>
+        <li data-go="22">22 プログラム：主要ソースと導通テスト</li>
+        <li data-go="23">23 操作マニュアル</li>
+        <li data-go="24">24 実行イメージ（画面キャプチャ）</li>
+        <li data-go="25">25 全体スケジュール</li>
+        <li data-go="26">26 全体振り返り</li>
+      </ol>
+    </div>
+    <div class="toc-sec" style="--accent:var(--c-present)">
+      <h4>発表資料<span class="dl">10/29 Thu</span></h4>
+      <ol>
+        <li data-go="27">27 発表カバー（氏名・システム名）</li>
+        <li data-go="28">28 システムの簡単な説明</li>
+        <li data-go="29">29 問題意識</li>
+        <li data-go="30">30 機能説明（ユースケース）</li>
+        <li data-go="31">31 構造の説明（設計モデル）</li>
+        <li data-go="32">32 実演</li>
+        <li data-go="33">33 全体スケジュールと振り返り</li>
+      </ol>
+    </div>
+    <div class="toc-sec" style="--accent:var(--c-app)">
+      <h4>付録<span class="dl">10/30 Sat</span></h4>
+      <ol>
+        <li data-go="34">34 印刷設定・準備チェックリスト</li>
+        <li data-go="35">35 謝辞・追加リソース</li>
+      </ol>
+    </div>
+  </div>
+  <div class="cols c-73" style="margin-top:6mm">
+    <div class="card soft">
+      <div class="card-h"><span class="no">運用</span>このファイルの使いどころ</div>
+      <ul class="check">
+        <li>ページ内の点線の部分を埋めるだけで本文が完成する。</li>
+        <li>図はすべて SVG のスケルトン。draw.io などで描き直して差し替える。</li>
+        <li>発表は「発表資料」節（p.27–33）だけを使えば 5 分に収まる。</li>
+        <li>実演は p.32 の操作手順と p.24 の画面キャプチャを一致させる。</li>
+      </ul>
+    </div>
+    <div class="card soft">
+      <div class="card-h"><span class="no">印刷</span>Brother HL-2380DW の設定</div>
+      <dl class="kv">
+        <dt>用紙</dt><dd>A4 横</dd>
+        <dt>倍率</dt><dd>100%（拡大縮小しない）</dd>
+        <dt>余白</dt><dd>なし</dd>
+        <dt>トリプルアグリ</dt><dd>OFF</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 03 検討項目1 -->
+<section class="sheet divider cat-plan" data-t="検討項目1">
+  <div class="cover-in">
+    <div class="cover-label">04 何を作るか？</div>
+  </div>
+</section>
+
+<!-- 04 検討項目2 -->
+<section class="sheet divider cat-plan" data-t="検討項目2">
+  <div class="cover-in">
+    <div class="cover-label">05 どんな効果があるか（何を解決するか）</div>
+  </div>
+</section>
+
+<!-- 05 検討項目3 -->
+<section class="sheet divider cat-plan" data-t="検討項目3">
+  <div class="cover-in">
+    <div class="cover-label">06 Java か、Python か？</div>
+  </div>
+</section>
+
+<!-- 06 検討項目4 -->
+<section class="sheet divider cat-plan" data-t="検討項目4">
+  <div class="cover-in">
+    <div class="cover-label">07 システムの全体像（自然語＋図）</div>
+  </div>
+</section>
+
+<!-- 07 検討項目5 -->
+<section class="sheet divider cat-plan" data-t="検討項目5">
+  <div class="cover-in">
+    <div class="cover-label">08 開発対象（部分）機能・構造とスケジュール</div>
+  </div>
+</section>
+
+<!-- 08 開発カレンダー -->
+<section class="sheet divider cat-plan" data-t="開発カレンダー">
+  <div class="cover-in">
+    <div class="cover-label">09 開発カレンダー</div>
+  </div>
+</section>
+
+<!-- 09 納品物1 -->
+<section class="sheet divider cat-deliver" data-t="納品物1">
+  <div class="cover-in">
+    <div class="cover-label">10 提出物一覧・チェックリスト</div>
+  </div>
+</section>
+
+<!-- Continue with all remaining 32 sections... -->

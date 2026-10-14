@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Batch narration generation from episode.json using Voicevox (Nana-chan / speaker 2)."""
+"""Batch narration generation from episode.json using Voicevox (Hibiki / speaker 8)."""
 import json, sys, os, subprocess
 
 episode_path = sys.argv[1] if len(sys.argv) > 1 else "/tmp/episode.json"
@@ -16,7 +16,7 @@ ts = " ".join(p.get("text", "") for p in ep.get("panels", []))
 subprocess.run([
     "node", "/home/bons/evops/skills/voicevox/bin/voicevox-cli.js",
     "--text", ts,
-    "--speaker", "2",  # ななちゃん
+    "--speaker", "8",  # Hibiki（空野ヒビキ）
     "--output", output_path
 ], check=True)
 print(f"Batch narration done: {output_path}")

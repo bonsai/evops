@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>paper-digest — Universal Digestion System</title>
+<style>
+  :root { --bg:#0f0f12; --fg:#e8e8ec; --accent:#7c3aed; --muted:#888; --card:#1a1a20; }
+  * { box-sizing:border-box; margin:0; }
+  html, body { height:100%; overflow:hidden; background:var(--bg); color:var(--fg); font-family:system-ui,"Noto Sans JP",sans-serif; }
+  .slide { display:none; width:100%; height:100%; flex-direction:column; justify-content:center; align-items:center; padding:48px 64px; text-align:center; }
+  .slide.active { display:flex; animation:fadeIn .6s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:translateY(0);} }
+  h1 { font-size:52px; font-weight:800; margin-bottom:12px; letter-spacing:-.02em; }
+  h2 { font-size:36px; font-weight:700; margin-bottom:24px; color:var(--accent); }
+  h3 { font-size:24px; font-weight:600; margin:16px 0 8px; color:#bbb; }
+  p, li { font-size:20px; line-height:1.7; color:var(--fg); max-width:860px; }
+  ul { text-align:left; display:inline-block; margin-top:12px; }
+  li { margin:10px 0; }
+  .lead { font-size:24px; color:var(--muted); max-width:720px; margin-top:16px; }
+  .meta { position:absolute; bottom:24px; right:32px; font-size:13px; color:#555; }
+  .nav { position:absolute; bottom:24px; left:32px; display:flex; gap:12px; }
+  button { background:var(--card); border:1px solid #333; color:var(--fg); padding:8px 18px; border-radius:8px; cursor:pointer; font-size:14px; }
+  button:hover { border-color:var(--accent); }
+  .badge { display:inline-block; background:var(--accent); color:#fff; padding:4px 12px; border-radius:6px; font-size:13px; font-weight:700; margin-bottom:16px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:900px; text-align:left; margin-top:24px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; text-align:left; margin-top:24px; }
+  .grid4 { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:960px; text-align:left; margin-top:24px; }
+  .card { background:var(--card); border:1px solid #2a2a32; border-radius:14px; padding:24px; }
+  .card h4 { font-size:18px; color:var(--accent); margin-bottom:8px; }
+  .card p { font-size:15px; color:#aaa; line-height:1.6; }
+  .big { font-size:64px; font-weight:800; color:var(--accent); }
+  code { background:#222; padding:2px 8px; border-radius:4px; font-size:.9em; }
+  pre { background:var(--card); padding:20px; border-radius:12px; text-align:left; font-size:15px; line-height:1.6; overflow:auto; max-width:800px; max-height:420px; border:1px solid #2a2a32; }
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide active">
+  <div class="badge">EvOps Skill</div>
+  <h1>paper-digest</h1>
+  <p class="lead">論文を形態に依存しない中間表現に「咀嚼」し、<br>漫画・動画・漫才・記事へ変換するシステム</p>
+  <p style="margin-top:32px; color:#555; font-size:16px;">MCP Server / Port 8008 / HTTP + stdio</p>
+</div>
+
+<!-- Slide 2: Problem -->
+<div class="slide">
+  <h2>解決したい問題</h2>
+  <p class="lead">専門論文は専門外の人にとって「読めない」「伝わらない」</p>
+  <div class="grid2" style="margin-top:32px;">
+    <div class="card">
+      <h4>Before</h4>
+      <p>• 「深層残差学習は勾配消失問題を緩和する」<br>• 専門用語の壁<br>• 数学的フォーマルな記述<br>• 読者は研究者のみ</p>
+    </div>
+    <div class="card" style="border-color:var(--accent);">
+      <h4>After（目標）</h4>
+      <p>• 「深く学習すれば賢くなるはず…でも深すぎると情報が届かない！→ショートカット道を作ろう」<br>• 比喩と物語<br>• 4コマ漫画・アニメ<br>• 高校生でも理解可能</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: What is paper-digest -->
+<div class="slide">
+  <h2>paper-digest とは</h2>
+  <div class="grid3" style="margin-top:24px;">
+    <div class="card">
+      <h4>1. Decompose</h4>
+      <p>論文を主張・根拠・制約の「原子知識」に分解</p>
+    </div>
+    <div class="card">
+      <h4>2. Metaphorize</h4>
+      <p>専門用語を高校生レベルの比喩に翻訳</p>
+    </div>
+    <div class="card">
+      <h4>3. Structure</h4>
+      <p>起承転結の物語骨組みに構造化</p>
+    </div>
+  </div>
+  <p style="margin-top:28px; font-size:18px; color:#aaa;">この3段階で論文は「形態に依存しない中間表現 = DigestedPaper」に変換される</p>
+</div>
+
+<!-- Slide 4: Data Model -->
+<div class="slide">
+  <h2>中間表現：DigestedPaper</h2>
+  <pre>
+@dataclass
+class DigestedPaper:
+    title: str
+    summary: str
+    atoms: List[AtomicKnowledge]          # 原子知識
+    metaphors: List[IntuitiveMetaphor]    # 直感的比喩
+    skeleton: NarrativeSkeleton           # 物語構造
+
+@dataclass
+class AtomicKnowledge:
+    claim: str        # 主張（例: skip connectionは学習を安定化する）
+    evidence: str     # 根拠（例: CIFAR-10でエラー率3.57%）
+    constraints: str  # 制約（例: 152層以上で有効）
+
+@dataclass
+class IntuitiveMetaphor:
+    term: str         # 専門用語（例: 勾配消失）
+    metaphor: str     # 比喩（例: 伝言ゲームで最後まで伝わらない）
+    target_audience: str  # 想定読者レベル（例: 高校生）
+  </pre>
+</div>
+
+<!-- Slide 5: Narrative Skeleton -->
+<div class="slide">
+  <h2>物語構造：NarrativeSkeleton</h2>
+  <div class="grid2" style="text-align:left; margin-top:24px;">
+    <div class="card">
+      <h4>起 (Setup)</h4>
+      <p>常識・前提<br>「深く学習すれば賢くなるはず」</p>
+    </div>
+    <div class="card">
+      <h4>承 (Conflict)</h4>
+      <p>問題発生・挫折<br>「深すぎると情報が届かない！伝言ゲーム状態」</p>
+    </div>
+    <div class="card">
+      <h4>転 (Resolution)</h4>
+      <p>解決策・突破<br>「ショートカット道（skip connection）を作れば届く！」</p>
+    </div>
+    <div class="card">
+      <h4>結 (Punchline)</h4>
+      <p>結論・インパクト<br>「これでどんどん深く学べる！」</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Domain Adapters -->
+<div class="slide">
+  <h2>Domain Adapters</h2>
+  <p class="lead">DigestedPaper → 任意の出力形態へ変換</p>
+  <div class="grid4" style="margin-top:24px;">
+    <div class="card">
+      <h4>ComicAdapter</h4>
+      <p>4コマ漫画構成<br>1コマ: setup<br>2コマ: conflict<br>3コマ: resolution<br>4コマ: punchline</p>
+    </div>
+    <div class="card">
+      <h4>YouTubeAdapter</h4>
+      <p>動画脚本構成<br>0-3秒フック<br>問題提示<br>解決策<br>コールトゥアクション</p>
+    </div>
+    <div class="card">
+      <h4>ManzaiAdapter</h4>
+      <p>漫才脚本構成<br>ボケ（常識・素朴な疑問）<br>ツッコミ（研究者・反論）<br>オチ（結論）</p>
+    </div>
+    <div class="card">
+      <h4>NoteAdapter</h4>
+      <p>解説記事構成<br>導入<br>比喩説明<br>技術詳細<br>まとめ</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Architecture -->
+<div class="slide">
+  <h2>アーキテクチャ</h2>
+  <pre style="margin-top:20px;">
+┌─────────────────────────────────────────┐
+│           Input: Paper (PDF/arXiv/txt)   │
+└─────────────────────────────────────────┘
+                   │
+                   ▼
+┌─────────────────────────────────────────┐
+│      UniversalDigestion                 │
+│  ┌─────────┐ ┌──────────┐ ┌─────────┐ │
+│  │Decompose│→│Metaphorize│→│Structure│ │
+│  │(atoms)  │ │(metaphors)│ │(skeleton)│
+│  └─────────┘ └──────────┘ └─────────┘ │
+└─────────────────────────────────────────┘
+                   │
+                   ▼ DigestedPaper
+┌─────────────────────────────────────────┐
+│      DomainAdapter.apply()              │
+│  Comic / YouTube / Manzai / Note        │
+└─────────────────────────────────────────┘
+                   │
+                   ▼ episode.json / script.json
+┌─────────────────────────────────────────┐
+│      Output: 4コマ・動画・漫才・記事     │
+└─────────────────────────────────────────┘
+  </pre>
+</div>
+
+<!-- Slide 8: MCP Server -->
+<div class="slide">
+  <h2>MCP Server 仕様</h2>
+  <div class="grid2" style="text-align:left; margin-top:24px;">
+    <div class="card">
+      <h4>HTTP モード</h4>
+      <p>• <code>GET /health</code> — 生存確認<br>• <code>POST /call</code> — ツール呼び出し<br>• <code>POST /mcp/call</code> — MCP準拠<br>• Port: 8008</p>
+    </div>
+    <div class="card">
+      <h4>stdio モード</h4>
+      <p>• Claude Desktop / Cline 連携<br>• <code>python3 server.py --stdio</code><br>• JSON-RPC over stdin/stdout</p>
+    </div>
+  </div>
+  <pre style="margin-top:24px;">
+# ツール一覧
+digest_paper(text: str, title: str, domain: str) → DigestedPaper
+list_domains() → ["comic", "youtube", "manzai", "note"]
+  </pre>
+</div>
+
+<!-- Slide 9: Real Example -->
+<div class="slide">
+  <h2>実例：ResNet → episode.json</h2>
+  <p class="lead">論文「Deep Residual Learning for Image Recognition」</p>
+  <pre style="margin-top:20px;">
+Input:
+  "Very deep networks suffer from vanishing gradients.
+   We propose residual learning with skip connections..."
+
+DigestedPaper.atoms[0]:
+  claim: "深いニューラルネットは勾配消失で学習が困難"
+  evidence: "152層のplain netは56層より劣化"
+  constraints: "skip connectionの追加が必要"
+
+DigestedPaper.metaphors[0]:
+  term: "勾配消失"
+  metaphor: "伝言ゲームで50人目には最初の言葉が届かない"
+  audience: "高校生"
+
+ComicAdapter.apply() → outputs/papers/S01/episode.json
+  </pre>
+</div>
+
+<!-- Slide 10: Output Sample -->
+<div class="slide">
+  <h2>出力例：episode.json</h2>
+  <pre style="margin-top:20px; font-size:14px;">
+{
+  "title": "ResNet — 深く学ぶためのショートカット",
+  "panels": [
+    {
+      "role": "setup",
+      "speaker": "常識",
+      "text": "深く学習すれば賢くなる…はず",
+      "metaphor": "本をたくさん読めば賢くなる"
+    },
+    {
+      "role": "conflict",
+      "speaker": "研究者",
+      "text": "深すぎると情報が届かない！伝言ゲーム状態",
+      "metaphor": "50人伝言ゲーム → 最後は意味不明"
+    },
+    {
+      "role": "resolution",
+      "speaker": "研究者",
+      "text": "ショートカット道（ResNet）を作れば解決！",
+      "metaphor": "直接最初の人に質問できる電話回線"
+    },
+    {
+      "role": "punchline",
+      "speaker": "常識",
+      "text": "これでどんどん深く学べる！",
+      "metaphor": "100階建てビルも一気に上れる"
+    }
+  ]
+}
+  </pre>
+</div>
+
+<!-- Slide 11: Design Pattern -->
+<div class="slide">
+  <h2>設計パターン：Digestion Sandwich</h2>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card">
+      <h4>Input → Output（直接変換）</h4>
+      <p style="color:#f66;">❌ 問題<br>• 新しい出力形態ごとにパイプラインを一から構築<br>• 論文解析の改善が全パイプラインに波及<br>• A/Bテストに別パイプラインが必要</p>
+    </div>
+    <div class="card" style="border-color:var(--accent);">
+      <h4>Input → Digest → Output（本設計）</h4>
+      <p style="color:#3a3;">✅ 解決<br>• 新しい出力 = Adapter 1つ書くだけ<br>• 論文解析の改善 = Digestion層のみ修正<br>• A/Bテスト = Adapter差し替えのみ</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12: Why It Works -->
+<div class="slide">
+  <h2>なぜ「咀嚼」が効くか</h2>
+  <div class="grid2" style="margin-top:24px;">
+    <div class="card">
+      <h4>人的な知識伝達に近い</h4>
+      <p>人間が論文を説明するとき、まず「要旨を整理→比喩を探す→話の流れを作る」を無意識に行う。paper-digest はそのプロセスをアルゴリズム化した。</p>
+    </div>
+    <div class="card">
+      <h4>形態に依存しない</h4>
+      <p>Manga・YouTube・Manzai・Note は表現形態が異なるが、根幹の「知識+比喩+物語」は共通。中間表現を挟むことで、増殖する出力形態に追従できる。</p>
+    </div>
+    <div class="card">
+      <h4>品質が蓄積する</h4>
+      <p>Metaphor データベースが蓄積されると、同一用語の翻訳が自動的に改善される。システムが使うほど賢くなる。</p>
+    </div>
+    <div class="card">
+      <h4>教育文化との親和性</h4>
+      <p>「比喩で理解する」は日本の教育文化に根ざしたアプローチ。「わかりやすい説明」の自動化。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 13: Next -->
+<div class="slide">
+  <h2>次のステップ</h2>
+  <div class="grid2" style="text-align:left; margin-top:24px;">
+    <div class="card">
+      <h4 style="color:#3a3;">短期</h4>
+      <p>• arXiv API 連携（自動論文取得）<br>• Metaphor DB の蓄積<br>• LLM-as-judge による比喩品質評価</p>
+    </div>
+    <div class="card">
+      <h4 style="color:#7c3aed;">中期</h4>
+      <p>• 分野特化 Adapter（医学・法律・経済）<br>• 多言語 Metaphor（英→日→中）<br>• 論文間比較・対話機能</p>
+    </div>
+    <div class="card">
+      <h4 style="color:#f66;">長期</h4>
+      <p>• ユーザーフィードバック連携<br>• 「この比喩が分かりやすい」学習<br>• パーソナライズ型 Digestion</p>
+    </div>
+    <div class="card">
+      <h4 style="color:#888;">他スキル連携</h4>
+      <p>storyboard → sf-paper-comic → videogen → evaluator と連携して、論文入力から動画出力まで完全自動化</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14: Closing -->
+<div class="slide">
+  <div class="badge">paper-digest</div>
+  <h1 style="font-size:44px;">専門論文を<br>誰にでも伝わる物語へ</h1>
+  <p class="lead" style="margin-top:24px;">
+    Decompose × Metaphorize × Structure<br>
+    Universal Digestion — 知識の再構成
+  </p>
+  <p style="margin-top:40px; color:#555; font-size:16px;">
+    EvOps / skills/paper-digest / 2026.10.13
+  </p>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prevSlide()">← Prev</button>
+  <button onclick="nextSlide()">Next →</button>
+  <span id="pageNum" style="color:#555; font-size:14px; align-self:center;">1 / 14</span>
+</div>
+<div class="meta">Press → or Space to advance</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+function show(i) {
+  slides[current].classList.remove('active');
+  current = (i + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  document.getElementById('pageNum').textContent = (current+1) + ' / ' + slides.length;
+}
+function nextSlide(){ show(current+1); }
+function prevSlide(){ show(current-1); }
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') nextSlide();
+  else if(e.key==='ArrowLeft') prevSlide();
+});
+</script>
+</body>
+</html>

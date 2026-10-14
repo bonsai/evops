@@ -1,0 +1,159 @@
+{
+  "concept": "don_quixote",
+  "target_score": 75,
+  "max_iterations": 4,
+  "iterations": [
+    {
+      "iteration": 1,
+      "generation_id": "don_quixote_00",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance",
+      "score": 62,
+      "grade": "D",
+      "eval": {
+        "generation": "gen_don_quixote_00",
+        "score": 62,
+        "max_score": 100,
+        "grade": "D",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "armor",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "missing",
+            "score": 0.0
+          },
+          {
+            "attribute": "beard",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "stature",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "horse",
+            "status": "present",
+            "score": 1.0
+          }
+        ],
+        "attribute_ratio": 0.57,
+        "prompt_score": 0.16,
+        "missing_attributes": [
+          "shield",
+          "armor",
+          "helmet"
+        ],
+        "suggestions": [
+          {
+            "axis": "attributes",
+            "priority": "high",
+            "issue": "Missing attrs: shield, armor, helmet",
+            "action": "add_to_prompt",
+            "payload": {
+              "shield": "simple buckler shield",
+              "armor": "rusty old armor",
+              "helmet": "barber helmet (tin / makeshift)"
+            }
+          },
+          {
+            "axis": "prompt",
+            "priority": "medium",
+            "issue": "Prompt richness too low",
+            "action": "lengthen_prompt"
+          }
+        ],
+        "converged": false,
+        "kaggle_score": 80,
+        "kaggle_used": true
+      }
+    },
+    {
+      "iteration": 2,
+      "generation_id": "don_quixote_01",
+      "prompt": "Don Quixote, a thin Spanish knight with a lance, simple buckler shield, rusty old armor, barber helmet (tin / makeshift), long lance (spear), simple buckler shield, rusty old armor, barber helmet (tin / makeshift), thin gaunt beard, tall and thin figure, thin horse (Rocinante)",
+      "score": 85,
+      "grade": "A",
+      "eval": {
+        "generation": "gen_don_quixote_01",
+        "score": 85,
+        "max_score": 100,
+        "grade": "A",
+        "attribute_check": [
+          {
+            "attribute": "lance",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "shield",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "armor",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "helmet",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "beard",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "stature",
+            "status": "present",
+            "score": 1.0
+          },
+          {
+            "attribute": "horse",
+            "status": "present",
+            "score": 1.0
+          }
+        ],
+        "attribute_ratio": 1.0,
+        "prompt_score": 0.68,
+        "missing_attributes": [],
+        "suggestions": [],
+        "converged": true,
+        "kaggle_score": 80,
+        "kaggle_used": true
+      }
+    }
+  ],
+  "final_score": 85,
+  "converged": true,
+  "reference_concept": {
+    "title": "Don Quixote de la Mancha",
+    "attributes": {
+      "lance": "long lance (spear)",
+      "shield": "simple buckler shield",
+      "armor": "rusty old armor",
+      "helmet": "barber helmet (tin / makeshift)",
+      "beard": "thin gaunt beard",
+      "stature": "tall and thin figure",
+      "horse": "thin horse (Rocinante)"
+    },
+    "mood": "dignified yet comical",
+    "script": "skills/bpy-gen/tools/don_quixote_bpy.py"
+  }
+}
