@@ -1092,3 +1092,82 @@ python main.py</pre>
 
 <!-- ============ 03 発表 カバー ============ -->
 <!-- ============ 03 セッション扉 ============ -->
+
+
+<!-- ============ 04 補足 Kaggle MLOps ============ -->
+<section class="sheet cat-deliver" data-t="補足 Kaggle MLOps連携">
+  <div class="hd">
+    <span class="hd-kicker">補足設計 — EVOPS 外部実験環境</span>
+    <h2 class="hd-title">Kaggle MLOps 連携<small>学習・評価は Kaggle、実験の正本と履歴は EVOPS に置く。</small></h2>
+    <span class="hd-no">25</span>
+  </div>
+  <div class="body">
+    <div class="card">
+      <div class="card-h">システム境界と責務</div>
+      <div class="cols c-3">
+        <div class="card soft">
+          <div class="card-h">EVOPS（正本）</div>
+          <ul>
+            <li>生成物・人間評価を記録</li>
+            <li>SQLite / JSONL で実験履歴を管理</li>
+            <li>学習対象データをエクスポート</li>
+            <li>予測結果を取り込み、比較レポートを作成</li>
+          </ul>
+        </div>
+        <div class="card soft">
+          <div class="card-h">Kaggle Notebook（実験）</div>
+          <ul>
+            <li>データセットのバージョンを固定</li>
+            <li>特徴量抽出・学習・検証を実行</li>
+            <li>MAE / RMSE などでモデルを評価</li>
+            <li>予測結果・指標・モデル情報を出力</li>
+          </ul>
+        </div>
+        <div class="card soft">
+          <div class="card-h">人間（判断）</div>
+          <ul>
+            <li>予測と実際の評価の差を確認</li>
+            <li>採用するモデルと閾値を決定</li>
+            <li>自動採用は検証後に段階導入</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:4mm">
+      <div class="card-h">最小データ契約（JSONL）</div>
+      <pre>{
+  "sample_id": "stable-id",
+  "asset_uri": "dataset-relative/path",
+  "human_score": 0.0,
+  "split": "train",
+  "schema_version": "1"
+}</pre>
+      <p><small>学習時は train / validation を分離する。人間評価がないサンプルは教師あり学習に混ぜない。個人情報や秘密情報はアップロードしない。</small></p>
+    </div>
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card">
+        <div class="card-h">実験フロー</div>
+        <ol>
+          <li>EVOPS からデータセットをエクスポートする。</li>
+          <li>Kaggle Dataset と Notebook のバージョンを記録する。</li>
+          <li>ベースライン（平均予測など）と ML モデルを比較する。</li>
+          <li>OOF / validation 予測、指標、設定を成果物として保存する。</li>
+          <li>予測結果を EVOPS に戻し、人間評価との差を分析する。</li>
+        </ol>
+      </div>
+      <div class="card soft">
+        <div class="card-h">MLOps の合格条件</div>
+        <ul class="check">
+          <li>同じデータ・設定で実験を再現できる</li>
+          <li>データ版・Notebook版・モデル版が追跡できる</li>
+          <li>人間評価との誤差をベースラインと比較する</li>
+          <li>モデル未使用でも既存 EVOPS が動作する</li>
+          <li>自動採用前に人間が結果を確認できる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note" style="margin-top:4mm">
+      <b>設計原則：</b>Kaggle は GPU を使う学習・実験環境。EVOPS の SQLite / JSONL と評価ループを置き換えない。連携はファイル契約で疎結合に保ち、まずは CSV / JSONL の入出力から始める。
+    </div>
+  </div>
+</section>
