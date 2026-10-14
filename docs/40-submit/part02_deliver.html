@@ -1171,3 +1171,77 @@ python main.py</pre>
     </div>
   </div>
 </section>
+
+
+<!-- ============ 05 Kaguru Agent × Kaggle 4-workflow ============ -->
+<section class="sheet cat-deliver" data-t="Kaguru Agent 画像生成ワークフロー">
+  <div class="hd">
+    <span class="hd-kicker">実装ワークフロー — 生成・評価・記録・改善</span>
+    <h2 class="hd-title">Kaguru Agent × Kaggle × EVOPS<small>画像を作り、測り、記録し、次の生成へ反映する4段階。</small></h2>
+    <span class="hd-no">26</span>
+  </div>
+  <div class="body">
+    <div class="cols c-2">
+      <div class="card">
+        <div class="card-h">全体フロー</div>
+        <div class="card soft" style="margin-bottom:2mm">
+          <b>01　画像を作る — Kaguru Agent</b>
+          <p>コンセプト・プロンプト・生成条件を受け取り、画像を複数作成する。画像と設定・sample_idを対応付け、ZIPまたはデータセットとして渡す。</p>
+        </div>
+        <div style="text-align:center;color:var(--accent);font-weight:800;padding:1mm">↓ 画像 + manifest.jsonl</div>
+        <div class="card soft" style="margin-bottom:2mm">
+          <b>02　GPUで評価する — Kaggle</b>
+          <p>Notebookで画像を読み込み、CLIPと指定テキストの類似度を計算。scores.csv・summary.csv・実行設定を出力する。</p>
+        </div>
+        <div style="text-align:center;color:var(--accent);font-weight:800;padding:1mm">↓ scores.csv + run metadata</div>
+        <div class="card soft" style="margin-bottom:2mm">
+          <b>03　結果を記録する — EVOPS</b>
+          <p>生成物・人間評価・CLIP結果・Dataset/Notebook版を照合し、SQLite / JSONLに実験履歴として保存する。</p>
+        </div>
+        <div style="text-align:center;color:var(--accent);font-weight:800;padding:1mm">↓ 比較レポート</div>
+        <div class="card soft">
+          <b>04　次の生成を改善する — evolve_loop</b>
+          <p>人間評価と自動指標のずれを確認し、プロンプトや生成パラメータの候補を提案する。採用判断後、Kaguru Agentへ戻して再生成する。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h">受け渡しデータ契約</div>
+        <p>各段階を直接結合せず、安定したIDとファイル形式で接続する。</p>
+        <pre>{
+  "schema_version": "1",
+  "run_id": "run-001",
+  "sample_id": "image-001",
+  "asset_uri": "images/image-001.png",
+  "concept": "target concept",
+  "prompt": "generation prompt",
+  "generator": "kaguru-agent",
+  "human_score": null,
+  "clip_score": null
+}</pre>
+        <ul>
+          <li><b>生成側：</b>画像、prompt、設定、sample_idを出力</li>
+          <li><b>評価側：</b>sample_id単位のCLIPスコアとエラーを出力</li>
+          <li><b>EVOPS：</b>入出力を結合し、実験履歴を保管</li>
+          <li><b>改善側：</b>提案した変更と採否・理由を記録</li>
+        </ul>
+        <div class="note"><b>重要：</b>CLIPスコアはプロンプトとの相対的な類似度で、画像品質や人間の好みを直接表すものではない。人間評価との校正前に単独で画像を選別・自動採用しない。</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:4mm">
+      <div class="card-h">完了条件</div>
+      <div class="cols c-2">
+        <ul class="check">
+          <li>同じsample_idから画像・生成条件・評価結果を追跡できる</li>
+          <li>画像生成が失敗しても、他のサンプルの処理を継続できる</li>
+          <li>評価結果にNotebook版・データセット版・実行設定が残る</li>
+        </ul>
+        <ul class="check">
+          <li>人間評価とCLIP評価を並べて比較できる</li>
+          <li>改善提案・採否・次回条件を記録できる</li>
+          <li>KaggleやKaguru Agentが停止してもEVOPSの履歴は失われない</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note" style="margin-top:3mm"><b>責務の境界：</b>Kaguru Agentは画像生成、KaggleはGPU評価、EVOPSは正本と履歴管理、evolve_loopは改善候補の提案を担当する。まずは画像・JSONL・CSVの受け渡しで動かし、各サービスのAPI連携は必要になってから追加する。</div>
+  </div>
+</section>
