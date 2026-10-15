@@ -1,22 +1,45 @@
 {
   "schema_version": "1.0",
   "page_id": "p21-program-structure",
-  "state": "scaffold",
+  "state": "draft",
   "language": "ja",
-  "title": "プログラムの構成とディレクトリ 1 ファイル 1 クラス。main.py は例外。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
+  "title": "プログラムの構成とディレクトリ",
+  "subtitle": "1ファイル1クラスを基本とし、main.pyは起動処理に限定する。",
+  "purpose": "責務ごとにモジュールを分割し、変更影響・テスト範囲・依存方向を把握しやすいPythonアプリケーション構成を示す。",
+  "stages": [
+    {
+      "name": "起動",
+      "detail": "main.pyはMainWindowの生成とイベントループ開始のみを担当する。"
+    },
+    {
+      "name": "domain",
+      "detail": "record.py、ledger.py、user.pyに業務データとルールを置く。"
+    },
+    {
+      "name": "service",
+      "detail": "ユースケースの処理をまとめ、UIと保存方式の詳細から分離する。"
+    },
+    {
+      "name": "repository",
+      "detail": "インターフェースとJSON・メモリ実装を分け、保存方法を交換可能にする。"
+    },
+    {
+      "name": "ui・tests",
+      "detail": "画面と通知をUI層に置き、testsで振る舞いを検証する。"
+    }
+  ],
   "diagram": {
-    "path": null,
-    "alt": null,
-    "caption": null
+    "path": "docs/40-submit/pages/p21-program-structure/page.html",
+    "alt": "Pythonアプリケーションのディレクトリ構成と責務",
+    "caption": "main.py、domain、service、repository、ui、testsの分離"
   },
   "source": {
     "html": "docs/40-submit/part02_deliver.html",
     "section_selector": "section.sheet[data-t=\"プログラム 構成\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "クラスごとにファイルを分けることを基本とする。__init__.pyなどのパッケージ補助ファイルは例外。",
+    "依存方向はUI → Service → Domain / Repository Portを基本とし、DomainにUI依存を持ち込まない。",
+    "サンプル名や画面技術は教材の要件に合わせて調整する。"
   ]
 }
