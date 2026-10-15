@@ -1,12 +1,28 @@
 {
   "schema_version": "1.0",
   "page_id": "p22-program-core",
-  "state": "scaffold",
+  "state": "ready_for_review",
   "language": "ja",
-  "title": "主要クラスとテスト 全文は掲載しない。設計図に対応する主要部だけ貼る。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
+  "title": "主要クラスとテスト",
+  "subtitle": "設計図に対応する主要部を示し、実装とテストの対応を説明する。",
+  "purpose": "ドメインエンティティ、ユースケース制御、単体テストのコード断片を通じて、設計上の責務がソースコードへどう反映されるかを示す。",
+  "stages": [
+    {
+      "id": "a",
+      "title": "domain/record.py",
+      "detail": "Record エンティティ。名称の必須チェックと更新日時の初期値を持つ。"
+    },
+    {
+      "id": "b",
+      "title": "service/record_service.py",
+      "detail": "登録前の入力検証、Repository 経由の保存、キーワード検索を担当する。"
+    },
+    {
+      "id": "c",
+      "title": "tests/test_record.py",
+      "detail": "空白名称を拒否すること、名称を更新できることを検証する。"
+    }
+  ],
   "diagram": {
     "path": null,
     "alt": null,
@@ -17,6 +33,7 @@
     "section_selector": "section.sheet[data-t=\"プログラム 主要部\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "コード断片は説明用の抜粋。Repository インターフェースと UI 実装を含む実行可能な完成アプリ全体ではない。",
+    "画面表示だけではテスト合格を意味しない。実プロジェクトのファイル構成に合わせて import とテストを実行する。"
   ]
 }
