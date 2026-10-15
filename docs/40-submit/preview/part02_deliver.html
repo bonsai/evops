@@ -404,64 +404,81 @@ html,body{scroll-behavior:smooth}
 <section class="sheet cat-deliver" data-t="要求 UC仕様 1">
   <div class="hd">
     <span class="hd-kicker">納品物 1 — 要求モデル</span>
-    <h2 class="hd-title">ユースケース仕様　UC1「画像を生成する」<small>主要 1 つだけ詳細に。残りは簡易表でよい。</small></h2>
+    <h2 class="hd-title">ユースケース仕様 UC1「画像を生成する」<small>生成条件を受け取り、再現可能な生成結果と履歴を残す。</small></h2>
     <span class="hd-no">13</span>
   </div>
   <div class="body">
-    <div class="cols c-46">
+    <div class="cols c-2">
       <div class="card">
-        <div class="card-h">概要</div>
+        <div class="card-h">1. 概要</div>
         <table>
-          <tr><th style="width:30mm">ユースケース名</th><td><span class="fill l"></span></td></tr>
-          <tr><th>アクター</th><td><span class="fill l"></span></td></tr>
-          <tr><th>概要</th><td><span class="blank"></span><span class="blank"></span></td></tr>
-          <tr><th>前提条件</th><td><span class="blank"></span><span class="blank"></span></td></tr>
-          <tr><th>事後条件</th><td><span class="blank"></span><span class="blank"></span></td></tr>
-          <tr><th>トリガ</th><td><span class="blank"></span></td></tr>
+          <tr><th style="width:28mm">ユースケース名</th><td>UC1：画像を生成する</td></tr>
+          <tr><th>主アクター</th><td>AI画像生成クリエイター</td></tr>
+          <tr><th>支援システム</th><td>生成エンジン、設定・履歴ストア</td></tr>
+          <tr><th>概要</th><td>プロンプトと生成条件を受け取り、画像を生成し、設定・成果物・実行情報をひとまとまりで記録する。</td></tr>
+          <tr><th>前提条件</th><td>生成エンジンが利用可能で、必須モデル・素材・保存先が設定済み。</td></tr>
+          <tr><th>事後条件</th><td>成功時は画像と設定・実行履歴を保存する。失敗時は原因と状態を記録し、再試行可能な状態を保つ。</td></tr>
+          <tr><th>トリガー</th><td>クリエイターが生成条件を確定し、「生成」を実行する。</td></tr>
         </table>
       </div>
       <div class="card soft">
-        <div class="card-h">関連 UC・優先度</div>
+        <div class="card-h">2. 関連 UC・入出力・優先度</div>
         <table>
-          <tr><th style="width:34mm">《include》</th><td><span class="fill l"></span></td></tr>
-          <tr><th>《extend》</th><td><span class="fill l"></span></td></tr>
-          <tr><th>優先度</th><td><span class="fill"></span></td></tr>
-          <tr><th>利用頻度</th><td><span class="fill"></span></td></tr>
+          <tr><th style="width:28mm">関連 UC</th><td>UC2「画像を評価する」は生成後に実行。UC3「修復案を作成する」は評価結果に問題がある場合に実行。</td></tr>
+          <tr><th>優先度</th><td>1（中核機能・実演対象）</td></tr>
+          <tr><th>利用頻度</th><td>制作のたびに利用</td></tr>
+          <tr><th>入力</th><td>プロンプト、モデル／ワークフロー、seed、解像度、生成枚数、参照画像、出力先</td></tr>
+          <tr><th>出力</th><td>生成画像、実行ID、使用条件、タイムスタンプ、状態、ログ参照</td></tr>
+          <tr><th>制約</th><td>取得可能なパラメータとモデル識別子を保存する。秘匿情報は記録しない。</td></tr>
         </table>
-        <div class="h4">入力・出力・制約</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:4mm">
+      <div class="card-h">3. 基本フロー（メインシナリオ）</div>
+      <div class="cols c-2">
+        <ol>
+          <li>クリエイターがプロンプトと生成条件を入力する。</li>
+          <li>システムが必須項目・形式・実行可能性を検証する。</li>
+          <li>設定スナップショットと実行IDを作成する。</li>
+        </ol>
+        <ol start="4">
+          <li>生成エンジンを呼び出し、画像を生成する。</li>
+          <li>画像と実行情報を保存し、結果と状態を表示する。</li>
+        </ol>
+      </div>
+    </div>
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card">
+        <div class="card-h">4. 代替フロー・例外フロー</div>
         <ul>
-          <li>入力：<span class="fill l"></span></li>
-          <li>出力：<span class="fill l"></span></li>
-          <li>制約：<span class="fill l"></span></li>
+          <li><b>A1：任意設定の省略。</b>既定値を適用し、実際に使用した値を履歴に保存する。</li>
+          <li><b>A2：複数枚生成。</b>各画像に成果物IDを付け、共通の実行IDに関連付ける。</li>
+          <li><b>E1：入力不備。</b>生成を開始せず、不足項目と修正方法を示す。</li>
+          <li><b>E2：モデル／エンジン障害。</b>失敗状態・エラー概要を記録し、可能なら再試行方法を提示する。</li>
+          <li><b>E3：保存失敗。</b>成功と誤認させず、画像と履歴の保存状態を明示する。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-h">5. 業務ルール・非機能要求</div>
+        <ul>
+          <li>生成結果とプロンプト・パラメータ・モデル／ワークフローの識別情報をセットで管理する。</li>
+          <li>実行IDで履歴を関連付け、生成・評価・修復の各工程を追跡可能にする。</li>
+          <li>同一条件での再現を目指すが、モデル更新や実行環境差による完全一致は保証しない。</li>
+          <li>長時間処理は進捗・完了・失敗を区別し、画面が応答不能に見えないようにする。</li>
         </ul>
       </div>
     </div>
-
-    <div class="cols c-2" style="margin-top:4mm">
-      <div class="card">
-        <div class="card-h"><span class="no">A</span>基本フロー（メインシナリオ）</div>
-        <p><small>番号は「分岐番号.内の連番」（例 4.1.2）にする。例外フローと対応させる。</small></p>
-        <p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p>
-      </div>
-      <div class="card">
-        <div class="card-h"><span class="no">B</span>代替フロー（代替シナリオ）</div>
-        <p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p><p class="blank"></p>
-      </div>
-    </div>
-
-    <div class="cols c-2" style="margin-top:4mm">
-      <div class="card">
-        <div class="card-h"><span class="no">C</span>例外フロー</div>
-        <p class="blank"></p><p class="blank"></p><p class="blank"></p>
-      </div>
-      <div class="card">
-        <div class="card-h"><span class="no">D</span>業務ルール・非機能要求</div>
-        <p class="blank"></p><p class="blank"></p><p class="blank"></p>
-      </div>
+    <div class="card" style="margin-top:4mm">
+      <div class="card-h">6. 受け入れ条件</div>
+      <ul>
+        <li>正常系で画像ファイルと設定記録が生成される。</li>
+        <li>記録から主要な生成条件と実行結果を確認できる。</li>
+        <li>入力不備・生成失敗・保存失敗を成功と区別して表示する。</li>
+        <li>UC2の評価処理に、生成画像と対応する実行IDを渡せる。</li>
+      </ul>
     </div>
   </div>
 </section>
-
 <!-- ============ 02 要求 UC 仕様 2 ============ -->
 <section class="sheet cat-deliver" data-t="要求 UC仕様 2">
   <div class="hd">
