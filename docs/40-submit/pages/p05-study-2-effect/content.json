@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p05-study-2-effect",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "どういう効果を持っているか（どんな問題を解決するか）？ Before / After で書くと説得力が出る。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part01_plan.html",
+    "section_selector": "section.sheet[data-t=\"検討2 効果\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

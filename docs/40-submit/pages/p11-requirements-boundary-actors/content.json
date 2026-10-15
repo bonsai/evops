@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p11-requirements-boundary-actors",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "システム境界とアクター 境界の決め方がユースケースの質を決める。ここで迷わない。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"要求 境界とアクター\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p08-study-5-scope-schedule",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "今回の開発対象（部分）機能・構造とスケジュール案 全部やると 10/26 に間に合わない。スコープを切る。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part01_plan.html",
+    "section_selector": "section.sheet[data-t=\"検討5 範囲とスケジュール\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

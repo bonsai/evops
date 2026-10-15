@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.1",
+  "page_id": "p26-kaguru-agent-kaggle-evops-workflow",
+  "status": "INCOMPLETE",
+  "gates": {
+    "content_json": {
+      "status": "PASS",
+      "note": "目的・6段階・出力・図参照・注記を構造化済み"
+    },
+    "svg_file_exists": {
+      "status": "PASS",
+      "path": "docs/40-submit/figures/evops-system-overview.svg"
+    },
+    "svg_semantics": {
+      "status": "REVIEW",
+      "note": "title/desc と主要6段階はある。Tier-1.5（ローカルVLM）がまだ図に入っていない。"
+    },
+    "existing_css": {
+      "status": "PASS",
+      "note": "index.html の inline <style> をそのまま使用。追加は @media print の枠のみで、ページ専用CSSは作っていない。"
+    },
+    "browser_render": {
+      "status": "PASS",
+      "note": "Chrome headless で実スクリーンショットを取得（2246x1588, scale 2）。",
+      "artifact": "render/page.png"
+    },
+    "fit_a4": {
+      "status": "PASS",
+      "note": "content 1123x785 / frame 1123x794。A4横（96dpi）に収まっており切れは無い。",
+      "artifact": "render/fit_check.json"
+    },
+    "vlm_local_http": {
+      "status": "REVIEW",
+      "note": "LM Studio /v1/chat/completions を直接叩いた判定（MCPではない）。clipping=FAIL と申告したが fit_a4 が反証。overlap=FAIL は根拠の記載が無く未確認。",
+      "artifact": "render/vlm_judgment.json"
+    },
+    "vlm_mcp": {
+      "status": "BLOCKED",
+      "note": "VLM-MCP はこの環境に未登録。MCP による判定としては記録しない。"
+    }
+  },
+  "checks": [
+    "内容JSONとHTMLの見出し・段階・説明が一致する",
+    "SVGが実際のページ幅で読みやすく、文字や矢印が重ならない",
+    "図の参照パスが配信環境で解決する",
+    "既存のCSS/HTML型を再利用し、ページ専用CSSを増やさない",
+    "描画結果を実測し、A4横に収まることを確認する"
+  ],
+  "findings": [
+    {
+      "severity": "major",
+      "where": "figures/evops-system-overview.svg",
+      "evidence": "図は Tier-1 / Tier-2 / Tier-3 の3層で、Tier-1.5（ローカル軽量VLM）が無い。ページ本文の評価段階は Tier-1 と Tier-2 しか挙げていない。",
+      "fix": "Tier-1 と Tier-2 の間に Tier-1.5 を挿入し、SVG・本文・evaluation_tiers.md を揃える。",
+      "status": "OPEN"
+    },
+    {
+      "severity": "minor",
+      "where": "図と本文の対応",
+      "evidence": "VLM（3B, confidence=medium）は figure_matches_text=UNCLEAR。図の要素と本文の段階名が一対一で読めない。",
+      "fix": "図のラベルを本文の段階名に寄せる。",
+      "status": "OPEN"
+    },
+    {
+      "severity": "info",
+      "where": "clipping（VLM申告）",
+      "evidence": "VLM は『右上が切れている』と申告。fit_check.py の実測では content 1123x785 / frame 1123x794 で切れは無い。図版が枠と同幅のため誤検知と判断。",
+      "fix": "なし（反証済み）。",
+      "status": "REFUTED"
+    }
+  ],
+  "decision": "HOLD",
+  "next_action": "SVGにTier-1.5（ローカルVLM）を組み入れ、本文とevaluation_tiers.mdを揃えてから同一ページを再判定する。"
+}

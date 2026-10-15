@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p16-analysis-class-list",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "分析クラス一覧とコミュニケーション図 各手法の結果を統合して、単一の UML モデルにまとめる。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"分析 クラス一覧\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p09-calendar",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "開発カレンダー スケジュールだけを独立ページにして、A4横1ページで見切れないようにする。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part01_plan.html",
+    "section_selector": "section.sheet[data-t=\"開発カレンダー\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

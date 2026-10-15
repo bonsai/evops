@@ -5,12 +5,14 @@ on:
   workflow_dispatch:
     inputs:
       page_id:
-        description: "検査するページID（初回は kaguru-agent-kaggle-evops-workflow）"
+        description: "検査するページID（初回は p26-kaguru-agent-kaggle-evops-workflow）"
         required: true
         type: string
-        default: "kaguru-agent-kaggle-evops-workflow"
+        default: "p26-kaguru-agent-kaggle-evops-workflow"
 permissions:
   contents: read
+concurrency:
+  job-discriminator: ${{ github.run_id }}
 ---
 
 # EVOPS Page Quality Gate
@@ -19,9 +21,9 @@ permissions:
 
 ページを一度に一つだけ検査する。初回対象は次のページに限定する。
 
-- Page ID: `kaguru-agent-kaggle-evops-workflow`
-- Content contract: `docs/40-submit/page-tests/kaguru-agent-kaggle-evops-workflow/content.json`
-- Test record: `docs/40-submit/page-tests/kaguru-agent-kaggle-evops-workflow/test.json`
+- Page ID: `p26-kaguru-agent-kaggle-evops-workflow`
+- Content contract: `docs/40-submit/page-tests/p26-kaguru-agent-kaggle-evops-workflow/content.json`
+- Test record: `docs/40-submit/page-tests/p26-kaguru-agent-kaggle-evops-workflow/test.json`
 - HTML: `docs/40-submit/part02_deliver.html`
 - SVG: `docs/40-submit/figures/evops-system-overview.svg`
 
@@ -49,7 +51,7 @@ Return one JSON object in the run report:
 
 ```json
 {
-  "page_id": "kaguru-agent-kaggle-evops-workflow",
+  "page_id": "p26-kaguru-agent-kaggle-evops-workflow",
   "decision": "PASS | FAIL | HOLD",
   "gates": {
     "content_json": "PASS | FAIL",

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p15-analysis-robustness",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "ロバストネス分析（ロバストネス図） 3 種類の分析クラス：バウンダリ／コントロール／エンティティ。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"分析 ロバストネス\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

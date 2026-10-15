@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p20-design-sequence",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "設計モデル：シーケンス図 実装に即した版。メソッド名と戻り値が書き入る。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"設計 シーケンス図\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

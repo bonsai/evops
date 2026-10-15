@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p04-study-1",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "何を作るか？ 1 文で言い切る。ぼかすと全部が湧かなくなる。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part01_plan.html",
+    "section_selector": "section.sheet[data-t=\"検討1 何を作るか\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

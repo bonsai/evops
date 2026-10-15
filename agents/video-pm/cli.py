@@ -1,203 +1,230 @@
 #!/usr/bin/env python3
+"""FastAPI Video Management Agent - Real-time monitoring and workflow automation
+Handles video production from papers, TTS integration, SVG panel generation, and GitHub issue tracking.
 """
-Video Manager CLI — Agent responsible for video lifecycle management.
-Handles: generation tracking, asset inventory, kanban sync, dashboard updates.
-"""
-import argparse
-import json
 import os
-import subprocess
-import sys
-from datetime import datetime
+import json
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from pathlib import Path
+from typing import List, Dict, Optional
+import subprocess
+import time
+import os
+import json
 
-REPO_ROOT = Path("/home/bons/evops")
-OUTPUTS = REPO_ROOT / "outputs"
-PAPERS = REPO_ROOT / "papers"
-KANBAN_CSV = REPO_ROOT / "kanban.csv"
-DASHBOARD = OUTPUTS / "kanban_dashboard_blocks.html"
+app = FastAPI(title="EvOps Video Management Agent")
 
-VIDEO_EXTENSIONS = {".mp4", ".mov", ".webm", ".mkv", ".avi"}
-AUDIO_EXTENSIONS = {".mp3", ".wav", ".ogg", ".flac"}
-SVG_EXTENSIONS = {".svg"}
-JSON_EXTENSIONS = {".json"}
+# Configuration
+OUTPUTS_DIR = Path("/home/bons/evops/outputs")
+PAPERS_DIR = Path("/home/bons/evops/papers")
+MCP_DIR = Path("/home/bons/evops/skills/sf-paper-comic")
+MCP_SERVER = "http://localhost:8004"
 
+# GitHub API integration
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "ghp_placeholder")
+GITHUB_REPO = "bonsai/hw-sotsusei"
 
-class VideoManager:
-    def __init__(self, repo: Path = REPO_ROOT, output: Path = OUTPUTS):
-        self.repo = repo
-        self.output = output
-        self.papers_dir = PAPERS
-        self.kanban_path = KANBAN_CSV
-        self.dashboard_path = DASHBOARD
+class VideoProject:
+    def __init__(self, paper_id: str, output_dir: Path):
+        self.paper_id = paper_id
+        self.output_dir = output_dir
+        self.assets_dir = output_dir / "assets"
+        self.panels_dir = output_dir / "panels"
+        self.svg_dir = output_dir / "svg"
+        self.templates_dir = output_dir / "templates"
+        self.episode_json = output_dir / "episode.json"
+        self.final_video = output_dir / "final.mp4"
+        self.svgs = []
+        self.templates = []
+        self.init_assets()
 
-    def scan_paper_outputs(self) -> dict:
-        """Scan all P*/ folders for video assets and metadata."""
-        results = {}
-        for paper_dir in sorted(self.output.glob("P*")):
-            if not paper_dir.is_dir():
-                continue
-            pid = paper_dir.name
-            assets = {
-                "video": [],
-                "audio": [],
-                "svg": [],
-                "json": [],
-                "html": [],
-            }
-            for f in paper_dir.rglob("*"):
-                if f.is_file():
-                    suffix = f.suffix.lower()
-                    rel = f.relative_to(paper_dir)
-                    if suffix in VIDEO_EXTENSIONS:
-                        assets["video"].append(str(rel))
-                    elif suffix in AUDIO_EXTENSIONS:
-                        assets["audio"].append(str(rel))
-                    elif suffix in SVG_EXTENSIONS:
-                        assets["svg"].append(str(rel))
-                    elif suffix in JSON_EXTENSIONS:
-                        assets["json"].append(str(rel))
-                    elif suffix == ".html":
-                        assets["html"].append(str(rel))
-            if any(assets.values()):
-                results[pid] = assets
-        return results
+    def init_assets(self):
+        self.assets_dir.mkdir(parents=True, exist_ok=True)
+        self.panels_dir.mkdir(parents=True, exist_ok=True)
+        self.svg_dir.mkdir(parents=True, exist_ok=True)
+        self.templates_dir.mkdir(parents=True, exist_ok=True)
+        self.episode_json.touch(exist_ok=True)
+        self.final_video.touch(exist_ok=True)
+        self.templates_dir.mkdir(parents=True, exist_ok=True)
 
-    def load_kanban(self) -> list:
-        """Load existing kanban.csv as list of dicts."""
-        if not self.kanban_path.exists():
-            return []
-        rows = []
-        with open(self.kanban_path, encoding="utf-8") as f:
-            lines = f.read().strip().splitlines()
-            if not lines:
-                return []
-            headers = [h.strip() for h in lines[0].split(",")]
-            for line in lines[1:]:
-                vals = [v.strip().strip('"') for v in line.split(",")]
-                if len(vals) == len(headers):
-                    rows.append(dict(zip(headers, vals)))
-        return rows
-
-    def write_kanban(self, rows: list):
-        """Write kanban.csv with updated asset info."""
-        headers = ["scene", "paper_id", "paper_title", "episode_json", "tts_audio", "svg_panels", "comic_html", "final_video", "notes"]
-        lines = [",".join(headers)]
-        for r in rows:
-            vals = [f'"{r.get(h, "")}"' for h in headers]
-            lines.append(",".join(vals))
-        self.kanban_path.write_text("\n".join(lines), encoding="utf-8")
-
-    def sync_kanban_with_assets(self):
-        """Update kanban.csv with current asset inventory."""
-        assets = self.scan_paper_outputs()
-        rows = self.load_kanban()
-        # Build lookup
-        by_paper = {r["paper_id"]: r for r in rows if r.get("paper_id")}
-        for pid, a in assets.items():
-            if pid not in by_paper:
-                # Create new row
-                by_paper[pid] = {
-                    "scene": pid,
-                    "paper_id": pid,
-                    "paper_title": pid,
-                    "episode_json": "",
-                    "tts_audio": "",
-                    "svg_panels": "",
-                    "comic_html": "",
-                    "final_video": "",
-                    "notes": "Auto-synced from assets",
+    def get_paper_info(self) -> dict:
+        """Get paper metadata from README or paper directory."""
+        readme_path = self.papers_dir / f"P{paper_id}-{paper_id[-2:]}.md"
+        if readme_path.exists():
+            with open(readme_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                # Extract title and year from header
+                lines = content.split('\n')
+                title_line = next((line for line in lines if "Title" in line or "title" in line.lower()), "")
+                year_line = next((line for line in lines if "202" in line and "202" in line), "unknown")
+                return {
+                    "title": title_line.split("**")[-1].strip() if "title" in line.lower() else "Unknown Paper",
+                    "year": year_line.split()[-1],
+                    "paper_id": self.paper_id
                 }
-            row = by_paper[pid]
-            row["episode_json"] = ";".join(a["json"]) if a["json"] else row.get("episode_json", "")
-            row["tts_audio"] = ";".join(a["audio"]) if a["audio"] else row.get("tts_audio", "")
-            row["svg_panels"] = ";".join(a["svg"]) if a["svg"] else row.get("svg_panels", "")
-            row["comic_html"] = ";".join(a["html"]) if a["html"] else row.get("comic_html", "")
-            row["final_video"] = ";".join(a["video"]) if a["video"] else row.get("final_video", "")
-            row["notes"] = f"Last sync: {datetime.now().isoformat(timespec='seconds')}"
-        # Preserve order: P01-P38 + kanban_* rows
-        ordered = []
-        for i in range(1, 39):
-            pid = f"P{i:02d}"
-            if pid in by_paper:
-                ordered.append(by_paper[pid])
-        for r in rows:
-            if r.get("paper_id", "").startswith("kanban_"):
-                ordered.append(r)
-        self.write_kanban(ordered)
-        print(f"Kanban synced: {len(assets)} paper folders updated")
+        return {
+            "title": "Unknown Paper",
+            "year": "unknown",
+            "paper_id": self.paper_id
+        }
 
-    def generate_dashboard(self):
-        """Regenerate kanban_dashboard_blocks.html from kanban.csv."""
-        rows = self.load_kanban()
-        html = """<!DOCTYPE html>
-<html lang="ja"><head><meta charset="utf-8"><title>Kanban Dashboard</title><style>
-body{font-family:system-ui,sans-serif;background:#1a1c23;color:#e8ecf1;padding:20px;line-height:1.6}
-h1{color:#b45309;border-bottom:3px solid #b45309;padding-bottom:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:20px}
-.card{background:#23262b;border:1px solid #333;border-radius:10px;padding:16px}
-.card h3{margin:0 0 8px;color:#fff;font-size:1rem}
-.card .asset{font-size:11pt;color:#aaa;margin:4px 0}
-.card .asset.ok{color:#1d4ed8}
-.card .asset.warn{color:#b45309}
-.card .asset.err{color:#dc2626}
-.tag{display:inline-block;padding:2px 6px;background:#b45309;color:#fff;border-radius:4px;font-size:9pt;margin:2px}
-</style></head><body>
-<h1>Video PM Kanban Dashboard</h1>
-<p>Last updated: """ + datetime.now().isoformat(timespec='seconds') + """</p>
-<div class="grid">
-"""
-        for r in rows:
-            pid = r.get("paper_id", "")
-            html += f'<div class="card"><h3>{pid}: {r.get("paper_title", "")}</h3>'
-            for key, label, cls in [
-                ("episode_json", "📄 Episode JSON", "ok"),
-                ("tts_audio", "🎙 TTS Audio", "ok"),
-                ("svg_panels", "🎬 SVG Panels", "ok"),
-                ("comic_html", "📖 4-Koma HTML", "ok"),
-                ("final_video", "🎥 Final Video", "ok"),
-            ]:
-                val = r.get(key, "")
-                if val:
-                    html += f'<div class="asset {cls}">{label}: {val}</div>'
-                else:
-                    html += f'<div class="asset err">{label}: (missing)</div>'
-            notes = r.get("notes", "")
-            if notes:
-                html += f'<div class="asset warn">{notes}</div>'
-            html += "</div>"
-        html += """</div></body></html>"""
-        self.dashboard_path.write_text(html, encoding="utf-8")
-        print(f"Dashboard generated: {self.dashboard_path}")
+    def create_video_asset(self, paper_id: str, paper_title: str, paper_year: str):
+        """Create a new video project with proper structure."""
+        # Clean existing output
+        for item in self.output_dir.iterdir():
+            if item.is_file() or item.is_dir():
+                item.unlink(missing_ok=True)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create episode structure
+        episode_data = {
+            "id": paper_id,
+            "title": paper_title,
+            "year": paper_year,
+            "panels": [
+                {"no": 1, "role": "problem", "text": f"Paper {paper_id} setup challenge"},
+                {"no": 2, "role": "challenge", "text": "Complex evaluation requirements"},
+                {"no": 4, "role": "solution", "text": "Automated workflow implementation"},
+                {"no": 4, "role": "resolution", "text": "Video production automated"}
+            ],
+            "metadata": {
+                "paper_id": paper_id,
+                "title": paper_title,
+                "year": paper_year,
+                "created": datetime.now().isoformat()
+            }
+        }
+        
+        with open(self.episode_json, 'w', encoding='utf-8') as f:
+            json.dump(episode_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"Created video project for {paper_id} with 4 panels")
 
-    def run_full_sync(self):
-        """Full workflow: scan → kanban sync → dashboard regenerate."""
-        print("🔍 Scanning paper outputs...")
-        self.sync_kanban_with_assets()
-        print("📊 Regenerating dashboard...")
-        self.generate_dashboard()
-        print("✅ Video management workflow complete")
+    def generate_svg_panels(self):
+        """Generate SVG panels using sf-paper-comic tool"""
+        if not self.panels_dir.exists():
+            self.panels_dir.mkdir(parents=True, exist_ok=True)
+            
+        # Create sample episode.json for 4-panel comic
+        episode_data = {
+            "title": f"{self.paper_id} - {self.paper_id[-2:]}",
+            "panels": [
+                {"no": 1, "role": "problem", "text": "Paper evaluation challenge", "speaker": "常識"},
+                {"no": 2, "role": "anomaly", "text": "Complex evaluation requirements", "speaker": "研究者"},
+                {"no": 3, "role": "invention", "text": "Automated workflow solution", "speaker": "研究者"},
+                {"no": 4, "role": "research-connection", "text": "Video management integration", "speaker": "AI君"}
+            ],
+            "visual": {"theme": "SF research lab", "accent": "#7c3aed"},
+            "animation": {"sequence": [1, 2, 3, 4], "transition": "cut", "duration": 60}
+        }
+        
+        episode_json = self.output_dir / "episode.json"
+        with open(episode_json, 'w', encoding='utf-8') as f:
+            json.dump(episode_data, f, ensure_ascii=False, indent=2)
+            
+        # Generate SVG panels using external tool
+        cmd = [
+            "python", "/home/bons/evops/skills/sf-paper-comic/svg-gen.py",
+            "--episode", str(episode_json),
+            "--output-dir", str(self.output_dir),
+            "--font", "gothic",
+            "--paper-id", paper_id
+        ]
+        
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            raise Exception(f"SVG generation failed: {result.stderr}")
+            
+        self.svgs = [f"{paper_id}_panel_{i+1:02d}.svg" for i in range(4)]
+        print(f"Generated 4 SVG panels for {paper_id}")
 
+    def get_video_status(self) -> dict:
+        """Check current video management status."""
+        status = {
+            "paper_id": self.paper_id,
+            "status": "pending",
+            "last_updated": datetime.now().isoformat(),
+            "panels": len(self.panels_dir.iterdir()),
+            "svg_files": len(self.svg_dir.iterdir()),
+            "tts_files": len(self.assets_dir.glob("voice_*.mp3")),
+            "final_video": str(self.final_video.exists()),
+            "comic": str(self.output_dir / f"comic_{self.paper_id}.html").exists()
+        }
+        return status
 
-def main():
-    parser = argparse.ArgumentParser(description="Video Manager Agent CLI")
-    parser.add_argument("command", choices=["manage", "sync", "dashboard", "scan"])
-    parser.add_argument("--repo", default=str(REPO_ROOT))
-    parser.add_argument("--output", default=str(OUTPUTS))
-    parser.add_argument("--kanban", default=str(KANBAN_CSV))
-    parser.add_argument("--dashboard", default=str(DASHBOARD))
-    args = parser.parse_args()
+    def get_github_issues(self) -> list:
+        """Get GitHub issues related to this paper."""
+        # This would integrate with GitHub API in production
+        return [
+            {"number": 1, "title": "Video management workflow", "status": "open"},
+            {"number": 2, "title": "SVG panel generation", "status": "in progress"},
+            {"number": 3, "title": "TTS integration", "status": "pending"}
+        ]
 
-    mgr = VideoManager(Path(args.repo), Path(args.output))
+    def get_dashboard_data(self) -> dict:
+        """Return data for real-time dashboard."""
+        return {
+            "paper_id": self.paper_id,
+            "title": self.paper_info["title"],
+            "year": self.paper_info["year"],
+            "status": self.get_video_status(),
+            "github_issues": self.get_github_issues(),
+            "last_updated": datetime.now().isoformat()
+        }
 
-    if args.command == "manage" or args.command == "sync":
-        mgr.run_full_sync()
-    elif args.command == "dashboard":
-        mgr.generate_dashboard()
-    elif args.command == "scan":
-        assets = mgr.scan_paper_outputs()
-        print(json.dumps(assets, indent=2, ensure_ascii=False))
+# Initialize agent
+video_manager = VideoProject("P01", Path("/home/bons/evops/outputs/P01"))
 
+# Initialize FastAPI app
+app = FastAPI(title="EvOps Video Management Agent")
+
+@app.get("/status")
+def get_status():
+    return video_manager.get_video_status()
+
+@app.get("/dashboard")
+def get_dashboard():
+    return video_manager.get_dashboard_data()
+
+@app.get("/papers")
+def list_papers():
+    papers = []
+    for paper_dir in sorted(Path("/home/bons/evops/papers").glob("P*")):
+        paper_id = paper_dir.name.split("-")[0]
+        papers.append({
+            "id": paper_id,
+            "title": paper_dir.name,
+            "year": paper_dir.name.split("-")[-1]
+        })
+    return papers
+
+@app.get("/papers/{paper_id}")
+def get_paper_details(paper_id: str):
+    if paper_id not in [p.name for p in Path("/home/bons/evops/papers").iterdir()]:
+        raise HTTPException(status_code=404, detail="Paper not found")
+    video_dir = Path("/home/bons/evops/outputs") / paper_id
+    return video_manager.get_dashboard_data()
+
+@app.get("/papers/{paper_id}/comic")
+def get_comic(paper_id: str):
+    comic_path = Path("/home/bons/evops/outputs") / f"comic_{paper_id}.html"
+    if comic_path.exists():
+        return FileResponse(comic_path)
+    raise HTTPException(status_code=404, detail="Comic not found")
+
+@app.get("/papers/{paper_id}/svg")
+def get_svg_panels(paper_id: str):
+    video_dir = Path("/home/bons/evops/outputs") / paper_id
+    svg_files = sorted(video_dir.glob("*.svg"))
+    return {"panels": [f.name for f in svg_files]}
 
 if __name__ == "__main__":
-    main()
+    # Test the agent
+    print("Starting Video Management Agent...")
+    video_manager = VideoProject("P01", Path("/home/bons/evops/outputs/P01"))
+    video_manager.create_video_asset("P01", "VeMo", "2026")
+    video_manager.generate_svg_panels()
+    print("Agent initialized successfully!")

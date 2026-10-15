@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p26-kaguru-agent-kaggle-evops-workflow",
+  "language": "ja",
+  "title": "Kaguru Agent × Kaggle × EVOPS",
+  "subtitle": "画像を作り、測り、記録し、次の生成へ反映する4段階。",
+  "purpose": "画像生成から評価、履歴保存、改善提案までを小さな疎結合ワークフローとして説明する。",
+  "stages": [
+    {
+      "id": "compose",
+      "label": "制作条件を用意",
+      "tools": [
+        "ArtCraft",
+        "Blender"
+      ],
+      "outputs": [
+        "構図",
+        "ポーズ",
+        "カメラ",
+        "タイムライン"
+      ]
+    },
+    {
+      "id": "generate",
+      "label": "候補を生成",
+      "tools": [
+        "Kaguru Agent"
+      ],
+      "outputs": [
+        "画像",
+        "prompt",
+        "settings",
+        "sample_id",
+        "manifest.jsonl"
+      ]
+    },
+    {
+      "id": "evaluate",
+      "label": "候補を評価",
+      "tools": [
+        "ローカル Tier-1",
+        "Kaggle Notebook Tier-2"
+      ],
+      "outputs": [
+        "高速な形式・輝度チェック",
+        "CLIP等の指標",
+        "scores.csv",
+        "summary.csv"
+      ]
+    },
+    {
+      "id": "record",
+      "label": "実験履歴を保存",
+      "tools": [
+        "EVOPS",
+        "SQLite",
+        "JSONL",
+        "CSV"
+      ],
+      "outputs": [
+        "run_id",
+        "sample_id",
+        "入力・指標・バージョン・エラー"
+      ]
+    },
+    {
+      "id": "review",
+      "label": "人間が確認",
+      "tools": [
+        "JEV / Human review"
+      ],
+      "outputs": [
+        "承認",
+        "却下",
+        "理由・美的判断"
+      ]
+    },
+    {
+      "id": "improve",
+      "label": "改善案を作る",
+      "tools": [
+        "evolve_loop"
+      ],
+      "outputs": [
+        "prompt/settingsの変更案",
+        "人間承認後の再生成"
+      ]
+    }
+  ],
+  "diagram": {
+    "path": "docs/40-submit/figures/evops-system-overview.svg",
+    "alt": "ArtCraft・BlenderからKaguru Agent、ローカル評価とKaggle、EVOPSの履歴、人間評価とevolve_loopをつなぐ構成図。",
+    "caption": "生成・評価・記録・改善をつなぐ簡略システム構成。"
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"Kaguru Agent 画像生成ワークフロー\"]"
+  },
+  "notes": [
+    "CLIPはプロンプトに対する相対的な類似度であり、画像品質や人間の好みを校正済みで直接測る値ではない。",
+    "評価結果はEVOPSの履歴へ紐づけ、改善案は人間の承認後に次の生成へ反映する。"
+  ]
+}

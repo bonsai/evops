@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p18-design-packages",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "設計モデル：パッケージ構成 先に層を決める。依存方向を 1 つに固定する。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"設計 パッケージ構成\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

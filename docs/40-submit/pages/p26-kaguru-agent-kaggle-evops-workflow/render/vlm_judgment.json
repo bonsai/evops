@@ -1,0 +1,20 @@
+{
+  "engine": "LM Studio /v1/chat/completions (direct HTTP, not MCP)",
+  "model": "tempura-qwen2.5-vl-3b",
+  "page_id": "p26-kaguru-agent-kaggle-evops-workflow",
+  "image": "page.png",
+  "image_bytes": 359788,
+  "image_meta": {
+    "original_size": [
+      2246,
+      1588
+    ],
+    "sent_size": [
+      1400,
+      990
+    ],
+    "scale": 0.6233,
+    "sent_bytes": 310207
+  },
+  "raw_response": "{\n  \"legibility\": \"PASS\",\n  \"clipping\": \"FAIL\",\n  \"overlap\": \"FAIL\",\n  \"spacing\": \"PASS\",\n  \"contrast\": \"PASS\",\n  \"figure_matches_text\": \"UNCLEAR\",\n  \"findings\": [\n    {\n      \"severity\": \"minor\",\n      \"where\": \"top-right corner of the page\",\n      \"evidence\": \"partially cut-off text and diagram in the top-right corner\",\n      \"fix\": \"trim the top-right corner to remove the clipping\"\n    }\n  ],\n  \"confidence\": \"medium\",\n  \"summary\": 'The document is mostly legible, but there is some clipping at the top-right corner. The figure does not match the surrounding text well.'\n}"
+}

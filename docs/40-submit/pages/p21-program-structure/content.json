@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p21-program-structure",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "プログラムの構成とディレクトリ 1 ファイル 1 クラス。main.py は例外。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"プログラム 構成\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

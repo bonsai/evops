@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p07-study-4-overview",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "システムの全体像（自然語＋図） 外部システム・ハードウェアとの入出力まで含める。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part01_plan.html",
+    "section_selector": "section.sheet[data-t=\"検討4 全体像\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

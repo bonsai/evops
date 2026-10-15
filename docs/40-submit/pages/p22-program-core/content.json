@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p22-program-core",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "主要クラスとテスト 全文は掲載しない。設計図に対応する主要部だけ貼る。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"プログラム 主要部\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

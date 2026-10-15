@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p23-manual",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "操作マニュアル 「このソフトを知らない人向け」に書く。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"操作マニュアル\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

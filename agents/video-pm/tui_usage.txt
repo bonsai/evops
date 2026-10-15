@@ -1,0 +1,16 @@
+To use tui.js:
+
+1. Go to /home/bons/evops/agents/video-pm directory
+2. Run node tui.js with these commands:
+   - list: shows all tasks
+   - add "title" "description" - adds new task
+   - edit 1 "title" "description" - edits task #1
+   - delete 1 - removes task #1
+   - quit - exits the TUI
+
+Example:
+node tui.js list
+node tui.js add "My Task" "This is a description"
+node tui.js edit 1 "New Title" "New Description"
+node tui.js delete 1
+node tui.js quit

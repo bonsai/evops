@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p06-study-3-python",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "Java か、Python か？ 言語は手段。採用理由と不採用理由の両方を書く。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part01_plan.html",
+    "section_selector": "section.sheet[data-t=\"検討3 Python\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

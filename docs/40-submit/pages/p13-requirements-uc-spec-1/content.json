@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p13-requirements-uc-spec-1",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "ユースケース仕様 UC1「画像を生成する」 主要 1 つだけ詳細に。残りは簡易表でよい。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"要求 UC仕様 1\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p14-requirements-uc-spec-2",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "ユースケース仕様 UC2 ほか（簡易表） 主要 UC1 以外は 1 行ずつ。全部を詳細に書く必要はない。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"要求 UC仕様 2\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}

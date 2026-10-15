@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p25-note-kaggle-mlops",
+  "state": "scaffold",
+  "language": "ja",
+  "title": "Kaggle MLOps 連携 学習・評価は Kaggle、実験の正本と履歴は EVOPS に置く。",
+  "subtitle": null,
+  "purpose": null,
+  "stages": [],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"補足 Kaggle MLOps連携\"]"
+  },
+  "notes": [
+    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  ]
+}
