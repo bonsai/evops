@@ -1183,26 +1183,11 @@ python main.py</pre>
   <div class="body">
     <div class="cols c-2">
       <div class="card">
-        <div class="card-h">全体フロー</div>
-        <div class="card soft" style="margin-bottom:2mm">
-          <b>01　画像を作る — Kaguru Agent</b>
-          <p>コンセプト・プロンプト・生成条件を受け取り、画像を複数作成する。画像と設定・sample_idを対応付け、ZIPまたはデータセットとして渡す。</p>
-        </div>
-        <div style="text-align:center;color:var(--accent);font-weight:800;padding:1mm">↓ 画像 + manifest.jsonl</div>
-        <div class="card soft" style="margin-bottom:2mm">
-          <b>02　GPUで評価する — Kaggle</b>
-          <p>Notebookで画像を読み込み、CLIPと指定テキストの類似度を計算。scores.csv・summary.csv・実行設定を出力する。</p>
-        </div>
-        <div style="text-align:center;color:var(--accent);font-weight:800;padding:1mm">↓ scores.csv + run metadata</div>
-        <div class="card soft" style="margin-bottom:2mm">
-          <b>03　結果を記録する — EVOPS</b>
-          <p>生成物・人間評価・CLIP結果・Dataset/Notebook版を照合し、SQLite / JSONLに実験履歴として保存する。</p>
-        </div>
-        <div style="text-align:center;color:var(--accent);font-weight:800;padding:1mm">↓ 比較レポート</div>
-        <div class="card soft">
-          <b>04　次の生成を改善する — evolve_loop</b>
-          <p>人間評価と自動指標のずれを確認し、プロンプトや生成パラメータの候補を提案する。採用判断後、Kaguru Agentへ戻して再生成する。</p>
-        </div>
+        <div class="card-h">システム構成図</div>
+        <figure style="margin:0">
+          <img src="figures/evops-system-overview.svg" alt="EVOPSのAI評価・修復ループ。ArtCraft・BlenderからKaguru Agent、ローカル評価とKaggle、EVOPSの履歴、人間評価とevolve_loopをつなぐ構成図。" style="display:block;width:100%;height:auto;border-radius:3mm">
+          <figcaption class="small" style="margin-top:2mm">図：生成・評価・記録・改善をつなぐ簡略システム構成。</figcaption>
+        </figure>
       </div>
       <div class="card">
         <div class="card-h">受け渡しデータ契約</div>
