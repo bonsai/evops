@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p16-analysis-classes-communication",
+  "state": "draft",
+  "language": "ja",
+  "title": "分析クラス一覧とコミュニケーション図",
+  "subtitle": "UC1「画像を生成する」のBoundary・Control・Entity候補と協調メッセージを統合する。",
+  "purpose": "名詞／動詞分析、CRC分析、ロバストネス分析をまとめ、p17の分析シーケンス図と設計モデルへ引き渡す。",
+  "classes": [
+    {
+      "kind": "Boundary",
+      "name": "生成フォーム",
+      "responsibility": "生成条件を受け付ける"
+    },
+    {
+      "kind": "Boundary",
+      "name": "結果表示",
+      "responsibility": "進捗・成果物・失敗理由を表示する"
+    },
+    {
+      "kind": "Control",
+      "name": "生成制御",
+      "responsibility": "検証、実行開始、状態遷移を調整する"
+    },
+    {
+      "kind": "Control",
+      "name": "エンジン接続",
+      "responsibility": "生成要求と結果を正規化する"
+    },
+    {
+      "kind": "Entity",
+      "name": "生成設定",
+      "responsibility": "再現に必要な条件を保持する"
+    },
+    {
+      "kind": "Entity",
+      "name": "実行履歴",
+      "responsibility": "実行状態・時間・エラーを保持する"
+    },
+    {
+      "kind": "Entity",
+      "name": "生成成果物",
+      "responsibility": "画像URIと設定スナップショットを保持する"
+    }
+  ],
+  "messages": [
+    "1 submit(settings)",
+    "2 validate/start",
+    "3 save snapshot",
+    "4 generate()",
+    "5 record result",
+    "6 attach artifact",
+    "7 show status/result"
+  ],
+  "notes": [
+    "クラス候補は分析用であり、具体的な実装クラス名やDB設計を確定するものではない。",
+    "ブラウザレンダリング・印刷検証は未実施。"
+  ]
+}
