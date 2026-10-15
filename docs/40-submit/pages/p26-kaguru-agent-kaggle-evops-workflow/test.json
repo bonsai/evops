@@ -20,14 +20,12 @@
       "note": "index.html の inline <style> をそのまま使用。追加は @media print の枠のみで、ページ専用CSSは作っていない。"
     },
     "browser_render": {
-      "status": "PASS",
-      "note": "Chrome headless で実スクリーンショットを取得（2246x1588, scale 2）。",
-      "artifact": "render/page.png"
+      "status": "PENDING",
+      "note": "HTML/SVGの内容を更新したため、最新ソースからChrome headlessで再描画する必要がある。"
     },
     "fit_a4": {
-      "status": "PASS",
-      "note": "content 1123x785 / frame 1123x794。A4横（96dpi）に収まっており切れは無い。",
-      "artifact": "render/fit_check.json"
+      "status": "PENDING",
+      "note": "前回の寸法計測は更新前のレンダリングに対するもの。再描画後に再計測する。"
     },
     "vlm_local_http": {
       "status": "PENDING",
@@ -69,5 +67,5 @@
     }
   ],
   "decision": "HOLD",
-  "next_action": "render_page.py でp26を再描画し、A4横フィットと視認性を再確認する。VLM-MCPが使えない場合はBLOCKEDのままにする。"
+  "next_action": "render/page.htmlを最新ソースへ同期済み。render_page.pyとChrome headlessで再描画・A4横フィット確認を行い、最新スクリーンショットでVLM再判定する。VLM-MCPが使えない場合はBLOCKEDのままにする。"
 }
