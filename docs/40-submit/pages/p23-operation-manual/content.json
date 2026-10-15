@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p23-operation-manual",
+  "state": "ready_for_review",
+  "language": "ja",
+  "title": "操作マニュアル",
+  "subtitle": "初めて使う人が、自分の PC で起動・操作・終了できる手順をまとめる。",
+  "purpose": "利用者が開発者の口頭説明なしに、動作環境を確認し、アプリを起動して基本操作を行い、終了とデータ保存まで実行できるようにする。",
+  "stages": [
+    {
+      "id": "1",
+      "title": "動作環境",
+      "detail": "OS、Python、依存ライブラリ、データ保存先を実環境に合わせて記載する。"
+    },
+    {
+      "id": "2",
+      "title": "起動",
+      "detail": "プロジェクトのルートへ移動し、必要なら仮想環境と依存関係を準備して起動する。"
+    },
+    {
+      "id": "3",
+      "title": "基本操作",
+      "detail": "入力、登録、一覧確認、検索、終了の順に操作する。"
+    },
+    {
+      "id": "4",
+      "title": "トラブル対応",
+      "detail": "起動・入力・保存の代表的な問題と確認方法を示す。"
+    }
+  ],
+  "diagram": {
+    "path": null,
+    "alt": null,
+    "caption": null
+  },
+  "source": {
+    "html": "docs/40-submit/part02_deliver.html",
+    "section_selector": "section.sheet[data-t=\"操作マニュアル\"]"
+  },
+  "notes": [
+    "コマンド例は汎用テンプレート。実際のリポジトリの構成、UI、保存方式に合わせて不要な手順を削除・修正する。",
+    "ブラウザー表示や実機での操作テストは未実施。動作確認済みの環境だけを記載する。"
+  ]
+}
