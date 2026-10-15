@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bonsai.github.io/evops/schemas/clip-evaluation-result.schema.json",
+  "title": "CLIP Evaluation Result",
+  "type": "object",
+  "required": ["evaluation_id", "concept", "status", "input", "model", "method", "score_interpretation", "runtime"],
+  "properties": {
+    "evaluation_id": {"type": "string", "minLength": 1},
+    "concept": {"const": "evaluation.image_text_similarity"},
+    "status": {"enum": ["succeeded", "failed", "skipped"]},
+    "input": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "image_ref": {"type": ["string", "null"]},
+        "text": {"type": "string"},
+        "candidate_id": {"type": ["string", "null"]},
+        "paper_id": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "model": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "revision": {"type": ["string", "null"]},
+        "library": {"type": ["string", "null"]},
+        "library_version": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "method": {"const": "cosine_similarity"},
+    "score": {"type": ["number", "null"]},
+    "score_interpretation": {"const": "relative_similarity_not_probability"},
+    "runtime": {
+      "type": "object",
+      "required": ["device"],
+      "properties": {
+        "device": {"enum": ["cpu", "cuda", "mps", "other", "unknown"]},
+        "preprocessing": {"type": ["string", "object", "null"]},
+        "duration_ms": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "error": {"type": ["string", "null"]},
+    "created_at": {"type": ["string", "null"], "format": "date-time"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "succeeded"}}},
+      "then": {"required": ["score"], "properties": {"score": {"type": "number", "minimum": -1.000001, "maximum": 1.000001}}}
+    },
+    {
+      "if": {"properties": {"status": {"const": "failed"}}},
+      "then": {"required": ["error"]}
+    }
+  ],
+  "additionalProperties": true
+}
