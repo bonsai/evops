@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "ontology_id": "evaluation.clip",
+  "version": "1.0.0",
+  "label": "CLIP evaluation ontology",
+  "purpose": "Describe semantic image-text alignment evaluation and its provenance without treating similarity as a probability or a complete image-quality score.",
+  "concepts": [
+    {
+      "id": "evaluation.clip",
+      "label": "CLIP evaluation",
+      "definition": "Evaluation using aligned image and text embeddings from a CLIP-compatible model.",
+      "parent": "evaluation"
+    },
+    {
+      "id": "evaluation.image_text_similarity",
+      "label": "Image-text similarity",
+      "definition": "Similarity between an image embedding and a text embedding.",
+      "parent": "evaluation.clip",
+      "input_types": ["image", "text"],
+      "method": "cosine_similarity"
+    },
+    {
+      "id": "evaluation.prompt_alignment",
+      "label": "Prompt alignment",
+      "definition": "Relative semantic agreement between a generated image and its intended prompt.",
+      "parent": "evaluation.image_text_similarity"
+    },
+    {
+      "id": "evaluation.embedding",
+      "label": "Embedding",
+      "definition": "A vector representation produced by a named model and preprocessing pipeline."
+    },
+    {
+      "id": "evaluation.score.cosine_similarity",
+      "label": "Cosine similarity",
+      "definition": "Normalized dot product between two embedding vectors.",
+      "interpretation": "relative_similarity_not_probability",
+      "constraints": ["Record model and preprocessing provenance.", "Do not interpret as a calibrated probability.", "Compare scores only with compatible model and preprocessing configurations."]
+    },
+    {
+      "id": "evaluation.provenance",
+      "label": "Evaluation provenance",
+      "definition": "Metadata needed to understand and reproduce an evaluation run.",
+      "required_fields": ["model_id", "model_revision", "preprocessing", "runtime_device", "input_reference"]
+    }
+  ],
+  "relations": [
+    {"id": "uses_embedding", "domain": "evaluation.image_text_similarity", "range": "evaluation.embedding"},
+    {"id": "measures", "domain": "evaluation.prompt_alignment", "range": "evaluation.image_text_similarity"},
+    {"id": "has_provenance", "domain": "evaluation", "range": "evaluation.provenance"}
+  ],
+  "non_goals": [
+    "Claiming that CLIP alone measures aesthetic quality, factual correctness, safety, anatomy, or temporal consistency.",
+    "Comparing raw scores across incompatible models or preprocessing pipelines as if they were calibrated."
+  ]
+}
