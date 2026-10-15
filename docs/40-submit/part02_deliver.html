@@ -397,84 +397,30 @@
 
 <!-- ============ 02 設計 シーケンス ============ -->
 <section class="sheet cat-deliver" data-t="設計 シーケンス図">
-  <div class="hd">
-    <span class="hd-kicker">納品物 3 — 設計モデル</span>
-    <h2 class="hd-title">設計モデル：シーケンス図<small>UC1「画像を生成する」— クラス図の責務と実行時の呼び出しを対応させる。</small></h2>
-    <span class="hd-no">20</span>
-  </div>
-  <div class="body">
-    <div class="ph" style="height:105mm">
-      <div class="ph-tag">FIG 3-3</div>
-      <div class="ph-title">UC1：画像生成の正常系と失敗分岐</div>
-      <svg viewBox="0 0 920 340" preserveAspectRatio="xMidYMid meet" aria-label="UC1画像生成の設計シーケンス図">
-        <defs>
-          <marker id="p20arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#526171"/></marker>
-          <marker id="p20return" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#fff" stroke="#526171" stroke-width="1"/></marker>
-        </defs>
-        <g>
-          <rect class="lifeh" x="8" y="12" width="124" height="34" rx="3"/><text class="t-name" x="70" y="33" text-anchor="middle">Creator / UI</text><line class="lifeline" x1="70" y1="46" x2="70" y2="322"/>
-          <rect class="lifeh" x="168" y="12" width="142" height="34" rx="3"/><text class="t-name" x="239" y="26" text-anchor="middle">Generation</text><text class="t-xs" x="239" y="39" text-anchor="middle">Service</text><line class="lifeline" x1="239" y1="46" x2="239" y2="322"/>
-          <rect class="lifeh" x="344" y="12" width="142" height="34" rx="3"/><text class="t-name" x="415" y="26" text-anchor="middle">Generation</text><text class="t-xs" x="415" y="39" text-anchor="middle">Port / Engine</text><line class="lifeline" x1="415" y1="46" x2="415" y2="322"/>
-          <rect class="lifeh" x="520" y="12" width="142" height="34" rx="3"/><text class="t-name" x="591" y="26" text-anchor="middle">Run</text><text class="t-xs" x="591" y="39" text-anchor="middle">Repository</text><line class="lifeline" x1="591" y1="46" x2="591" y2="322"/>
-          <rect class="lifeh" x="696" y="12" width="142" height="34" rx="3"/><text class="t-name" x="767" y="26" text-anchor="middle">Artifact</text><text class="t-xs" x="767" y="39" text-anchor="middle">Storage</text><line class="lifeline" x1="767" y1="46" x2="767" y2="322"/>
-        </g>
-        <g stroke="#526171" stroke-width="1.25" fill="none" marker-end="url(#p20arrow)">
-          <line x1="70" y1="70" x2="237" y2="70"/>
-          <line x1="239" y1="112" x2="413" y2="112"/>
-          <line x1="239" y1="156" x2="589" y2="156"/>
-          <line x1="415" y1="200" x2="765" y2="200"/>
-          <line x1="767" y1="244" x2="593" y2="244"/>
-        </g>
-        <g class="t-sm">
-          <text x="78" y="62">1. submit(request)</text>
-          <text x="247" y="104">2. generate(request)</text>
-          <text x="247" y="148">3. create(run: queued)</text>
-          <text x="423" y="192">4. generate(settings)</text>
-          <text x="605" y="236">5. save(artifact)</text>
-        </g>
-        <g stroke="#526171" stroke-width="1.15" stroke-dasharray="5 3" fill="none" marker-end="url(#p20return)">
-          <line x1="415" y1="222" x2="241" y2="222"/>
-          <line x1="591" y1="266" x2="241" y2="266"/>
-          <line x1="239" y1="308" x2="72" y2="308"/>
-        </g>
-        <g class="t-sm">
-          <text x="247" y="214">6. result / error</text>
-          <text x="247" y="258">7. update(run: succeeded | failed)</text>
-          <text x="78" y="300">8. show(status, artifact, error_code)</text>
-        </g>
-        <rect x="8" y="82" width="124" height="26" rx="3" fill="#f1faf5" stroke="#4f9c78"/>
-        <text class="t-xs" x="70" y="98" text-anchor="middle">入力条件を送信</text>
-        <rect x="344" y="126" width="142" height="18" rx="2" fill="#fff7ea" stroke="#c08a2e"/>
-        <text class="t-xs" x="415" y="138" text-anchor="middle">外部依存を抽象化</text>
-        <rect x="344" y="278" width="494" height="25" rx="3" fill="#fdf2f2" stroke="#c47b7b"/>
-        <text class="t-xs" x="591" y="294" text-anchor="middle">alt：生成失敗 → error_code / retryable を記録、成功扱いにしない</text>
-      </svg>
-    </div>
-    <div class="ph-cap">図 3-3　メッセージ名は設計契約を示す。具体的なシグネチャは実装時に一致させる。</div>
-    <div class="cols c-2" style="margin-top:3mm">
-      <div class="card">
-        <div class="card-h">メッセージ契約</div>
-        <table>
-          <tr><th style="width:35mm">要求</th><td><code>GenerationRequest</code>：prompt、model/workflow、seed、size、output options</td></tr>
-          <tr><th>生成ポート</th><td><code>GenerationPort.generate(request)</code> → artifact reference または構造化エラー</td></tr>
-          <tr><th>実行記録</th><td><code>GenerationRun</code>：execution_id、status、timestamps、error_code、retryable</td></tr>
-          <tr><th>成果物</th><td><code>Artifact</code>：artifact_id、uri、media_type、metadata</td></tr>
-        </table>
-      </div>
-      <div class="card soft">
-        <div class="card-h">状態・例外・設計上の制約</div>
-        <ul>
-          <li>状態遷移：<code>queued → running → succeeded / failed</code>。不正な遷移は拒否する。</li>
-          <li>入力検証失敗はエンジンを呼ぶ前に返し、理由をUIに表示する。</li>
-          <li>エンジン失敗と成果物保存失敗は別のエラーとして記録する。</li>
-          <li>Repositoryは保存手段を隠蔽し、Serviceは具体的なJSON／DB実装に依存しない。</li>
-          <li>再試行では同じ実行IDを曖昧に上書きせず、試行と成果物の対応を追跡可能にする。</li>
-        </ul>
-      </div>
-    </div>
-    <div class="note" style="margin-top:3mm"><b>設計判断：</b>これはp19のクラス責務に対応する論理シーケンス図であり、API名・保存方式の確定図ではない。実装と異なるメソッド名は実装PRで同期する。</div>
-  </div>
-</section>
+<div class="hd"><span class="hd-kicker">納品物 3 — 設計モデル</span><h2 class="hd-title">設計モデル：シーケンス図<small>UC1「画像を生成する」— p19のクラス責務と実行時の呼び出しを対応させる。</small></h2><span class="hd-no">20</span></div>
+<div class="body">
+<div class="ph" style="height:103mm"><div class="ph-tag">FIG 3-3</div><div class="ph-title">UC1：画像生成の正常系と失敗分岐</div>
+<svg viewBox="0 0 900 330" preserveAspectRatio="xMidYMid meet" aria-label="UC1画像生成の設計シーケンス図">
+<defs><marker id="p20a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#526171"/></marker><marker id="p20r" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#fff" stroke="#526171"/></marker></defs>
+<g>
+<rect class="lifeh" x="8" y="12" width="130" height="34" rx="3"/><text class="t-name" x="73" y="33" text-anchor="middle">Creator / UI</text><line class="lifeline" x1="73" y1="46" x2="73" y2="310"/>
+<rect class="lifeh" x="175" y="12" width="140" height="34" rx="3"/><text class="t-name" x="245" y="26" text-anchor="middle">Generation</text><text class="t-xs" x="245" y="39" text-anchor="middle">Service</text><line class="lifeline" x1="245" y1="46" x2="245" y2="310"/>
+<rect class="lifeh" x="350" y="12" width="140" height="34" rx="3"/><text class="t-name" x="420" y="26" text-anchor="middle">Generation</text><text class="t-xs" x="420" y="39" text-anchor="middle">Port / Engine</text><line class="lifeline" x1="420" y1="46" x2="420" y2="310"/>
+<rect class="lifeh" x="525" y="12" width="140" height="34" rx="3"/><text class="t-name" x="595" y="26" text-anchor="middle">Run</text><text class="t-xs" x="595" y="39" text-anchor="middle">Repository</text><line class="lifeline" x1="595" y1="46" x2="595" y2="310"/>
+<rect class="lifeh" x="700" y="12" width="140" height="34" rx="3"/><text class="t-name" x="770" y="26" text-anchor="middle">Artifact</text><text class="t-xs" x="770" y="39" text-anchor="middle">Storage</text><line class="lifeline" x1="770" y1="46" x2="770" y2="310"/>
+</g>
+<g stroke="#526171" stroke-width="1.2" fill="none" marker-end="url(#p20a)"><line x1="73" y1="70" x2="243" y2="70"/><line x1="245" y1="110" x2="418" y2="110"/><line x1="245" y1="150" x2="593" y2="150"/><line x1="420" y1="190" x2="768" y2="190"/><line x1="770" y1="230" x2="597" y2="230"/></g>
+<g class="t-sm"><text x="82" y="62">1. submit(request)</text><text x="253" y="102">2. generate(request)</text><text x="253" y="142">3. createRun(queued)</text><text x="428" y="182">4. generate(settings)</text><text x="605" y="222">5. save(artifact)</text></g>
+<g stroke="#526171" stroke-width="1.1" stroke-dasharray="5 3" fill="none" marker-end="url(#p20r)"><line x1="420" y1="250" x2="247" y2="250"/><line x1="595" y1="276" x2="247" y2="276"/><line x1="245" y1="304" x2="75" y2="304"/></g>
+<g class="t-sm"><text x="253" y="242">6. artifact / error</text><text x="253" y="268">7. updateRun(succeeded | failed)</text><text x="82" y="296">8. show(status, artifact, error_code)</text></g>
+<rect x="350" y="124" width="140" height="18" rx="2" fill="#fff7ea" stroke="#c08a2e"/><text class="t-xs" x="420" y="137" text-anchor="middle">engineを抽象化</text>
+<rect x="350" y="315" width="490" height="15" rx="2" fill="#fdf2f2" stroke="#c47b7b"/><text class="t-xs" x="595" y="326" text-anchor="middle">alt: 生成・保存失敗 → error_code / retryable を記録し成功扱いしない</text>
+</svg></div>
+<div class="ph-cap">図 3-3　メッセージ名は設計契約を示す。実装と異なる場合は実装PRで同時に更新する。</div>
+<div class="cols c-2" style="margin-top:3mm"><div class="card"><div class="card-h">メッセージ契約</div><table><tr><th style="width:32mm">要求</th><td><code>GenerationRequest</code>：prompt、model/workflow、seed、size、output options</td></tr><tr><th>生成ポート</th><td><code>GenerationPort.generate(request)</code> → Artifact参照または構造化エラー</td></tr><tr><th>実行記録</th><td><code>GenerationRun</code>：execution_id、status、timestamps、error_code、retryable</td></tr><tr><th>成果物</th><td><code>Artifact</code>：artifact_id、uri、media_type、metadata</td></tr></table></div>
+<div class="card soft"><div class="card-h">状態・例外・制約</div><ul><li>状態遷移：<code>queued → running → succeeded / failed</code>。不正な遷移は拒否する。</li><li>入力検証失敗はエンジン呼び出し前に返す。</li><li>エンジン失敗と成果物保存失敗を別々に記録する。</li><li>Repositoryは保存手段を隠蔽し、Serviceは具体的なJSON／DB実装に依存しない。</li><li>再試行と成果物の対応をexecution_idで追跡できるようにする。</li></ul></div></div>
+<div class="note" style="margin-top:3mm"><b>設計判断：</b>論理シーケンス図であり、具体的なAPI名・保存方式の確定図ではない。実装のメソッド名が変わった場合は図も同期する。</div>
+</div></section>
 <!-- ============ 02 プログラム 1 ============ -->
 <section class="sheet cat-deliver" data-t="プログラム 構成">
   <div class="hd">
