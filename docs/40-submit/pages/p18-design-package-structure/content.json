@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p18-design-package-structure",
+  "state": "draft",
+  "language": "ja",
+  "title": "設計モデル：パッケージ構成",
+  "purpose": "p17の分析シーケンスを、責務分割と依存方向の明確なパッケージ構造へ写像する。",
+  "packages": [
+    {
+      "name": "ui",
+      "responsibility": "入力・表示・コマンド受付"
+    },
+    {
+      "name": "service",
+      "responsibility": "ユースケースの手順・状態遷移・調整"
+    },
+    {
+      "name": "domain",
+      "responsibility": "値・不変条件・領域規則"
+    },
+    {
+      "name": "repository",
+      "responsibility": "永続化と外部I/Oのadapter"
+    }
+  ],
+  "rules": [
+    "domainはUIや外部SDKに依存しない",
+    "serviceはrepositoryの抽象ポートを利用する",
+    "具体adapterは起動時に注入する",
+    "UIから外部エンジンを直接呼び出さない"
+  ],
+  "implementation_order": [
+    "domain",
+    "repository port and adapters",
+    "service",
+    "ui/CLI/MCP adapters"
+  ],
+  "validation": [
+    "層ごとの単体テストが可能",
+    "保存方式を変更してもユースケースを変更しない",
+    "失敗時の状態と履歴を追跡可能"
+  ]
+}
