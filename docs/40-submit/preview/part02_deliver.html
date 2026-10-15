@@ -623,84 +623,82 @@ html,body{scroll-behavior:smooth}
 <section class="sheet cat-deliver" data-t="設計 シーケンス図">
   <div class="hd">
     <span class="hd-kicker">納品物 3 — 設計モデル</span>
-    <h2 class="hd-title">設計モデル：シーケンス図<small>実装に即した版。メソッド名と戻り値が書き入る。</small></h2>
+    <h2 class="hd-title">設計モデル：シーケンス図<small>UC1「画像を生成する」— クラス図の責務と実行時の呼び出しを対応させる。</small></h2>
     <span class="hd-no">20</span>
   </div>
   <div class="body">
-    <div class="ph" style="height:108mm">
+    <div class="ph" style="height:105mm">
       <div class="ph-tag">FIG 3-3</div>
-      <div class="ph-title">設計シーケンス図　UC1「<span class="fill" style="min-width:18mm"></span>」</div>
-      <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" aria-label="設計シーケンス図">
+      <div class="ph-title">UC1：画像生成の正常系と失敗分岐</div>
+      <svg viewBox="0 0 920 340" preserveAspectRatio="xMidYMid meet" aria-label="UC1画像生成の設計シーケンス図">
         <defs>
-          <marker id="a7" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#5b6470"/></marker>
-          <marker id="a7o" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#fff" stroke="#5b6470" stroke-width="1"/></marker>
+          <marker id="p20arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#526171"/></marker>
+          <marker id="p20return" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#fff" stroke="#526171" stroke-width="1"/></marker>
         </defs>
-
-        <rect class="lifeh" x="8" y="14" width="112" height="30" rx="3"/>
-        <text class="t-name" x="64" y="33" text-anchor="middle">MainWindow</text>
-        <line class="lifeline" x1="64" y1="44" x2="64" y2="290"/>
-
-        <rect class="lifeh" x="150" y="14" width="112" height="30" rx="3"/>
-        <text class="t-name" x="206" y="27" text-anchor="middle">○○制御</text>
-        <text class="t-xs" x="206" y="40" text-anchor="middle">○○Control</text>
-        <line class="lifeline" x1="206" y1="44" x2="206" y2="290"/>
-
-        <rect class="lifeh" x="306" y="14" width="112" height="30" rx="3"/>
-        <text class="t-name" x="362" y="27" text-anchor="middle">○○台帳</text>
-        <text class="t-xs" x="362" y="40" text-anchor="middle">○○Record</text>
-        <line class="lifeline" x1="362" y1="44" x2="362" y2="290"/>
-
-        <rect class="lifeh" x="462" y="14" width="112" height="30" rx="3"/>
-        <text class="t-name" x="518" y="27" text-anchor="middle">Repository</text>
-        <text class="t-xs" x="518" y="40" text-anchor="middle">JsonRepository</text>
-        <line class="lifeline" x1="518" y1="44" x2="518" y2="290"/>
-
-        <rect class="lifeh" x="614" y="14" width="98" height="30" rx="3"/>
-        <text class="t-name" x="663" y="27" text-anchor="middle">data.json</text>
-        <text class="t-xs" x="663" y="40" text-anchor="middle">ファイル</text>
-        <line class="lifeline" x1="663" y1="44" x2="663" y2="290"/>
-
-        <line x1="64" y1="74" x2="204" y2="74" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a7)"/>
-        <text class="t-xs" x="68" y="67">1 : on_submit()</text>
-        <path d="M206 96 h52 v24 h-52" fill="none" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a7)"/>
-        <text class="t-xs" x="264" y="112">2 : _validate()</text>
-        <line x1="206" y1="140" x2="360" y2="140" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a7)"/>
-        <text class="t-xs" x="210" y="133">3 : ○○Record(...)</text>
-        <line x1="362" y1="164" x2="208" y2="164" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a7o)"/>
-        <text class="t-xs" x="212" y="157">4 : record</text>
-        <line x1="206" y1="190" x2="516" y2="190" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a7)"/>
-        <text class="t-xs" x="210" y="183">5 : save(record)</text>
-        <line x1="518" y1="214" x2="661" y2="214" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a7)"/>
-        <text class="t-xs" x="522" y="207">6 : json.dump()</text>
-        <line x1="663" y1="238" x2="520" y2="238" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a7o)"/>
-        <text class="t-xs" x="524" y="231">7 : None</text>
-        <line x1="518" y1="262" x2="208" y2="262" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a7o)"/>
-        <text class="t-xs" x="522" y="255">8 : bool</text>
-        <line x1="206" y1="284" x2="66" y2="284" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a7o)"/>
-        <text class="t-xs" x="70" y="277">9 : bool</text>
+        <g>
+          <rect class="lifeh" x="8" y="12" width="124" height="34" rx="3"/><text class="t-name" x="70" y="33" text-anchor="middle">Creator / UI</text><line class="lifeline" x1="70" y1="46" x2="70" y2="322"/>
+          <rect class="lifeh" x="168" y="12" width="142" height="34" rx="3"/><text class="t-name" x="239" y="26" text-anchor="middle">Generation</text><text class="t-xs" x="239" y="39" text-anchor="middle">Service</text><line class="lifeline" x1="239" y1="46" x2="239" y2="322"/>
+          <rect class="lifeh" x="344" y="12" width="142" height="34" rx="3"/><text class="t-name" x="415" y="26" text-anchor="middle">Generation</text><text class="t-xs" x="415" y="39" text-anchor="middle">Port / Engine</text><line class="lifeline" x1="415" y1="46" x2="415" y2="322"/>
+          <rect class="lifeh" x="520" y="12" width="142" height="34" rx="3"/><text class="t-name" x="591" y="26" text-anchor="middle">Run</text><text class="t-xs" x="591" y="39" text-anchor="middle">Repository</text><line class="lifeline" x1="591" y1="46" x2="591" y2="322"/>
+          <rect class="lifeh" x="696" y="12" width="142" height="34" rx="3"/><text class="t-name" x="767" y="26" text-anchor="middle">Artifact</text><text class="t-xs" x="767" y="39" text-anchor="middle">Storage</text><line class="lifeline" x1="767" y1="46" x2="767" y2="322"/>
+        </g>
+        <g stroke="#526171" stroke-width="1.25" fill="none" marker-end="url(#p20arrow)">
+          <line x1="70" y1="70" x2="237" y2="70"/>
+          <line x1="239" y1="112" x2="413" y2="112"/>
+          <line x1="239" y1="156" x2="589" y2="156"/>
+          <line x1="415" y1="200" x2="765" y2="200"/>
+          <line x1="767" y1="244" x2="593" y2="244"/>
+        </g>
+        <g class="t-sm">
+          <text x="78" y="62">1. submit(request)</text>
+          <text x="247" y="104">2. generate(request)</text>
+          <text x="247" y="148">3. create(run: queued)</text>
+          <text x="423" y="192">4. generate(settings)</text>
+          <text x="605" y="236">5. save(artifact)</text>
+        </g>
+        <g stroke="#526171" stroke-width="1.15" stroke-dasharray="5 3" fill="none" marker-end="url(#p20return)">
+          <line x1="415" y1="222" x2="241" y2="222"/>
+          <line x1="591" y1="266" x2="241" y2="266"/>
+          <line x1="239" y1="308" x2="72" y2="308"/>
+        </g>
+        <g class="t-sm">
+          <text x="247" y="214">6. result / error</text>
+          <text x="247" y="258">7. update(run: succeeded | failed)</text>
+          <text x="78" y="300">8. show(status, artifact, error_code)</text>
+        </g>
+        <rect x="8" y="82" width="124" height="26" rx="3" fill="#f1faf5" stroke="#4f9c78"/>
+        <text class="t-xs" x="70" y="98" text-anchor="middle">入力条件を送信</text>
+        <rect x="344" y="126" width="142" height="18" rx="2" fill="#fff7ea" stroke="#c08a2e"/>
+        <text class="t-xs" x="415" y="138" text-anchor="middle">外部依存を抽象化</text>
+        <rect x="344" y="278" width="494" height="25" rx="3" fill="#fdf2f2" stroke="#c47b7b"/>
+        <text class="t-xs" x="591" y="294" text-anchor="middle">alt：生成失敗 → error_code / retryable を記録、成功扱いにしない</text>
       </svg>
     </div>
-    <div class="ph-cap">図 3-3　設計シーケンス図　／　この図と実装（p.21–22）を突き合わせてデバッグする</div>
+    <div class="ph-cap">図 3-3　メッセージ名は設計契約を示す。具体的なシグネチャは実装時に一致させる。</div>
     <div class="cols c-2" style="margin-top:3mm">
-      <div class="card soft">
-        <div class="card-h">分析図との違い（発表で聞かれる）</div>
-        <ul>
-          <li>クラス名が<b>実装名</b>（○○Control／JsonRepository）になる。</li>
-          <li>メッセージが<b>メソッド呼び出し</b>になり、戻り値が書き入る。</li>
-          <li>«interface» の実装クラスと外部リソース（ファイル）が lifeline に加わる。</li>
-        </ul>
+      <div class="card">
+        <div class="card-h">メッセージ契約</div>
+        <table>
+          <tr><th style="width:35mm">要求</th><td><code>GenerationRequest</code>：prompt、model/workflow、seed、size、output options</td></tr>
+          <tr><th>生成ポート</th><td><code>GenerationPort.generate(request)</code> → artifact reference または構造化エラー</td></tr>
+          <tr><th>実行記録</th><td><code>GenerationRun</code>：execution_id、status、timestamps、error_code、retryable</td></tr>
+          <tr><th>成果物</th><td><code>Artifact</code>：artifact_id、uri、media_type、metadata</td></tr>
+        </table>
       </div>
       <div class="card soft">
-        <div class="card-h">自己呼び出し・分岐</div>
+        <div class="card-h">状態・例外・設計上の制約</div>
         <ul>
-          <li>自己呼び出しは右側の小さな折れ線で表す。</li>
-          <li>分岐は <code>alt</code>／<code>opt</code> フレームで囲む（p.13 の例外フローに対応）。</li>
+          <li>状態遷移：<code>queued → running → succeeded / failed</code>。不正な遷移は拒否する。</li>
+          <li>入力検証失敗はエンジンを呼ぶ前に返し、理由をUIに表示する。</li>
+          <li>エンジン失敗と成果物保存失敗は別のエラーとして記録する。</li>
+          <li>Repositoryは保存手段を隠蔽し、Serviceは具体的なJSON／DB実装に依存しない。</li>
+          <li>再試行では同じ実行IDを曖昧に上書きせず、試行と成果物の対応を追跡可能にする。</li>
         </ul>
       </div>
     </div>
+    <div class="note" style="margin-top:3mm"><b>設計判断：</b>これはp19のクラス責務に対応する論理シーケンス図であり、API名・保存方式の確定図ではない。実装と異なるメソッド名は実装PRで同期する。</div>
   </div>
 </section>
-
 <!-- ============ 02 プログラム 1 ============ -->
 <section class="sheet cat-deliver" data-t="プログラム 構成">
   <div class="hd">
