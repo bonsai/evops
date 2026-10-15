@@ -1,12 +1,16 @@
 {
   "schema_version": "1.0",
   "page_id": "p14-requirements-uc-spec-2",
-  "state": "scaffold",
+  "state": "draft",
   "language": "ja",
-  "title": "ユースケース仕様 UC2 ほか（簡易表） 主要 UC1 以外は 1 行ずつ。全部を詳細に書く必要はない。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
+  "title": "ユースケース仕様 UC2 ほか（簡易表）",
+  "subtitle": "UC1以外の目的・アクター・優先度を揃え、要求モデル全体の抜け漏れを確認する。",
+  "purpose": "主要ユースケースUC1〜UC6の簡易仕様を定義し、生成・評価・修復・履歴・レポート・評価条件の責務と関係を明確にする。",
+  "stages": [
+    {"id":"uc2","title":"画像を評価する","description":"画像・実行ID・評価条件を受け取り、項目別スコア、根拠、評価器と設定の版を保存する。"},
+    {"id":"uc3","title":"修復案を作成する","description":"評価結果に基づく変更候補を提示し、採否と理由を元画像・実行IDに関連付ける。"},
+    {"id":"uc4-uc6","title":"履歴・レポート・評価条件","description":"実験を検索・比較・出力し、評価条件の版を管理する。"}
+  ],
   "diagram": {
     "path": null,
     "alt": null,
@@ -17,6 +21,7 @@
     "section_selector": "section.sheet[data-t=\"要求 UC仕様 2\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "優先度とUMLのinclude/extendは業務要件に照らして最終確認する。",
+    "UC2の評価器は評価を支援する外部システムとして扱う。"
   ]
 }
