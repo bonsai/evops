@@ -317,97 +317,37 @@
 <section class="sheet cat-deliver" data-t="分析 ロバストネス">
   <div class="hd">
     <span class="hd-kicker">納品物 2 — 分析モデル</span>
-    <h2 class="hd-title">ロバストネス分析（ロバストネス図）<small>3 種類の分析クラス：バウンダリ／コントロール／エンティティ。</small></h2>
+    <h2 class="hd-title">ロバストネス分析（UC1：画像を生成する）<small>要求をBoundary／Control／Entityの責務へ分解する。</small></h2>
     <span class="hd-no">15</span>
   </div>
   <div class="body">
-    <div class="ph" style="height:106mm">
-      <div class="ph-tag">FIG 2-1</div>
-      <div class="ph-title">ロバストネス図　／　UC1「<span class="fill" style="min-width:18mm"></span>」の実現</div>
-      <svg viewBox="0 0 720 290" preserveAspectRatio="xMidYMid meet" aria-label="ロバストネス図">
-        <defs>
-          <marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#5b6470"/></marker>
-          <marker id="a3o" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto"><path d="M0 1 L10 5.5 L0 10 z" fill="#fff" stroke="#5b6470" stroke-width="1"/></marker>
-        </defs>
-
-        <g transform="translate(486,8)">
-          <rect class="box-bnd" x="0" y="0" width="60" height="14" rx="2"/>
-          <text class="t-xs" x="66" y="10.5">&lt;&lt;boundary&gt;&gt;</text>
-          <rect class="box-ctl" x="0" y="20" width="60" height="14" rx="2"/>
-          <text class="t-xs" x="66" y="30.5">&lt;&lt;control&gt;&gt;</text>
-          <rect class="box-ent" x="0" y="40" width="60" height="14" rx="2"/>
-          <text class="t-xs" x="66" y="50.5">&lt;&lt;entity&gt;&gt;</text>
-        </g>
-
-        <g class="actorline">
-          <circle cx="46" cy="140" r="11"/>
-          <line x1="46" y1="151" x2="46" y2="196"/>
-          <line x1="24" y1="166" x2="68" y2="166"/>
-          <line x1="46" y1="196" x2="28" y2="222"/>
-          <line x1="46" y1="196" x2="64" y2="222"/>
-        </g>
-        <text class="t-name" x="46" y="240" text-anchor="middle">利用者</text>
-
-        <rect class="box-bnd" x="118" y="30" width="150" height="26" rx="3"/>
-        <text class="t-st" x="124" y="47" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
-        <text class="t-name" x="262" y="47" text-anchor="end">開始メニュー</text>
-        <rect class="box-bnd" x="118" y="128" width="150" height="26" rx="3"/>
-        <text class="t-st" x="124" y="145" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
-        <text class="t-name" x="262" y="145" text-anchor="end">メッセージ表示</text>
-        <rect class="box-bnd" x="118" y="226" width="150" height="26" rx="3"/>
-        <text class="t-st" x="124" y="243" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
-        <text class="t-name" x="262" y="243" text-anchor="end">入力デバイス</text>
-
-        <rect class="box-ctl" x="334" y="128" width="158" height="26" rx="3"/>
-        <text class="t-st" x="340" y="145" fill="#b5811f">&lt;&lt;control&gt;&gt;</text>
-        <text class="t-name" x="486" y="145" text-anchor="end">○○制御</text>
-
-        <rect class="box-ent" x="558" y="30" width="146" height="26" rx="3"/>
-        <text class="t-st" x="564" y="47" fill="#5b83c4">&lt;&lt;entity&gt;&gt;</text>
-        <text class="t-name" x="698" y="47" text-anchor="end">利用者情報</text>
-        <rect class="box-ent" x="558" y="128" width="146" height="26" rx="3"/>
-        <text class="t-st" x="564" y="145" fill="#5b83c4">&lt;&lt;entity&gt;&gt;</text>
-        <text class="t-name" x="698" y="145" text-anchor="end">○○台帳</text>
-        <rect class="box-ent" x="558" y="226" width="146" height="26" rx="3"/>
-        <text class="t-st" x="564" y="243" fill="#5b83c4">&lt;&lt;entity&gt;&gt;</text>
-        <text class="t-name" x="698" y="243" text-anchor="end">履歴</text>
-
-        <line x1="66" y1="158" x2="116" y2="158" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
-        <line x1="268" y1="43" x2="332" y2="128" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
-        <text class="t-xs" x="288" y="80">処理開始</text>
-        <line x1="268" y1="141" x2="332" y2="141" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
-        <line x1="268" y1="239" x2="332" y2="154" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
-        <text class="t-xs" x="286" y="208">入力</text>
-        <line x1="492" y1="136" x2="556" y2="136" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
-        <text class="t-xs" x="524" y="127" text-anchor="middle">参照</text>
-        <line x1="492" y1="150" x2="556" y2="232" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a3)"/>
-        <text class="t-xs" x="516" y="200" text-anchor="middle">更新</text>
-        <line x1="631" y1="56" x2="631" y2="126" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a3o)"/>
-        <text class="t-xs" x="638" y="94">取得</text>
-        <line x1="334" y1="147" x2="270" y2="147" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a3o)"/>
-        <text class="t-xs" x="302" y="163" text-anchor="middle">結果</text>
+    <div class="ph" style="height:104mm">
+      <div class="ph-tag">FIG 2-1</div><div class="ph-title">UC1「画像を生成する」のロバストネス図</div>
+      <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" aria-label="画像生成のロバストネス図">
+        <defs><marker id="rob15a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#5b6470"/></marker></defs>
+        <g class="actorline"><circle cx="38" cy="55" r="10"/><line x1="38" y1="65" x2="38" y2="98"/><line x1="19" y1="78" x2="57" y2="78"/><line x1="38" y1="98" x2="22" y2="120"/><line x1="38" y1="98" x2="54" y2="120"/></g>
+        <text class="t-name" x="38" y="140" text-anchor="middle">クリエイター</text>
+        <rect class="box-bnd" x="90" y="45" width="150" height="45" rx="4"/><text class="t-sm" x="165" y="62" text-anchor="middle">«boundary»</text><text class="t-name" x="165" y="79" text-anchor="middle">生成フォーム</text>
+        <rect class="box-ctl" x="285" y="45" width="150" height="45" rx="4"/><text class="t-sm" x="360" y="62" text-anchor="middle">«control»</text><text class="t-name" x="360" y="79" text-anchor="middle">生成制御</text>
+        <rect class="box-ctl" x="485" y="45" width="150" height="45" rx="4"/><text class="t-sm" x="560" y="62" text-anchor="middle">«control»</text><text class="t-name" x="560" y="79" text-anchor="middle">エンジン接続</text>
+        <rect class="box-ent" x="285" y="145" width="150" height="45" rx="4"/><text class="t-sm" x="360" y="162" text-anchor="middle">«entity»</text><text class="t-name" x="360" y="179" text-anchor="middle">生成設定</text>
+        <rect class="box-ent" x="285" y="235" width="150" height="45" rx="4"/><text class="t-sm" x="360" y="252" text-anchor="middle">«entity»</text><text class="t-name" x="360" y="269" text-anchor="middle">実行履歴・成果物</text>
+        <rect class="box-bnd" x="515" y="145" width="130" height="45" rx="4"/><text class="t-sm" x="580" y="162" text-anchor="middle">«boundary»</text><text class="t-name" x="580" y="179" text-anchor="middle">結果表示</text>
+        <g class="ln" marker-end="url(#rob15a)"><path d="M58 78H88"/><path d="M240 68H283"/><path d="M435 68H483"/><path d="M360 90V143"/><path d="M360 190V233"/><path d="M560 90V120H580V143"/><path d="M435 257H475V190H513"/></g>
+        <text class="t-xs" x="360" y="115" text-anchor="middle">設定の参照</text><text class="t-xs" x="372" y="218">実行結果の保存</text><text class="t-xs" x="584" y="112">結果通知</text>
       </svg>
     </div>
-    <div class="ph-cap">図 2-1　ロバストネス図　／　凡例：緑＝バウンダリ、黄＝コントロール、青＝エンティティ</div>
-
+    <div class="ph-cap">図 2-1　緑＝Boundary、黄＝Control、青＝Entity。分析段階の責務を示す。</div>
     <div class="cols c-3" style="margin-top:4mm">
-      <div class="card soft">
-        <div class="card-h">《boundary》バウンダリ</div>
-        <p>アクターとの接点。ユーザー IF／システム IF／デバイス IF の 3 種。画面やフォームの抽象化。</p>
-      </div>
-      <div class="card soft">
-        <div class="card-h">《control》コントロール</div>
-        <p>複数のクラスをまたぐ動作を調整する。UC 開始で生成、終了で破棄される。</p>
-      </div>
-      <div class="card soft">
-        <div class="card-h">《entity》エンティティ</div>
-        <p>永続性のある情報。複数の UC で共有される。get／set のみが基本。</p>
-      </div>
+      <div class="card"><div class="card-h">Boundary</div><p>生成フォームと結果表示。入力、進捗、成功・失敗状態を利用者に伝える。</p></div>
+      <div class="card"><div class="card-h">Control</div><p>入力検証、実行ID発行、エンジン呼び出し、処理状態と例外を調整する。</p></div>
+      <div class="card"><div class="card-h">Entity</div><p>生成条件、実行履歴、成果物参照、ログを実行IDに紐づけて保存する。</p></div>
     </div>
-    <div class="note" style="margin-top:4mm">
-      <b>通信ルール：</b>アクター⇔バウンダリのみ／バウンダリ⇔コントロール／エンティティ⇔コントロールのみ。
-      エンティティ同士が直接通信するのは禁止。
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card soft"><div class="card-h">基本メッセージ順序</div><ol><li>条件を入力し、生成要求を送信する。</li><li>生成制御が検証し、実行IDと設定を記録する。</li><li>エンジン接続が生成処理を呼び出す。</li><li>画像・ログ・状態を履歴へ保存する。</li><li>結果表示が完了または失敗を通知する。</li></ol></div>
+      <div class="card soft"><div class="card-h">分析上のルール</div><ul class="check"><li>Boundaryは入出力に集中し、業務判断やDB操作を抱え込まない</li><li>Controlがフローを調整し、Entityは保持データを表す</li><li>入力不備・生成失敗・保存失敗を区別する</li><li>実行IDから設定・画像・ログを追跡できる</li></ul></div>
     </div>
+    <div class="note" style="margin-top:3mm"><b>引き渡し：</b>分析クラス候補は設計クラスと同一とは限らない。p16で属性・操作を整理し、p17でメッセージ順序を検証する。</div>
   </div>
 </section>
 
