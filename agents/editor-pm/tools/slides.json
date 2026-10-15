@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "title": "卒業制作発表：hw-sotsusei",
+    "subtitle": "回転ループを回し続けるビジュアル生成・評価・改善システム",
+    "author": "bons",
+    "date": "2025-10",
+    "aspect": "16:9",
+    "width": 1920,
+    "height": 1080
+  },
+  "slides": [
+    {
+      "type": "title",
+      "title": "hw-sotsusei",
+      "subtitle": "回転ループを回し続ける\nビジュアル生成・評価・改善システム",
+      "footer": "卒業制作発表 | bons | 2025-10"
+    },
+    {
+      "type": "content",
+      "number": "02",
+      "title": "背景と課題",
+      "bullets": [
+        "画像・動画生成の品質はプロンプト試行錯誤に依存しがち",
+        "GPU/大規模モデルはコスト・管理負荷が高い",
+        "人間の「意図」をどう機械に伝え、測定するかが不明確",
+        "⇒ 限られた CPU・コストで、評価→修正→再生成を高速に回す"
+      ]
+    },
+    {
+      "type": "content",
+      "number": "03",
+      "title": "目的：回転ループをなるべく回す",
+      "bullets": [
+        "コストあたりの成果・満足度を最大化する",
+        "自動化は機械、設計と評価は人間",
+        "テストも人間がやる。しかし教えれば機械もできる。",
+        "その試作をする"
+      ]
+    },
+    {
+      "type": "content",
+      "number": "04",
+      "title": "制約：CPU 16GB・コスト意識",
+      "bullets": [
+        "GPU なし、メモリ 16GB のみ",
+        "API トークン・bpy 生成にもコストがかかる",
+        "Comfy/Diffusion は管理・VRAM が厳しい",
+        "⇒ Blender + bpy + SVG + 軽量モデル（CLIP/SLM）を選択"
+      ]
+    },
+    {
+      "type": "content",
+      "number": "05",
+      "title": "アーキテクチャ：MCP + A2A",
+      "bullets": [
+        "MCP：ツール層を標準化（DB / Evaluator / Blender-bpy）",
+        "A2A：専門エージェント同士を連携",
+        "Generator → Blender → Evaluator → Human → DB → Repair",
+        "CPU 16GB 内で自律的にループを回す"
+      ]
+    },
+    {
+      "type": "content",
+      "number": "06",
+      "title": "評価軸とインテント推定",
+      "bullets": [
+        "自然言語プロンプト調整ではなく、評価基準を推定する",
+        "多軸評価：構造 / スタイル / 品質 / 意図一致度",
+        "人間のペアワイズ比較から嗜好を学習（Bradley-Terry / DPO）",
+        "Failure → Repair instruction を構造化データとして蓄積"
+      ]
+    },
+    {
+      "type": "demo",
+      "number": "07",
+      "title": "DEMO",
+      "lines": [
+        "ドラえもん VLM 修正ループ",
+        "generate_doraemon_svg → evaluate → repair → regenerate",
+        "MCP server 3 基を stdio 接続で動作確認済み"
+      ]
+    },
+    {
+      "type": "content",
+      "number": "08",
+      "title": "データをとる行為",
+      "bullets": [
+        "生成パラメータ・出力・自動評価・人間評価を SQLite へ蓄積",
+        "ペアワイズ比較・修正指示・失敗ケースも記録",
+        "蓄積したデータから ML でランキング・予測・修復戦略を学習",
+        "「データをとる行為」を設計の中心に置く"
+      ]
+    },
+    {
+      "type": "content",
+      "number": "09",
+      "title": "コスト管理",
+      "bullets": [
+        "回転 1 回あたりのトークン・時間コストを見積もる",
+        "軽量 VLM / CLIP-small で事前フィルタ",
+        "人間フィードバックはアクティブラーニングで高情報量サンプルに限定",
+        "コストメーターで予算残高を可視化"
+      ]
+    },
+    {
+      "type": "content",
+      "number": "10",
+      "title": "今後のロードマップ",
+      "bullets": [
+        "Phase 0：MCP server 最小セット完成（済）",
+        "Phase 1：VLM 診断 → Repair instruction の自動生成",
+        "Phase 2：人間承認 UI とペアワイズ比較",
+        "Phase 3：嗜好学習による自動重み調整"
+      ]
+    },
+    {
+      "type": "repo",
+      "number": "11",
+      "title": "Repository",
+      "repo": "https://github.com/bonsai/hw-sotsusei",
+      "paths": [
+        "mission/ — 設計文書・Mermaid 可視化",
+        "mcp/ — MCP server 群（db / evaluator / blender-bpy）",
+        "papers/ — 論文リサーチ",
+        "presen/web/ — この発表資料"
+      ],
+      "qr": "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://github.com/bonsai/hw-sotsusei"
+    }
+  ]
+}
