@@ -1,22 +1,91 @@
 {
   "schema_version": "1.0",
   "page_id": "p25-note-kaggle-mlops",
-  "state": "scaffold",
   "language": "ja",
-  "title": "Kaggle MLOps 連携 学習・評価は Kaggle、実験の正本と履歴は EVOPS に置く。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
+  "title": "Kaggle MLOps 連携",
+  "subtitle": "学習・評価は Kaggle、実験の正本と履歴は EVOPS に置く。",
+  "purpose": "EVOPSの実験履歴を正本として保ちながら、Kaggle Notebookで教師あり学習・検証を行い、予測結果をEVOPSへ戻す責務分担と最小データ契約を示す。",
+  "stages": [
+    {
+      "id": "record",
+      "label": "履歴を整える",
+      "tools": [
+        "EVOPS",
+        "SQLite",
+        "JSONL"
+      ],
+      "outputs": [
+        "sample_id",
+        "asset_uri",
+        "human_score",
+        "schema_version"
+      ]
+    },
+    {
+      "id": "export",
+      "label": "学習データを切り出す",
+      "tools": [
+        "EVOPS export"
+      ],
+      "outputs": [
+        "train / validation split",
+        "データセット版"
+      ]
+    },
+    {
+      "id": "train",
+      "label": "Kaggleで学習・検証",
+      "tools": [
+        "Kaggle Dataset",
+        "Kaggle Notebook"
+      ],
+      "outputs": [
+        "baseline",
+        "ML model",
+        "MAE / RMSE",
+        "OOF / validation predictions"
+      ]
+    },
+    {
+      "id": "import",
+      "label": "結果を戻して比較",
+      "tools": [
+        "CSV / JSONL import",
+        "EVOPS"
+      ],
+      "outputs": [
+        "予測値",
+        "モデル・Notebook版",
+        "誤差レポート"
+      ]
+    },
+    {
+      "id": "review",
+      "label": "人間が採否を決める",
+      "tools": [
+        "Human review"
+      ],
+      "outputs": [
+        "採用モデル",
+        "閾値",
+        "判断理由"
+      ]
+    }
+  ],
   "diagram": {
-    "path": null,
-    "alt": null,
-    "caption": null
+    "path": "docs/40-submit/figures/kaggle-mlops-boundary.svg",
+    "alt": "EVOPSを実験履歴の正本とし、データをKaggleへエクスポートして学習・検証し、予測と指標をEVOPSへ戻して人間が判断する図。",
+    "caption": "EVOPSとKaggleの責務境界。連携はCSV / JSONLを基本とする。"
   },
   "source": {
     "html": "docs/40-submit/part02_deliver.html",
     "section_selector": "section.sheet[data-t=\"補足 Kaggle MLOps連携\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "KaggleはGPUを使う学習・実験環境であり、EVOPSのSQLite / JSONLや評価ループを置き換えない。",
+    "教師あり学習には人間評価があるサンプルを使い、trainとvalidationを分離する。",
+    "データセット・Notebook・モデルの版、設定、指標を成果物として残す。",
+    "予測値だけで自動採用せず、ベースラインとの差と人間評価との誤差を確認する。",
+    "個人情報や秘密情報をKaggleへアップロードしない。"
   ]
 }
