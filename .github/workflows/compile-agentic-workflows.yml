@@ -25,17 +25,19 @@ jobs:
           version: v0.37.18
           github-token: ${{ github.token }}
 
-      - name: Compile
-        run: gh aw compile paper-animation --strict
+      - name: Compile workflows
+        run: |
+          gh aw compile paper-animation --strict
+          gh aw compile page-quality-gate --strict
 
-      - name: Commit compiled lock file
+      - name: Commit compiled lock files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/workflows/paper-animation.lock.yml
+          git add .github/workflows/paper-animation.lock.yml .github/workflows/page-quality-gate.lock.yml
           if git diff --cached --quiet; then
             echo "No lock-file changes."
             exit 0
           fi
-          git commit -m "Compile paper animation AW workflow"
+          git commit -m "Compile Agentic Workflow definitions"
           git push
