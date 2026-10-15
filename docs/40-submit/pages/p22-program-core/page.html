@@ -222,10 +222,12 @@ svg .ln{stroke:#6f767e;stroke-width:1.1;fill:none}
     <span class="cm">"""台帳の 1 項目を表すエンティティ。"""</span>
     _id: <span class="kw">int</span>
     _name: <span class="kw">str</span>
-    _updated: datetime
+    _updated: datetime = field(default_factory=datetime.now)
 
     <span class="kw">def</span> <span class="st">__post_init__</span>(self) -> <span class="kw">None</span>:
-        self._updated = datetime.now()
+        <span class="kw">if</span> <span class="kw">not</span> self._name.strip():
+            <span class="kw">raise</span> <span class="st">ValueError</span>(<span class="st">"名称は必須です"</span>)
+        self._name = self._name.strip()
 
     <span class="kw">@property</span>
     <span class="kw">def</span> <span class="st">name</span>(self) -&gt; <span class="kw">str</span>:
