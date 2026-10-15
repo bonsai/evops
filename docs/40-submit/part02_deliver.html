@@ -389,78 +389,8 @@
 
 <!-- ============ 02 設計 パッケージ ============ -->
 <section class="sheet cat-deliver" data-t="設計 パッケージ構成">
-  <div class="hd">
-    <span class="hd-kicker">納品物 3 — 設計モデル</span>
-    <h2 class="hd-title">設計モデル：パッケージ構成<small>先に層を決める。依存方向を 1 つに固定する。</small></h2>
-    <span class="hd-no">18</span>
-  </div>
-  <div class="body">
-    <div class="ph" style="height:90mm">
-      <div class="ph-tag">FIG 3-1</div>
-      <div class="ph-title">パッケージ構成図</div>
-      <svg viewBox="0 0 720 250" preserveAspectRatio="xMidYMid meet" aria-label="パッケージ構成図">
-        <defs>
-          <marker id="a5" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto"><path d="M0 1 L10 5.5 L0 10 z" fill="#6f767e"/></marker>
-          <marker id="a5o" markerWidth="11" markerHeight="11" refX="10" refY="5.5" orient="auto"><path d="M0 1 L10 5.5 L0 10 z" fill="#fff" stroke="#6f767e" stroke-width="1"/></marker>
-        </defs>
-
-        <rect class="box-bnd" x="260" y="12" width="170" height="34" rx="3"/>
-        <text class="t-name" x="345" y="27" text-anchor="middle">ui（表示層）</text>
-        <text class="t-xs" x="345" y="41" text-anchor="middle">Tkinter ／ CLI</text>
-
-        <rect class="box-ctl" x="260" y="86" width="170" height="34" rx="3"/>
-        <text class="t-name" x="345" y="101" text-anchor="middle">service（機能層）</text>
-        <text class="t-xs" x="345" y="115" text-anchor="middle">ユースケースの実装</text>
-
-        <rect class="box-ent" x="260" y="160" width="170" height="34" rx="3"/>
-        <text class="t-name" x="345" y="175" text-anchor="middle">domain（領域層）</text>
-        <text class="t-xs" x="345" y="189" text-anchor="middle">エンティティクラス</text>
-
-        <rect class="box-pkg" x="490" y="160" width="180" height="34" rx="3"/>
-        <text class="t-name" x="580" y="175" text-anchor="middle">repository</text>
-        <text class="t-xs" x="580" y="189" text-anchor="middle">永続化（JSON ／ SQLite）</text>
-
-        <line x1="432" y1="177" x2="488" y2="177" stroke="#6f767e" stroke-width="1.1" marker-end="url(#a5o)"/>
-        <text class="t-xs" x="460" y="170" text-anchor="middle">«implements»</text>
-
-        <path d="M345 46 V84" stroke="#6f767e" stroke-width="1.5" fill="none" marker-end="url(#a5)"/>
-        <path d="M345 120 V158" stroke="#6f767e" stroke-width="1.5" fill="none" marker-end="url(#a5)"/>
-        <text class="t-xs" x="353" y="68">呼ぶ</text>
-        <text class="t-xs" x="353" y="142">呼ぶ</text>
-        <text class="t-xs" x="345" y="222" text-anchor="middle">← 実装順（下から作る）</text>
-      </svg>
-    </div>
-    <div class="ph-cap">図 3-1　パッケージ構成（矢印は呼び出し方向。依存は外向きのみにする）</div>
-
-    <div class="cols c-3" style="margin-top:4mm">
-      <div class="card soft">
-        <div class="card-h">実装順（下から）</div>
-        <ol>
-          <li><code>domain</code>：エンティティだけ。単体でテストできる。</li>
-          <li><code>repository</code>：永続化の読み書き。</li>
-          <li><code>service</code>：ユースケース 1 本ずつ。</li>
-          <li><code>ui</code>：最後に画面を載せる。</li>
-        </ol>
-      </div>
-      <div class="card soft">
-        <div class="card-h">禁止する依存</div>
-        <ul>
-          <li><code>domain</code> から <code>ui</code> を参照しない。</li>
-          <li><code>service</code> が <code>ui</code> のクラスを生成しない。</li>
-          <li>画面サイズなど UI の都合を <code>domain</code> に持ち込まない。</li>
-        </ul>
-      </div>
-      <div class="card soft">
-        <div class="card-h">コーディング規約</div>
-        <ul>
-          <li>関数・変数は <code>snake_case</code>／クラスは <code>PascalCase</code></li>
-          <li>1 ファイル 1 クラス（<code>main.py</code> を除く）</li>
-          <li>公開関数には docstring を書く</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="hd"><span class="hd-kicker">納品物 3 — 設計モデル</span><h2 class="hd-title">設計モデル：パッケージ構成<small>責務を層に分け、依存方向を明確にする。</small></h2><span class="hd-no">18</span></div>
+<div class="body"><div class="card"><div class="card-h">パッケージ構成図</div><svg viewBox="0 0 720 250" role="img" aria-label="パッケージ構成図"><defs><marker id="p18a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#64748b"/></marker></defs><g fill="#eef5ff" stroke="#8aa0c0"><rect x="260" y="8" width="200" height="40" rx="4"/><rect x="260" y="78" width="200" height="40" rx="4"/><rect x="70" y="165" width="220" height="42" rx="4"/><rect x="430" y="165" width="220" height="42" rx="4"/></g><g text-anchor="middle" fill="#172033"><text x="360" y="25">ui / boundary</text><text x="360" y="40" font-size="11">CLI・Web・MCP adapter</text><text x="360" y="95">service / use case</text><text x="360" y="110" font-size="11">生成・評価・修復の調整</text><text x="180" y="183">domain / model</text><text x="180" y="198" font-size="11">型・不変条件・領域規則</text><text x="540" y="183">repository / adapter</text><text x="540" y="198" font-size="11">JSONL・SQLite・成果物保存</text></g><g stroke="#64748b" fill="none" marker-end="url(#p18a)"><path d="M360 48V76"/><path d="M315 118L225 163"/><path d="M405 118L495 163"/></g><text x="360" y="235" font-size="12" fill="#475569" text-anchor="middle">外部エンジン・ファイルシステムはadapterの背後に隔離</text></svg></div><div class="cols c-3" style="margin-top:4mm"><div class="card"><div class="card-h">責務</div><ul><li>ui：入力・表示</li><li>service：ユースケースの手順・状態遷移</li><li>domain：型・不変条件</li><li>repository：永続化と外部I/O</li></ul></div><div class="card"><div class="card-h">依存ルール</div><ul><li>UIはserviceの公開機能を呼ぶ</li><li>domainはUI・外部SDKを知らない</li><li>serviceはrepositoryの抽象ポートを利用</li><li>具体adapterは起動時に注入</li></ul></div><div class="card"><div class="card-h">実装順</div><ol><li>domainの型と不変条件</li><li>repositoryポート・保存テスト</li><li>serviceの正常・例外系</li><li>UI / CLI / MCP adapter</li></ol></div></div><div class="note" style="margin-top:4mm"><b>設計判断：</b>JSONL・SQLite・オブジェクトストレージの選択はrepository側へ閉じ込める。具体技術はADRまたは実装Issueで確定する。</div></div></section>
 
 <!-- ============ 02 設計 クラス図 ============ -->
 <section class="sheet cat-deliver" data-t="設計 クラス図">
