@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EVOPS — 用語集</title>
+<style>
+:root{color-scheme:dark;--bg:#171a20;--panel:#222731;--line:#3a424f;--text:#eef2f7;--muted:#aab4c2;--link:#9cc8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:960px;margin:auto;padding:32px 20px 60px}h1{font-size:clamp(1.6rem,4vw,2.2rem);margin:0 0 8px}p{color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 24px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.tabs a{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:10px 10px 0 0;background:var(--panel);color:var(--muted);font-weight:650;text-decoration:none}
+.tabs a[aria-current="page"]{background:var(--link);color:#171a20;border-color:var(--link)}
+dl{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:0;margin:20px 0;border-top:1px solid var(--line)}
+dt,dd{margin:0;padding:14px 12px;border-bottom:1px solid var(--line)}dt{font-weight:700;color:var(--link)}dd{color:var(--text)}
+@media(max-width:560px){dl{grid-template-columns:1fr}dt{padding-bottom:4px;border-bottom:0}dd{padding-top:4px}}
+a{color:var(--link)}
+</style>
+</head>
+<body><main>
+<h1>EVOPS 用語集</h1>
+<nav class="tabs" aria-label="ドキュメントナビゲーション">
+<a href="./index.html">ページ一覧</a>
+<a href="./glossary.html" aria-current="page">用語集</a>
+</nav>
+<p>提出資料・設計資料で使う主要語の簡易定義です。実装の詳細は各設計ページを参照してください。</p>
+<dl>
+<dt>EVOPS</dt><dd>評価と改善を反復するためのワークフロー／仕組みを扱うプロジェクト名。</dd>
+<dt>ユースケース（UC）</dt><dd>アクターがシステムを使って達成する目的と、その基本・代替フローを記述したもの。</dd>
+<dt>アクター</dt><dd>システムの外側から機能を利用したり、外部サービスとして連携したりする役割。</dd>
+<dt>境界（Boundary）</dt><dd>利用者・外部システムと、対象システムとの接点。画面やAPIなどを含む。</dd>
+<dt>ロバストネス分析</dt><dd>ユースケースの流れを境界・制御・実体に分け、要求と設計の間をつなぐ分析。</dd>
+<dt>境界クラス（Boundary）</dt><dd>利用者や外部システムとの入出力を受け持つクラス。</dd>
+<dt>制御クラス（Control）</dt><dd>ユースケースの手順や業務ルールの進行を調整するクラス。</dd>
+<dt>実体クラス（Entity）</dt><dd>設定、実行履歴、生成物など、システムが扱う情報とその規則を表すクラス。</dd>
+<dt>シーケンス図</dt><dd>オブジェクト間のメッセージを時間順に示す相互作用図。</dd>
+<dt>クラス図</dt><dd>クラスの属性・操作・関連・依存関係を示す静的な設計モデル。</dd>
+<dt>パッケージ構成</dt><dd>関連するコードを層や責務ごとにまとめ、許可する依存方向を定めた構造。</dd>
+<dt>GenerationRequest</dt><dd>画像生成の入力条件を表す要求オブジェクト。</dd>
+<dt>GenerationService</dt><dd>生成ユースケースの手順を調整するサービス。</dd>
+<dt>GenerationPort</dt><dd>生成エンジンなど外部機能への依存を抽象化するインターフェース。</dd>
+<dt>GenerationRun</dt><dd>生成処理の実行状態や結果を記録する実行記録。</dd>
+<dt>RunRepository</dt><dd>生成実行記録の保存・取得を担うリポジトリ抽象。</dd>
+<dt>Artifact</dt><dd>生成された画像や関連ファイルなど、処理結果として保存・参照する成果物。</dd>
+<dt>依存方向</dt><dd>どの層がどの層を参照してよいかという設計上の規則。</dd>
+<dt>不変条件（Invariant）</dt><dd>処理の前後を通じて必ず成立させるべき条件。</dd>
+<dt>受け入れ条件</dt><dd>機能が要求を満たしたと判断するため、テスト可能な形で定める条件。</dd>
+</dl>
+<p><a href="./index.html">← ドキュメント一覧へ戻る</a></p>
+</main></body></html>
