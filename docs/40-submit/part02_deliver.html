@@ -259,45 +259,57 @@
 <section class="sheet cat-deliver" data-t="要求 UC仕様 2">
   <div class="hd">
     <span class="hd-kicker">納品物 1 — 要求モデル</span>
-    <h2 class="hd-title">ユースケース仕様　UC2 ほか（簡易表）<small>主要 UC1 以外は 1 行ずつ。全部を詳細に書く必要はない。</small></h2>
+    <h2 class="hd-title">ユースケース仕様 UC2 ほか（簡易表）<small>UC1以外の目的・アクター・優先度を揃え、要求モデル全体の抜け漏れを確認する。</small></h2>
     <span class="hd-no">14</span>
   </div>
   <div class="body">
     <div class="card">
       <div class="card-h">主要ユースケース一覧（簡易仕様）</div>
       <table>
-        <tr>
-          <th style="width:14mm">No</th><th style="width:38mm">ユースケース名</th>
-          <th style="width:28mm">アクター</th><th style="width:44mm">概要</th>
-          <th style="width:24mm">優先度</th><th>《include》／《extend》</th>
-        </tr>
-        <tr><td class="num">UC1</td><td><span class="fill"></span></td><td><span class="fill"></span></td><td><span class="fill l"></span></td><td><span class="fill"></span></td><td><span class="fill"></span></td></tr>
-        <tr><td>UC2</td><td><span class="fill">評価する</span></td><td><span class="fill">VLM評価モデル</span></td><td><span class="fill">生成画像を自動評価</span></td><td class="c"><span class="fill">UC1に含まれる</span></td><td class="c"><span class="fill">1</span></td></tr><tr><td>UC3</td><td><span class="fill">修復指示を作成する</span></td><td><span class="fill">AI画像生成クリエイター</span></td><td><span class="fill">評価結果から修復案を生成</span></td><td class="c"><span class="fill">UC1から拡張</span></td><td class="c"><span class="fill">1</span></td></tr><tr><td>UC4</td><td><span class="fill">履歴を参照する</span></td><td><span class="fill">AI画像生成クリエイター</span></td><td><span class="fill">過去の生成・評価を確認</span></td><td class="c"><span class="fill"></span></td><td class="c"><span class="fill">2</span></td></tr><tr><td>UC5</td><td><span class="fill">レポート出力する</span></td><td><span class="fill">AI画像生成クリエイター</span></td><td><span class="fill">結果を出力</span></td><td class="c"><span class="fill"></span></td><td class="c"><span class="fill">3</span></td></tr><tr><td>UC6</td><td><span class="fill">設定を変更する</span></td><td><span class="fill">AI画像生成クリエイター</span></td><td><span class="fill">閾値等を変更</span></td><td class="c"><span class="fill"></span></td><td class="c"><span class="fill">3</span></td></tr>
+        <tr><th style="width:12mm">No</th><th style="width:38mm">ユースケース名</th><th style="width:38mm">主アクター</th><th>概要・完了条件</th><th style="width:18mm">優先度</th><th style="width:38mm">関連</th></tr>
+        <tr><td class="num">UC1</td><td>画像を生成する</td><td>AI画像生成クリエイター</td><td>画像を生成し、成果物・設定・実行IDを保存する。</td><td class="c">1</td><td>UC2を後続実行</td></tr>
+        <tr><td class="num">UC2</td><td>画像を評価する</td><td>クリエイター／VLM評価モデル</td><td>評価条件に基づくスコア・根拠・評価器版を保存する。</td><td class="c">1</td><td>UC1の後続処理</td></tr>
+        <tr><td class="num">UC3</td><td>修復案を作成する</td><td>AI画像生成クリエイター</td><td>評価結果から変更候補・理由・影響を提示する。</td><td class="c">1</td><td>問題がある場合の拡張候補</td></tr>
+        <tr><td class="num">UC4</td><td>履歴を参照する</td><td>AI画像生成クリエイター</td><td>過去の生成・評価・修復履歴と条件を確認する。</td><td class="c">2</td><td>独立した利用目的</td></tr>
+        <tr><td class="num">UC5</td><td>レポートを出力する</td><td>AI画像生成クリエイター</td><td>画像・条件・評価・採否を比較可能な形式で出力する。</td><td class="c">2</td><td>選択した履歴を利用可能</td></tr>
+        <tr><td class="num">UC6</td><td>評価条件を設定する</td><td>AI画像生成クリエイター</td><td>評価観点・重み・閾値・評価器を設定し、版を記録する。</td><td class="c">2</td><td>UC2が参照</td></tr>
       </table>
     </div>
-
+    <div class="cols c-2" style="margin-top:4mm">
+      <div class="card">
+        <div class="card-h">UC2 — 画像を評価する</div>
+        <p><b>前提：</b>生成画像と実行IDがあり、有効な評価条件・評価器を選べる。</p>
+        <ol><li>画像・実行IDを受け取る。</li><li>形式と評価条件を検証する。</li><li>評価器を実行し、項目別スコアと根拠を得る。</li><li>評価器・設定の版と結果を保存し、表示する。</li></ol>
+        <p><b>例外：</b>画像欠損や評価器エラーは未評価として記録し、合格扱いにしない。</p>
+      </div>
+      <div class="card">
+        <div class="card-h">UC3 — 修復案を作成する</div>
+        <p><b>前提：</b>改善対象と評価根拠を特定できる。</p>
+        <ol><li>低評価項目と根拠を確認する。</li><li>プロンプト・マスク・seed等の変更候補を作る。</li><li>期待効果と副作用を示す。</li><li>クリエイターが採否・理由を決めて記録する。</li></ol>
+        <p><b>例外：</b>根拠不足や評価不一致がある場合は、自動修復を確定せず確認を求める。</p>
+      </div>
+    </div>
     <div class="cols c-2" style="margin-top:4mm">
       <div class="card soft">
-        <div class="card-h">優先度の決め方</div>
-        <table>
-          <tr><th style="width:20mm" class="c">順位</th><th>基準</th></tr>
-          <tr><td class="c">1</td><td>実演で見せる／毎日使う</td></tr>
-          <tr><td class="c">2</td><td>実演に含める／週 1 回程度</td></tr>
-          <tr><td class="c">3</td><td>月 1 回以下／余裕があれば</td></tr>
-        </table>
-        <p style="margin-top:2mm"><small>優先度 3 は Won't に入れてよい（→p.08）。</small></p>
+        <div class="card-h">関係と優先度</div>
+        <ul>
+          <li>UC1→UC2は業務上の後続関係。UC1成功後に必ず評価する場合のみ《include》を採用する。</li>
+          <li>UC3は問題がある場合だけ行うため、《extend》の候補。拡張条件と矢印方向を図で明記する。</li>
+          <li>優先度1は中核機能・実演対象、2は基本動作の成立後に実装する機能。</li>
+        </ul>
       </div>
       <div class="card soft">
-        <div class="card-h">要求の不整合チェック</div>
+        <div class="card-h">整合性チェック</div>
         <ul class="check">
-          <li>同じことを 2 つの UC で表現していないか</li>
-          <li>UC 名（動詞）と基本フローの動詞が一致しているか</li>
-          <li>例外フローに画面のエラーメッセージがあるか</li>
-          <li>《include》は本当に共通処理か</li>
-          <li>複数の目的が 1 つの UC に詰め込まれていないか</li>
+          <li>UC1の成果物ID・実行IDがUC2に引き継がれる</li>
+          <li>評価結果に評価条件・評価器の版が残る</li>
+          <li>修復案は元画像を上書きせず、採否を記録する</li>
+          <li>履歴・レポートで生成条件と評価結果を追跡できる</li>
+          <li>《include》／《extend》を必須性・条件性で判断する</li>
         </ul>
       </div>
     </div>
+    <div class="note" style="margin-top:3mm"><b>設計上の注意：</b>VLMは評価を支援する外部システムとして扱う。UC図・本文・実装の責務を一致させ、未実行・失敗・低評価を区別する。</div>
   </div>
 </section>
 
