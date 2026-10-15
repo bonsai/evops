@@ -32,6 +32,28 @@ body{font-family:var(--f-la),var(--f-ja);color:var(--ink);-webkit-font-smoothing
   --accent:var(--c-app); --accent-bg:var(--c-app-bg);
 }
 .sheet+.sheet{margin-top:8mm}
+
+/* ratio utilities: A4 is the page canvas; nested formats are content components */
+:root{
+  --ratio-a4: 297 / 210;
+  --ratio-postcard: 148 / 100;
+  --ratio-business-card: 91 / 55;
+}
+/* Use these on visual explanation panels only; the A4 sheet remains unchanged. */
+.ratio-postcard{
+  aspect-ratio:var(--ratio-postcard);
+  min-width:0;
+  overflow:hidden;
+}
+.ratio-business-card{
+  aspect-ratio:var(--ratio-business-card);
+  min-width:0;
+  overflow:hidden;
+}
+@media print{
+  .ratio-postcard,.ratio-business-card{break-inside:avoid;}
+}
+
 .sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:2.2mm;background:var(--accent)}
 .sheet.cat-plan{--accent:var(--c-plan);--accent-bg:var(--c-plan-bg)}
 .sheet.cat-deliver{--accent:var(--c-deliver);--accent-bg:var(--c-deliver-bg)}
