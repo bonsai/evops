@@ -3,7 +3,7 @@
   "page_id": "p26-kaguru-agent-kaggle-evops-workflow",
   "language": "ja",
   "title": "Kaguru Agent × Kaggle × EVOPS",
-  "subtitle": "画像を作り、測り、記録し、次の生成へ反映する4段階。",
+  "subtitle": "生成→評価→記録→改善。人間の判断を挟み、次の生成へつなぐ。",
   "purpose": "画像生成から評価、履歴保存、改善提案までを小さな疎結合ワークフローとして説明する。",
   "stages": [
     {
@@ -39,10 +39,12 @@
       "label": "候補を評価",
       "tools": [
         "ローカル Tier-1",
+        "ローカル軽量VLM Tier-1.5",
         "Kaggle Notebook Tier-2"
       ],
       "outputs": [
-        "高速な形式・輝度チェック",
+        "形式・輝度などの高速チェック",
+        "ローカルVLMの視覚チェック",
         "CLIP等の指標",
         "scores.csv",
         "summary.csv"
@@ -97,6 +99,7 @@
     "section_selector": "section.sheet[data-t=\"Kaguru Agent 画像生成ワークフロー\"]"
   },
   "notes": [
+    "Tier-1.5はローカル軽量VLMによる視覚チェック。利用できない場合は未実行として記録し、合格扱いにしない。",
     "CLIPはプロンプトに対する相対的な類似度であり、画像品質や人間の好みを校正済みで直接測る値ではない。",
     "評価結果はEVOPSの履歴へ紐づけ、改善案は人間の承認後に次の生成へ反映する。"
   ]
