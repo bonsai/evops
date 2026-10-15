@@ -1,22 +1,23 @@
 {
   "schema_version": "1.0",
   "page_id": "p12-requirements-usecase",
-  "state": "scaffold",
+  "state": "draft",
   "language": "ja",
   "title": "ユースケース図 &lt;&lt;include&gt;&gt; と &lt;&lt;extend&gt;&gt; を使い分ける。",
   "subtitle": null,
-  "purpose": null,
+  "purpose": "AI画像生成の要求をアクターとユースケースに整理し、評価・修復ループの範囲を明確にする。",
   "stages": [],
   "diagram": {
-    "path": null,
-    "alt": null,
-    "caption": null
+    "path": "docs/40-submit/pages/p12-requirements-usecase/page.html",
+    "alt": "AI画像生成・評価・修復ループのユースケース図",
+    "caption": "図 1-1：クリエイター、VLM評価モデル、生成エンジンと主要ユースケース"
   },
   "source": {
     "html": "docs/40-submit/part02_deliver.html",
     "section_selector": "section.sheet[data-t=\"要求 ユースケース図\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "図は説明用の初稿。提出前に実際のシステム境界・アクター・UC名と一致するか確認する。",
+    "<<include>> は必須の共通処理、<<extend>> は条件付きの追加動作を表す。"
   ]
 }
