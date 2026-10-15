@@ -1,22 +1,31 @@
 {
   "schema_version": "1.0",
   "page_id": "p17-analysis-sequence",
-  "state": "scaffold",
+  "state": "draft",
   "language": "ja",
-  "title": "分析モデル：シーケンス図（イベントフローの実現） UC1 の基本フローをメッセージ番号順に並べる。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
-  "diagram": {
-    "path": null,
-    "alt": null,
-    "caption": null
-  },
-  "source": {
-    "html": "docs/40-submit/part02_deliver.html",
-    "section_selector": "section.sheet[data-t=\"分析 シーケンス図\"]"
-  },
-  "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+  "title": "分析シーケンス図 — UC1「画像を生成する」",
+  "purpose": "p16の分析クラス間の協調を、正常系のメッセージ順序と例外フローとして記述する。",
+  "normal_flow": [
+    "条件入力",
+    "入力検証と実行ID発行",
+    "設定スナップショット保存",
+    "生成エンジン呼び出し",
+    "画像と実行情報の記録",
+    "結果またはエラー受信",
+    "表示用結果整形",
+    "利用者へ表示",
+    "成果物URIと状態確定"
+  ],
+  "exception_flows": [
+    "入力不備",
+    "エンジン失敗またはタイムアウト",
+    "成果物保存失敗",
+    "履歴保存失敗"
+  ],
+  "checks": [
+    "実行IDで設定・成果物・履歴を追跡",
+    "生成失敗と保存失敗を区別",
+    "失敗応答にerror_codeとretryableを含める",
+    "再試行の冪等性を設計時に定義"
   ]
 }
