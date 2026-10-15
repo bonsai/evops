@@ -1,28 +1,45 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "page_id": "p25-note-kaggle-mlops",
-  "status": "NOT_RUN",
+  "status": "INCOMPLETE",
   "gates": {
     "content_json": {
-      "status": "NOT_RUN"
+      "status": "PASS",
+      "note": "目的・5段階・責務境界・図参照・注記を構造化済み"
     },
-    "html_svg_consistency": {
-      "status": "NOT_RUN"
+    "svg_file_exists": {
+      "status": "PASS",
+      "path": "docs/40-submit/figures/kaggle-mlops-boundary.svg"
+    },
+    "svg_semantics": {
+      "status": "PASS",
+      "note": "EVOPS→Kaggle→EVOPSのデータ往復と人間の判断を図示。HTMLページへの図の組込みと視認性は未確認。"
     },
     "existing_css": {
-      "status": "NOT_RUN"
-    },
-    "deterministic_checks": {
-      "status": "NOT_RUN"
+      "status": "PASS",
+      "note": "既存のindex.html由来CSSを再利用。ページ専用CSSは追加しない。"
     },
     "browser_render": {
-      "status": "NOT_RUN"
+      "status": "PENDING",
+      "note": "同期したrender/page.htmlをChrome headlessで再描画する必要がある。"
+    },
+    "fit_a4": {
+      "status": "PENDING",
+      "note": "最新のレンダリング後にA4横フィットを実測する。"
     },
     "vlm_mcp": {
       "status": "BLOCKED",
-      "note": "未設定。判定済みとして扱わない。"
+      "note": "利用可能なVLM-MCP接続を確認できていない。判定済みとして扱わない。"
     }
   },
-  "decision": "NOT_RUN",
-  "next_action": "content.json を埋め、レンダリングしてから判定する。"
+  "checks": [
+    "content.jsonの目的・段階・図参照がページ内容と一致する",
+    "SVGの文字と矢印が重ならず読みやすい",
+    "既存CSSを再利用し、ページ専用CSSを増やさない",
+    "ブラウザで描画し、A4横に収まることを実測する",
+    "教師あり学習のtrain/validation分離と人間判断が明記されている"
+  ],
+  "findings": [],
+  "decision": "HOLD",
+  "next_action": "最新HTMLをChrome headlessで再描画し、A4横フィットと視認性を確認する。VLM-MCPが利用できない場合はBLOCKEDのままにする。"
 }
