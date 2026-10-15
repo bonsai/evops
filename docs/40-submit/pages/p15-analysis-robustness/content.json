@@ -1,22 +1,27 @@
 {
   "schema_version": "1.0",
   "page_id": "p15-analysis-robustness",
-  "state": "scaffold",
+  "state": "draft",
   "language": "ja",
-  "title": "ロバストネス分析（ロバストネス図） 3 種類の分析クラス：バウンダリ／コントロール／エンティティ。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
+  "title": "ロバストネス分析（UC1：画像を生成する）",
+  "subtitle": "要求をBoundary／Control／Entityの責務へ分解し、分析クラス間の通信を明確にする。",
+  "purpose": "UC1の基本フローを画面境界、制御、永続データに分け、次工程の分析クラス一覧・シーケンス図へ引き渡す。",
+  "stages": [
+    {"id":"boundary","title":"Boundary","description":"生成フォームと結果表示。入力、進捗、成功・失敗状態を利用者に伝える。"},
+    {"id":"control","title":"Control","description":"入力検証、実行ID発行、生成エンジン呼び出し、処理状態と例外を調整する。"},
+    {"id":"entity","title":"Entity","description":"生成条件、実行履歴、成果物参照、ログを実行IDに紐づけて保存する。"}
+  ],
   "diagram": {
     "path": null,
-    "alt": null,
-    "caption": null
+    "alt": "UC1画像生成のBoundary・Control・Entityの関係図",
+    "caption": "生成フォームから生成制御・エンジン接続を経て、設定と実行履歴を保存し結果を表示する。"
   },
   "source": {
     "html": "docs/40-submit/part02_deliver.html",
     "section_selector": "section.sheet[data-t=\"分析 ロバストネス\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "図は分析段階の責務を示す案であり、実装I/Fと保存方式に合わせて確定する。",
+    "ブラウザレンダリング検証は未実施。"
   ]
 }
