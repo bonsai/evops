@@ -1,22 +1,40 @@
 {
   "schema_version": "1.0",
   "page_id": "p20-design-sequence",
-  "state": "scaffold",
+  "state": "draft",
   "language": "ja",
-  "title": "設計モデル：シーケンス図 実装に即した版。メソッド名と戻り値が書き入る。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
+  "title": "設計モデル：シーケンス図 — UC1 画像生成",
+  "subtitle": "p19のクラス責務に対応した実行時のメッセージ・状態・例外を示す。",
+  "purpose": "画像生成要求から生成エンジン呼び出し、成果物保存、実行履歴更新、結果表示までの協調関係を定義する。",
+  "stages": [
+    {
+      "name": "要求受付",
+      "detail": "UIがGenerationRequestをGenerationServiceへ渡し、入力を検証する。"
+    },
+    {
+      "name": "実行記録",
+      "detail": "GenerationRunをqueuedとして記録し、実行中に遷移させる。"
+    },
+    {
+      "name": "生成",
+      "detail": "GenerationPort経由でエンジンを呼び、成果物または構造化エラーを受け取る。"
+    },
+    {
+      "name": "保存・完了",
+      "detail": "Artifactを保存し、実行状態をsucceededまたはfailedに更新してUIへ返す。"
+    }
+  ],
   "diagram": {
-    "path": null,
-    "alt": null,
-    "caption": null
+    "path": "docs/40-submit/pages/p20-design-sequence/page.html",
+    "alt": "画像生成の設計シーケンス図",
+    "caption": "UC1の正常系と失敗分岐"
   },
   "source": {
     "html": "docs/40-submit/part02_deliver.html",
     "section_selector": "section.sheet[data-t=\"設計 シーケンス図\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "論理設計図。実装のメソッド名・戻り値が変わる場合は本図と実装を同時に更新する。",
+    "エンジン失敗と成果物保存失敗を区別し、成功扱いにしない。"
   ]
 }
