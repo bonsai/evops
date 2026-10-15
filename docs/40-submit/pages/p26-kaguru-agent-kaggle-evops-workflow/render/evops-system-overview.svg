@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
 <title id="title">EVOPS AI evaluation and repair loop system overview</title>
-<desc id="desc">ArtCraft and Blender produce images and timeline assets. Kaguru Agent generates candidates. Local Tier 1 and optional Kaggle Tier 2 evaluate them. EVOPS stores results in SQLite and JSONL. Human review and evolve_loop return approved changes to the next generation.</desc>
+<desc id="desc">ArtCraft and Blender produce images and timeline assets. Kaguru Agent generates candidates. Local Tier 1, local-VLM Tier 1.5 and optional Kaggle Tier 2 evaluate them. EVOPS stores results in SQLite and JSONL. Human review and evolve_loop return approved changes to the next generation.</desc>
 <defs>
   <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#53657a"/></marker>
   <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#16856b"/></marker>
@@ -12,7 +12,7 @@
 </defs>
 <rect class="bg" width="1200" height="650" rx="22"/>
 <text x="40" y="48" class="title">EVOPS — AI Evaluation &amp; Repair Loop</text>
-<text x="40" y="75" class="sub">Create → Evaluate → Record → Improve · loosely coupled through files, JSONL and CSV</text>
+<text x="40" y="75" class="sub">Create → Evaluate (Tier-1 / 1.5 / 2) → Record → Improve · files, JSONL and CSV</text>
 <!-- creation layer -->
 <rect x="40" y="112" width="265" height="128" class="node creator"/>
 <text x="62" y="143" class="h">1. Compose the scene</text>
@@ -26,18 +26,24 @@
 <text x="377" y="213" class="small">sample_id / manifest.jsonl</text>
 <path d="M305 176 H350" class="line"/>
 <!-- evaluation -->
-<rect x="670" y="105" width="235" height="138" class="node eval"/>
-<text x="692" y="137" class="h">3a. Tier-1 local</text>
-<text x="692" y="164" class="p">Fast CPU checks</text>
-<text x="692" y="188" class="small">Brightness · format · rules</text>
-<text x="692" y="212" class="small">Quick gate / fallback</text>
-<rect x="950" y="105" width="210" height="138" class="node eval"/>
-<text x="972" y="137" class="h">3b. Tier-2 GPU</text>
-<text x="972" y="164" class="p">Kaggle Notebook</text>
-<text x="972" y="188" class="small">CLIP / heavy metrics</text>
-<text x="972" y="212" class="small">scores.csv / summary.csv</text>
-<path d="M620 176 H665" class="line"/>
-<path d="M905 176 H945" class="line"/>
+<rect x="640" y="105" width="160" height="138" class="node eval"/>
+<text x="654" y="135" class="h">3a. Tier-1</text>
+<text x="654" y="161" class="p">Local CPU</text>
+<text x="654" y="185" class="small">Format · brightness</text>
+<text x="654" y="209" class="small">Fast deterministic gate</text>
+<rect x="825" y="105" width="160" height="138" class="node eval"/>
+<text x="839" y="135" class="h">3b. Tier-1.5</text>
+<text x="839" y="161" class="p">Local VLM</text>
+<text x="839" y="185" class="small">Visual sanity check</text>
+<text x="839" y="209" class="small">Skip = NOT_RUN</text>
+<rect x="1010" y="105" width="150" height="138" class="node eval"/>
+<text x="1022" y="135" class="h">3c. Tier-2</text>
+<text x="1022" y="161" class="p">Kaggle GPU</text>
+<text x="1022" y="185" class="small">CLIP / metrics</text>
+<text x="1022" y="209" class="small">scores.csv</text>
+<path d="M620 176 H635" class="line"/>
+<path d="M800 176 H820" class="line"/>
+<path d="M985 176 H1005" class="line"/>
 <!-- store -->
 <rect x="670" y="315" width="490" height="126" class="node store"/>
 <text x="695" y="349" class="h">4. EVOPS — experiment history</text>
