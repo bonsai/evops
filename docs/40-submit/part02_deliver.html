@@ -385,73 +385,7 @@
   </div>
 </section>
 <!-- ============ 02 分析 シーケンス ============ -->
-<section class="sheet cat-deliver" data-t="分析 シーケンス図">
-  <div class="hd">
-    <span class="hd-kicker">納品物 2 — 分析モデル</span>
-    <h2 class="hd-title">分析モデル：シーケンス図（イベントフローの実現）<small>UC1 の基本フローをメッセージ番号順に並べる。</small></h2>
-    <span class="hd-no">17</span>
-  </div>
-  <div class="body">
-    <div class="ph" style="height:108mm">
-      <div class="ph-tag">FIG 2-2</div>
-      <div class="ph-title">コミュニケーション図 → シーケンス図　UC1 の実現</div>
-      <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" aria-label="分析シーケンス図">
-        <defs>
-          <marker id="a4" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#5b6470"/></marker>
-          <marker id="a4o" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="#fff" stroke="#5b6470" stroke-width="1"/></marker>
-        </defs>
-
-        <rect class="lifeh" x="24" y="14" width="112" height="30" rx="3"/>
-        <text class="t-name" x="80" y="33" text-anchor="middle">利用者</text>
-        <line class="lifeline" x1="80" y1="44" x2="80" y2="290"/>
-
-        <rect class="lifeh" x="166" y="14" width="112" height="30" rx="3"/>
-        <text class="t-st" x="176" y="26" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
-        <text class="t-name" x="222" y="38" text-anchor="middle">開始メニュー</text>
-        <line class="lifeline" x1="222" y1="44" x2="222" y2="290"/>
-
-        <rect class="lifeh" x="308" y="14" width="112" height="30" rx="3"/>
-        <text class="t-st" x="318" y="26" fill="#4f9c78">&lt;&lt;boundary&gt;&gt;</text>
-        <text class="t-name" x="364" y="38" text-anchor="middle">入力デバイス</text>
-        <line class="lifeline" x1="364" y1="44" x2="364" y2="290"/>
-
-        <rect class="lifeh" x="450" y="14" width="112" height="30" rx="3"/>
-        <text class="t-st" x="460" y="26" fill="#b5811f">&lt;&lt;control&gt;&gt;</text>
-        <text class="t-name" x="506" y="38" text-anchor="middle">○○制御</text>
-        <line class="lifeline" x1="506" y1="44" x2="506" y2="290"/>
-
-        <rect class="lifeh" x="592" y="14" width="112" height="30" rx="3"/>
-        <text class="t-st" x="602" y="26" fill="#5b83c4">&lt;&lt;entity&gt;&gt;</text>
-        <text class="t-name" x="648" y="38" text-anchor="middle">○○台帳</text>
-        <line class="lifeline" x1="648" y1="44" x2="648" y2="290"/>
-
-        <line x1="80" y1="72" x2="220" y2="72" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a4)"/>
-        <text class="t-xs" x="84" y="65">1 : 処理開始</text>
-        <line x1="222" y1="102" x2="504" y2="102" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a4)"/>
-        <text class="t-xs" x="226" y="95">2 : ○○開始</text>
-        <line x1="506" y1="132" x2="646" y2="132" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a4)"/>
-        <text class="t-xs" x="510" y="125">3 : 参照</text>
-        <line x1="648" y1="158" x2="508" y2="158" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a4o)"/>
-        <text class="t-xs" x="512" y="151">4 : 結果</text>
-        <line x1="506" y1="184" x2="366" y2="184" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a4)"/>
-        <text class="t-xs" x="370" y="177">5 : 入力要求</text>
-        <line x1="364" y1="210" x2="82" y2="210" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a4)"/>
-        <text class="t-xs" x="150" y="203">6 : 入力値</text>
-        <line x1="80" y1="236" x2="504" y2="236" stroke="#5b6470" stroke-width="1.05" marker-end="url(#a4)"/>
-        <text class="t-xs" x="84" y="229">7 : 登録実行</text>
-        <line x1="506" y1="262" x2="646" y2="262" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a4)"/>
-        <text class="t-xs" x="510" y="255">8 : 追加</text>
-        <line x1="648" y1="284" x2="508" y2="284" stroke="#5b6470" stroke-width="1.05" stroke-dasharray="5 3" marker-end="url(#a4o)"/>
-        <text class="t-xs" x="512" y="277">9 : 完了通知</text>
-      </svg>
-    </div>
-    <div class="ph-cap">図 2-2　分析モデル：シーケンス図　／　メッセージ番号は p.13 の UC1 基本フロー番号と対応させる</div>
-    <div class="note" style="margin-top:3mm">
-      <b>分析モデルと設計モデルの違い：</b>分析は「<b>何</b>をするか」（開発者の言語・問題領域由来・実装非依存）。
-      設計は「<b>どう実装するか</b>」（言語依存・動的・クラス図中心）。同じ図形でも中身が変わる。
-    </div>
-  </div>
-</section>
+<section class="sheet cat-deliver" data-t="分析 シーケンス図"><div class="hd"><span class="hd-kicker">納品物 2 — 分析モデル</span><h2 class="hd-title">分析シーケンス図 — UC1「画像を生成する」<small>p16の協調関係を時系列・戻り値・例外分岐へ具体化する。</small></h2><span class="hd-no">17</span></div><div class="body"><div class="card"><div class="card-h">基本フロー — 正常系</div><p>1. 利用者が条件を入力。2. 生成フォームから生成制御へ条件を送信。3. 実行IDと設定スナップショットを保存。4. エンジン接続へ生成要求。5. 画像と実行情報を記録。6. 結果またはエラーを返却。7. 表示用結果を整形。8. 画像と状態を利用者へ表示。9. 成果物URIと最終状態を確定。</p></div><div class="cols c-2" style="margin-top:4mm"><div class="card"><div class="card-h">代替・例外フロー</div><ul><li>入力不備：生成せず項目別エラーを返す</li><li>エンジン失敗・タイムアウト：実行IDと失敗理由を記録して通知</li><li>成果物保存失敗：生成結果と保存状態を区別し再保存可能にする</li><li>履歴保存失敗：孤立成果物を識別できるログを残す</li></ul></div><div class="card"><div class="card-h">メッセージ契約</div><ul><li>要求：prompt、model、seed、sampler、steps、出力条件</li><li>応答：execution_id、status、artifact_uri、elapsed_ms</li><li>失敗：error_code、message、retryable</li><li>状態：queued → running → succeeded / failed</li><li>再試行は冪等性を考慮する</li></ul></div></div><div class="note" style="margin-top:4mm"><b>分析と設計の境界：</b>責務とイベント順序を定義する。API、キュー、DB、具体的な型やリトライ回数は設計時に確定する。</div></div></section>
 
 <!-- ============ 02 設計 パッケージ ============ -->
 <section class="sheet cat-deliver" data-t="設計 パッケージ構成">
