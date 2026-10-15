@@ -2,13 +2,36 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="refresh" content="0; url=./40-submit/pages/index.html">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="canonical" href="./40-submit/pages/index.html">
-<title>EVOPS — Pages Index</title>
-<script>location.replace('./40-submit/pages/index.html');</script>
+<title>EVOPS — ドキュメント・ページ一覧</title>
+<style>
+:root{color-scheme:dark;--bg:#171a20;--panel:#222731;--line:#3a424f;--text:#eef2f7;--muted:#aab4c2;--link:#9cc8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:960px;margin:auto;padding:32px 20px 60px}h1{font-size:clamp(1.6rem,4vw,2.2rem);margin:0 0 8px}p{color:var(--muted)}
+ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px}
+li{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px}a{color:var(--link);font-weight:650;text-decoration:none}a:hover{text-decoration:underline}
+small{display:block;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.tag{font-size:.75rem;color:#b7e4c7;border:1px solid var(--line);border-radius:99px;padding:2px 8px;margin-left:8px}
+section{margin-top:28px}
+</style>
 </head>
-<body>
-<p><a href="./40-submit/pages/index.html">EVOPS pages index（各ページのプレビュー一覧）</a></p>
-</body>
-</html>
+<body><main>
+<h1>EVOPS ドキュメント</h1>
+<p>提出資料の各ページへ移動できます。リンク先が見つからない場合は、GitHub リポジトリのソースも確認してください。</p>
+<section>
+<h2>提出資料 — ページ別プレビュー</h2>
+<ul>
+<li><a href="./40-submit/pages/p00/index.html">p00 — ページ入口</a><small>pages/p00/index.html</small></li>
+<li><a href="./40-submit/pages/p11-requirements-boundary-actors/page.html">p11 — システム境界とアクター</a><small>pages/p11-requirements-boundary-actors/page.html</small></li>
+<li><a href="./40-submit/pages/p12-requirements-usecase/page.html">p12 — ユースケース図</a><small>pages/p12-requirements-usecase/page.html</small></li>
+<li><a href="./40-submit/pages/p13-requirements-uc-spec-1/page.html">p13 — ユースケース仕様 UC1「画像を生成する」</a><span class="tag">NEW</span><small>pages/p13-requirements-uc-spec-1/page.html</small></li>
+<li><a href="./40-submit/pages/p25-note-kaggle-mlops/render/page.html">p25 — Kaggle / MLOps</a><small>pages/p25-note-kaggle-mlops/render/page.html</small></li>
+<li><a href="./40-submit/pages/p26-kaguru-agent-kaggle-evops-workflow/render/page.html">p26 — Kaggle Agent / evops ワークフロー</a><small>pages/p26-kaguru-agent-kaggle-evops-workflow/render/page.html</small></li>
+</ul>
+<p><a href="./40-submit/pages/index.html">ページ一覧（詳細）を見る →</a></p>
+</section>
+<section>
+<h2>元資料</h2>
+<p><a href="./40-submit/part02_deliver.html">part02_deliver.html — 提出資料全体</a></p>
+<p><a href="https://github.com/bonsai/evops/tree/main/docs/40-submit/pages">GitHub でページソースを見る</a></p>
+</section>
+</main></body></html>
