@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "page_id": "p19-design-class-diagram",
+  "state": "draft",
+  "language": "ja",
+  "title": "設計モデル：クラス図",
+  "purpose": "画像生成UC1の主要クラス、属性、操作、依存関係を定義する。",
+  "classes": [
+    {
+      "name": "GenerationRequest",
+      "responsibility": "生成条件と事前検証"
+    },
+    {
+      "name": "GenerationService",
+      "responsibility": "ユースケース調整と状態確定"
+    },
+    {
+      "name": "GenerationPort",
+      "responsibility": "生成エンジンの抽象境界"
+    },
+    {
+      "name": "GenerationRun",
+      "responsibility": "実行状態と計測情報"
+    },
+    {
+      "name": "RunRepository",
+      "responsibility": "履歴の保存と取得"
+    },
+    {
+      "name": "Artifact",
+      "responsibility": "成果物参照と検証情報"
+    }
+  ],
+  "invariants": [
+    "不正入力ではエンジンを呼び出さない",
+    "状態遷移を検証する",
+    "execution_idで実行を追跡する",
+    "サービスは具体エンジンやDBへ直接依存しない"
+  ],
+  "tests": [
+    "入力境界値",
+    "状態遷移",
+    "保存・取得・重複防止",
+    "fake adapterによる単体テスト"
+  ]
+}
