@@ -1,22 +1,30 @@
 {
   "schema_version": "1.0",
   "page_id": "p13-requirements-uc-spec-1",
-  "state": "scaffold",
+  "state": "draft",
   "language": "ja",
-  "title": "ユースケース仕様 UC1「画像を生成する」 主要 1 つだけ詳細に。残りは簡易表でよい。",
-  "subtitle": null,
-  "purpose": null,
-  "stages": [],
+  "title": "ユースケース仕様 UC1「画像を生成する」",
+  "subtitle": "生成条件を受け取り、再現可能な生成結果と履歴を残す。",
+  "purpose": "画像生成の正常系・代替系・例外系を明示し、生成条件と成果物を追跡できる要求仕様を定義する。",
+  "stages": [
+    "プロンプトと生成条件を入力する",
+    "入力を検証する",
+    "設定スナップショットと実行IDを作成する",
+    "生成エンジンで画像を生成する",
+    "画像と実行情報を保存し結果を表示する"
+  ],
   "diagram": {
-    "path": null,
-    "alt": null,
-    "caption": null
+    "path": "docs/40-submit/pages/p13-requirements-uc-spec-1/page.html",
+    "alt": "UC1画像生成の概要、基本フロー、代替・例外フロー、非機能要求、受け入れ条件",
+    "caption": "p.13 ユースケース仕様 UC1「画像を生成する」"
   },
   "source": {
     "html": "docs/40-submit/part02_deliver.html",
     "section_selector": "section.sheet[data-t=\"要求 UC仕様 1\"]"
   },
   "notes": [
-    "自動生成の雛形。purpose / stages / diagram は人が埋める。"
+    "個別プレビュー用にUC1仕様を具体化した初稿。",
+    "実際の実装で利用する入力項目、モデル識別情報、保存方式と照合してから確定する。",
+    "ブラウザ表示と提出資料本体への反映は別途確認する。"
   ]
 }
