@@ -13,7 +13,7 @@
     },
     "svg_semantics": {
       "status": "PASS",
-      "note": "EVOPS→Kaggle→EVOPSのデータ往復と人間の判断を図示。HTMLページへの図の組込みと視認性は未確認。"
+      "note": "EVOPS→Kaggle→EVOPSのデータ往復と人間の判断を図示し、standalone・統合デッキ・プレビューへSVG参照を追加。ブラウザ上の視認性は未確認。"
     },
     "existing_css": {
       "status": "PASS",
@@ -21,11 +21,11 @@
     },
     "browser_render": {
       "status": "PENDING",
-      "note": "同期したrender/page.htmlをChrome headlessで再描画する必要がある。"
+      "note": "HTML/SVG参照を更新済み。同期後にChrome headlessで再描画し、実際の表示を確認する必要がある。"
     },
     "fit_a4": {
       "status": "PENDING",
-      "note": "最新のレンダリング後にA4横フィットを実測する。"
+      "note": "統合先へ図を追加済み。最新のレンダリング後にA4横フィットと文字の重なりを実測する。"
     },
     "vlm_mcp": {
       "status": "BLOCKED",
@@ -39,7 +39,10 @@
     "ブラウザで描画し、A4横に収まることを実測する",
     "教師あり学習のtrain/validation分離と人間判断が明記されている"
   ],
-  "findings": [],
+  "findings": [
+    "p25 standalone、main deck、previewへ図の参照を追加した。",
+    "ブラウザ描画とA4横フィットは未検証のため、ステータスはINCOMPLETE / HOLDを維持する。"
+  ],
   "decision": "HOLD",
-  "next_action": "最新HTMLをChrome headlessで再描画し、A4横フィットと視認性を確認する。VLM-MCPが利用できない場合はBLOCKEDのままにする。"
+  "next_action": "Chrome headlessで最新HTMLを再描画し、図の読みやすさとA4横フィットを確認する。VLM-MCPが利用できない場合はBLOCKEDのままにする。"
 }
