@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>p.13 ユースケース仕様 UC1「画像を生成する」 | evops</title>
+<style>
+@page{size:A4 landscape;margin:0}
+*{box-sizing:border-box}
+:root{--ink:#16191d;--muted:#59616b;--rule:#d5dae0;--accent:#1d4ed8;--soft:#eef3fe}
+html,body{margin:0;background:#23262b;color:var(--ink);font-family:"Noto Sans JP","Yu Gothic UI",Meiryo,system-ui,sans-serif}
+main{width:297mm;min-height:210mm;margin:20px auto;background:white;padding:12mm 15mm;box-shadow:0 6px 28px #0007}
+header{display:flex;align-items:end;gap:6mm;border-bottom:1px solid var(--rule);padding-bottom:4mm}
+.kicker{font-size:10pt;color:var(--accent);background:var(--soft);padding:2mm 3mm;font-weight:800}
+h1{font-size:19pt;line-height:1.3;margin:0;flex:1}
+h1 small{display:block;color:var(--muted);font-size:10pt;font-weight:500;margin-top:2mm}
+.page-no{color:var(--muted);font-family:monospace}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:5mm}
+.card{border:1px solid var(--rule);border-radius:2mm;padding:4mm;break-inside:avoid}
+h2{font-size:11pt;color:var(--accent);margin:0 0 2mm}
+p,li,td,th{font-size:9pt;line-height:1.5}
+p{margin:1mm 0 2mm}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;vertical-align:top;padding:1.6mm;border-bottom:1px solid #eceef1}
+th{width:28mm;color:#414954;background:#f8fafc}
+ol,ul{margin:1mm 0;padding-left:5mm}
+li{margin:1mm 0}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:2mm;counter-reset:step}
+.step{border:1px solid var(--rule);border-radius:2mm;padding:2.5mm;background:#fbfcfd;font-size:8.5pt}
+.step b{display:block;color:var(--accent);font-size:8pt;margin-bottom:1mm}
+footer{margin-top:4mm;padding-top:2mm;border-top:1px solid var(--rule);display:flex;justify-content:space-between;color:var(--muted);font-size:8pt}
+a{color:var(--accent)}
+@media(max-width:900px){main{width:100%;min-height:100vh;margin:0;padding:20px}.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}}
+@media print{html,body{background:white}main{margin:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<span class="kicker">納品物 1 — 要求モデル</span>
+<h1>ユースケース仕様 UC1「画像を生成する」<small>生成条件を受け取り、再現可能な生成結果と履歴を残す。</small></h1>
+<span class="page-no">13</span>
+</header>
+<div class="grid">
+<section class="card">
+<h2>1. 概要</h2>
+<table>
+<tr><th>ユースケース名</th><td>UC1：画像を生成する</td></tr>
+<tr><th>主アクター</th><td>AI画像生成クリエイター</td></tr>
+<tr><th>支援システム</th><td>生成エンジン、設定・履歴ストア</td></tr>
+<tr><th>概要</th><td>クリエイターがプロンプトと生成条件を指定し、システムが画像を生成して、設定・成果物・実行情報をひとまとまりで記録する。</td></tr>
+<tr><th>前提条件</th><td>生成エンジンが利用可能で、必須モデル・素材・保存先が設定済みである。</td></tr>
+<tr><th>事後条件</th><td>成功時は画像と設定・実行履歴が保存される。失敗時は原因と実行状態を記録し、再試行可能な状態を保つ。</td></tr>
+<tr><th>トリガー</th><td>クリエイターが生成条件を確定し、「生成」を実行する。</td></tr>
+</table>
+</section>
+<section class="card">
+<h2>2. 関連 UC・入出力・優先度</h2>
+<table>
+<tr><th>関連 UC</th><td>UC2「画像を評価する」は生成後に実行。UC3「修復案を作成する」は評価結果に問題がある場合に実行。</td></tr>
+<tr><th>優先度</th><td>1（中核機能・実演対象）</td></tr>
+<tr><th>利用頻度</th><td>制作のたびに利用</td></tr>
+<tr><th>入力</th><td>プロンプト、モデル／ワークフロー、seed、解像度、生成枚数、必要な参照画像、出力先</td></tr>
+<tr><th>出力</th><td>生成画像、実行ID、使用条件、タイムスタンプ、状態、ログへの参照</td></tr>
+<tr><th>制約</th><td>同じ設定で再実行できるよう、取得可能なパラメータとモデル識別子を保存する。秘匿情報は記録しない。</td></tr>
+</table>
+</section>
+<section class="card">
+<h2>3. 基本フロー（メインシナリオ）</h2>
+<div class="flow">
+<div class="step"><b>1</b>クリエイターがプロンプトと生成条件を入力する。</div>
+<div class="step"><b>2</b>システムが必須項目・形式・実行可能性を検証する。</div>
+<div class="step"><b>3</b>設定スナップショットと実行IDを作成する。</div>
+<div class="step"><b>4</b>生成エンジンを呼び出し、画像を生成する。</div>
+<div class="step"><b>5</b>画像と実行情報を保存し、結果と状態を表示する。</div>
+</div>
+</section>
+<section class="card">
+<h2>4. 代替フロー・例外フロー</h2>
+<ul>
+<li><b>A1：任意設定の省略。</b>未指定項目に既定値を適用し、実際に使用した値を履歴に保存する。</li>
+<li><b>A2：複数枚生成。</b>各画像に個別の成果物IDを付け、共通の実行IDに関連付ける。</li>
+<li><b>E1：入力不備。</b>生成を開始せず、不足項目と修正方法を示す。</li>
+<li><b>E2：モデル／エンジン障害。</b>失敗状態・エラー概要を記録し、可能なら再試行方法を提示する。</li>
+<li><b>E3：保存失敗。</b>成功と誤認させず、画像と履歴の保存状態を明示する。</li>
+</ul>
+</section>
+<section class="card">
+<h2>5. 業務ルール・非機能要求</h2>
+<ul>
+<li>生成結果だけでなく、プロンプト・パラメータ・モデル／ワークフローの識別情報をセットで管理する。</li>
+<li>履歴は追跡可能な実行IDで関連付け、生成・評価・修復の各工程をたどれるようにする。</li>
+<li>同一条件での再現を目指すが、モデル更新や実行環境差による完全一致は保証しない。</li>
+<li>長時間処理は進捗・完了・失敗を区別し、画面が応答不能に見えないようにする。</li>
+</ul>
+</section>
+<section class="card">
+<h2>6. 受け入れ条件</h2>
+<ul>
+<li>正常系で画像ファイルと設定記録が生成される。</li>
+<li>記録から主要な生成条件と実行結果を確認できる。</li>
+<li>入力不備・生成失敗・保存失敗を成功と区別して表示する。</li>
+<li>UC2の評価処理に、生成画像と対応する実行IDを渡せる。</li>
+</ul>
+</section>
+</div>
+<footer><span>EVOPS — 要求モデル / UC1</span><span><a href="./../../index.html">docs index</a> · <a href="../p12-requirements-usecase/page.html">前：p.12 ユースケース図</a></span></footer>
+</main>
+</body>
+</html>
