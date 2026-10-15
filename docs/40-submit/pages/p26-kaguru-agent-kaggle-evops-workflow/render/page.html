@@ -215,7 +215,7 @@ html,body{background:#fff!important}
 <section class="sheet cat-deliver" data-t="Kaguru Agent 画像生成ワークフロー">
   <div class="hd">
     <span class="hd-kicker">実装ワークフロー — 生成・評価・記録・改善</span>
-    <h2 class="hd-title">Kaguru Agent × Kaggle × EVOPS<small>画像を作り、測り、記録し、次の生成へ反映する4段階。</small></h2>
+    <h2 class="hd-title">Kaguru Agent × Kaggle × EVOPS<small>生成→評価→記録→改善。人間の判断を挟み、次の生成へつなぐ。</small></h2>
     <span class="hd-no">26</span>
   </div>
   <div class="body">
@@ -223,7 +223,7 @@ html,body{background:#fff!important}
       <div class="card">
         <div class="card-h">システム構成図</div>
         <figure style="margin:0">
-          <img src="evops-system-overview.svg" alt="EVOPSのAI評価・修復ループ。" style="display:block;width:100%;height:auto;border-radius:3mm">
+          <img src="figures/evops-system-overview.svg" alt="EVOPSのAI評価・修復ループ。ArtCraft・BlenderからKaguru Agent、ローカル評価とKaggle、EVOPSの履歴、人間評価とevolve_loopをつなぐ構成図。" style="display:block;width:100%;height:auto;border-radius:3mm">
           <figcaption class="small" style="margin-top:2mm">図：生成・評価・記録・改善をつなぐ簡略システム構成。</figcaption>
         </figure>
       </div>
@@ -243,11 +243,11 @@ html,body{background:#fff!important}
 }</pre>
         <ul>
           <li><b>生成側：</b>画像、prompt、設定、sample_idを出力</li>
-          <li><b>評価側：</b>sample_id単位のCLIPスコアとエラーを出力</li>
+          <li><b>評価側：</b>Tier-1の形式・輝度チェック、Tier-1.5のローカルVLM、Tier-2のKaggle指標をsample_id単位で出力</li>
           <li><b>EVOPS：</b>入出力を結合し、実験履歴を保管</li>
           <li><b>改善側：</b>提案した変更と採否・理由を記録</li>
         </ul>
-        <div class="note"><b>重要：</b>CLIPスコアはプロンプトとの相対的な類似度で、画像品質や人間の好みを直接表すものではない。人間評価との校正前に単独で画像を選別・自動採用しない。</div>
+        <div class="note"><b>重要：</b>Tier-1.5はローカル軽量VLMによる視覚チェック。CLIPスコアはプロンプトとの相対的な類似度で、画像品質や人間の好みを直接表すものではない。人間評価との校正前に単独で画像を選別・自動採用しない。</div>
       </div>
     </div>
     <div class="card" style="margin-top:4mm">
