@@ -12,10 +12,18 @@ ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,
 li{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px}a{color:var(--link);font-weight:650;text-decoration:none}a:hover{text-decoration:underline}
 small{display:block;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.tag{font-size:.75rem;color:#b7e4c7;border:1px solid var(--line);border-radius:99px;padding:2px 8px;margin-left:8px}
 section{margin-top:28px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 24px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.tabs a{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:10px 10px 0 0;background:var(--panel);color:var(--muted)}
+.tabs a[aria-current="page"]{background:var(--link);color:#171a20;border-color:var(--link)}
 </style>
 </head>
 <body><main>
 <h1>EVOPS ドキュメント</h1>
+<nav class="tabs" aria-label="ドキュメントナビゲーション">
+<a href="./index.html" aria-current="page">ページ一覧</a>
+<a href="./glossary.html">用語集</a>
+</nav>
+
 <p>提出資料の各ページへ移動できます。リンク先が見つからない場合は、GitHub リポジトリのソースも確認してください。</p>
 <section>
 <h2>提出資料 — ページ別プレビュー</h2>
