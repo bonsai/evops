@@ -815,7 +815,7 @@ html,body{scroll-behavior:smooth}
 <section class="sheet cat-deliver" data-t="操作マニュアル">
   <div class="hd">
     <span class="hd-kicker">納品物 5 — 操作マニュアル</span>
-    <h2 class="hd-title">操作マニュアル<small>「このソフトを知らない人向け」に書く。</small></h2>
+    <h2 class="hd-title">操作マニュアル<small>初めて使う人が、自分の PC で起動・操作・終了できるようにする。</small></h2>
     <span class="hd-no">23</span>
   </div>
   <div class="body">
@@ -824,60 +824,74 @@ html,body{scroll-behavior:smooth}
         <div class="card">
           <div class="card-h">1. 動作環境</div>
           <table>
-            <tr><th style="width:28mm">項目</th><th>内容</th></tr>
-            <tr><td>OS</td><td><span class="fill"></span>（Windows 11 / Ubuntu 24.04 など）</td></tr>
-            <tr><td>Python</td><td><span class="fill"></span>（例 3.12.x）</td></tr>
-            <tr><td>ライブラリ</td><td><span class="fill l"></span>（標準のみなら「標準ライブラリのみ」）</td></tr>
-            <tr><td>その他</td><td><span class="fill l"></span></td></tr>
+            <tr><th style="width:28mm">項目</th><th>記入する内容</th></tr>
+            <tr><td>OS</td><td>Windows 11 / Ubuntu 24.04 など、実際に確認した環境</td></tr>
+            <tr><td>Python</td><td>実行したバージョン（例：Python 3.12.x）</td></tr>
+            <tr><td>依存ライブラリ</td><td>requirements.txt に記載したもの。なければ「標準ライブラリのみ」</td></tr>
+            <tr><td>保存先</td><td>設定ファイルやデータの保存先（例：data/）</td></tr>
           </table>
         </div>
         <div class="card">
           <div class="card-h">2. 起動方法</div>
-          <pre><span class="cm"># 1) リポジトリの配置</span>
-<span class="st">cd</span> ~/kyoyu/python/総合演習\(卒業制作\)/&lt;各自&gt;
+          <pre><span class="cm"># 1) プロジェクトのルートへ移動</span>
+<span class="st">cd</span> path/to/project
 
-<span class="cm"># 2) 仮想環境（任意）</span>
+<span class="cm"># 2) 仮想環境を作成・有効化（任意）</span>
 python -m venv .venv
-<span class="st">source</span> .venv/bin/activate   <span class="cm"># Windows: .venv\Scripts\activate</span>
+<span class="cm"># Windows PowerShell</span>
+.venv\Scripts\Activate.ps1
+<span class="cm"># macOS / Linux</span>
+<span class="st">source</span> .venv/bin/activate
 
-<span class="cm"># 3) 起動</span>
+<span class="cm"># 3) 依存関係がある場合だけ実行</span>
+python -m pip install -r requirements.txt
+
+<span class="cm"># 4) 起動</span>
 python main.py</pre>
+          <p style="margin-top:2mm"><small>実際のリポジトリに合わせ、不要な手順や存在しないファイル名は削除する。</small></p>
         </div>
         <div class="card">
-          <div class="card-h">3. 操作手順</div>
+          <div class="card-h">3. 基本操作</div>
           <ol>
-            <li>「<span class="fill" style="min-width:34mm"></span>」を開始する。<span class="fill"></span>）を選択する。</li>
-            <li>項目に <span class="fill"></span> を入力し「登録」ボタンを押す。</li>
-            <li>一覧に反映されたことを確認する。</li>
-            <li>「<span class="fill" style="min-width:30mm"></span>」で絞り込み表示する。</li>
-            <li>終了はウィンドウの×ボタン（データは自動的に保存される）。</li>
+            <li>アプリが起動し、メイン画面が表示されたことを確認する。</li>
+            <li>入力欄に必要な情報を入力し、「登録」ボタンを押す。</li>
+            <li>入力した項目が一覧に追加されたことを確認する。</li>
+            <li>検索欄にキーワードを入力し、対象が絞り込まれることを確認する。</li>
+            <li>終了操作を行い、必要に応じてデータが保存されていることを確認する。</li>
           </ol>
+          <div class="note"><b>要調整：</b>実際の画面のボタン名・入力項目・保存タイミングに合わせて、手順を具体化する。</div>
         </div>
       </div>
-
       <div class="stack">
         <div class="card soft">
           <div class="card-h">4. 画面の説明</div>
           <table>
-            <tr><th>要素</th><th>説明</th></tr>
-            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
-            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
-            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
+            <tr><th style="width:30mm">画面要素</th><th>できること</th></tr>
+            <tr><td>入力欄</td><td>登録する情報を入力する。</td></tr>
+            <tr><td>登録ボタン</td><td>入力内容を検証し、問題がなければ登録する。</td></tr>
+            <tr><td>一覧・検索欄</td><td>登録済みの情報を確認し、キーワードで絞り込む。</td></tr>
           </table>
-          <p style="margin-top:2.2mm"><small>説明文は「〜できる」の形で。操作以外の説明は書かない。</small></p>
+          <p style="margin-top:2.2mm"><small>実際の UI に存在する要素だけを残す。説明は「何ができるか」を中心にする。</small></p>
         </div>
         <div class="card soft">
           <div class="card-h">5. エラー対処</div>
           <table>
-            <tr><th style="width:34mm">症状</th><th>対処</th></tr>
-            <tr><td>ModuleNotFoundError</td><td><code>main.py</code> と同じディレクトリで実行</td></tr>
-            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
-            <tr><td><span class="fill"></span></td><td><span class="fill l"></span></td></tr>
+            <tr><th style="width:38mm">症状</th><th>確認・対処</th></tr>
+            <tr><td>ModuleNotFoundError</td><td>仮想環境を有効化し、プロジェクトのルートで依存関係をインストールする。</td></tr>
+            <tr><td>起動できない</td><td>Python のバージョン、実行コマンド、エラーメッセージを確認する。</td></tr>
+            <tr><td>登録できない</td><td>必須項目や入力形式を確認し、エラー表示に従って修正する。</td></tr>
+            <tr><td>データが見つからない</td><td>保存先の設定と、実行ディレクトリが正しいかを確認する。</td></tr>
           </table>
         </div>
-        <div class="note warn">
-          <b>必須：</b>「授業で自分の PC で動かす」前提で書く。ファイルパスの絶対パスは書かない。
+        <div class="card">
+          <div class="card-h">6. 終了・データの扱い</div>
+          <ul>
+            <li>画面の終了操作を行い、エラーなく閉じることを確認する。</li>
+            <li>自動保存か手動保存かを明記し、保存場所を示す。</li>
+            <li>実データを使う場合は、バックアップと個人情報の扱いを記載する。</li>
+          </ul>
         </div>
+        <div class="note warn"><b>提出前チェック：</b>別の人がこの手順だけで起動できるかを確認する。未確認の OS・機能を「動作確認済み」と書かない。絶対パスや個人情報を載せない。</div>
       </div>
     </div>
   </div>
