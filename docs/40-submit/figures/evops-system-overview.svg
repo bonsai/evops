@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+<title id="title">EVOPS AI evaluation and repair loop system overview</title>
+<desc id="desc">ArtCraft and Blender produce images and timeline assets. Kaguru Agent generates candidates. Local Tier 1, local-VLM Tier 1.5 and optional Kaggle Tier 2 evaluate them. EVOPS stores results in SQLite and JSONL. Human review and evolve_loop return approved changes to the next generation.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#53657a"/></marker>
+  <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#16856b"/></marker>
+  <style>
+    .bg{fill:#f7f9fc}.title{font:700 27px Arial,sans-serif;fill:#172b4d}.sub{font:15px Arial,sans-serif;fill:#526176}
+    .h{font:700 18px Arial,sans-serif;fill:#172b4d}.p{font:14px Arial,sans-serif;fill:#334155}.small{font:12px Arial,sans-serif;fill:#526176}
+    .node{stroke-width:2;rx:16}.creator{fill:#eaf2ff;stroke:#5884cc}.gen{fill:#eee9ff;stroke:#8065c5}.eval{fill:#fff2d8;stroke:#d59a32}.store{fill:#e4f5ee;stroke:#319875}.human{fill:#fce8ee;stroke:#cb6683}.line{fill:none;stroke:#53657a;stroke-width:2.5;marker-end:url(#arrow)}.loop{fill:none;stroke:#16856b;stroke-width:3;marker-end:url(#greenArrow)}.pill{fill:#fff;stroke:#d7dee8;stroke-width:1.5}
+  </style>
+</defs>
+<rect class="bg" width="1200" height="650" rx="22"/>
+<text x="40" y="48" class="title">EVOPS — AI Evaluation &amp; Repair Loop</text>
+<text x="40" y="75" class="sub">Create → Evaluate (Tier-1 / 1.5 / 2) → Record → Improve · files, JSONL and CSV</text>
+<!-- creation layer -->
+<rect x="40" y="112" width="265" height="128" class="node creator"/>
+<text x="62" y="143" class="h">1. Compose the scene</text>
+<text x="62" y="170" class="p">ArtCraft · Blender</text>
+<text x="62" y="194" class="small">Composition, pose, camera</text>
+<text x="62" y="213" class="small">Timeline / storyboard / render</text>
+<rect x="355" y="112" width="265" height="128" class="node gen"/>
+<text x="377" y="143" class="h">2. Generate candidates</text>
+<text x="377" y="170" class="p">Kaguru Agent</text>
+<text x="377" y="194" class="small">Images + prompt + settings</text>
+<text x="377" y="213" class="small">sample_id / manifest.jsonl</text>
+<path d="M305 176 H350" class="line"/>
+<!-- evaluation -->
+<rect x="640" y="105" width="160" height="138" class="node eval"/>
+<text x="654" y="135" class="h">3a. Tier-1</text>
+<text x="654" y="161" class="p">Local CPU</text>
+<text x="654" y="185" class="small">Format · brightness</text>
+<text x="654" y="209" class="small">Fast deterministic gate</text>
+<rect x="825" y="105" width="160" height="138" class="node eval"/>
+<text x="839" y="135" class="h">3b. Tier-1.5</text>
+<text x="839" y="161" class="p">Local VLM</text>
+<text x="839" y="185" class="small">Visual sanity check</text>
+<text x="839" y="209" class="small">Skip = NOT_RUN</text>
+<rect x="1010" y="105" width="150" height="138" class="node eval"/>
+<text x="1022" y="135" class="h">3c. Tier-2</text>
+<text x="1022" y="161" class="p">Kaggle GPU</text>
+<text x="1022" y="185" class="small">CLIP / metrics</text>
+<text x="1022" y="209" class="small">scores.csv</text>
+<path d="M620 176 H635" class="line"/>
+<path d="M800 176 H820" class="line"/>
+<path d="M985 176 H1005" class="line"/>
+<!-- store -->
+<rect x="670" y="315" width="490" height="126" class="node store"/>
+<text x="695" y="349" class="h">4. EVOPS — experiment history</text>
+<text x="695" y="377" class="p">SQLite (sotsusei.db) · JSONL · CSV</text>
+<text x="695" y="402" class="small">Join by run_id / sample_id; retain inputs, scores, versions and errors</text>
+<path d="M785 243 V282 H820 V310" class="line"/>
+<path d="M1055 243 V282 H1010 V310" class="line"/>
+<!-- human and evolve -->
+<rect x="355" y="492" width="265" height="112" class="node human"/>
+<text x="377" y="523" class="h">5. Human review (JEV)</text>
+<text x="377" y="550" class="p">Aesthetic / story judgment</text>
+<text x="377" y="574" class="small">Approve, reject, explain</text>
+<rect x="670" y="492" width="490" height="112" class="node gen"/>
+<text x="695" y="523" class="h">6. evolve_loop — propose improvements</text>
+<text x="695" y="550" class="p">Compare human ratings and automatic metrics</text>
+<text x="695" y="574" class="small">Suggest prompt/settings changes; human approval before next run</text>
+<path d="M670 378 H635 V548 H625" class="line"/>
+<path d="M620 548 H665" class="line"/>
+<!-- feedback loop -->
+<path d="M910 492 V465 H485 V245" class="loop"/>
+<rect x="510" y="450" width="205" height="27" rx="13" class="pill"/>
+<text x="612" y="468" text-anchor="middle" class="small">approved changes → regenerate</text>
+<text x="40" y="630" class="small">Note: CLIP is prompt-relative similarity, not a calibrated measure of image quality or human preference.</text>
+</svg>
